@@ -1,1 +1,0 @@
-ul#nav3 {width:expression( documentElement.clientWidth < 586 ? (documentElement.clientWidth == 0 ? (body.clientWidth < 586 ? "586" : "auto") : "586px") : "auto" );}
