@@ -1,0 +1,322 @@
+<div class="container-fluid">
+    <div class="col-sm-12">
+        <div class="row">
+            <label>接受人修改备份信息</label>
+            <a ng-href="#/reinsurers" class="btn btn-default pull-right">关闭</a>
+        </div>
+
+    </div>
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-2">
+                <label>接受人代码:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.reinsCode" readonly>
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>接受人名称:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text"  class="form-control"
+                       ng-model="reinsurer.longName" placeholder="接受人名称" readonly>
+                <span></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label>接受人简称:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text"  class="form-control"
+                       ng-model="reinsurer.shortName" placeholder="接受人简称" readonly>
+                <span></span>
+            </div>
+            <!-- <div class="col-sm-2">
+                <label>接受人英文名称:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.reinsEName" placeholder="接受人英文名称"
+                       ng-readonly="operation==='view'">
+                <span></span>
+            </div> -->
+             <div class="col-sm-2">
+                <label>境内境外标识:</label>
+            </div>
+            <div class="col-sm-4">
+                <div>
+                    <div ng-switch on="reinsurer.locationFlag">
+                        <div ng-switch-when="D">
+                            <input type="text"  style="width: 100%"  class="form-control"  value="境内" readonly></div>
+                        <div ng-switch-when="F">
+                            <input type="text"  style="width: 100%"  class="form-control"  value="境外" readonly></div>
+                    </div>
+                </div>
+            </div>         
+        </div>
+        <div class="row"> 
+            <div class="col-sm-2">
+                <label>中文地址:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.caddr" placeholder="中文地址" readonly>
+                <span></span>
+            </div>         
+            <div class="col-sm-2">
+                <label>所属国家:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"  ng-model="reinsurer.countryName" placeholder="所属国家" readonly/>
+                <span></span>
+            </div>
+        </div>
+        <div class="row">            
+            <div class="col-sm-2">
+                <label>英文地址:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.eaddr" placeholder="英文地址" readonly>
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>公司网址:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.webAddress" placeholder="公司网址" readonly>
+                <span></span>
+            </div>
+        </div>
+        <div class="row">
+             <div class="col-sm-2">
+                <label>标准普尔(Standard&Poor's)-评级:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.assessLevel" readonly>
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>评级日期:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="date" class="form-control"
+                       ng-model="reinsurer.strAssessDate" readonly>
+                <span></span>
+            </div>
+        </div>
+        <div class="row">
+             <div class="col-sm-2">
+                <label>A.M.Best-评级:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.assessLevel2" readonly>
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>评级日期:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="date" class="form-control"
+                       ng-model="reinsurer.strAssessDate2" readonly>
+                <span></span>
+            </div>
+        </div>
+        <div class="row">
+              <div class="col-sm-2">
+                <label>穆迪(Moody's Investors Service)-评级:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.assessLevel3" readonly>
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>评级日期:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="date" class="form-control"
+                       ng-model="reinsurer.strAssessDate3" readonly>
+                <span></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label>最高线:</label>
+            </div>
+            <div class="col-sm-4">
+                    <div>
+                        <span style="width: 30%;float: left;padding: 6px 11px 7px;border-bottom:#c0c0c0 1px dashed;color: #6a7483">
+                            {{reinsurer.tlCurrency|code:'currency'}}
+                        </span>
+                    </div>
+                    <input type="number"
+                           class="form-control"
+                           style="width: 70%;float: right"
+                           ng-model="reinsurer.topLine"
+                           placeholder="金额" readonly>
+                    <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>资本金信息:</label>
+            </div>
+            <div class="col-sm-4">
+                    <div>
+                        <span style="width: 30%;float: left;padding: 6px 11px 7px;;border-bottom:#c0c0c0 1px dashed;color: #6a7483">
+                            {{reinsurer.currency|code:'currency'}}
+                        </span>
+                    </div>
+                    <input type="number" class="form-control"
+                           style="width: 70%;float: right"
+                           ng-model="reinsurer.capital"
+                           placeholder="金额" readonly>
+                    <span></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label>警告线:</label>
+            </div>
+            <div class="col-sm-4">
+                    <div>
+                        <span style="width: 30%;float: left;padding: 6px 11px 7px;;border-bottom:#c0c0c0 1px dashed;color: #6a7483">
+                            {{reinsurer.wlCurrency|code:'currency'}}
+                        </span>
+                    </div>
+                    <input type="number" class="form-control"
+                           style="width: 70%;float: right"
+                           ng-model="reinsurer.warningLine"
+                           placeholder="金额" readonly>
+                    <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>是否总公司:</label>
+            </div>
+            <div class="col-sm-4">
+                <div>
+                    <div ng-if="reinsurer.flag === '1'">
+                        <input type="text"  style="width: 100%" class="form-control" value="是" readonly></div>
+                    <div ng-hide="reinsurer.flag === '1'">
+                        <input type="text"  style="width: 100%"  class="form-control" value="否" readonly></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2">
+                <label>再保人属性:</label>
+            </div>
+            <div class="col-sm-4">
+                <div>
+                    <div ng-switch on="reinsurer.reinsType">
+                        <div ng-switch-when="0">
+                            <input type="text"  style="width: 100%" class="form-control" value="直保公司" readonly></div>
+                        <div ng-switch-when="1">
+                            <input type="text"  style="width: 100%" class="form-control"  value="纪纪人" readonly></div>
+                        <div ng-switch-when="2">
+                            <input type="text"  style="width: 100%" class="form-control" value="专业再保" readonly></div>
+
+                    </div>
+                </div>
+            </div>
+             <div class="col-sm-2">
+                <label>有效标志:</label>
+            </div>
+            <div class="col-sm-4">
+                <div>
+                    <div ng-switch on="reinsurer.validStatus">
+                        <div ng-switch-when="0">
+                            <input type="text"  style="width: 100%"  class="form-control"  value="无效" readonly></div>
+                        <div ng-switch-when="1">
+                            <input type="text"  style="width: 100%"  class="form-control"  value="有效" readonly></div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+            <div class="row">
+            <div class="col-sm-2">
+                <label>修改人:</label>
+            </div>
+            <div class="col-sm-4">
+                 <input type="text" class="form-control"  ng-model="reinsurer.changeName" readonly>
+                 <span></span>            
+            </div>
+             <div class="col-sm-2">
+                <label>第几次修改:</label>
+            </div>
+            <div class="col-sm-4">
+                 <input type="text" class="form-control" ng-model="reinsurer.changeTimes" readonly> 
+                 <span></span>            
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label>备注:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" ng-model="reinsurer.remarks" readonly placeholder="备注">
+                <span></span>
+            </div>
+             <div class="col-sm-2">
+                <label>更新时间:</label>
+            </div>
+            <div class="col-sm-4">
+                 <input type="date" class="form-control" ng-model="reinsurer.strChgDate" readonly> 
+                 <span></span>            
+            </div>
+        </div>
+     </div>
+</div>
+<div style="overflow: scroll">
+      <table class="table table-bordered">
+        <tr>
+            <th>序号</th>
+            <th>开户人名称</th>
+            <th>开户行地址</th>
+            <th>开户银行</th>
+            <th>币别</th>
+            <th>账号</th>
+            <th>起始时间</th>
+            <th>终止时间</th>
+            <th>类型</</th>
+            <th>标志</th>
+        </tr>
+        <tr ng-repeat="prpDaccountEdit in reinsurer.prpDAccountEditList">
+            <td>{{prpDaccountEdit.serialNo}}</td>
+            <td><input type="text" class="form-control" ng-model="prpDaccountEdit.accountName" readonly/></td>
+            <td><input type="text" class="form-control" ng-model="prpDaccountEdit.addr" readonly/></td>
+            <td><input type="text" class="form-control" ng-model="prpDaccountEdit.bank" readonly/></td>
+            <td>
+               {{prpDaccountEdit.currency | code:'currency'}}
+            </td>
+            <td><input type="text" class="form-control" ng-model="prpDaccountEdit.accounts" readonly/></td>
+            <td ><input type="date" class="form-control" ng-model="prpDaccountEdit.strStartdate" readonly/></td>
+            <td><input type="date" class="form-control" ng-model="prpDaccountEdit.strEndDate" readonly/></td>
+
+             <td>
+                 <div ng-switch on="prpDaccountEdit.type">
+                     <div ng-switch-when="0">
+                         <input type="text"  style="width: 100%" class="form-control" value="临分" readonly></div>
+                     <div ng-switch-when="1">
+                         <input type="text"  style="width: 100%" class="form-control"  value="合约" readonly></div>
+                     <div ng-switch-when="2">
+                         <input type="text"  style="width: 100%" class="form-control" value="合约临分" readonly></div>                        
+                 </div>
+             </td>
+
+             <td>
+                 <div ng-switch on="prpDaccountEdit.validStatus">
+                     <div ng-switch-when="0">无效</div>
+                     <div ng-switch-when="1">有效</div>
+                 </div>
+             </td>
+        </tr>
+    </table>
+</div>
+

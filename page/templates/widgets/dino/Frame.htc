@@ -1,0 +1,35 @@
+<PUBLIC:HTC URN="MsdnTab">
+<PUBLIC:ATTACH EVENT="ondocumentready" HANDLER="DoInit" />
+
+<PUBLIC:PROPERTY NAME="border" />
+<PUBLIC:PROPERTY NAME="backcolor" />
+
+<SCRIPT LANGUAGE="jscript">
+
+function DoInit() {
+		SetDefaults();
+		BuildTable();
+}
+
+function SetDefaults() {
+	if (border == null) 	
+		border = 1;
+	if (backcolor == null) 	
+		backcolor = "white";
+}
+
+function BuildTable() {
+	htmlText = "";
+	htmlText += "<table cellpadding=2 cellspacing=0 bordercolor=#000000 ";
+	htmlText += "border=" + border + " bgcolor=" + backcolor; 
+	htmlText += "<tr><td>";
+	htmlText += element.innerHTML;
+	htmlText += "</td></tr>";
+	htmlText += "</table>";
+    
+	element.innerHTML = htmlText;
+}
+
+</SCRIPT>
+
+</PUBLIC:HTC>

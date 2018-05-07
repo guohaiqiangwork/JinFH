@@ -1,0 +1,111 @@
+<link rel="import" href="/reins/page/templates/assets/polymer/paper-checkbox/paper-checkbox.html">
+
+
+<div class="paper" style="margin-top:0;">
+<h4>账单结算主信息</h4>
+    <table class="table table-striped table-hover">
+        <thead>
+          <div class="row">
+            <div class="col-sm-2">
+                <label>结算人编号:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="settleMain.payCode"  readonly>
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>结算人名称:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text"  class="form-control"
+                       ng-model="settleMain.payName" readonly>
+                <span></span>
+            </div>
+            
+            <div class="col-sm-2">
+                <label>经办人:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text"  class="form-control"
+                       ng-model="settleMain.payName" readonly>
+                <span></span>
+            </div>
+            
+            <div class="col-sm-2">
+                <label>结付日期:</label>
+            </div>
+            <div class="col-sm-4">
+                <<input type="text"  class="form-control"
+                       value="{{settleMain.settleDate.time | date : config.display.dateFormat}}"  readonly>
+                <span></span>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-2">
+                <label>结付币种:</label>
+            </div>
+            <select class="form-control" style="width:30%;float: left"
+                    ng-model="settleMain.currencys" ng-options="c.id as c.value for c in currencys" ng-change="searchExchRate(settleMain,settleMain.currencys,accSettleList)" >
+            </select>
+            
+            <div class="col-sm-4">
+               <span style="width: 30%;float: left;padding: 6px 11px 7px;border-bottom:#c0c0c0 1px dashed;color: #6a7483">
+                     
+               </span>
+            </div>
+          </div>
+          <div class="row">
+          	<div class="col-sm-2">
+                <label>结付金额:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text"  class="form-control"
+                       ng-model="settleMain.totalSettleBalanceS" readonly>
+                <span></span>
+            </div>
+          </div>
+        <div class="center">
+           <td colspan="6" align="right">
+              <a ng-click="searchTableFlag = ! searchTableFlag" class="btn btn-default">取消</a>
+              <a class="btn btn-danger"  ng-disabled="selectedCount===0" ng-click="genSettle()">确定</a>
+           </td>
+       </div>
+        </thead>
+    </table>
+    <table class="table table-striped table-hover">
+        <thead>
+            <th>
+              <input type="checkbox" ng-model="checkAll" ng-click="checkAllContracts()">全选
+            </th>
+            <th>结算状态</th>
+            <th>账单编号</th>
+            <th>最终接受人编号</th>
+            <th>最终接受人名称</th>
+            <th>帐单币种</th>
+            <th>账单余额/临分当期余额</th>
+            <th>未结金额</th>
+            <th>本次结付金额</th>
+            <th>兑换率</th>
+            <th>本次结付金额(折币)</th>
+        </thead>
+        <tbody>
+        <tr ng-repeat="accSettle in accSettleList" class="hover-visible-wrapper" >
+            <td>
+                <input type="checkbox" ng-model="settle.checked">
+                {{$index+1}}
+            </td>
+            <td>{{accSettle.settleStatus}}</td>
+            <td>{{accSettle.accNo}}</td>
+            <td>{{accSettle.payCode}}</td>
+            <td>{{accSettle.payName}}</td>
+            <td>{{accSettle.currency}}</td>
+            <td>{{accSettle.accBalance}}</td>
+            <td>{{accSettle.noPaidValue}}</td>
+            <td>{{accSettle.noPaidValue}}</td>
+            <td>{{accSettle.exchRate}}</td>
+            <td>{{accSettle.settleBalanceS}}</td>
+        </tr>
+    </table>
+</div>

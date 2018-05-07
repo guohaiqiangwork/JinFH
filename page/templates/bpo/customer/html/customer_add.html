@@ -1,0 +1,168 @@
+<div class="row" id="customer-edit"></div>
+<script id="queryFormTmpl" type="text/x-jsrender">
+<div class="row page-title">
+	<div class="col-lg-12">
+	    <a href="/">
+	        <i class="fa fa-home fa-fw fa-lg"></i>
+	        回到首页
+	    </a>
+	    / 模板添加
+	</div>
+</div>
+<div class="row lookup recorded">
+		<div class="col-lg-12">
+			<!-- style="position:absolute;" -->
+			<form id="form" class="form-horizontal" role="form" method="post">
+				<div class="box panel box-info">
+					<div class="panel-collapse collapse in" id="collapseOne">
+						<div class="box-body">
+							<div id="div_error"></div>
+							<!--第一行-->
+							<div class="row">
+								<div class="col-lg-12 col-md-12 col-xs-12">
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-xs-12">
+											<div class="row form-group">
+												<div class="col-xs-4">
+													<label for="customerCode" class="control-label"> <font
+														color="#FF0000" size="+1" style="vertical-align: middle">*</font>客户代码</label>
+												</div>
+												<div class="col-xs-6">
+														<input id="customerCode" name="customerCode"	
+														class="form-control" data-link="customer.customerCode"type="text"/>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-xs-12">
+											<div class="row form-group">
+												<div class="col-xs-4">
+													<label for="customerName" class="control-label "> <font
+														color="#FF0000" size="+1" style="vertical-align: middle">*</font>
+														客户名称</label>
+												</div>
+												<div class="col-xs-6">
+													<input id="customerName" name="customerName" class="form-control" data-link="customer.customerName" type="text"/>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--第二行-->
+							<div class="row">
+								<div class="col-lg-12 col-md-12 col-xs-12">
+									<div class="row">
+										<div class="col-lg-12 col-md-6 col-xs-12">
+											<div class="row form-group">
+												<div class="col-xs-2">
+													<label for="address" class="control-label">地址</label>
+												</div>
+												<div class="col-xs-9">
+														<input id="address" name="address"	
+														class="form-control" data-link="customer.address" type="text"/>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--第三行-->
+							<div class="row">
+								<div class="col-lg-12 col-md-12 col-xs-12">
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-xs-12">
+											<div class="row form-group">
+												<div class="col-xs-4">
+													<label for="contactMan" class="control-label">联系人</label>
+												</div>
+												<div class="col-xs-6">
+														<input id="contactMan" name="contactMan"
+														class="form-control" data-link="customer.contactMan" type="text"/>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-xs-12">
+											<div class="row form-group">
+												<div class="col-xs-4">
+													<label for="phone" class="control-label ">
+													联系电话</label>
+												</div>
+												<div class="col-xs-6">
+													<input id="phone" name="phone" class="form-control" data-link="customer.phone" type="text"/>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--第四行-->
+							<div class="row">
+								<div class="col-lg-12 col-md-12 col-xs-12">
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-xs-12">
+											<div class="row form-group">
+												<div class="col-xs-4">
+													<label for="postCode" class="control-label ">
+													邮编</label>
+												</div>
+												<div class="col-xs-6">
+													<input id="postCode" name="postCode" class="form-control" data-link="customer.postCode"  type="text"/>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-xs-12">
+											<div class="row form-group">
+												<div class="col-xs-4">
+													<label for="faxCode" class="control-label ">
+													传真</label>
+												</div>
+												<div class="col-xs-6">
+													<input id="faxCode" name="faxCode" class="form-control" data-link="customer.faxCode" type="text"/>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--第五行-->
+							<div class="row">
+								<div class="col-lg-12 col-md-12 col-xs-12">
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-xs-12">
+											<div class="row form-group">
+												<div class="col-xs-4">
+													<label for="bussinessMan" class="control-label ">
+													商务联系人</label>
+												</div>
+												<div class="col-xs-6">
+													<input id="bussinessMan" name="bussinessMan" class="form-control" data-link="customer.bussinessMan" type="text"/>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-xs-12">
+											<div class="row form-group">
+												<div class="col-xs-4">
+													<label for="bussinessPhone" class="control-label ">
+													商务联系电话</label>
+												</div>
+												<div class="col-xs-6">
+													<input id="bussinessPhone" name="bussinessPhone" class="form-control" data-link="customer.bussinessPhone" type="text"/>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="box box-tool-my">
+	                <div class="footer-my">
+	                    <button type="submit" class="btn btn-danger btn-sm" style="display: none" id="btn-submit">保存</button>
+	                    <button type="button" id="btn-close" class="btn btn-default btn-close btn-sm">关 闭</button>
+	                </div>
+            	</div>
+			</form>
+		</div>
+	</div>
+</script>

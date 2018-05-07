@@ -1,0 +1,656 @@
+<div class="container-fluid">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-2">
+                <label>接受人代码:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.reinsCode" placeholder="接受人代码(自动生成)" readonly>
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>接受人名称:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text"  class="form-control"
+                       ng-model="reinsurer.longName" placeholder="接受人名称"
+                       ng-readonly="operation==='view'"
+                       ng-required="true" readonly>
+                <span></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label>接受人简称:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text"  class="form-control"
+                       ng-model="reinsurer.shortName" placeholder="接受人简称"
+                       ng-readonly="operation==='view'">
+                <span></span>
+            </div>
+            <!-- <div class="col-sm-2">
+                <label>接受人英文名称:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.reinsEName" placeholder="接受人英文名称"
+                       ng-readonly="operation==='view'">
+                <span></span>
+            </div> -->
+             <div class="col-sm-2">
+                <label>境内境外标识:</label>
+            </div>
+            <div class="col-sm-4">
+                <div ng-if="operation==='edit'">
+                    <select  class="form-control" style="width:30%;float: left"
+                              ng-model="reinsurer.locationFlag" ng-options="c.id as c.value for c in location"></select>
+                    <select ng-model="reinsurer.regionCode" class="form-control" style="width: 70%;float: right"
+			             ng-options="c.id as c.value for c in regionCodes">
+			             <option value = ""> --请选择所在城市/地区--</option></select>           
+                </div>
+                <div ng-if="operation==='view'">
+                    <div ng-switch on="reinsurer.locationFlag">
+                        <div ng-switch-when="D">
+                            <input type="text"  style="width:30%;float: left"  class="form-control"  value="境内" ng-readonly="operation==='view'"></div>
+                        <div ng-switch-when="F">
+                            <input type="text"  style="width:30%;float: left"  class="form-control"  value="境外" ng-readonly="operation==='view'"></div>                        
+                    </div>
+                    <div>
+                         <input type="text"  style="width: 70%;float: right"  ng-model="reinsurer.regionCode" class="form-control" ng-readonly="operation==='view'">
+                    </div>
+                </div>
+            </div>         
+        </div>
+        <div class="row"> 
+            <div class="col-sm-2">
+                <label>中文地址:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.caddr" placeholder="中文地址"
+                       ng-readonly="operation==='view'">
+                <span></span>
+            </div>         
+            <div class="col-sm-2">
+                <label>所属国家:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"  ng-model="reinsurer.countryName" placeholder="所属国家"
+                       ng-readonly = "operation==='view'"
+                       typeahead-loading="loading..."
+                       typeahead="state.id +'-'+ state.value as state.id +'-'+ state.value for state in getByReturn('countryName',$viewValue) | filter:$viewValue "
+                       typeahead-wait-ms="500">
+                <span></span>
+            </div>
+        </div>
+        <div class="row">            
+            <div class="col-sm-2">
+                <label>英文地址:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.eaddr" placeholder="英文地址"
+                       ng-readonly="operation==='view'">
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>公司网址:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.webAddress" placeholder="公司网址"
+                       ng-readonly="operation==='view'">
+                <span></span>
+            </div>
+        </div>
+        <div class="row">
+             <div class="col-sm-2">
+                <label>标准普尔(Standard&Poor's)-评级:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.assessLevel" 
+                       ng-readonly="operation==='view'">
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>评级日期:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="date" class="form-control"
+                       ng-model="reinsurer.strAssessDate" 
+                       ng-readonly="operation==='view'">
+                <span></span>
+            </div>
+        </div>
+        <div class="row">
+             <div class="col-sm-2">
+                <label>A.M.Best-评级:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.assessLevel2" 
+                       ng-readonly="operation==='view'">
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>评级日期:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="date" class="form-control"
+                       ng-model="reinsurer.strAssessDate2" 
+                       ng-readonly="operation==='view'" >
+                <span></span>
+            </div>
+        </div>
+        <div class="row">
+              <div class="col-sm-2">
+                <label>穆迪(Moody's Investors Service)-评级:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.assessLevel3" 
+                       ng-readonly="operation==='view'">
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>评级日期:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="date" class="form-control"
+                       ng-model="reinsurer.strAssessDate3" 
+                       ng-readonly="operation==='view'">
+                <span></span>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="col-sm-2">
+                <label>是否满足偿付能力:</label>
+            </div>
+            <div class="col-sm-4">
+                <div ng-if="operation==='edit'">
+                    <input type="radio" ng-model="reinsurer.payAbility" ng-value="1">是
+                    <input type="radio" ng-model="reinsurer.payAbility" ng-value="0">否
+                </div>
+                <div ng-if="operation==='view'">
+                    <div ng-switch on="reinsurer.payAbility">
+                        <div ng-switch-when="0">
+                            <input type="text"  style="width: 100%"  class="form-control"  value="否" ng-readonly="operation==='view'"></div>
+                        <div ng-switch-when="1">
+                            <input type="text"  style="width: 100%"  class="form-control"  value="是" ng-readonly="operation==='view'"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <label>偿付能力日期:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.payAbilityDate"
+                       ng-if ="operation==='edit'"
+                       datepicker2>
+                <span></span>
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.payAbilityDate"
+                       ng-readonly = "operation==='view'"
+                       ng-if ="operation==='view'"
+                       >
+            </div>
+        </div> -->
+        <div class="row">
+            <!-- <div class="col-sm-2">
+                <label>偿付能力说明:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.payAbilityRemark" placeholder="偿付能力说明"
+                       ng-readonly="operation==='view'">
+                <span></span>
+            </div> -->
+            <div class="col-sm-2">
+                <label>最高线:</label>
+            </div>
+            <div class="col-sm-4">
+                    <!--<input type="text"  class="form-control"
+                           style="width: 30%;float: left"
+                           ng-model="reinsurer.scurrency"
+                           placeholder="币种"
+                           ng-readonly="operation==='view'">
+                    <span></span>-->
+                    <select class="form-control" style="width:30%;float: left" ng-if="operation==='edit'"
+                            ng-model="reinsurer.tlCurrency" ng-options="c.id as c.value for c in currencys">
+                    </select>
+                    <div ng-if="operation==='view'">
+                        <span style="width: 30%;float: left;padding: 6px 11px 7px;border-bottom:#c0c0c0 1px dashed;color: #6a7483">
+                            {{reinsurer.tlCurrency|code:'currency'}}
+                        </span>
+                    </div>
+                    <input type="number"
+                           class="form-control"
+                           style="width: 70%;float: right"
+                           ng-model="reinsurer.topLine"
+                           placeholder="金额"
+                           ng-readonly="operation==='view'">
+                    <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>资本金信息:</label>
+            </div>
+            <div class="col-sm-4">
+                    <!--<input type="text" class="form-control"
+                           style="width: 30%;float: left"
+                           ng-model="reinsurer.cfCurrency"
+                           placeholder="币种"
+                           ng-readonly="operation==='view'">
+                    <span></span>-->
+                    <select class="form-control" style="width:30%;float: left" ng-if="operation === 'edit'"
+                            ng-model="reinsurer.currency" ng-options="c.id as c.value for c in currencys">
+                    </select>
+                    <div ng-if="operation==='view'">
+                        <span style="width: 30%;float: left;padding: 6px 11px 7px;;border-bottom:#c0c0c0 1px dashed;color: #6a7483">
+                            {{reinsurer.currency|code:'currency'}}
+                        </span>
+                    </div>
+                    <input type="number" class="form-control"
+                           style="width: 70%;float: right"
+                           ng-model="reinsurer.capital"
+                           placeholder="金额"
+                           ng-readonly="operation==='view'">
+                    <span></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label>警告线:</label>
+            </div>
+            <div class="col-sm-4">
+                    <!--<input type="text" class="form-control"-->
+                           <!--style="width: 30%;float: left"-->
+                           <!--ng-model="reinsurer.wcurrency"-->
+                           <!--placeholder="币种"-->
+                           <!--ng-readonly="operation==='view'">-->
+                    <!--<span></span>-->
+                    <select class="form-control" style="width:30%;float: left" ng-if="operation === 'edit'"
+                            ng-readonly="operation==='view'"
+                            ng-model="reinsurer.wlCurrency" ng-options="c.id as c.value for c in currencys">
+                    </select>
+                    <div ng-if="operation==='view'">
+                        <span style="width: 30%;float: left;padding: 6px 11px 7px;;border-bottom:#c0c0c0 1px dashed;color: #6a7483">
+                            {{reinsurer.wlCurrency|code:'currency'}}
+                        </span>
+                    </div>
+                    <input type="number" class="form-control"
+                           style="width: 70%;float: right"
+                           ng-model="reinsurer.warningLine"
+                           placeholder="金额"
+                           ng-readonly="operation==='view'">
+                    <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>是否总公司:</label>
+            </div>
+            <div class="col-sm-4">
+                <div ng-if="operation==='edit'">
+                    <input type="radio" ng-model="reinsurer.flag" ng-value="1">是
+                    <input type="radio" ng-model="reinsurer.flag" ng-value="0">否
+                </div>
+                <div ng-if="operation==='view'">
+                    <div ng-if="reinsurer.flag === '1'">
+                        <input type="text"  style="width: 100%" class="form-control" value="是" ng-readonly="operation==='view'"></div>
+                    <div ng-hide="reinsurer.flag === '1'">
+                        <input type="text"  style="width: 100%"  class="form-control" value="否" ng-readonly="operation==='view'"></div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="col-sm-2">
+                <label>资本公积金:</label>
+            </div>
+            <div class="col-sm-4">
+                    <input type="text" class="form-control"
+                           style="width: 30%;float: left"
+                           ng-model="reinsurer.crCurrency"
+                           placeholder="币种"
+                           ng-readonly="operation==='view'">
+                    <span></span>
+                    <select class="form-control" style="width:30%;float: left" ng-if="operation==='edit'"
+                            ng-model="reinsurer.crCurrency" ng-options="c.id as c.value for c in currencys">
+                    </select>
+                    <input type="text" ng-if="operation==='view'" ng-model="reinsurer.crCurrency" style="width: 30%;float: left" ng-readonly = "true"/>
+                        <div  ng-if="operation==='view'" ng-readonly = "true">
+                            <span style="width: 30%;float: left;
+                           border-bottom:#c0c0c0 1px dashed;color: #6a7483;padding: 6px 11px 7px;">
+                                {{reinsurer.crCurrency|code:'currency'}}
+                            </span>
+                        </div>
+                    <input type="number" class="form-control"
+                           style="width: 70%;float: right"
+                           ng-model="reinsurer.capitalReserve"
+                           placeholder="金额"
+                           ng-readonly="operation==='view'">
+                    <span></span>
+            </div>           
+        </div> -->
+        <div class="row">
+            <div class="col-sm-2">
+                <label>再保人属性:</label>
+            </div>
+            <div class="col-sm-4">
+                <div ng-if="operation==='edit'">
+                    <select ng-model="reinsurer.reinsType" class="form-control"
+                            ng-options="c.id as c.value for c in reinsType"></select>
+                </div>
+                <div ng-if="operation==='view'">
+                    <div ng-switch on="reinsurer.reinsType">
+                        <div ng-switch-when="0">
+                            <input type="text"  style="width: 100%" class="form-control" value="直保公司" ng-readonly="operation==='view'"></div>
+                        <div ng-switch-when="1">
+                            <input type="text"  style="width: 100%" class="form-control"  value="纪纪人" ng-readonly="operation==='view'"></div>
+                        <div ng-switch-when="2">
+                            <input type="text"  style="width: 100%" class="form-control" value="专业再保" ng-readonly="operation==='view'"></div>
+                    </div>
+                </div>
+            </div>
+             <div class="col-sm-2">
+                <label>有效标志:</label>
+            </div>
+            <div class="col-sm-4">
+                <div ng-if="operation==='edit'">
+                    <select ng-model="reinsurer.validStatus" class="form-control"
+                             ng-options="c.id as c.value for c in flag"></select>
+                </div>
+                <div ng-if="operation==='view'">
+                    <div ng-switch on="reinsurer.validStatus">
+                        <div ng-switch-when="0">
+                            <input type="text"  style="width: 100%"  class="form-control"  value="无效" ng-readonly="operation==='view'"></div>
+                        <div ng-switch-when="1">
+                            <input type="text"  style="width: 100%"  class="form-control"  value="有效" ng-readonly="operation==='view'"></div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="col-sm-2">
+                &lt;!&ndash;<label>总公司代码:</label>&ndash;&gt;
+                <label>总公司名称:</label>
+            </div>
+            <div class="col-sm-4">
+                  &lt;!&ndash;  <input type="text" class="form-control"
+                           style="width: 30%;float: left"
+                           ng-model="reinsurer.upperReinsCode"
+                           placeholder="总公司代码"
+                           ng-readonly="true"
+                           typeahead-loading="loading..."
+                           typeahead="state.id +'-'+ state.value as state.id +'-'+ state.value for state in getByReturn('upperReinsCode',$viewValue) | filter:$viewValue "
+                           typeahead-wait-ms="500">
+                    <span></span>&ndash;&gt;
+                    <input type="text" class="form-control"
+                           style="width: 100%;float: right"
+                           ng-model="reinsurer.upperReinsName"
+                           placeholder="总公司名称"
+                           ng-readonly="true">
+                    <span></span>
+            </div>          
+        </div> -->
+        <div class="row">
+           <!--  <div class="col-sm-2">
+                <label>关联再保人:</label>
+            </div>
+            <div class="col-sm-4">
+                <div ng-if="operation==='edit'">
+                    <input type="radio" ng-model="reinsurer.associateFlag" ng-value="1">是
+                    <input type="radio" ng-model="reinsurer.associateFlag" ng-value="0">否
+                </div>
+                <div ng-if="operation==='view'">
+                    <div ng-switch on="reinsurer.associateFlag">
+                        <div ng-switch-when="1">
+                            <input type="text"  style="width: 100%"  class="form-control" value="是" ng-readonly="operation==='view'"></div>
+                        <div ng-switch-when="0">
+                            <input type="text"  style="width: 100%"  class="form-control" value="否" ng-readonly="operation==='view'"></div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-sm-2">
+                <label>备注:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" ng-model="reinsurer.remarks" ng-readonly="operation==='view'" placeholder="备注">
+                <span></span>
+            </div>
+        </div>
+     </div>
+</div>
+<div style="overflow: scroll">
+      <table class="table table-bordered">
+        <tr>
+            <th>序号</th>
+            <th>开户人名称</th>
+            <th>开户行地址</th>
+            <th>开户银行</th>
+            <th>币别</th>
+            <th>账号</th>
+            <th>起始时间</th>
+            <th>终止时间</th>
+            <th>类型</</th>
+            <th>标志</th>
+            <th ng-if="operation==='edit'">操作</th>
+        </tr>
+        <tr ng-repeat="prpDaccount in reinsurer.prpDAccountList">
+            <td>{{prpDaccount.serialNo}}</td>
+            <td><input type="text" class="form-control" ng-model="prpDaccount.accountName" ng-readonly="operation==='view'"/></td>
+            <td><input type="text" class="form-control" ng-model="prpDaccount.addr" ng-readonly="operation==='view'"/></td>
+            <td><input type="text" class="form-control" ng-model="prpDaccount.bank" ng-readonly="operation==='view'"/></td>
+            <td ng-if="operation==='edit'">
+                <select class="form-control" style="width: 100px" ng-model="prpDaccount.currency" ng-options="c.id as c.value for c in currencys">
+                </select>
+            </td>
+            <td ng-if="operation==='view'">
+                    {{prpDaccount.currency | code:'currency'}}
+            </td>
+            <td><input type="text" class="form-control" ng-model="prpDaccount.accounts" ng-readonly="operation==='view'"/></td>
+
+            <td ng-if="operation==='view'"><input type="date" class="form-control" ng-model="prpDaccount.strStartdate" ng-readonly="operation==='view'"/></td>
+            <td ng-if="operation==='edit'"><input type="date" class="form-control" ng-model="prpDaccount.strStartdate" ng-readonly="operation==='view'" datepicker2/></td>
+
+            <td ng-if="operation==='view'"><input type="date" class="form-control" ng-model="prpDaccount.strEndDate" ng-readonly="operation==='view'" /></td>
+            <td ng-if="operation==='edit'"><input type="date" class="form-control" ng-model="prpDaccount.strEndDate" ng-readonly="operation==='view'" datepicker2/></td>
+            
+           	<td ng-if="operation==='edit'">
+                   <select class="form-control" ng-model="prpDaccount.type" style="width: 100px" 
+                           ng-options="c.id as c.value for c in type"></select>                                           
+             </td>
+             <td ng-if="operation==='view'">
+                 <div ng-switch on="prpDaccount.type">
+                     <div ng-switch-when="0">
+                         <input type="text"  style="width: 100%" class="form-control" value="临分" ng-readonly="operation==='view'"></div>
+                     <div ng-switch-when="1">
+                         <input type="text"  style="width: 100%" class="form-control"  value="合约" ng-readonly="operation==='view'"></div>
+                     <div ng-switch-when="2">
+                         <input type="text"  style="width: 100%" class="form-control" value="合约临分" ng-readonly="operation==='view'"></div>                        
+                 </div>
+             </td>
+            <td ng-if="operation==='edit'">
+                <select class="form-control" style="width: 100px" ng-model="prpDaccount.validStatus" ng-options="c.id as c.value for c in flag">
+                </select>
+            </td>
+
+             <td ng-if="operation==='view'">
+                 <div ng-switch on="prpDaccount.validStatus">
+                     <div ng-switch-when="0">无效</div>
+                     <div ng-switch-when="1">有效</div>
+                 </div>
+             </td>
+            <td ng-if="operation==='edit'"><a class="btn btn-danger" ng-click="removePrpdAccount(reinsurer,prpDaccount)"  title="删除当前行">-</a></td>
+        </tr>
+        <tr ng-if="operation==='edit'">
+            <td colspan="11" align="right">
+                <a class="btn btn-primary" ng-click="addLayerPrpdAccount()" title="添加行">+</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- <div style="overflow: scroll">
+    <table class="table table-bordered">
+        <tr>
+            <th>序号</th>
+            <th>标准普尔(Standard&Poor's)-评级</th>
+            <th>评级日期</th>
+            <th>A.M.Best-评级</th>
+            <th>评级日期</th>
+            <th nowrap style="width: 220px">其他评级</th>
+            <th>其他评级</th>
+            <th>评级日期</th>
+            <th>司内评级</th>
+            <th>评级日期</th>
+            <th ng-if="operation==='edit'">操作</th>
+        </tr>
+        <tr ng-repeat="prpdReinsAssess in reinsurer.prpdReinsAssess">
+        <tr>
+            <td>{{reinsurer.id.serialNo}}</td> 
+            <td>{{$index + 1}}</td> 
+            <td><input type="text" class="form-control" style="width:100px" ng-model="reinsurer.assessLevel" ng-readonly="operation==='view'"/></td>
+
+            <td ng-if="operation==='edit'"><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessDate"  ng-readonly="operation==='view'" datepicker2 /></td>
+            <td ng-if="operation==='view'"><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessDate"   ng-readonly="operation==='view'"/></td>
+
+            <td><input type="text" class="form-control" style="width:90px" ng-model="reinsurer.assessLevel2" ng-readonly="operation==='view'" /></td>
+
+            <td ng-if="operation==='edit'"><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessDate2"  ng-readonly="operation==='view'" datepicker2></td>
+            <td ng-if="operation==='view'"><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessDate2"  ng-readonly="operation==='view'"></td>
+
+            <td ng-if="operation==='edit'">
+                <input type="text" class="form-control" style="width:90px;float: left"
+                       ng-model="reinsurer.assessLevel3" ng-readonly="operation==='view'">
+                <input type="text" class="form-control" style="width:110px;float: right"
+                       ng-readonly="operation==='view'"
+                       ng-model="reinsurer.assessTyp" placeholder="评级类型"/>
+                <select class="form-control" style="width:110px;float: right"
+                         ng-model="prpdReinsAssess.assessTyp" ng-options="c.id as c.value for c in assessType">
+                </select>
+            </td>
+              <td ng-if="operation==='view'">
+                 <div ng-switch on="prpdReinsAssess.assessTyp">
+                      <div ng-switch-when="03">穆迪评级</div>
+                  </div>:
+                 {{reinsurer.assessLevel3}}--{{reinsurer.assessTyp}}
+              </td>
+            <td  ng-if="operation==='view'"><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessDate3" ng-readonly="operation==='view'"/></td>
+            <td  ng-if="operation==='edit'"><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessDate3" ng-readonly="operation==='view'" datepicker2 /></td>
+
+            <td><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessLeve4" ng-readonly="operation==='view'" /></td>
+
+            <td ng-if="operation==='view'"><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessDate4" ng-readonly="operation==='view'"/></td>
+            <td ng-if="operation==='edit'"><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessDate4" ng-readonly="operation==='view'" datepicker2 /></td>
+
+            <td ng-if="operation==='edit' &&  reinsurer.deleteFlag !='1'"><a class="btn btn-danger" ng-click="removePrpdReinsAssess(reinsurer)" title="删除当前行">-</a></td> 
+        </tr>
+        <tr ng-if="operation==='edit'">
+            <td colspan="10" align="right">
+                <a class="btn btn-primary" title="添加行" ng-click="addLayerPrpdReinsAssess()">+</a>
+            </td>
+        </tr> 
+    </table>
+</div> -->
+<div style="overflow: scroll">
+	<!-- <div>接受人税务信息</div>
+	<div ng-if="operation==='edit' || operation==='new'"  class="container-fluid">
+
+       税务信息导入<input type="file" value="浏览...">
+
+     <form ng-upload-form action="/reinsurer/prpdreins/uploadExcelForReinsVat.do" method="POST" enctype="multipart/form-data"
+          	 data-file-upload="options" on-file-upload-done="onFileUploadDone(data)" on-file-upload-fail="onFileUploadFail()"
+          	 ng-class="{'fileupload-processing': processing() || loadingFiles}">
+         
+         	<div class="row fileupload-buttonbar">
+             <div class="col-lg-7">
+              <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
+                  <i class="glyphicon glyphicon-plus"></i>
+                  <span>导入税务信息</span>
+                  <input type="file" name="file" ng-disabled="disabled">
+              </span>
+             </div>
+         	</div>
+        	<table class="table table-striped files ng-cloak">
+             <tr data-ng-repeat="file in queue" data-ng-class="{'processing': file.$processing()}">
+                 <td>{{file.name}} ({{file.size | formatFileSize}})</td>
+                 <td>
+                     <strong data-ng-show="file.error" class="error text-danger">上传失败!</strong>
+                 </td>
+                 <td>
+                     <div class="progress progress-striped active fade" data-ng-class="{pending: 'in'}[file.$state()]" data-file-upload-progress="file.$progress()">
+                     <div class="progress-bar progress-bar-success" data-ng-style ="{width: num + '%'}"></div></div>
+                 </td>
+                 <td>
+                     <button type="button" class="btn btn-primary start" data-ng-click="file.$submit()" data-ng-hide="!file.$submit || options.autoUpload" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'">
+                         <i class="glyphicon glyphicon-upload"></i>
+                         <span>上传</span>
+                     </button>
+                     <button data-ng-controller="FileDestroyController" type="button" class="btn btn-danger destroy" data-ng-click="file.$clear()" data-ng-hide="file.$state() == 'pending'">
+                         <i class="glyphicon glyphicon-trash"></i>
+                         <span>删除</span>
+                     </button>
+                 </td>
+             </tr>
+         	</table>
+     </form>
+ 	</div> -->
+    <table class="table table-bordered">
+        <tr>
+            <th>序号</th>
+            <th>纳税人身份</th>
+            <th>纳税人名称</th>
+            <th>纳税人识别号</th>
+            <th>开票地址</th>
+            <th>税务联系电话</th>
+            <th>开票开户行</th>
+            <th>开票银行账号</th>
+            <!-- <th>标志</th> -->
+            <th ng-if="operation==='edit'">操作</th>
+        </tr>
+        <tr ng-repeat="prpDreinsVat in reinsurer.prpDreinsVatList">
+            <td>{{prpDreinsVat.comlevel2no}}</td>
+            <!-- <td>{{$index + 1}}</td> -->
+            <td>
+            	<div ng-if="operation==='edit'">
+                    <select ng-model="prpDreinsVat.taxpayerstatus" class="form-control"
+                            ng-options="c.id as c.value for c in taxpayerstatus"></select>
+                </div>
+                <div ng-if="operation==='view'">
+                    <div ng-switch on="prpDreinsVat.taxpayerstatus">
+                        <div ng-switch-when="Y">
+                            <input type="text"  style="width: 100%" class="form-control" value="一般纳税人" ng-readonly="operation==='view'"></div>
+                        <div ng-switch-when="X">
+                            <input type="text"  style="width: 100%" class="form-control"  value="小规模纳税人" ng-readonly="operation==='view'"></div>
+                        <div ng-switch-when="Q">
+                            <input type="text"  style="width: 100%" class="form-control" value="其他" ng-readonly="operation==='view'"></div>                        
+                    </div>
+                </div>
+            </td>
+            <td><input type="text" class="form-control" ng-model="prpDreinsVat.taxPayerName" ng-readonly="operation==='view'"/></td>
+            <td><input type="text" class="form-control" ng-model="prpDreinsVat.taxPayerId" ng-readonly="operation==='view'"/></td>
+            <td><input type="text" class="form-control" ng-model="prpDreinsVat.invoiceAddr" ng-readonly="operation==='view'"/></td>
+            <td><input type="text" class="form-control" ng-model="prpDreinsVat.taxPhone" ng-readonly="operation==='view'"/></td>
+            <td><input type="text" class="form-control" ng-model="prpDreinsVat.invoiceBank" ng-readonly="operation==='view'"/></td>
+            <td><input type="text" class="form-control" ng-model="prpDreinsVat.invoiceAccount" ng-readonly="operation==='view'"/></td>
+            
+           <!--  <td ng-if="operation==='edit'">
+                <select class="form-control" style="width: 100px" ng-model="prpdReinsVat.validStatus" ng-options="c.id as c.value for c in flag">
+                </select>
+            </td>
+             <td ng-if="operation==='view'">
+                 <div ng-switch on="prpdReinsVat.validStatus">
+                     <div ng-switch-when="0">无效</div>
+                     <div ng-switch-when="1">有效</div>
+                 </div>
+             </td> -->
+            <td ng-if="operation==='edit'"><a class="btn btn-danger" ng-click="removePrpdReinsVat(reinsurer,prpDreinsVat)"  title="删除当前行">-</a></td>
+        </tr>
+        <tr ng-if="operation==='edit'">
+            <td colspan="10" align="right">
+                <a class="btn btn-primary" ng-click="addLayerPrpdReinsVat()" title="添加行">+</a>
+            </td>
+        </tr>
+    </table>
+</div>

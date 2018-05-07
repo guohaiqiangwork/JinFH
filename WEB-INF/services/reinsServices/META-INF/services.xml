@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="GBK"?>
+<!-- server群组 单一服务的不需要此标签 （serviceGroup）直接service标签就行 LJ -->
+<serviceGroup>
+	<service name="ReinsPrpallInterface">
+		<description>
+			<!-- 接口描述 -->
+			ReinsPrpallInterface
+		</description>
+		<!-- ServiceClass 用来加载webservice的服务类 LJ -->
+		<parameter name="ServiceClass">
+			<!-- 此处填写服务类 如 com.reins.webservice.XXXXinfer LJ -->
+			com.sinosoft.reins.webService.service.interfService.ReinsPrpallInterfService
+		</parameter>
+		<!-- 服务级消息接收器 当前service全部 LJ -->
+		<messageReceivers>
+			<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only"
+				class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
+			<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"
+				class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		</messageReceivers>
+		<!-- 服务级消息接收器 -->
+		<!-- opration 可以让单个方法对服务级别的组件进行覆写，从而执行方法级的配置 下面的opration中修改了消息接收器 LJ -->
+		<!-- 如果没有特别需要注意的方法不需要打开opration选项 LJ -->
+		<!-- <operation name="sayHello" mep="http://www.w3.org/2004/08/wsdl/in-out"> 
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" 
+			/> </operation> <operation name="getAge" mep="http://www.w3.org/2004/08/wsdl/in-out"> 
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" 
+			/> </operation> -->
+	<!-- 	<operation name="generateTDangerUnit" mep="http://www.w3.org/2004/08/wsdl/in-out">
+			<messageReceiver
+				class="org.apache.axis2.receivers.RawXMLINOutMessageReceiver" />
+			<actionMapping>urn:generateTDangerUnit</actionMapping>
+		</operation> -->
+<!-- 		<messageReceivers>
+			<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only"
+				class="org.apache.axis2.receivers.RawXMLINOnlyMessageReceiver" />
+			<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"
+				class="org.apache.axis2.receivers.RawXMLINOutMessageReceiver" />
+		</messageReceivers> -->
+		
+
+	</service>
+	<service name="ReinsUndwrtInterface">
+		<description>
+			<!-- 接口描述 -->
+			ReinsUndwrtInterface
+		</description>
+		<!-- ServiceClass 用来加载webservice的服务类 CY -->
+		<parameter name="ServiceClass">
+			<!-- 此处填写服务类 如 com.reins.webservice.XXXXinfer CY-->
+			com.sinosoft.reins.webService.service.interfService.ReinsUndwrtInterfService
+		</parameter>
+		<!-- 服务级消息接收器 当前service全部 CY -->
+		<messageReceivers>
+			<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only"
+				class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
+			<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"
+				class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		</messageReceivers>
+		<!-- 服务级消息接收器 -->
+		<!-- opration 可以让单个方法对服务级别的组件进行覆写，从而执行方法级的配置 下面的opration中修改了消息接收器 LJ -->
+		<!-- 如果没有特别需要注意的方法不需要打开opration选项 LJ -->
+		<!-- <operation name="sayHello" mep="http://www.w3.org/2004/08/wsdl/in-out"> 
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" 
+			/> </operation> <operation name="getAge" mep="http://www.w3.org/2004/08/wsdl/in-out"> 
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" 
+			/> </operation> -->
+	</service>
+	<service name="ReinsPaymentInterface">
+		<description>
+			<!-- 接口描述 -->
+			ReinsPaymentInterface
+		</description>
+		<!-- ServiceClass 用来加载webservice的服务类 CY -->
+		<parameter name="ServiceClass">
+			<!-- 此处填写服务类 如 com.reins.webservice.XXXXinfer CY-->
+			com.sinosoft.reins.webService.service.interfService.ReinsPaymentInterfService
+		</parameter>
+		<!-- 服务级消息接收器 当前service全部 CY -->
+		<messageReceivers>
+			<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only"
+				class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
+			<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"
+				class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		</messageReceivers>
+		<!-- 服务级消息接收器 -->
+		<!-- opration 可以让单个方法对服务级别的组件进行覆写，从而执行方法级的配置 下面的opration中修改了消息接收器 LJ -->
+		<!-- 如果没有特别需要注意的方法不需要打开opration选项 LJ -->
+		<!-- <operation name="sayHello" mep="http://www.w3.org/2004/08/wsdl/in-out"> 
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" 
+			/> </operation> <operation name="getAge" mep="http://www.w3.org/2004/08/wsdl/in-out"> 
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" 
+			/> </operation> -->
+	</service>
+		<service name="ReinsClaimInterface">
+		<description>
+			<!-- 接口描述 -->
+			ReinsClaimInterface
+		</description>
+		<!-- ServiceClass 用来加载webservice的服务类 CY -->
+		<parameter name="ServiceClass">
+			<!-- 此处填写服务类 如 com.reins.webservice.XXXXinfer CY-->
+			com.sinosoft.reins.webService.service.interfService.ReinsClaimInterfService
+		</parameter>
+		<!-- 服务级消息接收器 当前service全部 CY -->
+		<messageReceivers>
+			<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only"
+				class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
+			<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"
+				class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		</messageReceivers>
+		<!-- 服务级消息接收器 -->
+		<!-- opration 可以让单个方法对服务级别的组件进行覆写，从而执行方法级的配置 下面的opration中修改了消息接收器 LJ -->
+		<!-- 如果没有特别需要注意的方法不需要打开opration选项 LJ -->
+		<!-- <operation name="sayHello" mep="http://www.w3.org/2004/08/wsdl/in-out"> 
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" 
+			/> </operation> <operation name="getAge" mep="http://www.w3.org/2004/08/wsdl/in-out"> 
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" 
+			/> </operation> -->
+	</service>
+</serviceGroup>

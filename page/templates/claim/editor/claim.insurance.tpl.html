@@ -1,0 +1,59 @@
+<div>
+    <div class="page-header">
+        <h3 style="display:inline-block">超赔待摊</h3>
+    </div>
+    <div class="modal-header">
+        <h3>生成待摊信息</h3>
+    </div>
+    <br/>
+    <div class="pull-right">
+        <a href="" class="btn btn-default">确定</a>
+        <a href="" class="btn btn-default">取消</a>
+    </div>
+    <br/>
+    <div class="modal-body">
+        <table>
+            <tr>
+                <td><input type="checkbox">全选</td>
+                <td>业务号</td>
+                <td>立案号</td>
+                <td>保单号</td>
+                <td>被保险人</td>
+                <td>巨灾代码及名称</td>
+                <td>出险日期</td>
+                <td>赔付币别</td>
+                <td>我司净已决</td>
+                <td>我司净未决</td>
+                <td>自留比例</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>61010111...</td>
+                <td>61010111...</td>
+                <td>21010111...</td>
+                <td>日产</td>
+                <td>-</td>
+                <td>2013</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <!-- 分页  -->
+        <div class="pull-right">
+            <pagination total-items="pagination.totalItems"
+                        page="pagination.pageIndex"
+                        items-per-page="pagination.pageSize"
+                        max-size="pagination.maxSize"
+                        previous-text="{{pagination.previousText}}"
+                        next-text="{{pagination.nextText}}"
+                        first-text="{{pagination.firstText}}"
+                        last-text="{{pagination.lastText}}"
+                        class="pagination-small"
+                        boundary-links="true"
+                        on-select-page="onSelectPage(page)">
+            </pagination>
+        </div>
+    </div>
+</div>

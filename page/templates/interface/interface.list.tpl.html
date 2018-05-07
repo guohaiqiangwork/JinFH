@@ -1,0 +1,104 @@
+<div class="modal-body">
+    模块类型：
+    <div class="btn-group" >
+        <button type="button" class="btn btn-default"
+                ng-model = "options.pid"
+                btn-radio="'{{menu.id}}'"
+                ng-repeat="menu in menus.menu"
+                >{{menu.label}}
+        </button>
+    </div>
+
+    <br/>
+
+
+    <div >
+        模块类型：
+        <div class="btn-group" ng-repeat="menu in menus.menu"
+             ng-if="menu.id==='1'"
+             ng-show="options.pid==='1'">
+            <button type="button" class="btn btn-default"
+
+                    ng-model = "options.id"
+                    btn-radio="'{{label.id}}'"
+                    ng-repeat="label in menu.menus">{{label.label}}</button>
+        </div>
+
+        <div class="btn-group" ng-repeat="menu in menus.menu"
+             ng-show="options.pid==='2'"
+             ng-if="menu.id==='2'">
+
+            <button type="button" class="btn btn-default"
+
+                    ng-model = "options.id"
+                    btn-radio="'{{label.id}}'"
+                    ng-repeat="label in menu.menus">{{label.label}}</button>
+        </div>
+
+        <div class="btn-group" ng-repeat="menu in menus.menu"
+             ng-show="options.pid==='3'"
+             ng-if="menu.id==='3'">
+            <button type="button" class="btn btn-default"
+
+                    ng-model = "options.id"
+                    btn-radio="'{{label.id}}'"
+                    ng-repeat="label in menu.menus">{{label.label}}</button>
+        </div>
+
+        <div class="btn-group" ng-repeat="menu in menus.menu"
+             ng-show="options.pid==='4'"
+             ng-if="menu.id==='4'">
+            <button type="button" class="btn btn-default"
+
+                    ng-model = "options.id"
+                    btn-radio="'{{label.id}}'"
+                    ng-repeat="label in menu.menus">{{label.label}}</button>
+        </div>
+    </div>
+
+    <div>
+        <div ng-repeat="menu in menus.menu"
+             ng-if="menu.id==='1'"
+             ng-show="options.pid==='1'">
+            <div  ng-repeat="label in menu.menus"
+                  ng-if="label.id==='1.1'"
+                  ng-show="options.id==='1.1'">
+                模块接口：
+                <button type="button" class="btn btn-default"
+                        ng-model = "options.id"
+                        >新增</button>
+                <button type="button" class="btn btn-default"
+                        ng-model = "options.id"
+                        >删除</button>
+                <button type="button" class="btn btn-default"
+                        ng-model = "options.id"
+                        >修改</button>
+            </div>
+
+            <div  ng-repeat="label in menu.menus"
+                  ng-if="label.id==='1.2'"
+                  ng-show="options.id==='1.2'">
+                模块接口：
+                <button type="button" class="btn btn-default"
+                        ng-model = "options.id"
+                        >新增</button>
+                <button type="button" class="btn btn-default"
+                        ng-model = "options.id"
+                        >删除</button>
+            </div>
+        </div>
+    </div>
+    <br/>
+
+    <div >
+        接口数据：
+        <div ng-include="'interface/contract.prop.list.data.html'"></div>
+        <!--<div class="btn-group">
+            <button type="button" class="btn btn-default"
+                    ng-model = "options.contOutTyp"
+                    btn-radio="'{{code.id}}'"
+                    ng-repeat="code in codes['prop.contOutTyp']">{{code.value}}</button>
+        </div>-->
+    </div>
+    <br/>
+</div>

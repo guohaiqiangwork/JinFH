@@ -1,0 +1,273 @@
+<div >
+    <div class="modal-header">
+        <h3>询价详情</h3>
+    </div>
+    <div class="modal-body">
+        <div>
+            <tabset>
+                <tab heading="询价单主信息">
+                    <form name="searchForm" >
+                    
+                    	<div class="row">
+	                    	<div class="col-lg-2">
+				                <label>询价单号</label>
+				            </div>
+				
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                    {{dangerUnitFacEnquiry.feoEnquiry.enquiryNo}}
+				                    <span></span>
+				                </div>
+				            </div>
+				
+				            <div class="col-lg-2">
+				                <label>危险单位号</label>
+				            </div>
+				
+				            <div class="col-lg-4">
+				                <div class="input-group"> 
+				                    {{dangerUnitFacEnquiry.feoEnquiry.dangerNo}}
+				                    <span></span>
+				                </div>
+				            </div>
+			        	</div>
+			        	<div class="row">
+			        	     <div class="col-lg-2">
+				                <label>投保单号</label>
+				            </div>
+				
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                    {{dangerUnitFacEnquiry.feoEnquiry.proposalNo}}
+				                    <span></span>
+				                </div>
+				            </div>
+				            <div class="col-lg-2">
+				                <label>保单号</label>
+				            </div>
+				
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                    {{dangerUnitFacEnquiry.feoEnquiry.policyNo}}
+				                    <span></span>
+				                </div>
+				            </div>
+			        	</div>
+			        	
+			        	<div class="row">
+			        	    <div class="col-lg-2">
+				                <label>险类代码</label>
+				            </div>				
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                    {{dangerUnitFacEnquiry.feoEnquiry.classCode}}
+				                    <span></span>
+				                </div>
+				            </div>
+				            <div class="col-lg-2">
+				                <label>险种代码</label>
+				            </div>				
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                    {{dangerUnitFacEnquiry.feoEnquiry.riskCode}}
+				                    <span></span>
+				                </div>
+				            </div>
+			        	</div>
+			        	
+			        	<div class="row">
+			        	    <div class="col-lg-2">
+				                <label>保险人名称</label>
+				            </div>				
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                    {{dangerUnitFacEnquiry.feoEnquiry.reinsured}}
+				                    <span></span>
+				                </div>
+				            </div>
+				            <div class="col-lg-2">
+				                <label>被保险人名称</label>
+				            </div>				
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                    {{dangerUnitFacEnquiry.feoEnquiry.insuredName}}
+				                    <span></span>
+				                </div>
+				            </div>
+			        	</div>			        				        	
+			        	
+			        	<div class="row">
+			        		<div class="col-lg-2">
+				                <label>保险起期</label>
+				            </div>				
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                    {{dangerUnitFacEnquiry.feoEnquiry.strStartDate}} 
+				                    <span></span>
+				                </div>
+				            </div>				            
+				            <div class="col-lg-2">
+				                <label>保险止期</label>
+				            </div>				
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                    {{dangerUnitFacEnquiry.feoEnquiry.strEndDate}}
+				                    <span></span>
+				                </div>
+				            </div>
+			        	</div>
+			        	
+			        	<div class="row">
+	                    	<div class="col-lg-2">
+				                <label>保额币种</label>
+				            </div>				
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                   {{dangerUnitFacEnquiry.feoEnquiry.currency|code:'currency'}}
+				                    <span></span>
+				                </div>
+				            </div>				            
+				            <div class="col-lg-2">
+				                <label>保费币种</label>
+				            </div>				
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                    {{dangerUnitFacEnquiry.feoEnquiry.currency|code:'currency'}}
+				                    <span></span>
+				                </div>
+				            </div>				
+			        	</div>
+			        	
+			        	<div class="row">	                    					            
+				            <div class="col-lg-2">
+				                <label>总保额</label>
+				            </div>				
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                    <!-- {{dangerUnitFacEnquiry.feoEnquiry.sumAmount | currency}} -->
+				                    {{dangerUnitFacEnquiry.feoEnquiry.sumAmount}}
+				                    <span></span>
+				                </div>
+				            </div>	
+				            <div class="col-lg-2">
+				                <label>费率‰</label>
+				            </div>				
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                    {{dangerUnitFacEnquiry.feoEnquiry.rate}}
+				                    <span></span>
+				                </div>
+				            </div>							            
+			        	</div>			        	
+			        	
+			        	<div class="row">
+			        	    <div class="col-lg-2">
+				                <label>总含税保费</label>
+				            </div>				
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                     {{dangerUnitFacEnquiry.feoEnquiry.sumPremium}}
+				                    <span></span>
+				                </div>
+				            </div>
+			        	    <div class="col-lg-2">
+				                <label>本公司所占份额</label>
+				            </div>				
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                     {{dangerUnitFacEnquiry.feoEnquiry.baseShare}}
+				                    <span></span>
+				                </div>
+				            </div>
+			        	</div>
+			        	
+			        	<div class="row">
+	                    	<div class="col-lg-2">
+				                <label>特约临分比例(%)</label>
+				            </div>				
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                     <input style="border:none" ng-model="dangerUnitFacEnquiry.feoEnquiry.specialFacShare" percentage />
+				                    <span></span>
+				                </div>
+				            </div>		            
+				            <div class="col-lg-2">
+				                <label>普通临分比例(%)</label>
+				            </div>
+				
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                    <input style="border:none" ng-model="dangerUnitFacEnquiry.feoEnquiry.facShare" percentage />
+				                    <span></span>
+				                </div>
+				            </div>
+				            <div class="input-group">
+				                 <input type="hidden" ng-model="dangerUnitFacEnquiry.feoEnquiry.enquiryType"/>
+				            </div>
+  		        	    </div>
+                         
+			        	<div class="row">
+				            <div class="col-lg-2">
+				                <label>备注</label>
+				            </div>
+			
+				            <div class="col-lg-4">
+				                <div class="input-group">
+				                    <textarea rows="1" cols="60" ng-model="dangerUnitFacEnquiry.feoEnquiry.remarks" style="border:none;"></textarea>
+				                </div>
+				            </div>
+			        	</div>
+			        	<div class="row">
+			        	     <div class="col-lg-2">
+				                <label>确认状态</label>
+				             </div>
+				             <div class="col-lg-4">
+			                    <select ng-model="dangerUnitFacEnquiry.feoEnquiry.verifyFlag" style="border:none;">
+			                        <option value="0">暂存</option>
+		                            <option value="1">待确认</option>
+		                            <option value="2">待通过</option>
+		                            <option value="3">通过</option>
+		                            <option value="4">确认不通过</option>
+		                            <option value="9">注销</option>
+			                    </select>
+	                         </div>	                         
+			        	</div>
+			        	
+			        	<div class="row">
+			        	     <div class="col-lg-2">
+				                <label>再保确认意见</label>
+				             </div>
+				             <div class="col-lg-2">
+				                 <textarea rows="2" cols="60" ng-model="dangerUnitFacEnquiry.feoEnquiry.reinsHandleText" style="border:none;"></textarea>
+				             </div>
+				         </div>
+			        	
+			        	<div class="row">
+			        	    <div  class="col-lg-4">
+	                             <a class="btn btn-default" ng-click="saveEnquiry()">保存</a>
+	                        </div>
+	                        <div class="col-lg-4">            
+					            <a class="btn btn-default" ng-click="ok()">关闭</a>&nbsp;&nbsp;&nbsp;           
+					        </div>
+			        	</div>			        	
+                    </form>
+                </tab>
+
+                <tab heading="比例临分信息">
+                    <!-- <div ng-include="'/reins/page/templates/undwrt/dangerunit.enquiry.prop.tpl.html'"></div> -->
+                    <div ng-include="'/reins/page/templates/inquiry/inquiry.editor.prop.tpl.html'"></div>
+                </tab>
+                
+                <tab heading="层分期付款信息">
+                    <div ng-include="'/reins/page/templates/inquiry/inquiry.editor.payPlan.prop.tpl.html'"></div>
+                </tab>
+
+                <!--超赔临分信息-->
+                <!-- 2期做先注掉 -->
+                <!-- <tab heading="超赔临分信息">
+                    <div ng-include="'/reins/page/templates/undwrt/dangerunit.enquiry.nprop.tpl.html'"></div>
+                </tab> -->
+            </tabset>
+        </div>
+    </div>
+</div>

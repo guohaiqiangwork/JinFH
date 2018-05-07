@@ -1,0 +1,2480 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="fm"
+			type="com.sinosoft.sysframework.web.view.AbstractForm" />
+		<form-bean name="policyForm" type="org.apache.struts.action.DynaActionForm" />
+		<form-bean name="repolicyForm" type="org.apache.struts.action.DynaActionForm" />
+		<form-bean name="fcoPolicyForm" type="org.apache.struts.action.DynaActionForm" />
+		<form-bean name="fcoRepolicyForm"
+			type="com.sinosoft.reins.out.ui.view.formbean.FcoRepolicyForm" />
+		<form-bean name="payForm" type="org.apache.struts.action.DynaActionForm" />
+		<form-bean name="floRepayForm" type="org.apache.struts.action.DynaActionForm" />
+		<form-bean name="fzAccListForm" type="org.apache.struts.action.DynaActionForm" />
+		<form-bean name="accForm" type="org.apache.struts.action.DynaActionForm" />
+		<form-bean name="treatyForm" type="org.apache.struts.action.DynaActionForm" />
+		<form-bean name="endorForm" type="org.apache.struts.action.DynaActionForm" />
+		<form-bean name="exchListForm" type="org.apache.struts.action.DynaActionForm" />
+		<form-bean name="reendorForm" type="org.apache.struts.action.DynaActionForm" />
+	</form-beans>
+	<global-exceptions>
+	 	<exception key="exception" type="java.lang.Exception" path="/common/ErrorPage.jsp" /> 
+		<!-- <exception key="exception" type="java.lang.Exception" path="/page/templates/undwrt/error.tpl.html" /> -->
+		
+	</global-exceptions>
+	<global-forwards>
+		<forward name="logon" path="/index.jsp" />
+		<forward name="blank" path="/common/Blank.html" />
+		<forward name="success" path="/common/MessagePage.jsp" />
+		<forward name="AdminTimeOut" path="/index.jsp" />
+	</global-forwards>
+	<action-mappings>
+	
+	
+	<!--add by xujieyang 发票录入 -->
+	<!-- 条件查询 -->
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIInvoiceEntryAction" 
+				validate="false" scope="request" path="/searchInvoiceEntry">
+		</action>
+		<!-- xujieyang end -->
+	
+	
+		<!-- 新MenuAction服务 -->
+    <action name="fm" type="com.sinosoft.platform.ui.control.action.MenuAction" scope="request" path="/showMenu"  />
+    <action type="com.sinosoft.platform.ui.control.action.UIUtiMenuAction" name="fm" input="/system/menu/QueryUtiMenuOverviewResult.jsp" scope="request" path="/processUtiMenu">
+    </action>
+    <action type="com.sinosoft.platform.ui.control.action.UICodeInputAction" name="fm" input="/platform/QueryCodeInputOverview.jsp" scope="request" path="/processCodeInput">
+      <forward name="query" path="/platform/QueryCodeInputOverviewResult.jsp" />
+    </action>
+    <action type="com.sinosoft.platform.ui.control.action.NewUICodeInputAction" scope="request" path="/processCodeSelect">
+    </action>
+    <action type="com.sinosoft.reins.admin.ui.control.facade.UILogonFacade" validate="false" scope="request" path="/logonin">
+      <forward name="success" path="/common/MainFrame.jsp" />
+      <!-- <forward name="success" path="/MainIndex.jsp" /> -->
+      <forward name="false" path="/index.jsp" />
+    </action>
+    <action type="com.sinosoft.reins.function.insutil.ui.control.facade.UIChangePasswordFacade" validate="false" scope="request" path="/changePassword">
+      <forward name="success" path="/common/MessagePage.jsp" />
+      <forward name="false" path="/common/ErrorPage.jsp"/>
+    </action>
+
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIAccFacade"
+			validate="false" scope="request" path="/getAcc">
+			<forward name="LFBEdit" path="/out/account/AccFacBranchEdit.jsp" />
+			<forward name="LFREdit" path="/out/account/AccFacReinsEdit.jsp" />
+			<forward name="HTBEdit" path="/out/account/AccTtyBranchEdit.jsp" />
+			<forward name="HTREdit" path="/out/account/AccTtyReinsEdit.jsp" />
+			<forward name="XJBEdit" path="/out/account/AccCashLossBranchEdit.jsp" />
+			<forward name="XJREdit" path="/out/account/AccCashLossReinsEdit.jsp" />
+			<forward name="accdelay" path="/out/common/treaty/FhAccDelayQuery.jsp" />
+			<forward name="successCheck"
+				path="/out/account/CustomMessagePage.jsp?type1=Check" />
+			<forward name="successDel"
+				path="/page/templates/linfenAccounting/CustomMessagePage.jsp?type1=Delete" />
+			<forward name="editReinsInAcc" path="/out/account/AccEditReinsIn.jsp" />
+			<forward name="LFRShow" path="/in/account/AccFacReinsShow.jsp" />
+		</action>
+
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIFzAccItemFacade"
+			path="/fzAccItem">
+			<forward name="accitemprint" path="/out/print/AccItemPrintList.jsp" />
+		</action>
+
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIAccCashLossFacade"
+			validate="false" scope="request" path="/dispTreaty">
+			<forward name="failure" path="/common/MessagePage.jsp" />
+			<forward name="success" path="/out/account/AccLossTreatyQueryList.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIAccXLFacade"
+			validate="false" scope="request" path="/dispTreatyXL">
+			<forward name="failure" path="/common/MessagePage.jsp" />
+			<forward name="success" path="/out/account/AccTreatyXLQueryList.jsp" />
+		</action>
+
+		<action name="policyForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIPolicyGetFacade"
+			validate="false" scope="request" path="/getPolicy">
+			<forward name="ShowQ" path="/out/common/policy/PolicyQShow.jsp" />
+			<forward name="ShowA" path="/out/common/policy/PolicyAShow.jsp" />
+			<forward name="ShowY" path="/out/common/policy/PolicyYShow.jsp" />
+			<forward name="ShowZ" path="/out/common/policy/PolicyZShow.jsp" />
+			<forward name="ShowO" path="/out/common/policy/PolicyOShow.jsp" />
+			<forward name="ShowG" path="/out/common/policy/PolicyGShow.jsp" />
+			<forward name="ShowC" path="/out/common/policy/PolicyCShow.jsp" />
+			<forward name="ShowB" path="/out/common/policy/PolicyCommonShow.jsp" />
+			<forward name="ShowD" path="/out/common/policy/PolicyCommonShow.jsp" />
+			<forward name="ShowE" path="/out/common/policy/PolicyCommonShow.jsp" />
+			<forward name="ShowF" path="/out/common/policy/PolicyCommonShow.jsp" />
+			<forward name="ShowH" path="/out/common/policy/PolicyCommonShow.jsp" />
+			<forward name="ShowI" path="/out/common/policy/PolicyCommonShow.jsp" />
+			<forward name="ShowJ" path="/out/common/policy/PolicyCommonShow.jsp" />
+			<forward name="ShowK" path="/out/common/policy/PolicyCommonShow.jsp" />
+			<forward name="ShowL" path="/out/common/policy/PolicyCommonShow.jsp" />
+			<forward name="ShowM" path="/out/common/policy/PolicyCommonShow.jsp" />
+			<forward name="ShowN" path="/out/common/policy/PolicyCommonShow.jsp" />
+			<forward name="ShowP" path="/out/common/policy/PolicyCommonShow.jsp" />
+			<forward name="ShowR" path="/out/common/policy/PolicyCommonShow.jsp" />
+			<forward name="ShowS" path="/out/common/policy/PolicyCommonShow.jsp" />
+			<forward name="ShowT" path="/out/common/policy/PolicyCommonShow.jsp" />
+			<forward name="ShowX" path="/out/common/policy/PolicyCommonShow.jsp" />
+			<forward name="EditQ" path="/out/policy/PolicyQEdit.jsp" />
+			<forward name="EditA" path="/out/policy/PolicyAEdit.jsp" />
+			<forward name="EditY" path="/out/policy/PolicyYEdit.jsp" />
+			<forward name="EditZ" path="/out/policy/PolicyZEdit.jsp" />
+			<forward name="EditO" path="/out/policy/PolicyOEdit.jsp" />
+			<forward name="EditG" path="/out/policy/PolicyGEdit.jsp" />
+			<forward name="EditC" path="/out/policy/PolicyCEdit.jsp" />
+			<forward name="EditB" path="/out/policy/PolicyCommonEdit.jsp" />
+			<forward name="EditD" path="/out/policy/PolicyCommonEdit.jsp" />
+			<forward name="EditE" path="/out/policy/PolicyCommonEdit.jsp" />
+			<forward name="EditF" path="/out/policy/PolicyCommonEdit.jsp" />
+			<forward name="EditH" path="/out/policy/PolicyCommonEdit.jsp" />
+			<forward name="EditI" path="/out/policy/PolicyCommonEdit.jsp" />
+			<forward name="EditJ" path="/out/policy/PolicyCommonEdit.jsp" />
+			<forward name="EditK" path="/out/policy/PolicyCommonEdit.jsp" />
+			<forward name="EditL" path="/out/policy/PolicyCommonEdit.jsp" />
+			<forward name="EditM" path="/out/policy/PolicyCommonEdit.jsp" />
+			<forward name="EditN" path="/out/policy/PolicyCommonEdit.jsp" />
+			<forward name="EditP" path="/out/policy/PolicyCommonEdit.jsp" />
+			<forward name="EditR" path="/out/policy/PolicyCommonEdit.jsp" />
+			<forward name="EditS" path="/out/policy/PolicyCommonEdit.jsp" />
+			<forward name="EditT" path="/out/policy/PolicyCommonEdit.jsp" />
+			<forward name="EditX" path="/out/policy/PolicyCommonEdit.jsp" />
+		</action>
+		<action name="policyForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIPolicyPostFacade"
+			validate="false" scope="request" path="/postPolicy">
+			<forward name="success" path="/common/MessagePage.jsp" />
+		</action>
+		<action name="policySplitForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIPolicySplitFacade"
+			validate="false" scope="request" path="/splitPolicy">
+			<forward name="SplitPolicy" path="/out/policy/PolicySplit.jsp" />
+		</action>
+		<action name="repolicyForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIRepolicyGetFacade"
+			scope="request" path="/getRepolicy">
+			<forward name="Add" path="/out/repolicy/RepolicyEdit.jsp" />
+			<forward name="edit" path="/out/repolicy/RepolicyEdit.jsp" />
+			<forward name="Show" path="/out/repolicy/RepolicyShow.jsp" />
+		</action>
+		<!-- 核保界面 by LJ 2013/11/27 begin -->
+		<action name="fm"
+			type="com.sinosoft.reins.common.ui.control.action.UIReinsToUndwrtPageAction"
+			path="/undwrtReins" scope="request">
+			<forward name="queryTDangerUnit" path="/undwrt/ShowProposalDangerUnit.jsp" />
+			<forward name="queryEDangerUnit" path="/undwrt/ShowEndorDangerUnit.jsp" />
+			<forward name="queryTDangerItem" path="/undwrt/ShowProposalDangerItem.jsp" />
+			<forward name="queryEDangerItem" path="/undwrt/ShowEndorDangerItem.jsp" />
+			<forward name="facSubmit" path="/undwrt/CommonDangerReinsUnit.jsp" />
+			<forward name="saveFacSucess" path="/common/MessagePage.jsp" />
+			<forward name="reinsTrial" path="/undwrt/ReinsTrialInfo.jsp" />
+			<forward name="reinsTrial_Endorse" path="/undwrt/ReinsTrialInfo_Endorse.jsp" />
+			<forward name="reinsTrialPML" path="/undwrt/ReinsTrialInfoPML.jsp" />
+			<forward name="reinsTrialPML_Endorse" path="/undwrt/ReinsTrialInfoPML_Endorse.jsp" />
+			<forward name="success" path="/common/MessagePage.jsp" />
+			<forward name="verifyEnquirySuccess" path="/common/MessagePage.jsp" />
+			<forward name="facSubmitHBPass" path="/undwrt/CommonDangerReinsUnitF.jsp" />
+		</action>
+		<!-- 核保界面 by LJ 2013/11/27 end -->
+		<action name="reendorForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIReendorGetFacade"
+			scope="request" path="/getReendor">
+			<forward name="Add" path="/out/reendor/ReendorEdit.jsp" />
+			<forward name="Show" path="/out/reendor/ReendorShow.jsp" />
+		</action>
+
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIReendorPostFacade"
+			scope="request" path="/postReendor">
+		</action>
+
+		<action name="repolicyForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIRepolicyPostFacade"
+			scope="request" path="/postRepolicy">
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIEndorPostFacade"
+			scope="request" path="/postEndor">
+		</action>
+		<action name="fcoPolicyForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIFcoPolicyFacade"
+			validate="false" scope="request" path="/fcoPolicyQuery">
+			<forward name="result" path="/out/common/policy/PolicyQueryList.jsp" />
+			<forward name="condition" path="/out/common/policy/PolicyQuery.jsp" />
+			<forward name="outOfMemory" path="/out/common/OutOfMemory.jsp" />
+		</action>
+		<action name="exchListForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIExchGetFacade"
+			validate="false" scope="request" path="/getExchRate">
+			<forward name="toexch" path="/out/common/ExchRateQueryList.jsp" />
+			<forward name="togen" path="/genRepolicy.do" />
+			<forward name="togenendor" path="/genReendor.do" />
+			<forward name="checkfail" path="/common/MessagePage.jsp" />
+			<forward name="10" path="/out/account/AccFacReinsEdit.jsp" />
+			<forward name="00" path="/out/account/AccFacBranchEdit.jsp" />
+			<forward name="11" path="/out/account/AccTtyReinsEdit.jsp" />
+			<forward name="01" path="/out/account/AccTtyBranchEdit.jsp" />
+			<forward name="12" path="/out/account/AccTtyReinsEdit.jsp" />
+			<forward name="02" path="/out/account/AccTtyBranchEdit.jsp" />
+			<forward name="11M" path="/out/account/AccCashLossReinsEdit.jsp" />
+			<forward name="01M" path="/out/account/AccCashLossBranchEdit.jsp" />
+			<forward name="10in" path="/in/account/AccFacReinsEdit.jsp" />
+			<forward name="11in" path="/in/account/AccTtyReinsEdit.jsp" />
+		</action>
+		<action name="exchListForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIAccModExchFacade"
+			validate="false" scope="request" path="/modifyExchRate">
+			<forward name="10" path="/out/account/AccFacReinsEdit.jsp" />
+			<forward name="00" path="/out/account/AccFacBranchEdit.jsp" />
+			<forward name="11" path="/out/account/AccTtyReinsEdit.jsp" />
+			<forward name="01" path="/out/account/AccTtyBranchEdit.jsp" />
+			<forward name="12" path="/out/account/AccTtyReinsEdit.jsp" />
+			<forward name="02" path="/out/account/AccTtyBranchEdit.jsp" />
+			<forward name="11M" path="/out/account/AccCashLossReinsEdit.jsp" />
+			<forward name="01M" path="/out/account/AccCashLossBranchEdit.jsp" />
+			<forward name="10in" path="/in/account/AccFacReinsEdit.jsp" />
+			<forward name="11in" path="/in/account/AccTtyReinsEdit.jsp" />
+		</action>
+		<action name="fcoRepolicyForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIFcoRepolicyFacade"
+			validate="false" scope="request" path="/fcoRepolicyQuery">
+			<forward name="Q" path="/out/common/repolicy/RepolicyQueryList.jsp" />
+			<forward name="mantence" path="/out/common/repolicy/RepolicyQueryList.jsp" />
+			<forward name="gen" path="/out/common/repolicy/RepolicyQueryList.jsp" />
+			<forward name="SN" path="/out/common/repolicy/RepolicyQueryList.jsp" />
+			<forward name="adjustPayDate" path="/out/common/repolicy/RepolicyQueryList.jsp" />
+			<forward name="A" path="/out/common/repolicy/RepolicyApproveList.jsp" />
+			<forward name="P" path="/out/common/repolicy/RepolicyPrintList.jsp" />
+			<forward name="condition" path="/out/common/repolicy/RepolicyQuery.jsp" />
+		</action>
+
+		<action type="com.sinosoft.reins.payment.ui.control.facade.UIPaymentFacade"
+			validate="false" scope="request" path="/paymentQuery">
+			<forward name="fac" path="/payment/paymentQueryFacList.jsp" />
+			<forward name="tty" path="/payment/paymentQueryList.jsp" />
+		</action>
+
+		<action name="fcoRepolicyForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIFcoRepolicyAdjustFacade"
+			validate="false" scope="request" path="/fcoRepolicyQueryAdjust">
+			<forward name="Q"
+				path="/out/common/repolicy/RepolicyQueryListAdjust.jsp" />
+		</action>
+
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIRepolicyAdjustFacade"
+			validate="false" scope="request" path="/RepolicyQueryAdjust">
+		</action>
+
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIReendorAdjustFacade"
+			validate="false" scope="request" path="/ReendorQueryAdjust">
+		</action>
+
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIFloRepayEditFacade"
+			validate="false" scope="request" path="/RepayAdjustEdit">
+		</action>
+
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIFcoRepolicyEditFacade"
+			validate="false" scope="request" path="/adjustRepolicy">
+			<forward name="Q"
+				path="/out/common/repolicy/RepolicyQueryListEdit.jsp" />
+			<forward name="traceShow" path="/out/common/repolicy/RepolicyAdjustTrace.jsp" />
+		</action>
+
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIFpoReendorEditFacade"
+			validate="false" scope="request" path="/adjustReendor">
+			<forward name="Show" path="/out/common/reendor/ReendorQueryListEdit.jsp" />
+			<forward name="traceShow" path="/out/common/reendor/ReendorAdjustTrace.jsp" />
+		</action>
+
+		<action name="floRepayForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIFloRepayAdjustFacade"
+			validate="false" scope="request" path="/adjustRepay">
+			<forward name="info" path="/out/common/repay/RepayQueryListEdit.jsp" />
+			<forward name="traceShow" path="/out/common/repay/RepayAdjustTrace.jsp" />
+		</action>
+
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIRepolicyGenPostFacade"
+			scope="request" path="/genRepolicy">
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIReendorGenPostFacade"
+			scope="request" path="/genReendor">
+		</action>
+		<action name="repolicyForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIRepolicyCalFacade"
+			scope="request" path="/repolicyCal">
+			<forward name="success" path="/out/repolicy/RepolicyEdit.jsp" />
+		</action>
+		<action name="repolicyForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIReendorCalFacade"
+			scope="request" path="/reendorCal">
+			<forward name="success" path="/out/reendor/ReendorEdit.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIRepolicyApproveFacade"
+			scope="request" path="/approveRepolicy">
+			<forward name="toaccdelay" path="/out/common/treaty/FhAccDelayQueryList.jsp" />
+
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIReendorApproveFacade"
+			scope="request" path="/approveReendor">
+			<forward name="toaccdelay" path="/out/common/treaty/FhAccDelayQueryList.jsp" />
+		</action>
+		<action name="floRepayForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIRepayFacade"
+			validate="false" scope="request" path="/repay">
+			<forward name="info" path="/out/repay/RepayShow.jsp" />
+			<forward name="accCheck" path="/out/repay/AccDelayCheck.jsp" />
+			<forward name="Q" path="/out/common/repay/RepayQueryList.jsp" />
+			<forward name="mantence" path="/out/common/repay/RepayQueryList.jsp" />
+			<forward name="gen" path="/out/common/repay/RepayQueryList.jsp" />
+			<forward name="adjustPayDate" path="/out/common/repay/RepayQueryList.jsp" />
+			<forward name="A" path="/out/common/repay/RepayApproveList.jsp" />
+			<forward name="L" path="/out/common/account/AccCashLossQueryList.jsp" />
+			<forward name="P" path="/out/common/repay/RepayPrintList.jsp" />
+			<forward name="M" path="/out/common/repay/DifferRepayQueryList.jsp" />
+			<forward name="DifferInfo" path="/out/repay/DiffRepayShow.jsp" />
+		</action>
+
+		<action name="floRepayForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIRepayAdjustFacade"
+			validate="false" scope="request" path="/repayAdjust">
+			<forward name="Q" path="/out/common/repay/RepayQueryListAdjust.jsp" />
+		</action>
+
+		<action name="payForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIPayFacade" validate="false"
+			scope="request" path="/payQuery">
+			<forward name="info" path="/out/pay/PayShow.jsp" />
+			<forward name="Q" path="/out/common/pay/PayQueryList.jsp" />
+			<forward name="gen" path="/out/common/pay/PayQueryList.jsp" />
+			<forward name="P" path="/out/common/pay/PayPrintList.jsp" />
+			<forward name="mantence" path="/out/common/pay/PayQueryList.jsp" />
+			<forward name="ShowEdit" path="/out/pay/PayEdit.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIPayPostFacade"
+			validate="false" scope="request" path="/postPay">
+			<forward name="success" path="/common/MessagePage.jsp" />
+		</action>
+		<action name="fzAccListForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIFzAccFacade" path="/getFzAcc">
+		</action>
+		<!-- add by liuweiwei 2012/7/13 begin -->
+		<action path="/fzAccMaunal"
+			type="com.sinosoft.reins.fzaccmanual.ui.facade.UIFzAccManualFacade"
+			name="fm" scope="request">
+			<forward name="prepareQuery" path="/fzAccManual/FzAccManualQuery.jsp" />
+			<forward name="query"
+				path="/fzAccManual/QueryFzAccManualOverviewResult.jsp" />
+			<forward name="view" path="/fzAccManual/FzAccManualView.jsp" />
+			<forward name="prepareInsert"
+				path="/fzAccManual/FzAccManualEdit.jsp?actionType=insert" />
+			<forward name="delete" path="/fzAccManual/MessagePage.jsp" />
+			<forward name="prepareUpdate"
+				path="/fzAccManual/FzAccManualEdit.jsp?actionType=update" />
+			<forward name="update" path="/fzAccManual/MessagePageSubmit.jsp" />
+			<forward name="insert" path="/fzAccManual/MessagePageSubmit.jsp" />
+			<forward name="statusValue" path="/fzAccManual/MessagePageSubmit1.jsp" />
+			<forward name="statusValue1" path="/fzAccManual/MessagePageSubmit1.jsp" />
+			<forward name="statusBack" path="/fzAccManual/MessagePageSubmit1.jsp" />
+			<forward name="review" path="/fzAccManual/MessagePage.jsp" />
+		</action>
+		<!-- add by liuweiwei 2012/7/13 end -->
+		<action name="fhTreatyListForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIFhTreatyFacade"
+			path="/getFhTreaty">
+			<forward name="ShowFhTreaty" path="/out/common/account/AccountShowTreaty.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UITreatyReinsListPrintFacade"
+			validate="false" scope="request" path="/getFhReins">
+			<forward name="success" path="/out/print/TreatyReinsListPrint.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIFhTreatyFacade"
+			path="/fhTreaty">
+			<forward name="queryList" path="/out/common/treaty/TreatyQueryList.jsp" />
+			<forward name="success" path="/common/MessagePage.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIFhAccDelayFacade"
+			path="/fhAccDelay">
+			<forward name="list" path="/out/common/treaty/FhAccDelayQueryList.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIFhAccDelayFacade"
+			path="/postAccDelay">
+		</action>
+
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIFpoEndorGetFacade"
+			path="/fpoEndorQuery">
+			<forward name="result" path="/out/common/endor/EndorQueryList.jsp" />
+			<forward name="outOfMemory" path="/out/common/OutOfMemory.jsp" />
+		</action>
+
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIEndorGetFacade"
+			validate="false" scope="request" path="/getEndor">
+			<forward name="ShowQ" path="/out/endor/EndorQShow.jsp" />
+			<forward name="ShowC" path="/out/endor/EndorCShow.jsp" />
+			<forward name="ShowY" path="/out/endor/EndorYShow.jsp" />
+			<forward name="ShowG" path="/out/endor/EndorGShow.jsp" />
+			<forward name="ShowZ" path="/out/endor/EndorZShow.jsp" />
+			<forward name="ShowO" path="/out/endor/EndorOShow.jsp" />
+			<forward name="ShowB" path="/out/common/endor/EndorCommonShow.jsp" />
+			<forward name="ShowD" path="/out/common/endor/EndorCommonShow.jsp" />
+			<forward name="ShowE" path="/out/common/endor/EndorCommonShow.jsp" />
+			<forward name="ShowF" path="/out/common/endor/EndorCommonShow.jsp" />
+			<forward name="ShowH" path="/out/common/endor/EndorCommonShow.jsp" />
+			<forward name="ShowI" path="/out/common/endor/EndorCommonShow.jsp" />
+			<forward name="ShowJ" path="/out/common/endor/EndorCommonShow.jsp" />
+			<forward name="ShowK" path="/out/common/endor/EndorCommonShow.jsp" />
+			<forward name="ShowL" path="/out/common/endor/EndorCommonShow.jsp" />
+			<forward name="ShowM" path="/out/common/endor/EndorCommonShow.jsp" />
+			<forward name="ShowN" path="/out/common/endor/EndorCommonShow.jsp" />
+			<forward name="ShowP" path="/out/common/endor/EndorCommonShow.jsp" />
+			<forward name="ShowR" path="/out/common/endor/EndorCommonShow.jsp" />
+			<forward name="ShowS" path="/out/common/endor/EndorCommonShow.jsp" />
+			<forward name="ShowT" path="/out/common/endor/EndorCommonShow.jsp" />
+			<forward name="ShowX" path="/out/common/endor/EndorCommonShow.jsp" />
+			<forward name="ShowA" path="/out/common/endor/EndorCommonShow.jsp" />
+			<forward name="EditQ" path="/out/endor/EndorQEdit.jsp" />
+			<forward name="EditC" path="/out/endor/EndorCEdit.jsp" />
+			<forward name="EditY" path="/out/endor/EndorYEdit.jsp" />
+			<forward name="EditZ" path="/out/endor/EndorZEdit.jsp" />
+			<forward name="EditG" path="/out/endor/EndorGEdit.jsp" />
+			<forward name="EditO" path="/out/endor/EndorOEdit.jsp" />
+			<forward name="EditB" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="EditD" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="EditE" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="EditF" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="EditH" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="EditI" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="EditJ" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="EditK" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="EditL" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="EditM" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="EditN" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="EditP" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="EditR" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="EditS" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="EditT" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="EditX" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="EditA" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="CalQ" path="/out/endor/EndorQEdit.jsp" />
+			<forward name="CalC" path="/out/endor/EndorCEdit.jsp" />
+			<forward name="CalY" path="/out/endor/EndorYEdit.jsp" />
+			<forward name="CalG" path="/out/endor/EndorGEdit.jsp" />
+			<forward name="CalZ" path="/out/endor/EndorZEdit.jsp" />
+			<forward name="CalO" path="/out/endor/EndorOEdit.jsp" />
+			<forward name="CalB" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="CalD" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="CalE" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="CalF" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="CalH" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="CalI" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="CalJ" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="CalK" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="CalL" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="CalM" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="CalN" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="CalP" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="CalR" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="CalS" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="CalT" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="CalX" path="/out/endor/EndorCommonEdit.jsp" />
+			<forward name="CalA" path="/out/endor/EndorCommonEdit.jsp" />
+		</action>
+
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIFpoReendorFacade"
+			path="/fpoReendorQuery">
+			<forward name="Query" path="/out/common/reendor/ReendorQuery.jsp" />
+			<forward name="Q" path="/out/common/reendor/ReendorQueryList.jsp" />
+			<forward name="mantence" path="/out/common/reendor/ReendorQueryList.jsp" />
+			<forward name="gen" path="/out/common/reendor/ReendorQueryList.jsp" />
+			<forward name="adjustPayDate" path="/out/common/reendor/ReendorQueryList.jsp" />
+			<forward name="A" path="/out/common/reendor/ReendorApproveList.jsp" />
+			<forward name="Show" path="/out/reendor/ReendorShow.jsp" />
+			<forward name="P" path="/out/common/reendor/ReendorPrintList.jsp" />
+		</action>
+
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIFpoReendorAdjustFacade"
+			path="/fpoReendorQueryAdjust">
+			<forward name="Q"
+				path="/out/common/reendor/ReendorQueryListAdjust.jsp" />
+		</action>
+
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIRecertifyFacade"
+			path="/recertifyQuery">
+			<forward name="P"
+				path="/page/templates/linfenAccounting/AccFacRepolicyQueryList.jsp" />
+			<forward name="E"
+				path="/page/templates/linfenAccounting/AccFacReendorQueryList.jsp" />
+			<forward name="C" path="/page/templates/linfenAccounting/AccFacRepayQueryList.jsp" />
+			<forward name="L" path="/out/common/account/AccCashLossQueryList.jsp" />
+			<forward name="GenAcc" path="/out/common/account/AccTreatyQueryList.jsp" />
+			<forward name="AccPrint" path="/out/account/AccTreatyPrintQueryList.jsp" />
+			<forward name="ReportDateSelect" path="/out/account/ReportDateSelect.jsp" />
+			<forward name="GenXLB"
+				path="/out/common/account/AccFacRepolicyQueryList.jsp" />
+			<forward name="GenXLR"
+				path="/out/common/account/AccFacRepolicyQueryList.jsp" />
+			<forward name="PI"
+				path="/out/common/account/AccFacRepolicyInQueryList.jsp" />
+			<forward name="facAdjust"
+				path="/out/common/enquiry/AccFacRecertifyQueryList.jsp" />
+		</action>
+
+		<!-- add begin 2013-05-22 实收账单处理 -->
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIEarnedTtyAccFacade"
+			path="/earnedTtyAcc">
+			<forward name="getTreatyList"
+				path="/out/common/earnedAccount/AccTreatyQueryList.jsp" />
+			<forward name="accperiod" path="/out/common/earnedAccount/AccPeriodList.jsp" />
+			<forward name="batchAccperiod"
+				path="/out/common/earnedAccount/BatchAccPeriodList.jsp" />
+			<forward name="genTtyAccTB" path="/common/MessagePage.jsp" />
+			<forward name="genTtyAccTR" path="/common/MessagePage.jsp" />
+			<forward name="genTtyAccBatch" path="/common/MessagePage.jsp" />
+			<forward name="deleteAcc" path="/common/MessagePage.jsp" />
+			<forward name="showTtyAccSimpleList"
+				path="/out/common/earnedAccount/TtyAccSimpleList.jsp" />
+			<forward name="showAccListPeriod"
+				path="/out/common/earnedAccount/TtyAccListShowPeriod.jsp" />
+			<forward name="showTtyAccList" path="/out/common/earnedAccount/TtyAccListShow.jsp" />
+			<forward name="AccPrint"
+				path="/out/common/earnedAccount/AccTreatyPrintQueryList.jsp" />
+		</action>
+		<!-- add end 2012-05-22 实收账单处理 -->
+
+		<!-- add begin 2013-09-04 实收账单打印处理 -->
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIEarnedAccTtyListPrintFacade"
+			validate="false" scope="request" path="/earnedAccTtyListPrint">
+			<forward name="AccPeriod"
+				path="/out/common/earnedAccount/AccTtyPrintSelect.jsp" />
+			<forward name="AccTreatyList" path="/out/common/earnedAccount/AccTreatyList.jsp"></forward>
+			<forward name="totalAccPrint" path="/out/common/earnedAccount/TotalPrint.jsp"></forward>
+		</action>
+
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIEarnedAccTtyBatchPrintFacade"
+			validate="false" scope="request" path="/earnedAccTtyBatchPrint">
+			<forward name="AccTtyReins" path="/out/common/earnedAccount/AccTtyReins.jsp" />
+		</action>
+		<!-- add end 2013-09-04 实收账单打印处理 -->
+
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIRecertifyFacade"
+			path="/recertifyQueryIn">
+			<forward name="PI"
+				path="/out/common/account/AccFacRepolicyInQueryList.jsp" />
+		</action>
+		<action name="prpdTypForm"
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdTypeFacade"
+			validate="false" scope="request" path="/prpdTypeQuery">
+			<forward name="result" path="/common/code/PrpdTypeQueryList.jsp" />
+			<forward name="condition" path="/common/code/PrpdTypeQuery.jsp" />
+		</action>
+
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdTypeGetFacade"
+			validate="false" scope="request" path="/getTypeCode">
+			<forward name="ShowType" path="/common/code/TypeShow.jsp" />
+		</action>
+
+		<action name="prpdReinsForm"
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpDReinsFacade"
+			validate="false" scope="request" path="/prpdReinsQuery">
+			<forward name="result" path="/common/code/PrpdReinsQueryList.jsp" />
+			<forward name="condition" path="/common/code/PrpdReinsQuery.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpDReinsGetFacade"
+			validate="false" scope="request" path="/getReinsCode">
+			<!-- <forward name="ShowReinsCode" path="/common/code/ReinsShow.jsp" />
+			<forward name="EditReinsCode" path="/common/code/ReinsEdit.jsp" /> -->
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpDReinsPostFacade"
+			validate="false" scope="request" path="/prpdReinsEdit">
+			<forward name="failure" path="/common/MessagePage.jsp" />
+		</action>
+
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpDReinsGetFacade"
+			validate="false" scope="request" path="/ReinsDelete">
+			<forward name="result" path="/common/code/PrpdReinsQueryList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdAccountGetFacade"
+			validate="false" scope="request" path="/getAccount">
+			<forward name="ShowAccount" path="/common/code/AccountShow.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdReinsRelateFacade"
+			validate="false" scope="request" path="/prpdReinsRelateQuery">
+			<forward name="result" path="/common/code/PrpdRelateQueryList.jsp" />
+			<forward name="editRelate" path="/common/code/PrpdReinsRelateQueryList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdReinsRelateGetFacade"
+			validate="false" scope="request" path="/getReinsRelate">
+			<forward name="ShowReinsRelate" path="/common/code/ReinsRelateShow.jsp" />
+			<forward name="EditReinsRelate" path="/common/code/ReinsRelateEdit.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdReinsRelatePostFacade"
+			validate="false" scope="request" path="/prpdReinsRelateEdit">
+			<forward name="failure" path="/common/MessagePage.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdReinsRelateGetFacade"
+			validate="false" scope="request" path="/ReinsRelateDelete">
+			<forward name="result" path="/common/code/PrpdRelateQueryList.jsp" />
+		</action>
+
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdAccountFacade"
+			validate="false" scope="request" path="/prpdAccountQuery">
+			<forward name="result" path="/common/code/PrpdAccountTQueryList.jsp" />
+			<forward name="editAccount" path="/common/code/PrpdAccountQueryList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdAccountGetFacade"
+			validate="false" scope="request" path="/getAccount">
+			<forward name="ShowAccount" path="/common/code/AccountShow.jsp" />
+			<forward name="EditAccount" path="/common/code/AccountEdit.jsp" />
+			<forward name="result" path="/common/code/PrpdAccountTQueryList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdAccountPostFacade"
+			validate="false" scope="request" path="/prpdAccountEdit">
+			<forward name="failure" path="/common/MessagePage.jsp" />
+		</action>
+
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdRiskKindFacade"
+			validate="false" scope="request" path="/prpdRiskKindQuery">
+			<forward name="result" path="/common/code/PrpdRiskKindQueryList.jsp" />
+			<forward name="condition" path="/common/code/PrpdRiskKindQuery.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdRiskKindPostFacade"
+			validate="false" scope="request" path="/prpdRiskKindEdit">
+			<forward name="failure" path="/common/MessagePage.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdRiskKindGetFacade"
+			validate="false" scope="request" path="/getRiskKind">
+			<forward name="ShowRiskKind" path="/common/code/RiskKindShow.jsp" />
+			<forward name="EditRiskKind" path="/common/code/RiskKindEdit.jsp" />
+			<forward name="result" path="/common/code/PrpdRiskKindQueryList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdCodeFacade"
+			validate="false" scope="request" path="/prpdCodeQuery">
+			<forward name="result" path="/common/code/PrpdCodeQueryList.jsp" />
+			<forward name="condition" path="/common/code/PrpdCodeQuery.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdCodeGetFacade"
+			validate="false" scope="request" path="/getCode">
+			<forward name="ShowCode" path="/common/code/CodeShow.jsp" />
+			<forward name="EditCode" path="/common/code/CodeEdit.jsp" />
+			<forward name="result" path="/common/code/PrpdCodeQueryList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdCodePostFacade"
+			validate="false" scope="request" path="/prpdCodeEdit">
+			<forward name="failure" path="/common/MessagePage.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdAccItemFacade"
+			validate="false" scope="request" path="/prpdAccItemQuery">
+			<forward name="result" path="/common/code/PrpdAccItemQueryList.jsp" />
+			<forward name="condition" path="/common/code/PrpdAccItemQuery.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdAccItemGetFacade"
+			validate="false" scope="request" path="/getAccItem">
+			<forward name="ShowAccItem" path="/common/code/AccItemShow.jsp" />
+			<forward name="EditAccItem" path="/common/code/AccItemEdit.jsp" />
+			<forward name="result" path="/common/code/PrpdAccItemQueryList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdAccItemPostFacade"
+			validate="false" scope="request" path="/prpdAccItemEdit">
+			<forward name="failure" path="/common/MessagePage.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpDartItemFacade"
+			validate="false" scope="request" path="/prpdArtItemQuery">
+			<forward name="result" path="/common/code/PrpdArtItemQueryList.jsp" />
+			<forward name="condition" path="/common/code/PrpdArtItemQuery.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpDartItemGetFacade"
+			validate="false" scope="request" path="/getArtItem">
+			<forward name="ShowArtItem" path="/common/code/ArtItemShow.jsp" />
+			<forward name="EditArtItem" path="/common/code/ArtItemEdit.jsp" />
+			<forward name="result" path="/common/code/PrpdArtItemQueryList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpDartItemPostFacade"
+			validate="false" scope="request" path="/prpdArtItemEdit">
+			<forward name="failure" path="/common/MessagePage.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdArticleFacade"
+			validate="false" scope="request" path="/prpdArticleQuery">
+			<forward name="result" path="/common/code/PrpdArticleQueryList.jsp" />
+			<forward name="condition" path="/common/code/PrpdArticleQuery.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdArticleGetFacade"
+			validate="false" scope="request" path="/getArticle">
+			<forward name="ShowArticle" path="/common/code/ArticleShow.jsp" />
+			<forward name="EditArticle" path="/common/code/ArticleEdit.jsp" />
+			<forward name="result" path="/common/code/PrpdArticleQueryList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdArticlePostFacade"
+			validate="false" scope="request" path="/prpdArticleEdit">
+			<forward name="failure" path="/common/MessagePage.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdComAccountFacade"
+			validate="false" scope="request" path="/prpdComAccountQuery">
+			<forward name="result" path="/common/code/PrpdComAccountQueryList.jsp" />
+			<forward name="condition" path="/common/code/PrpdComAccountQuery.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdComAccountGetFacade"
+			validate="false" scope="request" path="/getComAccount">
+			<forward name="ShowComAccount" path="/common/code/ComAccountShow.jsp" />
+			<forward name="EditComAccount" path="/common/code/ComAccountEdit.jsp" />
+			<forward name="result" path="/common/code/PrpdAccItemQueryList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdComAccountPostFacade"
+			validate="false" scope="request" path="/prpdComAccountEdit">
+			<forward name="failure" path="/common/MessagePage.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIFxConditionFacade"
+			validate="false" scope="request" path="/fxConditionQuery">
+			<forward name="result" path="/common/code/FxConditionQueryList.jsp" />
+			<forward name="condition" path="/common/code/FxConditionQuery.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIFxConditionGetFacade"
+			validate="false" scope="request" path="/getCondition">
+			<forward name="ShowCondition" path="/common/code/ConditionShow.jsp" />
+			<forward name="EditCondition" path="/common/code/ConditionEdit.jsp" />
+			<forward name="result" path="/common/code/FxConditionQueryList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIFxConditionPostFacade"
+			validate="false" scope="request" path="/fxConditionEdit">
+			<forward name="failure" path="/common/MessagePage.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdPlaneFacade"
+			validate="false" scope="request" path="/prpdPlaneQuery">
+			<forward name="result" path="/common/code/PrpdPlaneQueryList.jsp" />
+			<forward name="condition" path="/common/code/PrpdPlaneQuery.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdPlaneGetFacade"
+			validate="false" scope="request" path="/getPlane">
+			<forward name="ShowPlane" path="/common/code/PlaneShow.jsp" />
+			<forward name="EditPlane" path="/common/code/PlaneEdit.jsp" />
+			<forward name="result" path="/common/code/PrpdPlaneQueryList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpdPlanePostFacade"
+			validate="false" scope="request" path="/prpdPlaneEdit">
+			<forward name="failure" path="/common/MessagePage.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIFzAccFacade"
+			path="/fzAccQuery">
+			 <forward name="P"
+					  path="/page/templates/linfenAccounting/AccFacRepolicyQueryList.jsp" />
+			 <forward name="E"
+				      path="/page/templates/linfenAccounting/AccFacReendorQueryList.jsp" />
+			 <forward name="C" 
+				     path="/page/templates/linfenAccounting/AccFacRepayQueryList.jsp" />
+			<forward name="L" path="/out/common/account/AccCashLossQueryList.jsp" />
+			<forward name="T" path="/out/common/account/AccTreatyQueryList.jsp" />
+			<forward name="Print" path="/out/account/AccTreatyPrintQueryList.jsp" />
+			<forward name="accperiod" path="/out/common/account/AccItemList.jsp" />
+			<forward name="PI"
+				path="/out/common/account/AccFacRepolicyInQueryList.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIAccGenFacade"
+			path="/genAcc">
+			<!-- modify by xuyangyang 2014-03-28 begin -->
+			<forward name="success" path="/page/templates/linfenAccounting/SuccessPage.jsp" />
+			<forward name="error" path="/common/ErrorPage.jsp" />
+
+			<!-- modify by xuyangyang 2014-03-28 end -->
+		</action>
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIAccGenFacade"
+			path="/genAccIn">
+			<forward name="successGen" path="/in/account/CustomMessagePage.jsp" />
+			<forward name="successDel" path="/common/MessagePage.jsp" />
+
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIAccModFacade"
+			path="/modAcc">
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIAccPlanCalFacade"
+			path="/calAccPlan">
+			<forward name="10" path="/out/account/AccFacReinsEdit.jsp" />
+			<forward name="00" path="/out/account/AccFacBranchEdit.jsp" />
+			<forward name="01" path="/out/account/AccTtyBranchEdit.jsp" />
+			<forward name="11" path="/out/account/AccTtyReinsEdit.jsp" />
+			<forward name="01M" path="/out/account/AccCashLossBranchEdit.jsp" />
+			<forward name="11M" path="/out/account/AccCashLossReinsEdit.jsp" />
+			<forward name="02" path="/out/account/AccTtyBranchEdit.jsp" />
+			<forward name="12" path="/out/account/AccTtyReinsEdit.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.utility.ui.control.facade.UINoInitFacade"
+			path="/noInit">
+			<forward name="Show" path="/common/system/RecertifyNoInit.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIPrpReinsVerifyFacade"
+			path="/recertify">
+			<forward name="List" path="/out/verify/ReinsVerifyQueryList.jsp" />
+			<forward name="ShowT" path="/out/verify/ReinsVerifyProposal.jsp?type=Show" />
+			<forward name="ShowP" path="/out/verify/ReinsVerifyPolicy.jsp?type=Show" />
+			<forward name="ShowE" path="/out/verify/ReinsVerifyEndor.jsp?type=Show" />
+			<forward name="ShowY" path="/out/verify/ReinsVerifyPrePay.jsp?type=Show" />
+			<forward name="ShowJ"
+				path="/out/verify/ReinsVerifyCompensate.jsp?type=Show" />
+			<forward name="EditT" path="/out/verify/ReinsVerifyProposal.jsp?type=Edit" />
+			<forward name="EditP" path="/out/verify/ReinsVerifyPolicy.jsp?type=Edit" />
+			<forward name="EditE" path="/out/verify/ReinsVerifyEndor.jsp?type=Edit" />
+			<forward name="EditY" path="/out/verify/ReinsVerifyPrePay.jsp?type=Edit" />
+			<forward name="EditJ"
+				path="/out/verify/ReinsVerifyCompensate.jsp?type=Edit" />
+		</action>
+		<action name="fcoRepolicyListForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIRepolicySplitPrintFacade"
+			validate="false" scope="request" path="/RepolicySplitPrint">
+			<forward name="Split" path="/out/print/RepolicySplit.jsp" />
+			<forward name="SplitY" path="/out/print/RepolicySplitY.jsp" />
+			<forward name="SplitC" path="/out/print/RepolicySplitC.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIReendorSplitPrintFacade"
+			validate="false" scope="request" path="/ReendorSplitPrint">
+			<forward name="ReendorSplit" path="/out/print/ReendorSplit.jsp" />
+			<forward name="ReendorSplitY" path="/out/print/ReendorSplitY.jsp" />
+			<forward name="ReendorSplitC" path="/out/print/ReendorSplitC.jsp" />
+		</action>
+		<action name="fcoRepolicyListForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIRepolicyParticularsPrintFacade"
+			validate="false" scope="request" path="/RepolicyParticularsPrint">
+			<forward name="Particulars" path="/out/print/Particulars.jsp" />
+			<forward name="ParticularsQ" path="/out/print/ParticularsQ.jsp" />
+			<forward name="ParticularsG" path="/out/print/ParticularsG.jsp" />
+			<forward name="ParticularsY" path="/out/print/ParticularsY.jsp" />
+			<forward name="ParticularsO" path="/out/print/ParticularsO.jsp" />
+			<forward name="ParticularsC" path="/out/print/ParticularsC.jsp" />
+			<forward name="ParticularsZABZCG" path="/out/print/ParticularsZABZCG.jsp" />
+			<forward name="ParticularsZAHZAI" path="/out/print/ParticularsZAHZAI.jsp" />
+			<forward name="ParticularsCAA" path="/out/print/ParticularsCAA.jsp" />
+			<forward name="ParticularsCAD" path="/out/print/ParticularsCAD.jsp" />
+			<forward name="ParticularsCOTH" path="/out/print/ParticularsCOTH.jsp" />
+		</action>
+		<action name="fcoRepolicyListForm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIReendorParticularsPrintFacade"
+			validate="false" scope="request" path="/ReendorParticularsPrint">
+			<forward name="Particulars" path="/out/print/ReendorParticulars.jsp" />
+			<forward name="ParticularsQ" path="/out/print/ReendorParticularsQ.jsp" />
+			<forward name="ParticularsG" path="/out/print/ReendorParticularsG.jsp" />
+			<forward name="ParticularsY" path="/out/print/ReendorParticularsY.jsp" />
+			<forward name="ParticularsO" path="/out/print/ReendorParticularsO.jsp" />
+			<forward name="ParticularsZABZCG" path="/out/print/ReendorParticularsZABZCG.jsp" />
+			<forward name="ParticularsZAHZAI" path="/out/print/ReendorParticularsZAHZAI.jsp" />
+			<forward name="ParticularsC" path="/out/print/ReendorParticularsC.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIPrintConditionFacade"
+			validate="false" scope="request" path="/PrintCondition">
+			<forward name="PrintCondition" path="/out/print/PrintCondition.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UITtyReportPrintFacade"
+			validate="false" scope="request" path="/ttyReportPrint">
+			<forward name="TtyPolicy" path="/out/print/TtyPolicy.jsp" />
+			<forward name="TtyPolicyO" path="/out/print/TtyPolicyO.jsp" />
+			<forward name="TtyPolicyY" path="/out/print/TtyPolicyY.jsp" />
+			<forward name="TtyPolicyZABZAG" path="/out/print/TtyPolicyZABZAG.jsp" />
+			<forward name="TtyPolicyCsmall" path="/out/print/TtyPolicyCsmall.jsp" />
+			<forward name="TtyPolicyClarge" path="/out/print/TtyPolicyClarge.jsp" />
+			<forward name="TtyPolicyZAHZAI" path="/out/print/TtyPolicyZAHZAI.jsp" />
+			<forward name="TtyPayZAHZAI" path="/out/print/TtyPayPrintZAHZAI.jsp" />
+			<forward name="TtyPayZAAZFG" path="/out/print/TtyPayPrintZAAZFG.jsp" />
+			<forward name="TtyPayPrint" path="/out/print/TtyPayPrint.jsp" />
+			<forward name="TtyPayZAHZAIOut" path="/out/print/TtyPayPrintZAHZAIOut.jsp" />
+			<forward name="TtyPayZAAZFGOut" path="/out/print/TtyPayPrintZAAZFGOut.jsp" />
+			<forward name="TtyPayPrintOut" path="/out/print/TtyPayPrintOut.jsp" />
+			<forward name="TtyEndorPrintC" path="/out/print/TtyEndorPrintC.jsp" />
+			<forward name="TtyEndorPrintY" path="/out/print/TtyEndorPrintY.jsp" />
+			<forward name="TtyEndorPrint" path="/out/print/TtyEndorPrint.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIAccPrintFacade"
+			validate="false" scope="request" path="/accPrint">
+			<!-- add by liuweiwei 2012/4/27 begin 增加非比例分出保,批,赔对内,对外帐账单生成页面 -->
+			<forward name="AccXFacBranch" path="/out/print/AccXFacBranch.jsp" />
+			<forward name="AccXFacRePayBranch" path="/out/print/AccXFacBranchRepay.jsp" />
+			<forward name="AccXFacReins" path="/out/print/AccXFacReins.jsp" />
+			<forward name="AccXFacRePayReins" path="/out/print/AccXFacReinsRepay.jsp" />
+			<!-- add by liuweiwei 2012/4/27 end -->
+			<forward name="AccFacBranch" path="/out/print/AccFacBranch.jsp" />
+			<forward name="AccFacBranchRepay" path="/out/print/AccFacBranchRepay.jsp" />
+			<forward name="AccFacBranchMultiCurrency" path="/out/print/AccFacBranchMultiCurrency.jsp" />
+			<forward name="AccFacBranchRepayMultiCurrency" path="/out/print/AccFacBranchRepayMultiCurrency.jsp" />
+			<forward name="AccFacReins" path="/out/print/AccFacReins.jsp" />
+			<forward name="AccFacReinsY" path="/out/print/AccFacReinsY.jsp" />
+			<forward name="AccFacReinsRepay" path="/out/print/AccFacReinsRepay.jsp" />
+			<forward name="AccTtyBranch" path="/out/print/AccTtyBranch.jsp" />
+			<forward name="AccTtyBranchMultiCurrency" path="/out/print/AccTtyBranchMultiCurrency.jsp" />
+			<forward name="AccTtyReins" path="/out/print/AccTtyReins.jsp" />
+		</action>
+
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIAccTtyBatchPrintFacade"
+			validate="false" scope="request" path="/accTtyBatchPrint">
+			<forward name="AccTtyBranch" path="/out/print/AccTtyBranch.jsp" />
+			<forward name="AccTtyReins" path="/page/print/AccTtyReins.jsp" />
+			<forward name="AccTtyReinsMerge" path="/out/print/AccTtyReinsMerge.jsp" />
+			<forward name="LeadingFee" path="/out/print/AccTtyLeadingFee.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIAccPeriodFacade"
+			validate="false" scope="request" path="/getAccPeriod">
+			<forward name="accperiod" path="/out/common/account/AccPeriodList.jsp" />
+			<forward name="batchAccperiod" path="/out/common/account/BatchAccPeriodList.jsp" />
+			<forward name="accperiodlegal" path="/legal/LegalAccPeriodList.jsp" />
+			<forward name="accperiodcheck" path="/out/common/account/AccPeriodCheckList.jsp" />
+			<forward name="accperiodsettle" path="/out/common/account/AccPeriodSettleList.jsp" />
+			<forward name="accperiodquery" path="/out/common/account/AccPeriodQueryList.jsp" />
+			<forward name="DeleteAccPeriod"
+				path="/out/common/account/AccPeriodDeleteCondition.jsp" />
+			<forward name="batchAccperiodSettle"
+				path="/out/common/account/BatchAccPeriodSettleList.jsp" />
+		</action>
+		<!-- add by zhangjiayu begin 2013-11-11 -->
+		<action name="fm"
+			type="com.sinosoft.reins.out.ui.control.action.UIAccTtyAction" scope="request"
+			path="/accTty">
+			<forward name="genAcc" path="/common/MessagePage.jsp" />
+			<forward name="settle" path="/common/MessagePage.jsp" />
+		</action>
+		<!-- add end -->
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIAccTtyRepolicyPrintFacade"
+			validate="false" scope="request" path="/accTtyRepolicyPrint">
+			<forward name="AccPeriod" path="/out/account/AccTtyPrintSelect.jsp" />
+			<forward name="AccFRDetailQuery" path="/out/account/AccFRDetailPrintSelect.jsp" />
+			<forward name="AccFRRepayDetailQuery" path="/out/account/AccFRDetailPrintSelect.jsp" />
+			<forward name="AccFRDetail" path="/out/print/AccTtyFRDetailList.jsp" />
+			<forward name="AccFRRepayDetail" path="/out/print/AccTtyFRRepayDetailList.jsp" />
+			<forward name="AccFRRepayDetailOutStandingQuery" path="/out/account/AccFRDetailPrintSelect.jsp" />
+			<forward name="AccFRRepayDetailOutStanding"
+				path="/out/print/AccTtyFRRepayDetailOutStandingList.jsp" />
+			<forward name="AccTtyRepolicy" path="/out/print/AccTtyRepolicyList.jsp" />
+			<forward name="AccTtyRepolicyQ" path="/out/print/AccTtyRepolicyListQ.jsp" />
+			<forward name="AccTtyRepolicyC" path="/out/print/AccTtyRepolicyListC.jsp" />
+			<forward name="AccTtyRepolicyG" path="/out/print/AccTtyRepolicyListG.jsp" />
+			<forward name="AccTtyRepolicyZ" path="/out/print/AccTtyRepolicyListZ.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIAccTtyReendorPrintFacade"
+			validate="false" scope="request" path="/accTtyReendorPrint">
+			<forward name="AccPeriod" path="/out/account/AccTtyPrintSelect.jsp" />
+			<forward name="AccTtyReendor" path="/out/print/AccTtyReendorList.jsp" />
+			<forward name="AccTtyReendorQ" path="/out/print/AccTtyReendorListQ.jsp" />
+			<forward name="AccTtyReendorC" path="/out/print/AccTtyReendorListC.jsp" />
+			<forward name="AccTtyReendorZ" path="/out/print/AccTtyReendorListZ.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIAccTtyRepayLossPrintFacade"
+			validate="false" scope="request" path="/accTtyRepayLossPrint">
+			<forward name="AccTtyRepayLoss" path="/out/print/AccTtyRepayLossList.jsp" />
+			<forward name="AccTtyRepayLossQ" path="/out/print/AccTtyRepayLossListQ.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIAccTtyRepayOSLossPrintFacade"
+			validate="false" scope="request" path="/accTtyRepayOSLossPrint">
+			<forward name="AccTtyRepayOSLoss" path="/out/print/AccTtyRepayOSLossList.jsp" />
+			<forward name="AccTtyRepayOSLossQ" path="/out/print/AccTtyRepayOSLossListQ.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIAccTtyListPrintFacade"
+			validate="false" scope="request" path="/accTtyListPrint">
+			<forward name="AccPeriod" path="/out/account/AccTtyPrintSelect.jsp" />
+			<forward name="AccTtyBList" path="/out/print/AccTtyBranchList.jsp" />
+			<forward name="AccTtyRList" path="/out/print/AccTtyReinsList.jsp" />
+			<forward name="AccTtyBatchList" path="/out/print/AccTtyBatchPrintList.jsp" />
+			<forward name="AccPeriodNewTR" path="/out/account/AccTtyPrintSelectNewTR.jsp" />
+			<forward name="AccTtyNewTRList" path="/out/print/AccTtyNewTRReinsList.jsp" />
+			<forward name="AccTtyNewTRByCurrencyList" path="/out/print/AccTtyNewTRByCurrencyReinsList.jsp" />
+			<forward name="AccTtyNewTRByReinsCodeReinsList"
+				path="/out/print/AccTtyNewTRByReinsCodeReinsList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UISplitRepayPrintFacade"
+			validate="false" scope="request" path="/splitRepayPrint">
+			<forward name="SplitRepay" path="/out/print/SplitRepay.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIFacRepayCalcNoticePrintFacade"
+			validate="false" scope="request" path="/facRepayCalcNoticePrint">
+			<forward name="FacRepayCalcNotice" path="/out/print/FacRepayCalcNotice.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIFacRepayNoticeReinsPrintFacade"
+			validate="false" scope="request" path="/facRepayNoticeReinsPrint">
+			<forward name="FacRepayNoticeReins" path="/out/print/FacRepayNoticeReins.jsp" />
+			<forward name="FacRepayVerifyLossUpdateNoticeReins" path="/out/print/FacVerifyLossUpdateNoticeReins.jsp" />
+			<forward name="FacRepayLossNoticeReins" path="/out/print/FacLossNoticeReins.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.function.insutil.ui.control.facade.UIPrpDriskFacade"
+			validate="false" scope="request" path="/riskQuery">
+			<forward name="success" path="/in/repolicy/RiskSelect.jsp" />
+			<forward name="Condition" path="/common/code/FxConditionQuery.jsp" />
+			<forward name="ConditionAdd" path="/common/code/ConditionAdd.jsp" />
+			<forward name="ConditionEdit" path="/common/code/ConditionEdit.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIRepolicyFacade"
+			scope="request" path="/genRepolicyI">
+			<forward name="Add" path="/in/repolicy/RepolicyEdit.jsp" />
+			<forward name="EditI" path="/in/repolicy/RepolicyEdit.jsp" />
+			<forward name="Show" path="/in/common/repolicy/RepolicyShow.jsp" />
+			<forward name="Cal" path="/in/repolicy/RepolicyEdit.jsp" />
+		</action>
+
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIReendorFacade"
+			scope="request" path="/genReendorI">
+			<forward name="Add" path="/in/reendor/ReendorEdit.jsp" />
+			<forward name="EditI" path="/in/reendor/ReendorEdit.jsp" />
+			<forward name="Show" path="/in/common/reendor/ReendorShow.jsp" />
+			<forward name="Cal" path="/in/reendor/ReendorEdit.jsp" />
+		</action>
+
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIRepayFacade"
+			scope="request" path="/genRepayI">
+			<forward name="Add" path="/in/repay/RepayEdit.jsp" />
+			<forward name="EditI" path="/in/repay/RepayEdit.jsp" />
+			<forward name="Cal" path="/in/repay/RepayEdit.jsp" />
+			<forward name="Show" path="/in/common/repay/RepayShow.jsp" />
+		</action>
+
+		<action name="fciRepolicyForm"
+			type="com.sinosoft.reins.in.ui.control.facade.UIFciRepolicyFacade"
+			validate="false" scope="request" path="/fciRepolicyQuery">
+			<forward name="Q" path="/in/common/repolicy/RepolicyQueryList.jsp" />
+			<forward name="Turn" path="/in/common/repolicy/RepolicyQueryList.jsp" />
+			<forward name="A" path="/in/common/repolicy/RepolicyApproveList.jsp" />
+			<forward name="Account" path="/in/common/repolicy/RepolicyApproveList.jsp" />
+			<forward name="genReendor" path="/in/common/repolicy/RepolicyQueryList.jsp" />
+			<forward name="genRepay" path="/in/common/repolicy/RepolicyQueryList.jsp" />
+			<forward name="condition" path="/in/common/repolicy/RepolicyQuery.jsp" />
+		</action>
+
+
+		<action name="fpiReendorForm"
+			type="com.sinosoft.reins.in.ui.control.facade.UIFpiReendorFacade"
+			validate="false" scope="request" path="/fpiReendorQuery">
+			<forward name="Q" path="/in/common/reendor/ReendorQueryList.jsp" />
+			<forward name="Turn" path="/in/common/reendor/ReendorQueryList.jsp" />
+			<forward name="A" path="/in/common/reendor/ReendorApproveList.jsp" />
+			<forward name="condition" path="/in/common/reendor/ReendorQuery.jsp" />
+		</action>
+
+		<action name="fliRepayForm"
+			type="com.sinosoft.reins.in.ui.control.facade.UIFliRepayFacade"
+			validate="false" scope="request" path="/fliRepayQuery">
+			<forward name="Q" path="/in/common/repay/RepayQueryList.jsp" />
+			<forward name="Turn" path="/in/common/repay/RepayQueryList.jsp" />
+			<forward name="A" path="/in/common/repay/RepayApproveList.jsp" />
+			<forward name="condition" path="/in/common/repay/RepayQuery.jsp" />
+		</action>
+
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIRepolicyPostFacade"
+			scope="request" path="/postRepolicyI">
+		</action>
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIReendorPostFacade"
+			scope="request" path="/postReendorI">
+		</action>
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIRepayPostFacade"
+			scope="request" path="/postRepayI">
+		</action>
+		<action type="com.sinosoft.reins.legal.ui.control.facade.UITreatyFacade"
+			validate="false" scope="request" path="/legalTreatyQuery">
+			<forward name="List" path="/legal/LegalTreatyQueryList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.legal.ui.control.facade.UIAccPrintLegalFacade"
+			validate="false" scope="request" path="/accPrintLegal">
+			<forward name="AccTtyReins" path="/legal/print/AccTtyReins.jsp" />
+			<forward name="AccTtyBranch" path="/legal/print/AccTtyBranch.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.legal.ui.control.facade.UIAccTtyLegalPrintFacade"
+			validate="false" scope="request" path="/accTtyLegalPrint">
+			<forward name="AccTtyReins" path="/legal/print/AccTtyReins.jsp" />
+			<forward name="AccTtyBranch" path="/legal/print/AccTtyBranch.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.legal.ui.control.facade.UIAccTtyLegalPrintBatchFacade"
+			validate="false" scope="request" path="/accTtyLegalPrintBatch">
+			<forward name="AccTtyReins" path="/legal/print/AccTtyReins.jsp" />
+			<forward name="AccTtyBranch" path="/legal/print/AccTtyBranch.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.legal.ui.control.facade.UIAccLegalGenFacade"
+			path="/genAccL">
+		</action>
+
+		<action type="com.sinosoft.reins.legal.ui.control.facade.UIAccLegalFacade"
+			validate="false" scope="request" path="/getLegalAcc">
+			<forward name="HTBEdit" path="/out/account/AccTtyBranchEdit.jsp" />
+			<forward name="HTREdit" path="/out/account/AccTtyReinsEdit.jsp" />
+			<forward name="HTBshow" path="/legal/AccTtyBranchshow.jsp" />
+			<forward name="HTRshow" path="/legal/AccTtyReinsshow.jsp" />
+		</action>
+
+		<action
+			type="com.sinosoft.reins.legal.ui.control.facade.UIFzAccLegalFacade"
+			path="/fzAccLegalQuery">
+			<forward name="T" path="/legal/LegalTreatyQueryList.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.install.ui.control.facade.UIInstallFacade"
+			path="/install">
+			<forward name="Install" path="/install.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.legal.ui.control.facade.UILegalReportPrintFacade"
+			path="/legalReportPrint">
+			<forward name="Policy" path="/legal/print/PolicyReport.jsp" />
+			<forward name="Endor" path="/legal/print/EndorReport.jsp" />
+			<forward name="NoPay" path="/legal/print/NoPayReport.jsp" />
+			<forward name="Pay" path="/legal/print/PayReport.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIAccGetFacade"
+			path="/inputAcc">
+			<forward name="cb" path="/in/account/AccFacReinsEdit.jsp" />
+			<forward name="pg" path="/in/account/AccFacReinsEdit.jsp" />
+			<forward name="lp" path="/in/account/AccFacReinsEdit.jsp" />
+			<forward name="Treaty" path="/in/account/AccTtyReinsEdit.jsp" />
+			<forward name="TreatyAdjust" path="/in/account/AccTtyReinsAdjust.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIAccCalFacade"
+			path="/calAcc">
+			<forward name="10" path="/in/account/AccFacReinsEdit.jsp" />
+			<forward name="11" path="/in/account/AccTtyReinsEdit.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIAccPostFacade"
+			path="/postAcc">
+		</action>
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIRecertifyFacade"
+			path="/RecertifyInQuery">
+			<forward name="cb" path="/in/account/AccFacRepolicyQueryList.jsp" />
+			<forward name="pg" path="/in/account/AccFacReendorQueryList.jsp" />
+			<forward name="lp" path="/in/account/AccFacRepayQueryList.jsp" />
+			<forward name="InTreaty" path="/in/account/AccTreatyQueryList.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIAccGetFacade"
+			path="/AccQuery">
+			<forward name="cb" path="/in/account/AccFacRepolicyQueryList.jsp" />
+			<forward name="pg" path="/in/account/AccFacReendorQueryList.jsp" />
+			<forward name="lp" path="/in/account/AccFacRepayQueryList.jsp" />
+			<forward name="Treaty" path="/in/account/AccQueryList.jsp" />
+			<forward name="EditLF" path="/in/account/AccFacReinsEdit.jsp" />
+			<forward name="showLF" path="/in/account/AccFacReinsShow.jsp" />
+			<forward name="EditTreaty" path="/in/account/AccTtyReinsEdit.jsp" />
+			<forward name="showTreaty" path="/in/account/AccTtyReinsShow.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.in.ui.control.facade.UISetPeriodTypeFacade"
+			path="/setPeriodType">
+			<forward name="EditTreaty" path="/in/account/AccTtyReinsEdit.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIAccFacPrintFacade"
+			path="/accFacPrint">
+			<forward name="AccFacReins" path="/in/print/AccFacPrint.jsp" />
+			<forward name="AccFacReinsY" path="/in/print/AccFacPrintY.jsp" />
+			<forward name="AccFacReinsPay" path="/in/print/AccFacPrintPay.jsp" />
+			<forward name="AccFacBranch" path="/in/print/AccFacBranch.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIFsoReplanGetFacade"
+			path="/adjustPayDate">
+			<forward name="showReplan" path="/out/common/FsoReplanQueryList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIFsoReplanPostFacade"
+			path="/postReplan">
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UITreatyCpHtFacade"
+			path="/fhCpHt">
+			<forward name="Add" path="/out/repolicy/FcoRepolicyCpHtEdit.jsp" />
+			<forward name="Show"
+				path="/out/common/repolicy/TreatyCpHtQueryListDetail.jsp" />
+			<forward name="Update" path="/out/repolicy/FcoRepolicyCpHtEdit.jsp" />
+			<forward name="SS" path="/out/common/repolicy/TreatyCpHtQueryList.jsp" />
+			<forward name="SM" path="/out/common/repolicy/TreatyCpHtQueryList.jsp" />
+			<forward name="SD" path="/out/common/repolicy/TreatyCpHtQueryList.jsp" />
+			<forward name="SA" path="/out/common/repolicy/TreatyCpHtQueryList.jsp" />
+			<forward name="SU" path="/out/common/repolicy/TreatyCpHtQueryList.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.admin.ui.control.facade.UIAssociateFacade"
+			validate="false" scope="request" path="/getAssociate">
+			<forward name="success" path="/common/Associate.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIAccSettleFacade"
+			validate="false" scope="request" path="/settle">
+		</action>
+		<action type="com.sinosoft.reins.utility.ui.control.facade.UICodeFacade"
+			validate="false" scope="request" path="/CodeQuery">
+			<forward name="ClassCode" path="/common/code/PrpdClassQueryList.jsp" />
+			<forward name="RiskCode" path="/common/code/PrpdRiskQueryList.jsp" />
+			<forward name="Exch" path="/common/code/PrpdExchQueryList.jsp" />
+			<forward name="UserCode" path="/common/code/PrpdUserQueryList.jsp" />
+			<forward name="Convey" path="/common/code/PrpdShipQueryList.jsp" />
+			<forward name="ClassCode" path="/common/code/PrpdClassQueryList.jsp" />
+			<forward name="ComCode" path="/common/code/PrpdCompanyQueryList.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIFacAdjustFacade"
+			validate="false" scope="request" path="/calFac">
+			<forward name="Edit" path="/out/repolicy/RepolicyEdit.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UITreatyReportFacade"
+			validate="false" scope="request" path="/treatyReport">
+			<forward name="TreatyReport" path="/out/print/TtyReportEarthquake.jsp" />
+			<forward name="TreatyReportTWF" path="/out/print/TtyReportTWF.jsp" />
+			<forward name="TreatyReport2" path="/out/print/TtyReport.jsp" />
+			<forward name="TreatyReport3" path="/out/print/TtyReport3.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIVerifyFacade"
+			validate="false" scope="request" path="/verifyQuery">
+			<forward name="Query" path="/in/common/verify/VerifyQueryList.jsp" />
+		</action>
+
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIEnquiryFacade"
+			validate="false" scope="request" path="/facEnquiry">
+			<forward name="Query" path="/out/common/enquiry/EnquiryQueryList.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIVerifyGetFacade"
+			validate="false" scope="request" path="/getVerify">
+			<forward name="Verify" path="/in/verify/VerifyEdit.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIEnquiryGetFacade"
+			validate="false" scope="request" path="/getEnquiry">
+			<forward name="Enquiry" path="/out/enquiry/EnquiryEdit.jsp" />
+			<forward name="adjustTrace" path="/out/enquiry/FeoReinsReceiveTraceShow.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIFhTreatyAllFacade"
+			validate="false" scope="request" path="/treatyAll">
+			<forward name="prepareUpdate" path="/out/treaty/EditFhTreatyMain.jsp" />
+			<forward name="prepareView" path="/out/treaty/EditFhTreatyMain.jsp" />
+			<forward name="prepareInsertO" path="/out/treaty/EditFhTreatyMain.jsp" />
+			<forward name="prepareInsertI" path="/out/treaty/EditFhTreatyMainIn.jsp" />
+			<forward name="prepareUpdateIn" path="/out/treaty/EditFhTreatyMainIn.jsp" />
+			<forward name="prepareViewIn" path="/out/treaty/EditFhTreatyMainIn.jsp" />
+			<forward name="prepareContinueIn" path="/out/treaty/EditFhTreatyMainIn.jsp" />
+			<forward name="prepareContinue" path="/out/treaty/EditFhTreatyMain.jsp" />
+			<forward name="prepareCopy" path="/out/treaty/EditFhTreatyMain.jsp" />
+			<forward name="success" path="/common/MessagePage.jsp" />
+			<forward name="Delete" path="/common/MessagePage.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIFhPriorityFacade"
+			validate="false" scope="request" path="/processFhPriority">
+			<forward name="prepareQuery"
+				path="/out/treaty/priority/QueryFhPriorityOverview.jsp" />
+			<forward name="prepareInsert" path="/out/treaty/priority/EditFhPriority.jsp" />
+			<forward name="insert"
+				path="/out/treaty/priority/QueryFhPriorityOverview.jsp" />
+			<!-- <forward name="query"
+				path="/out/treaty/priority/QueryFhPriorityOverviewResult.jsp" /> -->
+			<forward name="prepareUpdate" path="/out/treaty/priority/EditFhPriority.jsp" />
+			<forward name="update"
+				path="/out/treaty/priority/QueryFhPriorityOverview.jsp" />
+			<forward name="isExist" path="/common/MessagePage.jsp" />
+			<forward name="success" path="/common/MessagePage.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIFhRetenFacade"
+			validate="false" scope="request" path="/processFhReten">
+			<forward name="prepareQuery" path="/out/treaty/reten/QueryFhRetenOverview.jsp" />
+			<!-- <forward name="prepareInsert" path="/out/treaty/reten/EditFhReten.jsp" 
+				/> -->
+			<forward name="prepareInsert" path="/out/treaty/reten/AddFhReten.jsp" />
+			<forward name="insert" path="/out/treaty/reten/QueryFhRetenOverview.jsp" />
+			<forward name="query"
+				path="/out/treaty/reten/QueryFhRetenOverviewResult.jsp" />
+			<forward name="prepareUpdate" path="/out/treaty/reten/EditFhReten.jsp" />
+			<forward name="update" path="/out/treaty/reten/QueryFhRetenOverview.jsp" />
+			<forward name="isExist" path="/common/MessagePage.jsp" />
+			<forward name="success" path="/common/MessagePage.jsp" />
+		</action>
+
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIFhRiskClassRetenFacade"
+			validate="false" scope="request" path="/processFhRiskClassReten">
+			<forward name="prepareQuery"
+				path="/out/treaty/reten/QueryFhRiskClassRetenview.jsp" />
+			<forward name="prepareInsert" path="/out/treaty/reten/EditFhRiskClassReten.jsp" />
+			<forward name="query"
+				path="/out/treaty/reten/QueryFhRiskClassRetenviewResult.jsp" />
+			<forward name="prepareUpdate" path="/out/treaty/reten/EditFhRiskClassReten.jsp" />
+			<forward name="update"
+				path="/out/treaty/reten/QueryFhRiskClassRetenview.jsp" />
+			<forward name="isExist" path="/common/MessagePage.jsp" />
+			<forward name="success" path="/common/MessagePage.jsp" />
+		</action>
+
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIFhModulusFacade"
+			validate="false" scope="request" path="/processFhModulus">
+			<forward name="prepareQuery"
+				path="/out/treaty/modulus/QueryFhModulusOverview.jsp" />
+			<forward name="prepareInsert" path="/out/treaty/modulus/EditFhModulus.jsp" />
+			<forward name="insert"
+				path="/out/treaty/modulus/QueryFhModulusOverview.jsp" />
+			<forward name="query"
+				path="/out/treaty/modulus/QueryFhModulusOverviewResult.jsp" />
+			<forward name="prepareUpdate" path="/out/treaty/modulus/EditFhModulus.jsp" />
+			<forward name="update"
+				path="/out/treaty/modulus/QueryFhModulusOverview.jsp" />
+			<forward name="isExist" path="/common/MessagePage.jsp" />
+			<forward name="success" path="/common/MessagePage.jsp" />
+		</action>
+		<!-- add by liuweiwei 2012/6/15 begin -->
+		<action type="com.sinosoft.reins.common.ui.control.facade.UIPrpDriskFacade"
+			validate="false" scope="request" path="/prpdRisk">
+			<forward name="query" path="/common/risk/QueryRiskView.jsp"></forward>
+			<forward name="delete" path="/prpdRisk.do?actionType=query"></forward>
+			<forward name="findById" path="/common/risk/EditRisk.jsp"></forward>
+			<forward name="insert" path="/common/risk/AddRisk.jsp"></forward>
+		</action>
+		<!-- add by liuweiwei 2012/6/15 end -->
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIVerifyPostFacade"
+			validate="false" scope="request" path="/postVerify">
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIEnquiryPostFacade"
+			validate="false" scope="request" path="/postEnquiry">
+		</action>
+
+		<action type="com.sinosoft.reins.out.ui.control.facade.UISlipPrintFacade"
+			validate="false" scope="request" path="/SlipPrint">
+			<forward name="SlipProperty" path="/out/print/SlipProperty.jsp" />
+			<forward name="SlipEAICAI" path="/out/print/SlipEAICAI.jsp" />
+			<forward name="SlipCargo" path="/out/print/SlipCargo.jsp" />
+			<forward name="SlipPublic" path="/out/print/SlipPublic.jsp" />
+			<forward name="SlipProducts" path="/out/print/SlipProducts.jsp" />
+			<forward name="SlipEmployee" path="/out/print/SlipEmployee.jsp" />
+			<forward name="SlipOthers" path="/out/print/SlipOthers.jsp" />
+			<forward name="SlipShip" path="/out/print/SlipShip.jsp" />
+			<forward name="SlipCar" path="/out/print/SlipCar.jsp" />
+			<forward name="SlipXProperty" path="/out/print/SlipXProperty.jsp" />
+			<forward name="SlipXEAICAI" path="/out/print/SlipXEAICAI.jsp" />
+			<forward name="SlipXCargo" path="/out/print/SlipXCargo.jsp" />
+			<forward name="SlipXPublic" path="/out/print/SlipXPublic.jsp" />
+			<forward name="SlipXProducts" path="/out/print/SlipXProducts.jsp" />
+			<forward name="SlipXEmployee" path="/out/print/SlipXEmployee.jsp" />
+			<forward name="SlipXOthers" path="/out/print/SlipXOthers.jsp" />
+			<forward name="SlipXShip" path="/out/print/SlipXShip.jsp" />
+			<forward name="SlipXCar" path="/out/print/SlipXCar.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIShowEvaluateRiskInfoFacade"
+			validate="false" scope="request" path="/ShowEvaluateRiskInfo">
+			<forward name="success" path="/out/enquiry/ShowEvaluateRiskInfo.jsp" />
+		</action>
+
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIShowReinsTrialFacade"
+			validate="false" scope="request" path="/ShowReinsTrialInfo">
+			<forward name="success" path="/out/common/danger/CommonReinsSimulate.jsp" />
+		</action>
+		
+		<!--modify begin 20060609 by lihua -->
+		<action
+			type="com.sinosoft.reins.in.ui.control.facade.UIShowSimReinsVerifyFacade"
+			validate="false" scope="request" path="/SimulateReinsVerify">
+			<forward name="success" path="/in/verify/ShowSimReinsVerify.jsp" />
+		</action>
+		<!--end -->
+		<!--modify begin 20060613 by yuchuang 临分保批清单打印功能 -->
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIAccRepolicyReendorListFacade"
+			path="/AccRepolicyReendorList">
+			<forward name="AccFacRepolicyReendorQueryList"
+				path="/out/common/account/AccFacRepolicyReendorQueryList.jsp" />
+		</action>
+		<!--modify end 20060613 by yuchuang 临分保批清单打印功能 -->
+
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIAccTBDetailQueryFacade"
+			validate="false" scope="request" path="/AccTBDetailQuery">
+			<forward name="delete" path="/common/MessagePage.jsp" />
+			<forward name="success" path="/out/common/account/AccTBDetailQueryList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIAccTBDetailEditFacade"
+			validate="false" scope="request" path="/AccTBDetailEdit">
+			<forward name="success" path="/out/account/AccTtyBranchDetailEdit.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UICarEndorCheckFacade"
+			validate="false" scope="request" path="/CarEndorCheck">
+			<forward name="queryAll"
+				path="/out/common/danger/GenerateDangerUnitDataQueryList.jsp" />
+			<forward name="generateSuccess" path="/common/MessagePage.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIFhPeriodStateFacade"
+			validate="false" scope="request" path="/getPeriodState">
+			<forward name="list" path="/out/common/account/AccPeriodList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIRepolicyDangerUnitQueryFacade"
+			validate="false" scope="request" path="/RepolicyDangerUnitQuery">
+			<forward name="success"
+				path="/out/common/repolicy/RepolicyDangerUnitQueryList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UICreateRepolicyFacade"
+			validate="false" scope="request" path="/createRepolicy">
+			<forward name="success" path="/common/MessagePage.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIReendorDangerUnitQueryFacade"
+			validate="false" scope="request" path="/ReendorDangerUnitQuery">
+			<forward name="success"
+				path="/out/common/reendor/ReendorDangerUnitQueryList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UICreateReendorFacade"
+			validate="false" scope="request" path="/createReendor">
+			<forward name="success" path="/common/MessagePage.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIRepayDangerUnitQueryFacade"
+			validate="false" scope="request" path="/RepayDangerUnitQuery">
+			<forward name="success"
+				path="/out/common/repay/RepayDangerUnitQueryList.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UICreateRepayFacade"
+			validate="false" scope="request" path="/createRepay">
+			<forward name="success" path="/common/MessagePage.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIShowDangerItemFacade"
+			validate="false" scope="request" path="/showDangerItem">
+			<forward name="showDangerItem" path="/out/common/danger/ShowDangerItem.jsp" />
+			<forward name="showEndorseDangerItem" path="/out/common/danger/ShowEndorseDangerItem.jsp" />
+			<forward name="showRepayDangerItem" path="/out/common/danger/ShowRepayDangerItem.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UICommonDangerRiskLevelFacade"
+			path="/CommonDangerRiskLevelFacade">
+			<forward name="success" path="/out/common/danger/CommonDangerRiskInfo.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UICommonDangerRiskInfoViewFacade"
+			path="/CommonDangerRiskInfoView">
+			<forward name="success"
+				path="/out/common/danger/CommonDangerRiskInfoView.jsp" />
+			<forward name="failure" path="/common/Message.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIDangerRiskEvaluateFacade"
+			path="/DangerRiskEvaluateFacade">
+			<forward name="success" path="/out/common/danger/CommonDangerRiskInfo.jsp" />
+			<forward name="view"
+				path="/out/common/danger/CommonDangerRiskInfoView.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UISaveDangerItemFacade"
+			validate="false" scope="request" path="/saveDangerItem">
+			<forward name="save" path="/common/MessagePage.jsp" />
+			<forward name="saveEndorseDangerItem" path="/CommonCheckTask.do" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIReinsTrialFacade"
+			path="/ReinsTrialInfo">
+			<forward name="hepeiSuccess" path="/out/common/danger/ReinsTrialResult.jsp" />
+			<forward name="success" path="/out/common/danger/CommonReinsSimulate.jsp" />
+			<forward name="failure" path="/common/Message.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UICommonGenerateDataFacade"
+			path="/GenerateReinsInfo">
+			<forward name="success" path="/common/MessagePage.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIViewEvaluateRiskInfoFacade"
+			path="/ViewEvaluateRiskInfo">
+			<forward name="success" path="/out/repolicy/ViewEvaluateRiskInfo.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIFacRepayPrintFacade"
+			path="/FacRepay">
+			<forward name="success" path="/out/common/repay/FloRepayQuerylist.jsp" />
+		</action>
+		<!--add begin by liuhaiqi 2006-06-05 -->
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIAccFacQueryFacade"
+			scope="request" path="/accFacPrintQuery">
+			<forward name="query" path="/out/common/account/AccFacPrintQueryList.jsp" />
+			<forward name="print" path="/out/common/account/AccFacPrintList.jsp" />
+			<forward name="branchDPrint"
+				path="/out/common/account/AccFacBranchDPrintList.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.in.ui.control.facade.UIAccTreatyPrintFacade"
+			path="/accTreatyPrint">
+			<forward name="AccTreaty" path="/in/print/AccTreatyPrint.jsp" />
+		</action>
+		<!--add end by liuhaiqi 2006-06-05 -->
+		<!-- modify by fengbo add begin 20061113新做报表 -->
+		<action
+			type="com.sinosoft.reins.report.ui.control.facade.UIReportPrintFacade"
+			path="/reportPrint">
+			<forward name="html" path="/out/report/ReportPrintHtml.jsp" />
+			<forward name="query" path="/out/report/BordereauxReportPrint.jsp" />
+		</action>
+		<!-- modify by fengbo add end 20061113 -->
+		<!--modify by fengbo add end 20061113 -->
+		<!--add begin by fengbo 20070402 现金赔款通知,重大赔款通知 -->
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UITtyRepayNoticePrintFacade"
+			path="/ttyRepayNoticePrint">
+			<forward name="PreliminaryLoss" path="/out/print/PreliminaryLossNotice.jsp" />
+			<forward name="CashCall" path="/out/print/CashCallNotice.jsp" />
+		</action>
+		<!--add end by fengbo 20070402 现金赔款通知 -->
+		<!--add begin by liuhaiqi 2007-04-05 增加分入帐单期处理 -->
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIAccPeriodFacade"
+			scope="request" path="/getInAccPeriod">
+			<forward name="Treaty" path="/in/common/account/AccPeriodSettleList.jsp" />
+		</action>
+		<!--add end by liuhaiqi 2007-04-05 -->
+
+		<!-- add by liuhaiqi begin 2007-01-22 现金赔款业务查询 -->
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIRepayLossFacade"
+			path="/repayLoss">
+			<forward name="LossQuery" path="/out/common/repay/RepayLossQuery.jsp" />
+			<forward name="LossQueryList" path="/out/common/repay/RepayCashLossQueryList.jsp" />
+		</action>
+		<!-- add by liuhaiqi end 2007-01-22 -->
+		<!-- add by jixiaoyang begini 2007-12-17 -->
+		<action path="/processFhTreaty"
+			type="com.sinosoft.reins.out.ui.control.facade.UIFhTreatyFacade"
+			name="fm" scope="request">
+			<forward name="prepareQuery" path="/common/treaty/QueryFhTreatyOverview.jsp" />
+			<forward name="query"
+				path="/common/treaty/QueryFhTreatyOverviewResult.jsp" />
+			<forward name="queryContinue"
+				path="/common/treaty/QueryFhTreatyOverviewResult.jsp" />
+			<forward name="view" path="/common/treaty/ViewFhTreaty.jsp" />
+			<forward name="prepareInsert"
+				path="/common/treaty/EditFhTreaty.jsp?actionType=insert" />
+			<forward name="delete" path="/processFhTreaty.do?actionType=queryContinue" />
+			<forward name="prepareUpdate"
+				path="/common/treaty/EditFhTreaty.jsp?actionType=update" />
+			<forward name="update" path="/processFhTreaty.do?actionType=queryContinue" />
+			<forward name="insert" path="/processFhTreaty.do?actionType=queryContinue" />
+			<!-- add by dengyapeng begin 2008-06-19 续转,复制 -->
+			<forward name="prepareExtend" path="/processFhTreaty.do?actionType=extend" />
+			<forward name="extend" path="/processFhTreaty.do?actionType=success" />
+			<forward name="prepareCopy" path="/processFhTreaty.do?actionType=copy" />
+			<forward name="copy" path="/processFhTreaty.do?actionType=success" />
+			<forward name="success" path="/common/treaty/ExMessagePage.jsp" />
+			<!-- add by dengyapeng end 2008-06-19 -->
+			<!-- add by dengyapeng begin 2009-06-02 再保人退出 -->
+			<forward name="exitReinsQuery"
+				path="/common/treaty/QueryEixtReinsOverviewResult.jsp" />
+			<forward name="exitReinsPrepareUpdate" path="/common/treaty/EditEixtReins.jsp" />
+			<forward name="exitReinsUpdate" path="/common/MessagePage.jsp" />
+			<!-- add by dengyapeng end 2009-06-02 再保人退出 -->
+		</action>
+		<action path="/processFhSection"
+			type="com.sinosoft.reins.common.ui.control.action.UIFhSectionAction"
+			name="fm" scope="request">
+			<forward name="prepareQuery" path="/common/treaty/QueryFhsectionOverview.jsp" />
+			<forward name="query"
+				path="/common/treaty/QueryFhsectionOverviewResult.jsp" />
+			<forward name="queryContinue"
+				path="/common/treaty/QueryFhsectionOverviewResult.jsp" />
+			<forward name="view" path="/common/treaty/ViewFhsection.jsp" />
+			<forward name="prepareInsert"
+				path="/common/treaty/EditFhsection.jsp?actionType=insert" />
+			<forward name="delete" path="/processFhSection.do?actionType=queryContinue" />
+			<forward name="prepareUpdate"
+				path="/common/treaty/EditFhsection.jsp?actionType=update" />
+				                           
+			<forward name="update" path="/processFhSection.do?actionType=queryContinue" />
+			<forward name="insert" path="/processFhSection.do?actionType=queryContinue" />
+		</action>
+		<action path="/processFhExItemKind"
+			type="com.sinosoft.reins.common.ui.control.action.UIFhExItemKindAction"
+			name="fm" scope="request">
+			<forward name="prepareModify"
+				path="/common/treaty/EditFhExItemKind.jsp?actionType=modify" />
+			<forward name="query"
+				path="/common/treaty/QueryFhsectionOverviewResult.jsp" />
+			<forward name="queryContinue"
+				path="/common/treaty/QueryFhsectionOverviewResult.jsp" />
+			<forward name="view" path="/common/treaty/ViewFhsection.jsp" />
+			<forward name="prepareInsert"
+				path="/common/treaty/EditFhsection.jsp?actionType=insert" />
+			<forward name="delete" path="/processFhsection.do?actionType=queryContinue" />
+			<forward name="prepareUpdate"
+				path="/common/treaty/EditFhsection.jsp?actionType=update" />
+							              
+			<forward name="update" path="/processFhSection.do?actionType=queryContinue" />
+			<forward name="insert" path="/processFhSection.do?actionType=queryContinue" />
+		</action>
+		<action path="/processAjaxUse"
+			type="com.sinosoft.platform.ui.control.action.AjaxUseAction" name="fm"
+			scope="request">
+		</action>
+		<!-- add by jixiaoyang end 2007-12-17 -->
+		<action type="com.sinosoft.reins.payment.ui.control.facade.UISettleFacade"
+			path="/accSettle">
+			<forward name="getAccList" path="/settle/AccQueryList.jsp" />
+			<forward name="getDMAccList" path="/settle/DMAccQueryList.jsp" />
+			<forward name="prepareSettle" path="/settle/Settle.jsp" />
+			<forward name="getSettleList" path="/settle/SettleQueryList.jsp" />
+			<forward name="printSettle_GatheringNotice" path="/settle/UIReinsPrintNotice.jsp" />
+			<forward name="printSettle_PaymentFax" path="/settle/SettleNoitcePrint.jsp" />
+			<forward name="printSettle_PaymentNotice" path="/settle/PaymentNoticePrint.jsp" />
+			<forward name="viewSettle" path="/settle/SettleView.jsp" />
+			<forward name="viewAcc" path="/settle/AccView.jsp" />
+			<forward name="getNoSettleAccList" path="/settle/SettleNoPaidQueryList.jsp"></forward>
+		</action>
+
+		<!-- add by gmy 2013-5-15 中银按实收保费账单做结算开发的功能 begin -->
+		<action
+			type="com.sinosoft.reins.payment.ui.control.facade.UINewSettleFacade"
+			path="/newAccSettle">
+			<forward name="getAccList" path="/newSettle/AccQueryList.jsp" />
+			<forward name="prepareSettle" path="/newSettle/Settle.jsp" />
+			<forward name="getSettleList" path="/newSettle/SettleQueryList.jsp" />
+			<forward name="viewSettle" path="/newSettle/SettleView.jsp" />
+			<forward name="viewAcc" path="/newSettle/AccView.jsp" />
+			<forward name="getNoSettleAccList" path="/newSettle/SettleNoPaidQueryList.jsp"></forward>
+		</action>
+		<!-- add by gmy 2013-5-15 中银按实收保费账单做结算开发的功能 end -->
+
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIErrorDataProcessFacade"
+			path="/ErrorDataProcess">
+			<forward name="sucess" path="/out/account/BordereauxCheckResult.jsp" />
+		</action>
+
+		<!-- add by zhangpanlai begin 2007-09-20 进行帐单清单的对比 -->
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIBordereauxCheckFacade"
+			path="/BordereauxCheck">
+			<forward name="result" path="/out/account/BordereauxCheckResult.jsp" />
+		</action>
+		<!--add by zhangpanlai end 2007-09-20 -->
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIBusinessToolsFacade"
+			path="/processBizTools">
+			<forward name="result" path="/insuranceAbility.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UICancelAccCFacade"
+			path="/cancelAccC">
+			<forward name="success" path="/common/MessagePage.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UICancelAccPFacade"
+			path="/cancelAccP">
+			<forward name="success" path="/common/MessagePage.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UICancelAccLFacade"
+			path="/cancelAccL">
+			<forward name="success" path="/common/MessagePage.jsp" />
+		</action>
+		<action path="/processFlgNotice"
+			type="com.sinosoft.reins.common.ui.control.action.UIFlgNoticeAction"
+			name="fm" scope="request">
+			<forward name="query" path="/common/code/QueryFlgNoticeOverviewResult.jsp" />
+			<forward name="queryContinue" path="/common/code/QueryFlgNoticeOverviewResult.jsp" />
+			<forward name="dealNotice" path="/processFlgNotice.do?actionType=queryContinue"></forward>
+		</action>
+		<action
+			type="com.sinosoft.reins.data.ui.control.facade.UIChectDataParseXmlFacade"
+			scope="request" path="/CheckDataPX">
+			<forward name="success" path="/operation/checkdata/CheckDataCondition.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.data.ui.control.facade.UICheckDataFacade"
+			scope="request" path="/CheckData">
+			<forward name="success" path="/operation/checkdata/CheckDataResult.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIExcessLossAccFacade"
+			path="/excessLoss">
+			<forward name="treatyList" path="/out/excessLoss/TreatyQueryList.jsp" />
+			<forward name="genAcc" path="/out/excessLoss/GenAcc.jsp" />
+			<forward name="accChoose" path="/out/excessLoss/AccChoose.jsp" />
+			<forward name="accShow" path="/out/excessLoss/AccShow.jsp" />
+		</action>
+		<action path="/processTtyAdjust"
+			type="com.sinosoft.reins.out.ui.control.action.UITtyAdjustAction"
+			name="fm" scope="request">
+			<forward name="prepareQuery" path="/out/common/ttyadjust/TtyAdjustQuery.jsp" />
+			<forward name="queryRepolicy"
+				path="/out/common/ttyadjust/QueryFcoRepolicyOverviewResult.jsp" />
+			<forward name="queryReendor"
+				path="/out/common/ttyadjust/QueryFpoReendorOverviewResult.jsp" />
+			<forward name="queryRepay"
+				path="/out/common/ttyadjust/QueryFloRepayOverviewResult.jsp" />
+			<forward name="queryRepolicyContinue"
+				path="/out/common/ttyadjust/QueryFcoRepolicyOverviewResult.jsp" />
+			<forward name="queryReendorContinue"
+				path="/out/common/ttyadjust/QueryFpoReendorOverviewResult.jsp" />
+			<forward name="queryRepayContinue"
+				path="/out/common/ttyadjust/QueryFloRepayOverviewResult.jsp" />
+			<forward name="prepareUpdateRepolicy"
+				path="/out/common/ttyadjust/TtyAdjustRepolicyEdit.jsp?actionType=updateRepolicy" />
+			<forward name="prepareUpdateReendor"
+				path="/out/common/ttyadjust/TtyAdjustReendorEdit.jsp?actionType=updateReendor" />
+			<forward name="prepareUpdateRepay"
+				path="/out/common/ttyadjust/TtyAdjustRepayEdit.jsp?actionType=updateRepay" />
+			<forward name="updateRepolicy"
+				path="/processTtyAdjust.do?actionType=updateRepolicyContinue" />
+			<forward name="updateReendor"
+				path="/processTtyAdjust.do?actionType=updateReendorContinue" />
+			<forward name="updateRepay"
+				path="/processTtyAdjust.do?actionType=updateRepayContinue" />
+			<forward name="updateApproveRepolicy"
+				path="/processTtyAdjust.do?actionType=queryRepolicyContinue" />
+			<forward name="updateApproveReendor"
+				path="/processTtyAdjust.do?actionType=queryReendorContinue" />
+			<forward name="updateApproveRepay"
+				path="/processTtyAdjust.do?actionType=queryRepayContinue" />
+			<forward name="updateRepolicyContinue"
+				path="/out/common/ttyadjust/TtyAdjustRepolicyEdit.jsp?actionType=updateRepolicy" />
+			<forward name="updateReendorContinue"
+				path="/out/common/ttyadjust/TtyAdjustReendorEdit.jsp?actionType=updateReendor" />
+			<forward name="updateRepayContinue"
+				path="/out/common/ttyadjust/TtyAdjustRepayEdit.jsp?actionType=updateRepay" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIFhPeriodStateFacade"
+			validate="false" scope="request" path="/processFhPeriodState">
+			<forward name="prepareQuery"
+				path="/out/treaty/period/QueryFhPeriodStateOverview.jsp" />
+			<forward name="prepareInsert" path="/out/treaty/period/EditFhPeriodState.jsp" />
+			<forward name="insert"
+				path="/out/treaty/period/QueryFhPeriodStateOverview.jsp" />
+			<forward name="query"
+				path="/out/treaty/period/QueryFhPeriodStateOverviewResult.jsp" />
+			<forward name="prepareUpdate" path="/out/treaty/period/EditFhPeriodState.jsp" />
+			<forward name="update"
+				path="/out/treaty/period/QueryFhPeriodStateOverview.jsp" />
+			<forward name="isExist" path="/common/MessagePage.jsp" />
+			<forward name="success" path="/common/MessagePage.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.common.ui.control.action.UIFhReinsAction"
+			validate="false" scope="request" path="/processFhReins">
+		</action>
+		<!-- add by:Liuyunyu begin -->
+		<action path="/ttyAcc"
+			type="com.sinosoft.reins.out.ui.control.facade.UITtyAccFacade" name="fm"
+			scope="request">
+			<forward name="showTtyAccSimpleList" path="/out/account/TtyAccSimpleList.jsp" />
+			<forward name="showAccListPeriod" path="/out/account/TtyAccListShowPeriod.jsp" />
+			<forward name="showTtyAccList" path="/out/account/TtyAccListShow.jsp" />
+			<forward name="showAccClosePeriod" path="/out/common/account/AccClosePeriodList.jsp" />
+			<forward name="calCommAdjustAcc" path="/out/common/account/AccCommValueList.jsp" />
+			<forward name="genCommAdjustAcc" path="/common/MessagePage.jsp" />
+			<forward name="calProfitCommAcc" path="/out/common/account/AccCommValueList.jsp" />
+			<forward name="genProfitCommAcc" path="/common/MessagePage.jsp" />
+			<forward name="genTtyAccTB" path="/common/MessagePage.jsp" />
+			<forward name="genTtyAccTR" path="/common/MessagePage.jsp" />
+			<forward name="genTtyAccTBBatch" path="/common/MessagePage.jsp" />
+			<forward name="genTtyAccBatch" path="/common/MessagePage.jsp" />
+		</action>
+		<action path="/dataCheck"
+			type="com.sinosoft.reins.out.ui.control.facade.UICustomDataCheckFacade"
+			name="fm" scope="request">
+			<forward name="getDataCheckItem" path="/out/dataCheck/DataCheckItemList.jsp" />
+			<forward name="getDataCheck" path="/out/dataCheck/DataCheckList.jsp" />
+		</action>
+		<!-- add by:Liuyunyu end -->
+		<!--法分账单打印 -->
+		<action name="fm" path="/legalAccPrint"
+			type="com.sinosoft.reins.out.ui.control.action.UILegalAccPrintFacade">
+			<forward name="legalPrint" path="/out/print/LegalAccResultPrint.jsp"></forward>
+		</action>
+		<action path="/riskPool"
+			type="com.sinosoft.reins.common.ui.control.facade.UIRiskPoolFacade"
+			validate="false" scope="request">
+			<forward name="riskPool" path="/out/common/repolicy/RiskPoolInfo.jsp" />
+			<forward name="riskPool_Health" path="/out/common/repolicy/RiskPoolInfo_Health.jsp" />
+		</action>
+		<!--重大赔案查询 -->
+		<action name="fm" path="/largeLoss"
+			type="com.sinosoft.reins.out.ui.control.facade.UILargeLossInfoFacade">
+			<forward name="largeLossQueryList" path="/out/common/repay/LargeLossQueryList.jsp"></forward>
+		</action>
+		<!-- add by wangshizhu begin 2008-07-24 自留额调整 -->
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIModifyRetentionValueFacade"
+			scope="request" path="/ModifyReternValue">
+			<forward name="success" path="/common/MessagePage.jsp" />
+			<forward name="false" path="/common/ErrorPage.jsp" />
+		</action>
+		<!-- add by wangshizhu end 2008-07-24 -->
+
+		<!-- add by zhangpanlai begin 2008-06-30 超赔维护以及预付费帐单处理 -->
+		<action name="fm"
+			type="com.sinosoft.reins.common.ui.control.facade.UIFhXTreatyFacade"
+			scope="request" path="/processFhXTreaty">
+			<forward name="prepareInsert" path="/common/xtreaty/EditFhXTreaty.jsp" />
+			<forward name="insert" path="/common/xtreaty/EditFhXTreaty.jsp" />
+			<forward name="query"
+				path="/common/xtreaty/QueryFhXTreatyOverviewResult.jsp" />
+			<forward name="delete" path="/processFhXTreaty.do?actionType=query" />
+			<forward name="view" path="/common/xtreaty/ViewFhXTreaty.jsp" />
+			<forward name="edit" path="/common/xtreaty/EditFhXTreatyView.jsp" />
+			<forward name="update" path="/common/xtreaty/EditFhXTreatyView.jsp" />
+			<forward name="renewal" path="/common/xtreaty/EditFhXTreatyCopy.jsp" />
+			<forward name="treatyRenewal" path="/common/xtreaty/EditFhXTreatyCopy.jsp" />
+			<forward name="copy" path="/common/xtreaty/EditFhXTreatyCopy.jsp" />
+			<forward name="treatyCopy" path="/common/xtreaty/EditFhXTreatyCopy.jsp" />
+			<forward name="deleteFhXLayer" path="/common/xtreaty/EditFhXTreatyView.jsp" />
+		</action>
+		<action name="fm"
+			type="com.sinosoft.reins.common.ui.control.facade.UIFhXLayerFacade"
+			scope="request" path="/processFhXLayer">
+			<forward name="prepareInsert" path="/common/xtreaty/EditFhXLayer.jsp" />
+			<forward name="insert" path="/common/xtreaty/EditFhXLayer.jsp" />
+			<forward name="copy" path="/common/xtreaty/EditFhXLayer.jsp" />
+			<forward name="view" path="/common/xtreaty/ViewFhXLayer.jsp" />
+			<forward name="editLayer" path="/common/xtreaty/EditFhXLayerView.jsp" />
+			<forward name="update" path="/common/xtreaty/EditFhXLayerView.jsp" />
+			<forward name="renewal" path="/common/xtreaty/EditFhXLayerView.jsp" />
+			<forward name="updateRenewal" path="/common/xtreaty/EditFhXLayerView.jsp" />
+			<forward name="addFhXLayer" path="/common/xtreaty/EditFhXLayer.jsp" />
+			<!--modify by zjy begin 2014-3-19 reason for 成功后页面跳转问题 -->
+			<forward name="inputSucess" path="/common/SuccessPage.jsp" />
+			<!--modify by zjy end 2014-3-19 reason for 成功后页面跳转问题 -->
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIXAccFacade"
+			scope="request" path="/XAcc">
+			<!-- add by xuyangyang 2013-11-28 为了和长安功能逻辑保持一致 调整保费账单 生成对内账单时 点击单选扭账单期的查询调用 
+				begin -->
+			<forward name="queryAccPeriod2"
+				path="/out/excessLoss/premiumAdjust/QueryXTreatyResult.jsp" />
+			<!-- add by xuyangyang 2013-11-28 为了和长安功能逻辑保持一致 调整保费账单 生成对内账单时 点击单选扭账单期的查询调用 
+				end -->
+			<forward name="treatyQuery"
+				path="/out/excessLoss/QueryXTreatyQueryOverviewResult.jsp" />
+			<forward name="queryAccPeriod"
+				path="/out/excessLoss/QueryXTreatyQueryOverviewResult.jsp" />
+			<forward name="preparePrintAcc" path="/out/excessLoss/XtreatyPrintView.jsp" />
+			<forward name="printXRAcc" path="/out/excessLoss/AccXRPrintList.jsp" />
+			<forward name="printXBAcc" path="/out/excessLoss/AccXBPrintList.jsp" />
+			<forward name="prepareGenAcc" path="/out/excessLoss/EditFhXComShare.jsp" />
+			<forward name="settle"
+				path="/out/excessLoss/QueryXTreatySettleOverviewResult.jsp" />
+		</action>
+		<action name="fm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIVerifyXAccFacade"
+			scope="request" path="/VerifyXAcc">
+			<forward name="queryTreaty"
+				path="/out/excessLoss/account/QueryXTreatyVerifyOverviewResult.jsp" />
+			<forward name="accperiod"
+				path="/out/excessLoss/account/XAccPeriodSettleList.jsp" />
+			<forward name="payTimes"
+				path="/out/excessLoss/account/XAccPayTimesSettleList.jsp" />
+			<forward name="success" path="/out/excessLoss/account/CustomMessagePage.jsp" />
+		</action>
+		<action name="fm"
+			type="com.sinosoft.reins.out.ui.control.facade.UIAdjustXAccFacade"
+			scope="request" path="/AdjustXAcc">
+			<forward name="treatyQuery"
+				path="/out/excessLoss/premiumAdjust/QueryXTreatyResult.jsp" />
+			<forward name="ReinsttreatyQuery"
+				path="/out/excessLoss/premiumAdjust/QueryXTreatyReinstResult.jsp" />
+			<!-- 点击生成对内账单 -->
+			<forward name="prepareGenAdjustTBAcc"
+				path="/out/excessLoss/premiumAdjust/EditFhXComShare.jsp" />
+
+			<forward name="prepareGenReinstTBAcc"
+				path="/out/excessLoss/premiumAdjust/EditFhXReinstComShare.jsp" />
+			<!-- 点击录入实际保费 -->
+			<forward name="prepareGenAdjustTRAcc"
+				path="/out/excessLoss/premiumAdjust/InputTRPremium.jsp" />
+			<forward name="prepareGenReinstTRAcc"
+				path="/out/excessLoss/premiumAdjust/InputReinstTRPremium.jsp" />
+			<forward name="adjustTRSucess" path="/common/SuccessPage.jsp" />
+			<forward name="showAccList"
+				path="/out/excessLoss/premiumAdjust/QueryXTreatyResult.jsp" />
+			<forward name="showReinstAccList"
+				path="/out/excessLoss/premiumAdjust/QueryXTreatyReinstResult.jsp" />
+			<forward name="preparePrintAcc"
+				path="/out/excessLoss/premiumAdjust/XtreatyPrintView.jsp" />
+			<forward name="printTRAcc"
+				path="/out/excessLoss/premiumAdjust/AccXRPrintList.jsp" />
+			<forward name="printTBAcc"
+				path="/out/excessLoss/premiumAdjust/AccXBPrintList.jsp" />
+			<forward name="printReinsTRAcc"
+				path="/out/excessLoss/premiumAdjust/ReinsAccXRPrintList.jsp" />
+			<forward name="printReinsTBAcc"
+				path="/out/excessLoss/premiumAdjust/ReinsAccXBPrintList.jsp" />
+		</action>
+		<!-- add by zhangpanlai end 2008-06-30 -->
+		<!-- add by jixiaoyang begin 2008-08-26 超赔合约 -->
+		<action
+			type="com.sinosoft.reins.common.ui.control.action.UIImportExcelAction"
+			scope="request" path="/importExcel">
+			<forward name="importExcel" path="/out/excessLoss/EditFhXComShare.jsp" />
+			<forward name="importInterTable" path="/out/excessLoss/EditFhXComShare.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIImportExcelFacade"
+			scope="request" path="/importmodeFhCommRate">
+			<forward name="importmodeFhCommRate" path="/common/treaty/EditFhsection.jsp" />
+		</action>
+		<action name="fm"
+			type="com.sinosoft.reins.common.ui.control.action.UIFhXTreatyPayAction"
+			scope="request" path="/processXTreatyPay">
+			<forward name="prepareQueryDangerUnit"
+				path="/common/xtreaty/paid/QueryPrpDangerUnitOverView.jsp" />
+			<forward name="queryDangerUnit"
+				path="/common/xtreaty/paid/QueryPrpDangerUnitOverViewResult.jsp" />
+			<forward name="queryDangerUnitContinue"
+				path="/common/xtreaty/paid/QueryPrpDangerUnitOverViewResult.jsp" />
+			<forward name="generatePay"
+				path="/processXTreatyPay.do?actionType=queryPayContinue" />
+			<forward name="prepareQueryPay" path="/common/xtreaty/paid/QueryFxoPayOverView.jsp" />
+			<forward name="queryPay"
+				path="/common/xtreaty/paid/QueryFxoPayOverViewResult.jsp" />
+			<forward name="queryPayContinue"
+				path="/common/xtreaty/paid/QueryFxoPayOverViewResult.jsp" />
+			<forward name="deletePay"
+				path="/processXTreatyPay.do?actionType=queryPayContinue" />
+			<forward name="prepareUpdatePay"
+				path="/common/xtreaty/paid/EditFxoPay.jsp?actionType=updatePay" />
+			<forward name="updatePay"
+				path="/processXTreatyPay.do?actionType=queryPayContinue" />
+			<forward name="prepareRiskShare"
+				path="/common/xtreaty/paid/FhXLayerRiskOverViewResult.jsp" />
+			<forward name="prepareEncodeEvent"
+				path="/common/xtreaty/paid/EditFxoEvent.jsp?actionType=setEventExchRate" />
+			<forward name="encodeEvent"
+				path="/processXTreatyPay.do?actionType=queryEventContinue" />
+			<forward name="deleteEvent"
+				path="/processXTreatyPay.do?actionType=queryEventContinue" />
+			<forward name="prepareQueryEvent"
+				path="/common/xtreaty/paid/QueryFxoEventOverView.jsp" />
+			<forward name="queryEvent"
+				path="/common/xtreaty/paid/QueryFxoEventOverViewResult.jsp" />
+			<forward name="queryEventContinue"
+				path="/common/xtreaty/paid/QueryFxoEventOverViewResult.jsp" />
+			<forward name="prepareEventShare"
+				path="/common/xtreaty/paid/FhXLayerEventOverViewResult.jsp" />
+			<forward name="setRiskExchRate" path="/common/xtreaty/paid/SetRiskExchRate.jsp" />
+			<forward name="setEventExchRate" path="/common/xtreaty/paid/SetEventExchRate.jsp" />
+			<forward name="generateRiskShare" path="/common/SuccessPage.jsp" />
+			<forward name="generateEventShare" path="/common/MessagePage.jsp" />
+			<forward name="viewEventDetail" path="/common/xtreaty/paid/viewEventDetail.jsp" />
+			<forward name="viewPrpLCompensate" path="/common/xtreaty/paid/ViewPrpLCompensate.jsp" />
+			<forward name="viewFxoPay" path="/common/xtreaty/paid/ViewFxoPay.jsp" />
+			<forward name="viewFxoRiskShare" path="/common/xtreaty/paid/ViewFxoRiskShare.jsp" />
+			<forward name="viewFxoEventShare" path="/common/xtreaty/paid/ViewFxoEventShare.jsp" />
+			<forward name="viewFhXlayer" path="/common/xtreaty/paid/ViewFhXLayer.jsp" />
+
+		</action>
+		<action name="fm"
+			type="com.sinosoft.reins.common.ui.control.action.UIFhXTreatyPayAccAction"
+			scope="request" path="/processXTreatyPayAcc">
+
+			<forward name="prepareQueryPayAcc" path="/common/xtreaty/paid/QueryPayAccOverView.jsp" />
+			<forward name="queryRiskShare"
+				path="/common/xtreaty/paid/QueryFxoRiskShareOverViewResult.jsp" />
+			<forward name="queryRiskShareContinue"
+				path="/common/xtreaty/paid/QueryFxoRiskShareOverViewResult.jsp" />
+			<forward name="queryRiskShareAcc"
+				path="/common/xtreaty/paid/QueryFxoRiskShareOverViewResult.jsp" />
+			<forward name="queryEventShare"
+				path="/common/xtreaty/paid/QueryFxoEventShareOverViewResult.jsp" />
+			<forward name="queryEventShareContinue"
+				path="/common/xtreaty/paid/QueryFxoEventShareOverViewResult.jsp" />
+			<forward name="queryEventShareAcc"
+				path="/common/xtreaty/paid/QueryFxoEventShareOverViewResult.jsp" />
+			<forward name="deleteRiskShareAcc" path="/common/MessagePage.jsp" />
+			<forward name="deleteEventShareAcc" path="/common/MessagePage.jsp" />
+			<forward name="printXRAcc" path="/common/xtreaty/paid/AccXRPrintList.jsp" />
+			<forward name="printXBAcc" path="/common/xtreaty/paid/AccXBPrintList.jsp" />
+			<forward name="settleAcc" path="/common/MessagePage.jsp" />
+		</action>
+		<!-- add by jixiaoyang end 2008-08-26 -->
+		<!-- 汇总账单打印 -->
+		<action path="/recertifyQueryTotal"
+			type="com.sinosoft.reins.out.ui.control.facade.UIAccTreatyQueryFacade"
+			scope="session">
+			<forward name="AccTreatyList" path="/out/print/AccTreatyList.jsp"></forward>
+			<forward name="findArror" path="/out/print/TreatyNotFound.jsp"></forward>
+		</action>
+		<action path="/accTotalPrint"
+			type="com.sinosoft.reins.out.ui.control.facade.UIAccTotalPrintFacade"
+			scope="session">
+			<forward name="totalAccPrint" path="/out/print/TotalPrint.jsp"></forward>
+		</action>
+		<!-- add by zhupengju end 2008-12-06 自留额计划EXCEL导入-Excel操作 -->
+		<action type="com.sinosoft.reins.common.ui.control.action.UIExcelAction"
+			scope="request" path="/excelAction">
+			<forward name="prepareImport" path="/common/excel/prepareImportOverView.jsp" />
+			<forward name="importExcel" path="/common/excel/prepareImportOverView.jsp" />
+			<forward name="exportExcel" path="/common/excel/prepareImportOverView.jsp" />
+		</action>
+		<!-- add by zhupengju end 2008-12-06 自留额计划EXCEL导入 -->
+		<!-- add by lib begin 2009-06-22 临分超赔帐单查询 -->
+		<action type="com.sinosoft.reins.xfac.ui.control.facade.UIAccXFacFacade"
+			path="/xfacQuery">
+			<forward name="P"
+				path="/out/common/account/AccXFacRepolicyQueryList.jsp" />
+			<forward name="E"
+				path="/out/common/account/AccXFacReendorQueryList.jsp" />
+			<forward name="C" path="/out/common/account/AccXFacRepayQueryList.jsp" />
+			<forward name="GenAcc" path="/out/common/account/AccXTreatyQueryList.jsp" />
+			<forward name="AccPrint" path="/out/account/AccXTreatyPrintQueryList.jsp" />
+			<forward name="GenXLB"
+				path="/out/common/account/AccXFacRepolicyQueryList.jsp" />
+			<forward name="GenXLR"
+				path="/out/common/account/AccXFacRepolicyQueryList.jsp" />
+			<forward name="PI"
+				path="/out/common/account/AccXFacRepolicyInQueryList.jsp" />
+			<forward name="facAdjust"
+				path="/out/common/enquiry/AccXFacRecertifyQueryList.jsp" />
+		</action>
+		<!-- add by lib end 2009-06-22 临分超赔帐单查询 -->
+		<!-- add by lib begin 2009-06-22 临分超赔帐单删除 -->
+		<action
+			type="com.sinosoft.reins.xfac.ui.control.facade.UIAccXFacRepolicyFacade"
+			validate="false" scope="request" path="/getXFacAcc">
+			<forward name="LFBEdit" path="/out/account/AccFacBranchEdit.jsp" />
+			<forward name="LFREdit" path="/out/account/AccFacReinsEdit.jsp" />
+			<forward name="HTBEdit" path="/out/account/AccTtyBranchEdit.jsp" />
+			<forward name="HTREdit" path="/out/account/AccTtyReinsEdit.jsp" />
+			<forward name="XJBEdit" path="/out/account/AccCashLossBranchEdit.jsp" />
+			<forward name="XJREdit" path="/out/account/AccCashLossReinsEdit.jsp" />
+			<forward name="accdelay" path="/out/common/treaty/FhAccDelayQuery.jsp" />
+			<forward name="successCheck"
+				path="/out/account/CustomMessagePage.jsp?type1=Check" />
+			<forward name="successDel"
+				path="/out/account/CustomMessageXfacPage.jsp?type1=Delete" />
+			<forward name="editReinsInAcc" path="/out/account/AccEditReinsIn.jsp" />
+			<forward name="LFRShow" path="/in/account/AccFacReinsShow.jsp" />
+		</action>
+		<!-- add by lib end 2009-06-22 临分超赔帐单删除 -->
+		<!-- add by lib begin 2009-06-25 临分超赔帐单显示 -->
+		<action type="com.sinosoft.reins.xfac.ui.control.facade.UIXFacFzAccFacade"
+			path="/xfacfzAccQuery">
+			<forward name="P"
+				path="/out/common/account/AccXFacRepolicyQueryList.jsp" />
+			<forward name="E"
+				path="/out/common/account/AccXFacReendorQueryList.jsp" />
+			<forward name="C" path="/out/common/account/AccXFacRepayQueryList.jsp" />
+			<forward name="T" path="/out/common/account/AccXTreatyQueryList.jsp" />
+			<forward name="Print" path="/out/account/AccXTreatyPrintQueryList.jsp" />
+			<forward name="accperiod" path="/out/common/account/AccItemList.jsp" />
+			<forward name="PI"
+				path="/out/common/account/AccXFacRepolicyInQueryList.jsp" />
+		</action>
+		<!-- add by lib end -->
+		<!-- add by lib begin 2009-06-26 临分超赔帐单生成 -->
+		<action type="com.sinosoft.reins.xfac.ui.control.facade.UIXFacAccGenFacade"
+			path="/genXfaxAcc">
+			<forward name="successFB"
+				path="/out/account/CustomMessageXfacPage.jsp?accType=FB" />
+			<forward name="successFR"
+				path="/out/account/CustomMessageXfacPage.jsp?accType=FR" />
+		</action>
+		<!-- add by lib end -->
+		<!-- add by wxl begin 2012-05-02 临分超赔调整查询 -->
+		<action
+			type="com.sinosoft.reins.xfac.ui.control.facade.UIAccXFacAdjustedQueryFacade"
+			path="/xfacAdjustedQuery">
+			<forward name="P"
+				path="/out/common/account/AccXFacRepolicyQueryAdjustedList.jsp" />
+			<forward name="E"
+				path="/out/common/account/AccXFacReendorQueryAdjustedList.jsp" />
+		</action>
+		<!-- add by wxl end -->
+		<!-- add by wxl begin 2012-05-02 临分超赔调整 -->
+		<action
+			type="com.sinosoft.reins.xfac.ui.control.facade.UIAccXFacAdjustedFacade"
+			path="/xfacAdjusted">
+			<forward name="PAdjusted" path="/out/enquiry/XFacAdjustedEdit.jsp" />
+			<forward name="EAdjusted" path="/out/enquiry/XFacAdjustedEEdit.jsp" />
+			<forward name="showAdjustTrace" path="/out/enquiry/showAdjustTrace.jsp" />
+		</action>
+		<!-- add by wxl end -->
+		<action
+			type="com.sinosoft.reins.ProfitAcc.ui.control.facade.UIProfitAccFacade"
+			path="/profitAccQuery">
+			<forward name="delete" path="/in/account/ProfitAcc/ProfitAccQueryList.jsp" />
+			<forward name="insert" path="/in/account/ProfitAcc/ProfitAccQueryList.jsp" />
+			<forward name="queryResult" path="/in/account/ProfitAcc/ProfitAccQueryList.jsp" />
+			<forward name="printPage" path="/in/account/ProfitAcc/printPage.jsp" />
+			<forward name="show" path="/in/account/ProfitAcc/ProfitAccShow.jsp" />
+			<forward name="modify" path="/in/account/ProfitAcc/ProfitAccEdit.jsp" />
+			<!--add by zjy begin 2014-3-7 reason for 合约分项动态显示 -->
+			<forward name="insert2" path="/in/account/ProfitAcc/ProfitAccAdd.jsp" />
+			<!--add by zjy end 2014-3-7 reason for 合约分项动态显示 -->
+		</action>
+		<action
+			type="com.sinosoft.reins.floatAcc.ui.control.facade.UIFloatAccFacade"
+			path="/floatAccQuery">
+			<forward name="delete" path="/floatAcc/FloatAccQueryList.jsp" />
+			<forward name="insert" path="/floatAcc/FloatAccAdd.jsp" />
+			<forward name="queryResult" path="/floatAcc/FloatAccQueryList.jsp" />
+			<forward name="printPage" path="/floatAcc/printPage.jsp" />
+			<forward name="show" path="/floatAcc/FloatAccShow.jsp" />
+			<forward name="modify" path="/floatAcc/FloatAccEdit.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.common.ui.control.action.UIQueryForOutAction"
+			path="/out" name="fm" scope="request">
+			<forward name="out" path="/common/code/QueryFlgNoticeOverviewPrint.jsp" />
+		</action>
+
+		<action
+			type="com.sinosoft.reins.common.ui.control.action.UIFacBatchInfoAction"
+			path="/processFacBatchInFo" name="fm" scope="request">
+			<forward name="prepareQuery" path="/common/treaty/QueryFacBatchInFoOverview.jsp" />
+			<forward name="query"
+				path="/common/treaty/QueryFacBatchInFoOverviewResult.jsp" />
+			<forward name="queryContinue"
+				path="/common/treaty/QueryFacBatchInFoOverviewResult.jsp" />
+			<forward name="view" path="/common/treaty/ViewFacBatchInFo.jsp" />
+			<forward name="prepareInsert"
+				path="/common/treaty/EditFacBatchInFo.jsp?actionType=insert" />
+			<forward name="insert"
+				path="/processFacBatchInFo.do?actionType=queryContinue" />
+			<forward name="delete"
+				path="/processFacBatchInFo.do?actionType=queryContinue" />
+			<forward name="prepareUpdate"
+				path="/common/treaty/EditFacBatchInFo.jsp?actionType=update" />
+			<forward name="update"
+				path="/processFacBatchInFo.do?actionType=queryContinue" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIBatchEnquiryFacade"
+			path="/feoBatchEnquiry" name="fm" scope="session">
+			<forward name="query" path="/out/enquiry/BatchEnquiryQueryList.jsp" />
+			<forward name="queryContinue" path="/out/enquiry/BatchEnquiryQueryList.jsp" />
+			<forward name="prepareSettle" path="/out/enquiry/BatchEnquiryEdit.jsp" />
+			<forward name="settle" path="/common/MessagePage.jsp" />
+			<forward name="cancleEnquiry" path="/common/MessagePage.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIAccBatchFacFacade"
+			path="/batchFacAcc" name="fm" scope="session">
+			<forward name="queryFacBatchInFo" path="/out/common/account/AccBatchFacQueryList.jsp" />
+			<forward name="queryFacBatchInFoContinue" path="/out/common/account/AccBatchFacQueryList.jsp" />
+			<forward name="queryAccPeriod" path="/out/common/account/AccBatchFacQueryList.jsp" />
+			<forward name="showAccList" path="/out/common/account/AccBatchFacQueryList.jsp" />
+			<forward name="deleteAcc" path="/common/MessagePage.jsp" />
+			<forward name="genAcc" path="/common/MessagePage.jsp" />
+			<forward name="settleAcc" path="/common/MessagePage.jsp" />
+			<forward name="printAccBatchFacR" path="/out/common/account/AccBatchFacPrint_R.jsp" />
+			<forward name="printAccBatchFacB" path="/out/common/account/AccBatchFacPrint_B.jsp" />
+			<forward name="queryFacAccContinue" path="/out/common/account/AccBatchFacListDetail.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.common.ui.control.action.UIFacProtocolInfoAction"
+			path="/facProtocolInFo" name="fm" scope="request">
+			<forward name="prepareQuery"
+				path="/common/treaty/QueryFacProtocolInFoOverview.jsp" />
+			<forward name="query"
+				path="/common/treaty/QueryFacProtocolInFoOverviewResult.jsp" />
+			<forward name="queryContinue"
+				path="/common/treaty/QueryFacProtocolInFoOverviewResult.jsp" />
+			<forward name="view" path="/common/treaty/ViewFacProtocolInFo.jsp" />
+			<forward name="prepareInsert"
+				path="/common/treaty/EditFacProtocolInFo.jsp?actionType=insert" />
+			<forward name="insert" path="/facProtocolInFo.do?actionType=queryContinue" />
+			<forward name="delete" path="/facProtocolInFo.do?actionType=queryContinue" />
+			<forward name="prepareUpdate"
+				path="/common/treaty/EditFacProtocolInFo.jsp?actionType=update" />
+			<forward name="update" path="/facProtocolInFo.do?actionType=queryContinue" />
+		</action>
+		<!-- add by zhangxl 2013-03-22 添加临分协议配置 start -->
+		<action
+			type="com.sinosoft.reins.common.ui.control.action.UIFacSubProtocolInfoAction"
+			path="/facSubProtocolInfo" name="fm" scope="request">
+			<forward name="prepareQuery"
+				path="/common/treaty/QueryFacSubProtocolInfoOverview.jsp" />
+			<forward name="query"
+				path="/common/treaty/QueryFacSubProtocolInfoOverviewResult.jsp" />
+			<forward name="queryContinue"
+				path="/common/treaty/QueryFacSubProtocolInfoOverviewResult.jsp" />
+			<forward name="view" path="/common/treaty/ViewFacSubProtocolInfo.jsp" />
+			<forward name="prepareInsert"
+				path="/common/treaty/EditFacSubProtocolInfo.jsp?actionType=insert" />
+			<forward name="insert"
+				path="/facSubProtocolInfo.do?actionType=queryContinue" />
+			<forward name="delete"
+				path="/facSubProtocolInfo.do?actionType=queryContinue" />
+			<forward name="prepareUpdate"
+				path="/common/treaty/EditFacSubProtocolInfo.jsp?actionType=update" />
+			<forward name="update"
+				path="/facSubProtocolInfo.do?actionType=queryContinue" />
+		</action>
+		<!-- add by zhangxl 2013-03-22 添加临分协议配置 end -->
+		<action
+			type="com.sinosoft.reins.common.ui.control.action.UIFacProtocolRiskAction"
+			path="/facProtocolRisk" name="fm" scope="request">
+			<forward name="query" path="/common/treaty/EditFacProtocolRisk.jsp" />
+			<forward name="queryContinue" path="/common/treaty/EditFacProtocolRisk.jsp" />
+			<forward name="prepareInsert"
+				path="/common/treaty/AddFacProtocolRisk.jsp?actionType=insert" />
+			<forward name="insert" path="/facProtocolRisk.do?actionType=queryContinue" />
+			<forward name="delete" path="/facProtocolRisk.do?actionType=queryContinue" />
+		</action>
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIFacProtocolReinsGetFacade"
+			path="/facProtocolReins" name="fm" scope="request">
+			<forward name="query" path="/out/enquiry/FeoProtocolReinsEdit.jsp" />
+			<forward name="queryE" path="/out/enquiry/FeoProtocolReinsEditE.jsp" />
+		</action>
+		<!-- add by zhangxl 2013-03-27 子协议临分接收人 start -->
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIFacSubProtocolReinsGetFacade"
+			path="/facSubProtocolReins" name="fm" scope="request">
+			<forward name="query" path="/out/enquiry/FeoSubProtocolReinsEdit.jsp" />
+			<forward name="queryE" path="/out/enquiry/FeoSubProtocolReinsEditE.jsp" />
+		</action>
+		<!-- add by zhangxl 2013-03-27 子协议临分接收人 end -->
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIAccFacProtocolFacade"
+			path="/protocolFacAcc" name="fm" scope="session">
+			<forward name="queryFacProtocolInFo"
+				path="/out/common/account/AccProtocolFacQueryList.jsp" />
+			<forward name="queryFacProtocolInFoContinue"
+				path="/out/common/account/AccProtocolFacQueryList.jsp" />
+			<forward name="queryAccPeriod"
+				path="/out/common/account/AccProtocolFacQueryList.jsp" />
+			<forward name="showAccList"
+				path="/out/common/account/AccProtocolFacQueryList.jsp" />
+			<forward name="deleteAcc" path="/common/MessagePage.jsp" />
+			<forward name="genAcc" path="/common/MessagePage.jsp" />
+			<forward name="settleAcc" path="/common/MessagePage.jsp" />
+			<forward name="printAccProtocolFacR" path="/out/common/account/AccProtocolFacPrint_R.jsp" />
+			<forward name="printAccProtocolFacB" path="/out/common/account/AccProtocolFacPrint_B.jsp" />
+			<forward name="queryFacAccContinue"
+				path="/out/common/account/AccFacProtocolListDetail.jsp" />
+			<forward name="queryFacPayAccContinue"
+				path="/out/common/account/AccFacPayProtocolListDetail.jsp" />
+		</action>
+		<!-- 合约分入 -->
+		<!-- add by zhangjiayu begin 2013-10-28 -->
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIRecertifyFacadeIn"
+			path="/RecertifyInQueryIn">
+			<forward name="cb" path="/in/account/AccFacRepolicyQueryList.jsp" />
+			<forward name="pg" path="/in/account/AccFacReendorQueryList.jsp" />
+			<forward name="lp" path="/in/account/AccFacRepayQueryList.jsp" />
+			<forward name="InTreaty" path="/in/account/AccTreatyQueryListIn.jsp" />
+
+		</action>
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIAccGetFacadeIn"
+			path="/AccQueryIn">
+			<forward name="cb" path="/in/account/AccFacRepolicyQueryList.jsp" />
+			<forward name="pg" path="/in/account/AccFacReendorQueryList.jsp" />
+			<forward name="lp" path="/in/account/AccFacRepayQueryList.jsp" />
+			<forward name="Treaty" path="/in/account/AccQueryListIn.jsp" />
+			<forward name="EditLF" path="/in/account/AccFacReinsEdit.jsp" />
+			<forward name="showLF" path="/in/account/AccFacReinsShow.jsp" />
+			<forward name="EditTreaty" path="/in/account/AccTtyReinsEditIn.jsp" />
+			<forward name="showTreaty" path="/in/account/AccTtyReinsShow.jsp" />
+			<forward name="successDel" path="/common/MessagePage.jsp" />
+		</action>
+
+		<action type="com.sinosoft.reins.out.ui.control.facade.UIAccFacadeIn"
+			validate="false" scope="request" path="/getAccIn">
+			<forward name="LFBEdit" path="/out/account/AccFacBranchEdit.jsp" />
+			<forward name="LFREdit" path="/out/account/AccFacReinsEdit.jsp" />
+			<forward name="HTBEdit" path="/out/account/AccTtyBranchEdit.jsp" />
+			<forward name="HTREdit" path="/out/account/AccTtyReinsEditIn.jsp" />
+			<forward name="XJBEdit" path="/out/account/AccCashLossBranchEdit.jsp" />
+			<forward name="XJREdit" path="/out/account/AccCashLossReinsEdit.jsp" />
+			<forward name="accdelay" path="/out/common/treaty/FhAccDelayQuery.jsp" />
+			<forward name="successCheck"
+				path="/out/account/CustomMessagePage.jsp?type1=Check" />
+			<forward name="successDel"
+				path="/out/account/CustomMessagePage.jsp?type1=Delete" />
+			<forward name="editReinsInAcc" path="/out/account/AccEditReinsIn.jsp" />
+			<forward name="LFRShow" path="/in/account/AccFacReinsShow.jsp" />
+		</action>
+		<!-- 账单录入 -->
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIAccGetFacadeIn"
+			path="/inputAccIn">
+			<forward name="cb" path="/in/account/AccFacReinsEdit.jsp" />
+			<forward name="pg" path="/in/account/AccFacReinsEdit.jsp" />
+			<forward name="lp" path="/in/account/AccFacReinsEdit.jsp" />
+			<forward name="Treaty" path="/in/account/AccTtyReinsEditIn.jsp" />
+			<!-- <forward name="TreatyAdjust" path="/in/account/AccTtyReinsAdjust.jsp"/> -->
+		</action>
+		<!-- 合约分入账单转收付 -->
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIAccPeriodFacadeIn"
+			scope="request" path="/getInAccPeriodIn">
+			<forward name="Treaty" path="/in/common/account/AccPeriodSettleListIn.jsp" />
+		</action>
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIAccSettleFacadeIn"
+			validate="false" scope="request" path="/settleIn">
+			<forward name="settleSucess" path="/common/SuccessPage.jsp" />
+		</action>
+		<!-- 账单录入 -->
+		<action type="com.sinosoft.reins.in.ui.control.facade.UIAccPostFacadeIn"
+			path="/postAccIn">
+		</action>
+		<!-- add end -->
+
+		<!-- add by xuyangyang 2013-10-28 合约结清 begin -->
+		<action
+			type="com.sinosoft.reins.out.ui.control.facade.UIRecertifyCleanFacade"
+			path="/recertifyQueryclean">
+			<forward name="P"
+				path="/out/common/account/AccFacRepolicyQueryList.jsp" />
+			<forward name="E"
+				path="/out/common/account/AccFacReendorQueryList.jsp" />
+			<forward name="C" path="/out/common/account/AccFacRepayQueryList.jsp" />
+			<forward name="L" path="/out/common/account/AccCashLossQueryList.jsp" />
+			<forward name="AccPrint" path="/out/account/AccTreatyPrintQueryList.jsp" />
+			<forward name="ReportDateSelect" path="/out/account/ReportDateSelect.jsp" />
+			<forward name="GenXLB"
+				path="/out/common/account/AccFacRepolicyQueryList.jsp" />
+			<forward name="GenXLR"
+				path="/out/common/account/AccFacRepolicyQueryList.jsp" />
+			<forward name="PI"
+				path="/out/common/account/AccFacRepolicyInQueryList.jsp" />
+			<forward name="GenAcc"
+				path="/out/common/account/AccTreatyQueryListClean.jsp" />
+
+		</action>
+
+		<action name="fm"
+			type="com.sinosoft.reins.out.ui.control.facade.UITtyCleanCutFacade"
+			scope="request" path="/accCleanCut">
+			<forward name="getTreatyInfo" path="/out/cleanCut/AccTtyCleanCutCreate.jsp" />
+			<forward name="prepareCrtCleanCutAcc" path="/out/cleanCut/AccTtyCleanCutPrepare.jsp"></forward>
+			<forward name="crtCleanCutAcc" path="/common/MessagePage.jsp" />
+			<forward name="getTreatyInfoModify" path="/out/cleanCut/AccTtyCleanCutCreate.jsp" />
+			<forward name="settleCleanCutAcc" path="/common/MessagePage.jsp" />
+			<forward name="getTreatyInfoDel" path="/out/cleanCut/AccTtyCleanCutCreate.jsp" />
+			<forward name="delCleanCutAcc" path="/common/MessagePage.jsp" />
+			<forward name="getTreatyInfoPrtR" path="/out/cleanCut/AccTtyCleanCutCreate.jsp" />
+			<forward name="prtCleanCutRAcc" path="/out/cleanCut/AccTtyCleanCutTRPrint.jsp" />
+			<forward name="getTreatyInfoPrtB" path="/out/cleanCut/AccTtyCleanCutCreate.jsp" />
+			<forward name="prtCleanCutBAcc" path="/out/cleanCut/AccTtyCleanCutTBPrint.jsp" />
+		</action>
+		<!-- add by xuyangyang 2013-10-28 合约结清 begin -->
+		<!-- add by xuyangyang 2013-11-13查看 再保人修改备份 记录 begin -->
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpDReinsEditFacade"
+			scope="request" path="/prpDReinsEditRecord">
+			<forward name="result" path="/common/code/PrpdReinsEditQueryList.jsp"></forward>
+		</action>
+		<!-- add by xuyangyang 2013-11-13 查看 再保人修改备份 记录 end -->
+		<!-- add by xuyangyang 2013-11-13查看 再保人修改备份 记录详细信息 begin -->
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpDReinsEditInfoFacade"
+			scope="request" path="/prpDReinsEditInfo">
+			<forward name="showinfo" path="/common/code/ReinsEditShow.jsp"></forward>
+		</action>
+		<!-- add by xuyangyang 2013-11-13 查看 再保人修改备份 记录详细信息 end -->
+		<!-- add by xuyangyang 2013-11-19 浮动手续费 begin -->
+		<action name="fm"
+			type="com.sinosoft.reins.out.ui.control.facade.UITtyAccCommutationFacade"
+			scope="request" path="/accTtyCommutation">
+			<forward name="treatyQuery" path="/out/commutation/AccTtyTreatyList.jsp" />
+			<forward name="getTreatyInfoR" path="/out/commutation/AccTtyAdjustCommCreateR.jsp" />
+			<forward name="getTreatyInfoB" path="/out/commutation/AccTtyAdjustCommCreateB.jsp" />
+			<forward name="getAdjustCommR" path="/out/commutation/AccTtyAdjustCommShow.jsp" />
+			<forward name="changeCommRate" path="/out/commutation/AccTtyAdjustCommShow.jsp" />
+			<forward name="genAdjustCommAccR" path="/common/MessagePage.jsp" />
+			<forward name="getAdjustCommB" path="/out/commutation/AccTtyAdjustCommShow.jsp" />
+			<forward name="genAdjustCommAccB" path="/common/MessagePage.jsp" />
+			<forward name="getTreatyInfoModify" path="/out/commutation/AccTtyAdjustCommModify.jsp" />
+			<forward name="deleteAcc" path="/common/MessagePage.jsp" />
+			<forward name="settleAcc" path="/common/MessagePage.jsp" />
+			<forward name="getTreatyInfoPrint" path="/out/commutation/AccTtyAdjustCommPrint.jsp" />
+			<forward name="printAccR"
+				path="/out/commutation/AccTtyAdjustCommPrintAccR.jsp" />
+			<forward name="printAccB"
+				path="/out/commutation/AccTtyAdjustCommPrintAccB.jsp" />
+			<forward name="printAccBAll"
+				path="/out/commutation/AccTtyAdjustCommPrintAccB.jsp" />
+		</action>
+
+		<!-- add by xuyangyang 2013-11-19 浮动手续费 end -->
+		<!-- add by zjy begin 2014-2-12 reason by 返回首页时 -->
+		<action type="com.sinosoft.reins.admin.ui.control.facade.UIBackWelFacade"
+			validate="false" scope="request" path="/backWel">
+			<forward name="successWel" path="/index.jsp" />
+		</action>
+		<!-- add by zjy end 2014-2-12 reason by 返回首页时 -->
+		<!-- add by huangqicun begin 2014-4-21 reason by 共保人维护功能移植 -->
+		<action name="prpdReinsCommonForm"
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpDReinsCommonFacade"
+			validate="false" scope="request" path="/prpdReinsCommonQuery">
+			<forward name="result" path="/common/code/PrpdReinsCommonQueryList.jsp" />
+			<forward name="condition" path="/common/code/PrpdReinsCommonQuery.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpDReinsCommonGetFacade"
+			validate="false" scope="request" path="/getReinsCommonCode">
+			<forward name="ShowReinsCode" path="/common/code/ReinsCommonShow.jsp" />
+			<forward name="EditReinsCode" path="/common/code/ReinsCommonEdit.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpDReinsCommonPostFacade"
+			validate="false" scope="request" path="/prpdReinsCommonEdit">
+			<forward name="failure" path="/common/MessagePage.jsp" />
+		</action>
+		<action
+			type="com.sinosoft.reins.utility.ui.control.facade.UIPrpDReinsGetFacade"
+			validate="false" scope="request" path="/ReinsCommonDelete">
+			<forward name="result" path="/common/code/PrpdReinsCommonQueryList.jsp" />
+		</action>
+		<action path="/reinsTrialAdjust"
+			type="com.sinosoft.reins.out.ui.control.action.UIReinsTrialAdjustAction"
+			name="fm" scope="request">
+			<forward name="prepareQuery"
+				path="/common/code/QueryReinsTrialAdjustOverview.jsp" />
+			<forward name="seeprepareQuery" path="/common/code/SeeReinsTrialAdjus.jsp" />
+		</action>
+		<action path="/showReinsimportExcel"
+			type="com.sinosoft.reins.out.ui.control.action.UIShowImportExcelAction"
+			name="fm" scope="request">
+			<forward name="importExcel"
+				path="/common/code/QueryReinsTrialAdjustOverviewList.jsp" />
+		</action>
+		<!-- add by zjy end 2014-5-8 reason for 再保算法调整新需求 -->
+		
+		<!-- add by  2018-1-17 菜单的请求 begin -->
+		<action type="com.sinosoft.platform.ui.control.action.MainAction"
+			scope="request" path="/main">
+		</action>
+		<!-- add by  2018-1-17 菜单的请求 end -->
+	</action-mappings>
+	<message-resources parameter="resources.ReinsResources" />
+
+</struts-config>

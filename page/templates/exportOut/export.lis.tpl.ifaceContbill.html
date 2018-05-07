@@ -1,0 +1,83 @@
+	<div class="page-header">
+		<h3 style="display:inline-block">比例合约月度预提帐单导出</h3>
+	</div>
+
+	<div class="container-fluid">
+		<form name="frmSearch1"  method="POST" action="/reins/reinsPrint/printIfaceCont.do">
+			<div class="row">
+				<div class="col-lg-2" style="background-color:#f5f5f5;">
+					<label>币种</label>
+				</div>
+				<div class="col-lg-4">
+						<div class="input-group">
+							<select name="curr" style="width:160px" ng-model="keywords.curr" ng-options=" c.value for c in currencys">
+								<option value="">全部</option>
+							</select>
+						</div>
+				</div>
+				<div class="col-lg-2" style="background-color:#f5f5f5;">
+					<label>账单状态</label>
+				</div>
+				<div class="col-lg-4">
+						<div class="input-group">
+							<select name="billState" ng-model="keywords.billState" style="width:160px">
+							    <option value="01" >全部</option>
+		                        <option value="02" selected>02-申请审核</option>
+		                        <option value="04">04-审核通过</option>
+                   			 </select>
+						</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-2" style="background-color:#f5f5f5;">
+					<label>BU</label>
+				</div>
+				<div class="col-lg-4">
+						<div class="input-group">
+							<select name="buNo" ng-model="keywords.buNo" style="width:160px" ng-options="b.id  for b in prpdcompanys">
+		                        <option value="" >全部</option>
+                   			 </select>
+						</div>
+				</div>
+				
+				<div class="col-lg-2" style="background-color:#f5f5f5;">
+					<label>调整状态</label>
+				</div>
+				<div class="col-lg-4">
+						<div class="input-group">
+							<select name="adjustFlag"  ng-model="keywords.adjustFlag" style="width:160px">
+		                        <option value="01" selected>01-原始</option>
+		                        <option value="02" selected>02-调整</option>
+		                        <option value="03" selected>03-原始+调整</option>
+                   			 </select>
+						</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-2" style="background-color:#f5f5f5;">
+					<label>账单期</label>
+				</div>
+         		<div class="col-lg-4">
+         			<input name="billPeriod" ng-model="keywords.billPeriod">
+         			<div class="text-danger">(例如：2017年6月，请输入2017-06M)</div>
+         		</div>
+				<div class="col-lg-2"></div>
+         		<div class="col-lg-4"></div>
+			</div>
+			
+			
+			<div class="row">
+				<div class="col-lg-6">
+					<a class="btn btn-default" ng-click="reset()" >重置</a>
+					<button type="submit" class="btn btn-default">确定 </button>
+				</div>  
+				<div class="col-lg-6">
+				</div>
+			</div>
+
+		</form>
+	</div>
+		 	
+

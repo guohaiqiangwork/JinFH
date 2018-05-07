@@ -1,0 +1,32 @@
+.sort {margin:0; font-size:12px;}/*margin has modify=============================================*/
+.sort table {border-collapse:collapse; width:100%; text-align:left;color:#666;}
+.sort th, .sort td {border:1px solid #7CCFDE; text-align:center; height:20px; line-height:20px; padding:1px;}
+
+.sort th {background-color:#CBECF2;}
+.sort th a {color:#000; text-decoration:none;}
+.sort th .yui-dt-headtext {padding:0 15px 0 5px;} /*room for arrow=======================has modify 2007.5.17.13:30*/
+.sort .yui-dt-sortedbyasc, .sort .yui-dt-sortedbydesc {background-color:#CBECF2;}
+.sort .yui-dt-sortedbyasc .yui-dt-headtext { background:#CBECF2 url(../image/table_add/arrow_up.gif) no-repeat right bottom;}/*arrow up*/
+.sort .yui-dt-sortedbydesc .yui-dt-headtext { background:#CBECF2 url(../image/table_add/arrow_dn.gif) no-repeat right bottom;}/*arrow down*/
+.sort .yui-dt-odd {background-color:#fff;} /*light gray zebra stripe*/
+
+
+.sort td a{ display:block; width:auto;}
+.sort td a:hover {color:#fff; border:1px solid #f90; background:#ffc; color:#000;height:22px; line-height:20px; margin:-1px;}
+
+
+
+.sort_style {margin:0m; font-size:12px;}/*margin has modify=============================================*/
+.sort_style table {border-collapse:collapse; width:100%; text-align:left;color:#666;}
+.sort_style th, .sort_style td {border:1px solid #7CCFDE; text-align:left; height:20px; line-height:20px; padding:1px;}
+.sort_style th {background-color:#CBECF2;}
+.sort_style th a {color:#000; text-decoration:none;}
+.sort_style th .yui-dt-headtext {padding:0 15px 0 5px;} /*room for arrow=======================has modify 2007.5.17.13:30*/
+.sort_style .yui-dt-sortedbyasc, .sort_style .yui-dt-sortedbydesc {background-color:#CBECF2;}
+.sort_style .yui-dt-sortedbyasc .yui-dt-headtext { background:#CBECF2 url(../image/table_add/arrow_up.gif) no-repeat right bottom;}/*arrow up*/
+.sort_style .yui-dt-sortedbydesc .yui-dt-headtext { background:#CBECF2 url(../image/table_add/arrow_dn.gif) no-repeat right bottom;}/*arrow down*/
+.sort_style .yui-dt-odd {background-color:#fff;} /*light gray zebra stripe*/
+
+
+.sort_style td a{ display:block; width:auto;}
+.sort_style td a:hover {color:#fff; border:1px solid #f90; background:#ffc; color:#000;height:22px; line-height:20px; margin:-1px;}

@@ -1,0 +1,32 @@
+<div class="paper">
+    <div class="pull-right">
+        <a href="" class="btn btn-default">确定</a>
+        <a href="" class="btn btn-default">取消</a>
+    </div>
+
+    <hr>
+    <h4>免赔差异分保录入</h4>
+    <div  >
+        <div ng-repeat="facP in dangerUnitFacEnquiry.facPlyComShareVos">
+            <div>
+                免赔额
+                <input type="text" placeholder="{{facP.deductible}}"/>
+            </div>
+            <div>
+                免赔率
+                <input type="text" placeholder="{{facP.deductibleRate}}"/>
+            </div>
+        </div>
+        <a href="">确定</a>
+        <a href="">取消</a>
+    </div>
+
+    <hr>
+    <h4>责任免赔录入</h4>
+    <div ng-repeat="fac in dangerUnitFacEnquiry.facPlyComShareVos">
+        特别约定
+        <textarea name="" cols="30" rows="10">
+            {{fac.specialEngage}}
+        </textarea>
+    </div>
+</div>

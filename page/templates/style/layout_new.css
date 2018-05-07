@@ -1,0 +1,69 @@
+body {
+	margin:0; 
+	padding:0;
+	color:#000;
+	font-size:12px;
+	background: #ccc;
+}
+#wrapper{
+	width:778px;
+	height:480px;
+	background: #fff;
+}
+#left {
+	width:30px;
+	height:100%;
+	float: left;
+	background: #80D0DF;
+}
+#right {
+	width:748px;
+	height:100%;
+	float: left;
+	
+}
+#container {
+	width:718px;
+	margin:0px 0px 0px 15px;
+	height:100%;
+}
+.box_frame {
+	text-align:left;
+	margin:0px 0px 10px 0px;
+}
+
+
+.button_green {
+	margin:10px 0px 10px 0px;
+	width:100%;
+}
+.button_green ul {
+	display:inline;
+}
+.button_green li {
+	white-space:nowrap;
+	float:left;
+	margin:0px 5px 0px 5px;
+}
+.button_green li a {
+	height:22px;
+	border: 1px solid #1AB3CA;
+	background-image: url(../images/btbg_green.gif);
+	background-repeat: repeat-x;
+	text-decoration: none;
+	display: block;
+	position: relative;
+	padding:4px 0px 0px 0px;
+	text-align: center;
+	color:#000;
+}
+.button_green li a:hover {
+	border: 1px solid #1AB3CA;
+	background-image: url(../images/btbg_orange.gif);
+	background-repeat: repeat-x;
+}
+
+.button_green ul li.bw_4 {width:65px;}
+.button_green ul li.bw_6 {width:85px;}
+.button_green ul li.bw_8 {width:105px;}
+.button_green ul li.bw_10 {width:125px;}

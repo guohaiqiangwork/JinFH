@@ -1,0 +1,232 @@
+<!--<h1>--------账单显示页面</h1>-->
+<div class="" ng-if="contAttr === 'nprop'">
+    <div class="btn-group btn-group-sm" >
+        <a href="" class="btn btn-default" 
+        	ng-if="!(contract.stateFlag === '6'  || contract.contStatus === '6') && !viewFlag"
+        	  ng-click="confirmBillP(keywords.billType)">账单确认</a>
+        <a class="btn btn-primary btn-lg" ng-if="!(keywords.billType==='09')" ng-click="toggleCreate()">查看模板数据</a>
+        <a class="btn btn-primary btn-lg" ng-if="keywords.billType==='09'" ng-click="toggleCreate()">查看保费数据</a>
+<!--        <a href="" class="btn btn-danger" -->
+<!--        	ng-if="!(contract.stateFlag === '6'  || contract.contStatus === '6') && !viewFlag"-->
+<!--        	 ng-click="deleBillP()">删除</a>-->
+    </div>
+</div>
+<div ng-if="contAttr === 'prop'">
+	<div class="btn-group btn-group-sm" >
+	<span ng-show="pageJumpView === '2' " >  <!-- zhangxiaoyong 2015-06-15 -->
+        <a href="" class="btn btn-default"  
+        	ng-if="!(contract.stateFlag === '6'  || contract.contStatus === '6') && !viewFlag"
+        	ng-click="confirmBillP()">账单确认</a>
+        <!-- 分入合同季度账单打印 2015-09-11 -->	
+        <a target="_blank" class="btn btn-default" 
+	       ng-href='accTtyBatchPrint.do?printType=BatchR&treatyNo={{contract.treatyNo}}&currency={{contract.currency}}&printType=""&acckind=G&accPeriod={{keywords.accperiod}}'>季度账单打印</a>
+       <!--  <a target="_blank" class="btn btn-default" ng-if="!(contract.stateFlag === '6' || contract.contStatus === '6') && !viewFlag && keywords.billType==='01' && mode==='1'" 
+	       ng-href='http://{{config.backend.printIp}}/WDDE/pdf2.jsp?zhumobanname=sx-rei-jdzd-pl&paras=1%3d{{keywords.contNo}}&KEY=N'>季度账单打印</a>   --> 	
+    </span>    	
+<!--        <a ng-if="(contract.contAttr==='prop' && (keywords.billType ==='06' || keywords.billType ==='01')) &&-->
+<!--        	(!(contract.stateFlag === '6'  || contract.contStatus === '6') && !viewFlag)"-->
+<!--        class="btn btn-danger btn-lg"-->
+<!--          ng-click="delePropBill(billList)">删除</a>-->
+    </div>
+</div>
+
+<div ng-show="!options.ready">
+
+	<div ng-if="!(contAttr === 'prop')">
+           <table  class="table table-borderd" >
+               <thead>
+               <th>账单状态</th>
+               <th ng-if="contAttr === 'nprop'">账单类型</th>
+               <th>账单编号</th>
+               <th>合同代码</th>
+               <th ng-if="contAttr === 'nprop'">分项号</th>
+               <th ng-if="contAttr === 'nprop'">层号</th>
+               <th ng-if="!(contAttr === 'prop' && keywords.billType === '06')">接受人代码</th>
+               <th>账单期</th>
+               <th>账单币别</th>
+               <th>账单余额</th>
+               </thead>
+               <tr ng-repeat ="bill in billList" >
+                   <td>{{bill.billStatus}}</td>
+                   <td ng-if="contAttr === 'nprop'">{{bill.billTyp}}</td>
+                   <td>{{bill.billNo}}</td>
+                   <td>{{bill.contNo}}</td>
+                   <td ng-if="contAttr === 'nprop'">{{bill.sectionNo}}</td>
+                   <td ng-if="contAttr === 'nprop'">{{bill.layerNo}}</td>
+                   <td ng-if="!(contAttr === 'prop' && keywords.billType === '06')">{{bill.reinsCode}}-{{bill.reinsName}}</td>
+                   <td>{{bill.accPeriod}}</td>
+                   <td>{{bill.currency}}</td>
+                   <td>{{bill.balance | currency}}</td>
+               </tr>
+           </table>
+    </div>
+    
+	<div ng-if="(contAttr ==='prop')" style="overflow: scroll;">
+		 <table ng-show="pageJumpView === '2'" class="table table-borderd">
+	                <thead>
+	                <th nowrap>账单状态</th>
+	                <th nowrap>账单类型</th>
+	                <th nowrap>账单编号</th>
+	                <th nowrap>合同代码</th>
+	                <th ng-if="!(keywords.billType === '06')" nowrap>接受人代码</th>
+	                <th ng-if="!(contAttr === 'prop' && keywords.billType === '06')">最终接受人代码</th>
+	                <th ng-if="(keywords.billType === '06')" nowrap>BU</th>
+	                <th nowrap>账单期</th>
+	                <th nowrap>合约分项编码</th>
+	                <th nowrap>账单币别</th>
+	                <th nowrap>账单余额</th>
+	                <th ng-if="(keywords.billType === '06')" nowrap>险种名称</th>
+	                <th ng-if="(keywords.billType === '06')" nowrap>分保费</th>
+	                <th ng-if="(keywords.billType === '06')" nowrap>手续费</th>
+	                <th ng-if="(keywords.billType === '06')" nowrap>已决赔款</th>
+	                <th ng-if="(keywords.billType === '06')" nowrap>退款现金款</th>
+	                <th ng-if="(keywords.billType === '06')" nowrap>保费准备金提存</th>
+	                <th ng-if="(keywords.billType === '06')" nowrap>保费准备金返还</th>
+	                <th ng-if="(keywords.billType === '06')" nowrap>利息</th>
+	                <th ng-if="(keywords.billType === '06')" nowrap>营业税</th>
+	                <th ng-if="(keywords.billType === '06')" nowrap>经纪人/其他费用</th>
+	                <th ng-if="(keywords.billType === '06')" nowrap>未决</th>
+	                </thead>
+	                <tr ng-repeat ="bill in billList" ng-class="{'info':bill.checked}">
+	                	
+	                    <!-- <td>{{bill.flag1}}</td> -->
+	                    <td>
+		                    <div ng-if="(bill.flag1 === '0')">未转收付</div>
+		                    <div ng-if="(bill.flag1 === '1')">已转收付</div>
+		                    <div ng-if="(bill.flag1 === '2')">转财务</div>
+		                </td>
+	                    <!-- <td>{{bill.accKind}}</td> -->
+	                    <td>
+							<div ng-if="(bill.accKind === 'G')">季度帐单</div>
+		                    <div ng-if="(bill.accKind === 'I')">月度帐单</div>
+		                    <div ng-if="(bill.accKind === 'A')">浮动手续费调整帐单</div>
+		                    <div ng-if="(bill.accKind === 'F')">纯益手续费帐单</div>
+		                    <div ng-if="(bill.accKind === 'M')">现金赔款帐单</div>
+		                    <div ng-if="(bill.accKind === 'N')">LeadingFee帐单</div>
+						</td>
+	                    <td>                                                            
+	                    	<a href="" ng-click="pageJump(keywords.billType,bill.tmpBillNo)" ng-if="!(keywords.billType === '06') && mode==='1' && !(keywords.billType === '01')">{{bill.accNo}}</a>
+	                    	<a href="" ng-click="pageJump(keywords.billType,bill.billNo)" ng-if="!(keywords.billType === '06') && mode==='2' && !(keywords.billType === '01')">{{bill.accNo}}</a>
+	                    	<div ng-if="(keywords.billType === '06')">{{bill.accNo}}</div>
+	                    	<div ng-if="(keywords.billType === '01')">{{bill.accNo}}</div>
+	                    </td>
+	                    <td>{{bill.treatyNo}}</td>
+	                    <td ng-if="!(keywords.billType === '06')">{{bill.reinsCode}}-{{bill.reinsName}}</td>
+	                    <td ng-if="!(keywords.billType === '06')">{{bill.finalReinsCode}}</td>
+	                    <td ng-if="(keywords.billType === '06')">{{bill.deptCode}}</td>
+	                    <td>{{bill.accPeriod}}</td>
+	                    <td>{{bill.sectionNo}}</td>
+	                    <td>{{bill.currency}}</td>
+	                    <td>{{bill.balance | currency}}</td>
+	                    <td ng-if="(keywords.billType === '06')">{{bill.insrncNme}}</td>
+		                <td ng-if="(keywords.billType === '06')">{{bill.premium  | currency}}</td>
+		                <td ng-if="(keywords.billType === '06')">{{bill.commFee  | currency}}</td>
+		                <td ng-if="(keywords.billType === '06')">{{bill.paidLoss | currency}}</td>
+		                <td ng-if="(keywords.billType === '06')">{{bill.refund | currency}}</td>
+		                <td ng-if="(keywords.billType === '06')">{{bill.reserceDraw | currency}}</td>
+		                <td ng-if="(keywords.billType === '06')">{{bill.reserceReten | currency}}</td>
+		                <td ng-if="(keywords.billType === '06')">{{bill.interest | currency}}</td>
+		                <td ng-if="(keywords.billType === '06')">{{bill.tax | currency}}</td>
+		                <td ng-if="(keywords.billType === '06')">{{bill.otherFee | currency}}</td>
+		                <td ng-if="(keywords.billType === '06')">{{bill.noPaidLoss | currency}}</td>
+		                <!--  mode  1:分出 2：分入 -->
+		                <!-- <td><a class="btn btn-default" ng-if="mode==='1' && (keywords.billType === '02' || keywords.billType === '03'||keywords.billType === '04')" 
+       						   ng-click="updatePageJump(keywords.billType,bill.tmpBillNo)" ng-disabled="bill.status ==='4'" >编辑</a></td>
+       					<td><a class="btn btn-default" ng-if="mode==='2'" 
+       						   ng-click="updatePageJump(keywords.billType,bill.billNo)" ng-disabled="bill.status ==='1'" >编辑</a></td> -->
+	                </tr>
+	            </table>
+	</div>
+	<div ng-if="contract.contAttr==='prop'">
+		<!-- pageJumpView  1:查看账单明细，0:编辑账单明细，2：不显示账单明细 -->
+		<div ng-if="mode==='1'">
+			<div ng-if="pageJumpView === '1' && keywords.billType === '01'" ng-include="'reins/page/templates/bill/contract.bill.view.tpl.html'">
+			</div>
+			<div ng-if="pageJumpView === '1' || pageJumpView === '0' ">
+				<div ng-if="keywords.billType === '04' || keywords.billType === '02' || keywords.billType === '03'" ng-include="'/reins/page/templates/bill/contract.bill.quarter.tpl.html'">
+				</div>
+			</div>
+		</div>
+		<div ng-if="mode==='2'">
+			<div ng-if="pageJumpView === '1' || pageJumpView === '0'" ng-include="'reins/page/templates/bill/contract.bill.quarter.tpl.html'">
+			</div>
+		</div>
+		<!-- 不是比例分出的季度账单和月度账单，就允许再次生成账单 -->
+		<div ng-show="!(mode==='1' && (keywords.billType ==='01' || keywords.billType ==='06')) && pageJumpView === '2'"
+			style="padding:20px;text-align: center">
+	        <a  class="btn btn-primary btn-lg"   ng-click="createPropAccord()">生成账单</a>
+		</div>
+		
+	</div>
+	
+	<div ng-show="pageJumpView === '2'"style="padding:20px;text-align: center">
+		<a ng-if="(contract.contAttr==='prop' && (keywords.billType ==='06' ) && mode==='1')"  class="btn btn-primary btn-lg"
+              ng-click="createPropAdjustMBillDtl()">生成调整明细</a>
+        <a ng-if="(contract.contAttr==='prop' && (keywords.billType ==='06' ) && mode==='1')"  class="btn btn-primary btn-lg"
+           ng-click="createPropAdjBill()">生成调整账单</a>
+	</div>
+    <!-- 分页  -->
+    <div ng-show="pageJumpView === '2'" >
+        <pagination total-items="pagination.totalItems"
+                page="pagination.pageIndex"
+                items-per-page="pagination.pageSize"
+                max-size="pagination.maxSize"
+                previous-text="{{pagination.previousText}}"
+                next-text="{{pagination.nextText}}"
+                first-text="{{pagination.firstText}}"
+                last-text="{{pagination.lastText}}"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page,keywords)">
+    </pagination>
+    </div>
+</div>
+<div ng-show="options.ready">
+    <!--比例-浮动手续费账单-->
+    <div ng-if="contract.contAttr==='prop' && keywords.billType==='07'"
+         ng-include="'reins/page/templates/bill/contract.bill.floating.tpl.html'">
+    </div>
+    <!--非比例-预付费对内-->
+    <div ng-if="contract.contAttr==='nprop' && keywords.billType==='08'"
+         ng-include="'reins/page/templates/bill/contract.bill.preponaccount.tpl.html'">
+    </div>
+    <!--非比例-调整账单-->
+    <div ng-if="contract.contAttr==='nprop' && keywords.billType==='09'"
+         ng-include="'reins/page/templates/bill/contract.bill.adjustList.tpl.html'">
+    </div>
+    <!--非比例-赔付率-->
+    <div ng-if="contract.contAttr==='nprop' && keywords.billType==='10'"
+         ng-include="'reins/page/templates/bill/contract.bill.stoplossreco.tpl.html'">
+    </div>
+    <!--比例-合同分入-账单-季度账单、纯益账单、现金账单-->
+    <div ng-if="contract.contAttr==='prop' && (keywords.billType==='01' || keywords.billType==='04' || keywords.billType==='02') && mode==='2'"
+         ng-include="'reins/page/templates/bill/contract.bill.quarter.tpl.html'">
+    </div>
+     <!--比例-合同分出-账单-手续费调整账单 之前的代码 注释时间 2015/06/19 yanliming
+    <div ng-if="contract.contAttr==='prop' && keywords.billType==='03' && mode==='1'"
+         ng-include="'bill/contract.bill.poundage.tpl.html'">
+    </div>
+    -->
+    <!--比例-合同分出-账单-浮动、纯益、现金赔款账单--yanliming 2015/06/19  -->
+    <div ng-if="contract.contAttr==='prop' && mode==='1'"  >
+         <div ng-if="keywords.billType==='03' || keywords.billType==='02' || keywords.billType==='04'"
+        	 ng-include="'reins/page/templates/bill/contract.bill.quarter.tpl.html'">
+    	</div>
+    </div>
+    
+    <!--  yanliming 2015/07/07 注释
+    <div ng-if="(contract.contAttr==='prop' && keywords.billType==='06') ||
+        (contract.contAttr==='prop' && keywords.billType==='02')"
+         style="padding:50px;text-align: center">
+        <div class="row">
+            <div class="col-lg-2">
+                <a ng-click="createBill()" class="btn btn-primary">生成账单</a>
+            </div>
+            <div class="col-lg-2">
+                <a ng-click="resetSearchBox()" class="btn btn-default">取消</a>
+            </div>
+        </div>
+    </div>
+    -->
+    
+ </div>

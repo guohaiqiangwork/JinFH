@@ -1,0 +1,38 @@
+<div>
+    <div class="modal-header">
+        <h3>续转</h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-stripped">
+            <tr>
+                <th>合同编号</th>
+                <th>合同简称</th>
+                <th>合同类型</th>
+                <th>合同状态</th>
+                <th>续转合同代码</th>
+            </tr>
+            <!-- 非比例合同  -->
+            <tr ng-repeat="contract in contractList" ng-show="tableShow">
+                <td>{{contract.treatyNo}}</td>
+                <td>{{contract.refNo}}</td>
+                <td>{{contract.treatyType| code : 'nprop.treatyType'}}</td>
+                <td>{{contract.stateFlag | code : 'nprop.stateFlag'}}</td>
+               <td><a ng-href="/contracts/contAttr/{{contract.treatyNo}}/edit"></a>{{contract.treatyNo}}</td>
+            </tr>
+            <!-- 比例合同  -->
+            <tr ng-repeat="contract in contractList" ng-hide="tableShow">
+                <td>{{contract.tmpContNo}}</td>
+                <td>{{contract.contNo}}</td>
+                <td>{{contract.refNme}}</td>
+                <td>{{contract.contGrpTypCde | code : 'prop.contGrpTypCde'}}</td>
+                <td>{{contract.contStatus | code : 'prop.contStatus'}}</td>
+                <td><a ng-href="/contracts/contAttr/'admin'/{{contract.tmpContractNo}}/edit"></a>{{contract.tmpContractNo}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a ng-click="renewal()" class="btn btn-primary" >续转</a>
+        <a ng-click="cancel()" class="btn btn-default" >取消</a>
+    </div>
+</div>
+

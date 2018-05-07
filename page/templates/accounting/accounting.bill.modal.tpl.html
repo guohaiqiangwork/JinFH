@@ -1,0 +1,33 @@
+<div >
+    <div class="modal-header">
+        <h3>账单</h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-bordered">
+            <thead>
+            	<th>账单类型</th>
+                <th>账单确认</th>
+                <th>账单编号</th>
+                <th>出单公司</th>
+                <th>分出人代码</th>
+                <th>分出人名称</th>
+                <th>账单币别</th>
+                <th>账单余额</th>
+            </thead>
+            <tr ng-repeat="bill in billList">
+            	<td>{{bill.billTyp}}</td>
+                <td>{{bill.billStatus}}</td>
+                <td>{{bill.billNo}}</td>
+                <td>{{bill.deptCode}}</td>
+                <td>{{bill.reinsCode}}</td>
+                <td>{{bill.reinsName}}</td>
+                <td>{{bill.currency}}</td>
+                <td>{{bill.balance}}</td>
+            </tr>
+        </table>
+        <div>
+            <a class="btn btn-default" ng-click="cancel()">关闭</a>&nbsp;&nbsp;&nbsp;
+        </div>
+
+    </div>
+</div>

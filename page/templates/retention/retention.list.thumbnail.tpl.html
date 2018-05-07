@@ -1,0 +1,37 @@
+<div class="">
+    <div >
+        <input type="checkbox"  ng-model="checkAll" ng-click="checkAllRetentions()">全选
+    </div>
+
+    <div ng-repeat="retention in retentionList" class="contract-thumbnail-wrapper hover-visible-wrapper">
+        <div>
+            <input type="checkbox" ng-model="retention.checked">
+            {{getIndex($index)}}
+        </div>
+
+        <div class="contract-thumbnail">
+			<div>
+                {{retention.id.riskCode}}
+            </div>
+            <div>
+                {{retention.id.riskClass}}
+            </div>
+            <div>{{retention.id.riskLevel}}</div>
+            <div>
+                {{retention.id.effcTm.time  | date : config.display.dateFormat}}
+            </div>
+            <div>
+                {{retention.expdTm.time  | date : config.display.dateFormat}}
+            </div>
+            <div>{{retention.currency}}</div>
+            <div>{{retention.retentionValue}}</div>
+        </div>
+
+        <div class="text-center" style="margin:5px 0 0 0">
+            <div class="btn-group btn-group-sm hover-visible">
+            	<a class="btn btn-default" ng-click="getDetail(retention)" class="btn btn-default">详细</a>
+                <a class="btn btn-default" ng-show="false" ng-href="#/admin/retentions/{{retention.id}}/edit" class="btn btn-default">编辑</a>
+            </div>
+        </div>
+    </div>
+</div>

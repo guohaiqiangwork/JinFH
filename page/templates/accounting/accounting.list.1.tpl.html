@@ -1,0 +1,40 @@
+<!--分批单-->
+<h3>分保</h3>
+<table class="table table-striped table-hover">
+     <thead>
+        <th>
+            <input type="checkbox">全选
+        </th>
+        <th>投保单号</th>
+        <th>批单申请单号</th>
+        <th>起保日期</th>
+        <th>批单号</th>
+        <th>保单号</th>
+        <th>被保险人/运输工具</th>
+        <th>币种</th>
+        <th>我司保额</th>
+        <th>我司保费</th>
+        <th></th>
+    </thead>
+    <tr ng-repeat="keyword in keywordsAll">
+        <td>
+            <input type="checkbox">
+        </td>
+        <td>{{keyword.plyAppNo}}</td>
+        <td>{{keyword.edrAppNo}}</td>
+        <td>{{keyword.startDate.time | date : config.display.dateFormat}}</td>
+        <td>{{keyword.edrNo}}</td>
+        <td>{{keyword.plyNo}}</td>
+        <td>{{keyword.insName}}</td>
+        <td>{{keyword.premCur}}</td>
+        <td>{{keyword.inAmt | currency}}</td>   
+        <td>{{keyword.inPrem | currency}}</td> 
+        
+        <td>
+            <a class="btn btn-default" ng-click="getFacPlyInfo(keyword)">账单</a>
+        </td>
+    </tr>
+</table>
+
+
+<br/>

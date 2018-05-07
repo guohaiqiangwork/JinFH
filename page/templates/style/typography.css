@@ -1,0 +1,18 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+}
+
+body {
+	font-family: "宋体";
+    font-size:12px;
+}
+
+
+h1,#menu,h2,p.info_tip{ font-size:12px;}
+dl{ font-size:12px;}
+.add{  font-size:12px;}
+.flip{ font-size:12px;}
+
+h2.case{ font-weight:bold;}

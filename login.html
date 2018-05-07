@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>自主研发基础平台</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <link type="image/x-icon" href="./img/favicon/arch.png" rel="icon"> 
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="./plugin/bootstrap/css/bootstrap.min.css">
+    
+    <style type="text/css">
+    body {
+        padding-bottom: 0;
+        min-height: 100%;
+        font-family: 'Open Sans', 'Segoe UI';
+        font-size: 13px;
+        color: #444; 
+    }
+    
+    body:before {
+        content: "";
+        display: block;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        background-color: #1F2325;
+        /*background-color: #eee;*/
+        background-position: -280px 60px;
+    }
+    
+    .fadeInDown {
+        -webkit-animation-name: fadeInDown;
+        animation-name: fadeInDown;
+    }
+    
+    .animated {
+        -webkit-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+    .login-title{
+        height: 60px!important;
+        position: relative;
+        background-color: #1F2325;
+        padding: 0;
+        border-bottom: 1px solid rgba(255,255,255,0.3);
+    }
+    .login-container {
+        position: relative;
+        margin: 6% 60%;
+        max-width: 300px;
+    }
+    .login-container .loginbox {
+        position: relative;
+        width: 380px!important;
+        height: 320px!important;
+        padding: 0;
+        -webkit-box-shadow: 0 0 14px rgba(0, 0, 0, .1);
+        -moz-box-shadow: 0 0 14px rgba(0, 0, 0, .1);
+        box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    }
+    
+    .bg-white {
+        background-color: #fff!important;
+    }
+    
+    .login-container .loginbox .loginbox-title {
+        position: relative;
+        text-align: center;
+        width: 100%;
+        height: 35px;
+        padding-top: 10px;
+        font-family: 'Lucida Sans', 'trebuchet MS', Arial, Helvetica;
+        font-size: 20px;
+        font-weight: normal;
+        color: #444;
+    }    
+    .login-container .loginbox .loginbox-social {
+        padding: 0 10px 10px;
+        text-align: center;
+    }
+    
+    .login-container .loginbox .loginbox-social .social-title {
+        font-size: 14px;
+        font-weight: 500;
+        color: #a9a9a9;
+        margin-top: 10px;
+    }
+    
+    .login-container .loginbox .loginbox-or {
+        position: relative;
+        text-align: center;
+        height: 20px;
+    }
+    
+    .login-container .loginbox .loginbox-or .or-line {
+        position: absolute;
+        height: 1px;
+        top: 10px;
+        left: 40px;
+        right: 40px;
+        background-color: #ccc;
+    }
+    
+    .login-container .loginbox .loginbox-or .or {
+        position: absolute;
+        top: 0;
+        -lh-property: 0;
+        left: -webkit-calc(50% - 25px);
+        left: -moz-calc(50% - 25px);
+        left: calc(50% - 25px);
+        width: 50px;
+        height: 20px;
+        background-color: #fff;
+        color: #999;
+        margin: 0 auto;
+    }
+    
+    .login-container .loginbox .loginbox-or {
+        position: relative;
+        text-align: center;
+        height: 20px;
+    }
+    
+    .login-container .loginbox .loginbox-textbox {
+        padding: 10px 40px;
+    }
+    
+    .login-container .loginbox .loginbox-textbox .form-control {
+        -webkit-border-radius: 3px!important;
+        -webkit-background-clip: padding-box!important;
+        -moz-border-radius: 3px!important;
+        -moz-background-clip: padding!important;
+        border-radius: 3px!important;
+        background-clip: padding-box!important;
+    }
+    
+    .login-container .loginbox .loginbox-submit {
+        padding: 10px 40px;
+    }
+    
+    .btn-primary,
+    .btn-primary:focus {
+        background-color: #427fed!important;
+        border-color: #427fed;
+        color: #fff;
+    }
+    
+    .btn,
+    .btn-default,
+    .btn:focus,
+    .btn-default:focus {
+        color: #444;
+        background-color: #fff;
+        border-color: #ccc;
+    }
+    
+    .btn {
+        cursor: pointer;
+        vertical-align: middle;
+        margin: 0;
+        position: relative;
+        display: inline-block;
+        color: #fff;
+        padding: 8px 12px;
+        -webkit-transition: all .15s ease;
+        -moz-transition: all .15s ease;
+        -o-transition: all .15s ease;
+        transition: all .15s ease;
+        -webkit-border-radius: 2px;
+        -webkit-background-clip: padding-box;
+        -moz-border-radius: 2px;
+        -moz-background-clip: padding;
+        border-radius: 4px;
+        background-clip: padding-box;
+        font-size: 13px;
+    }
+    
+    .login-container .loginbox .loginbox-signup {
+        text-align: center;
+        padding-top: 10px;
+    }
+    
+    .login-container .loginbox .loginbox-signup a {
+        font-size: 13px;
+        color: #666;
+    }
+    
+    .login-container .logobox {
+        width: 300px!important;
+        height: 50px!important;
+        padding: 5px;
+        margin-top: 15px;
+        -webkit-box-shadow: 0 0 14px rgba(0, 0, 0, .1);
+        -moz-box-shadow: 0 0 14px rgba(0, 0, 0, .1);
+        box-shadow: 0 0 14px rgba(0, 0, 0, .1);
+        background-color: #fff;
+        text-align: left;
+    }
+    
+    .login-container .loginbox .loginbox-forgot {
+        padding-left: 40px;
+    }
+    
+    .login-container .loginbox .loginbox-forgot a {
+        font-size: 11px;
+        color: #666;
+    }
+    
+    .smarkLoading {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        width: 100%;
+        height: 100%;
+        font-size: 16px;
+    }
+    
+    .ionicLoading {
+        transform: translateX(-50%);
+        position: fixed;
+        width: 7.6em;
+        min-height: 7.6em;
+        top: 180px;
+        left: 50%;
+        background: rgba(40, 40, 40, 0.75);
+        text-align: center;
+        border-radius: 5px;
+        color: #FFFFFF;
+    }
+    
+    .ionicLoading .img {
+        content: "";
+        display: inline-block;
+        margin: 30px auto 0;
+        width: 38px;
+        height: 38px;
+        vertical-align: baseline;
+        animation: weuiLoading 1s steps(12, end) infinite;
+        background-size: 100%;
+    }
+    
+    .ionicLoading p {
+        font-size: 14px;
+        margin-top: 0;
+    }
+    
+    @keyframes weuiLoading {
+        0% {
+            transform: rotate3d(0, 0, 1, 0deg);
+        }
+        100% {
+            transform: rotate3d(0, 0, 1, 360deg);
+        }
+    }
+    
+    .loginbox-textbox {
+        display: flex;
+    }
+    
+    .captcha-param-img {
+        margin-left: 10px;
+        cursor: pointer;
+    }
+    .footer{
+        margin-top: 14%;
+        text-align: center;
+        color: #a5a5a5;
+        padding: 0 15px;
+    }
+    .footer p{
+        font-weight: 700;
+        margin-bottom: 20px;    
+    }
+    .footer a{
+        color: #a5a5a5;
+    }
+    .logo{
+        position: relative;
+    }
+    .logo img{
+        position: relative;
+        margin: 5px 0 0 -2%;
+
+    }
+    .info{
+         position: absolute;
+         margin-left: -600px;
+         text-align: left;
+         top: 60px;
+    }
+    .login-body-txt-box{
+        text-align: left;
+        color: #fff;
+    }
+    .login-body-txt-box h1{
+        font-size: 30px;
+        color: #FFFFFF;
+        line-height: 36px;
+        margin-bottom: 19px;
+        font-weight: bold;
+    }
+    .login-body-txt-box ul{
+        list-style: none;
+        text-align: left;
+        margin-left: -40px;
+    }
+    .login-body-txt-box li{
+        font-size: 14px;
+        color: rgb(255, 255, 255);
+        letter-spacing: 0.47px;
+        line-height: 30px;
+    }
+    .color-white{
+        font-size:25px;
+        color:#ffffff;
+        font-weight:bold;
+    }
+    .color-white > img{
+        margin-top: -5px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="login-title">
+        <span class="navbar-brand" style="margin-top: 10px;">
+            <span class="color-white"><img src="./img/arch6-logo.png" /></span>
+            <span class="color-white font-weight-bold">自主研发基础平台</span>
+        </span>
+    </div>
+    <div class="login-container animated fadeInDown">
+        <div class="info">
+            <a class="login-body-txt-box" href="#" target="_blank" style="text-decoration: none !important;" data-spm-anchor-id="5176.3047821.770563.1">
+                <h1 class="box-title">中科软第六代框架首发</h1>
+                <ul>
+                    <li>SpringCloud微服务框架</li>
+                    <li>SpringBoot构建，支持Docker,轻量发布</li>
+                    <li>全面的平台解决方案</li>
+                    <li>全面的应用及业务监控</li>
+                </ul>
+            </a>
+        </div>
+        <div class="loginbox bg-white">
+            <form method="post" id="form">
+                <div class="loginbox-title">
+                自主研发基础平台</div>
+                <div class="loginbox-social">
+                    <div class="social-title ">请登录</div>
+                </div>
+                <div class="loginbox-or">
+
+                    <div class="or-line"></div>
+                    <div class="or">O</div>
+                </div>
+                <div class="loginbox-textbox">
+                    <input type="text" required="required" id="user-name" name="username" class="form-control" placeholder="帐号">
+                </div>
+                <div class="loginbox-textbox">
+                    <input type="password" required="required" name="password" id="password" class="form-control" placeholder="密码" autocomplete="off">
+                </div>
+               <!--  <div class="loginbox-textbox">
+                    <input type="text" required="required" maxlength="4" style="width:40%" name="captchaParam" id="captcha-param" class="form-control" placeholder="验证码" autocomplete="off">
+                    <img src="" id="captcha-param-img" class="captcha-param-img">
+                </div> -->
+                <!-- <div class="loginbox-forgot">
+                <a href="">Forgot Password?</a>
+            </div> -->
+                <div class="loginbox-submit">
+                    <button type="button" class="btn btn-primary btn-block" id="save">登 录</button>
+                </div>
+                <!-- <div class="loginbox-signup">
+                <a href="register.html">Sign Up With Email</a>
+            </div> -->
+            </form>
+        </div>
+       <!--  <div class="logobox">
+        </div> -->
+    </div>
+    <footer class="footer">
+        <p>版权所有 © 中科软科技股份有限公司未经许可不得复制、转载或摘编，违者必究!</p>
+        <!-- <a href="http://www.miitbeian.gov.cn/" target="_blank">ICP许可证号 粤ICP备</a> -->
+    </footer>
+    <div class="smarkLoading" id="smarkLoading">
+        <div class="ionicLoading">
+            <!-- <img src="loading.gif" alt=""> -->
+            <i class="img"></i>
+            <p id="msg" style="color: #fff">加载中</p>
+        </div>
+    </div>
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" id="myModal">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="alert-content"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <script src="./plugin/jquery1.11.1/jquery.min.js"></script>
+    <script src="./plugin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./page/templates/layout/login.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+<div ng-controller="ContractNpropListCtrl"  collapse="hideList">
+    <div ng-hide="searchTableFlag" class="search-toggle" ng-click="searchTableFlag = ! searchTableFlag">
+	    <span class="glyphicon glyphicon-search"></span>
+	</div>
+    <!-- 查询条件 -->
+	<div collapse="!searchTableFlag" class="well">
+	    <h4>查询合同</h4>
+	    <form name="searchForm" novalidate>
+	        <table class="table">
+	            <tr>
+	                <th>合同简称</th>
+	                <td>
+	                    <select ng-model="keywords.refNmeFlag">
+	                        <option value="=" >=</option>
+	                        <option value="*">*</option>
+	                    </select>
+	                </td>
+	                <td>
+	                    <input type="text" ng-model="keywords.refNo">
+	                </td>
+	                
+	                <th ><span ng-if="mode!='bill'">合同状态</span></th>
+	                <td ><span ng-if="mode!='bill'">
+		                    <!-- <select ng-model="keywords.stateFlagFlag">
+		                        <option value="=" selected>=</option>
+		                        <option value="*">*</option>
+		                    </select> -->
+	                    </span>
+	                <td ><span ng-if="mode!='bill'">
+		                    <select ng-model="keywords.stateFlag" ng-options="cc.id as  cc.value for cc in stateFlags">
+		                        <option value="">全部</option>
+		                    </select>
+	                    </span>
+	                </td> 
+	               
+	            </tr>
+	            <tr>
+	                <th>合同编号</th>
+	                <td>
+	                    <select ng-model="keywords.contNoFlag"><!-- 已对照 -->
+	                        <option value="=" >=</option>
+	                        <option value="*">*</option>
+	                    </select>
+	                </td>
+	                <td>
+	                    <input type="text" ng-model="keywords.treatyNo">
+	                </td>
+	                <th>合同类型</th> 
+	                <td>
+	                    <!-- <select   ng-model="keywords.treatyTypeFlag">
+	                        <option value="=" selected="true">=</option>
+	                        <option value="*">*</option>
+	                    </select> -->
+	                </td>
+	                <td >
+	                    <select ng-model="keywords.treatyType" ng-options="cd.id  as cd.value for cd in treatyTypes">
+	                        <option value="">全部</option>
+	                    </select>
+	                </td>
+	                
+	
+	            </tr>
+	            <tr>
+	                <th>业务年度</th>
+	                <td>
+	                    <select ng-model="keywords.contYearFlag">
+	                        <option value="=" >=</option>
+	                        <option value="*">*</option>
+	                    </select>
+	                </td>
+	                <td>
+	                    <div class="input-group col-sm-4" style="background-color: white;width: 155px;height: 26px;overflow: hidden;">
+	                        <input  type="text"  ng-model="keywords.uwYear"  ng-maxlength="4">
+	                    </div>
+	                </td>
+	            </tr>
+	            <tr>
+	            	<td colspan="6" align="right">
+	                    <a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
+	                    <a ng-click="searchTableFlag = ! searchTableFlag" class="btn btn-default">取消</a>
+	                    <a ng-click="searchContracts()" class="btn btn-primary" ng-disabled="!searchForm.$valid">立即查询</a>
+	
+	                </td>
+	            </tr>
+	        </table>
+	    </form>
+    </div>
+    <div class="page-header">
+	    <div class="btn-group pull-right" >
+	    	<div class="btn-group">
+                <button type="button" class="btn btn-default" ng-model="global.viewType" btn-radio="'thumbnail'">
+                    <span class="glyphicon glyphicon-th-large"></span>
+                </button>
+                <button type="button" class="btn btn-default" ng-model="global.viewType" btn-radio="'table'">
+                    <span class="glyphicon glyphicon-th-list"></span>
+                </button>
+            </div>
+	    
+	        <div ng-if="mode==='admin'" class=" btn-group">
+	            <a class="btn btn-default" ng-click="openNewContractModal()">新增</a>
+	            <a class="btn btn-danger"  ng-disabled="selectedCount===0" ng-click ="operateContractList('delete',keywords,pagination)">删除</a>
+	            <a class="btn btn-default" ng-disabled="selectedCount===0" ng-click ="operateContractList('copy',keywords,pagination)">复制</a>
+	            <a class="btn btn-default" ng-disabled="selectedCount===0" ng-click ="operateContractList('renewal')">续转</a>
+	            <a class="btn btn-default" ng-disabled="selectedCount===0" ng-click ="operateContractList('setState',keywords,pagination)">设置状态</a>
+	        </div>
+	    </div>
+	    <h3>{{title}}</h3>
+    </div>
+    <div class="panel panel-default " ng-show="contractList.length > 0">
+	    <!-- 显示查询结果列表 -->
+	    <div ng-if="global.viewType==='thumbnail'" ng-include="'page/templates/contract/contract.nprop.list.thumbnail.tpl.html'"></div>
+
+        <div ng-if="global.viewType==='table'" ng-include="'/reins/page/templates/contract/contract.nprop.list.table.tpl.html'"></div>
+        
+	    <div class="clearfix panel-footer">
+	        <span class="pull-right">共找到{{pagination.totalItems}}份合同</span>
+	    </div>
+	    <div class="clearfix pull-right" ng-show="contractList.length > 0">
+		    <!-- 分页  -->
+	        <pagination total-items="pagination.totalItems"
+	                    page="pagination.pageIndex"
+	                    items-per-page="pagination.pageSize"
+	                    max-size="pagination.maxSize"
+	                    previous-text="{{pagination.previousText}}"
+	                    next-text="{{pagination.nextText}}"
+	                    first-text="{{pagination.firstText}}"
+	                    last-text="{{pagination.lastText}}"
+	                    class="pagination-small"
+	                    boundary-links="true"
+	                    on-select-page="onSelectPage(page)">
+	        </pagination>
+	    </div>
+    </div>
+</div>

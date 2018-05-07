@@ -1,0 +1,20 @@
+
+	<div class="page-header">
+		<h3 style="display:inline-block">单证打印</h3>
+	</div>
+
+	<select ng-model="options.bizType" ng-change="reset(keywords)">
+		<option  value="1">分保清单</option>
+		<option  value="2">赔款清单</option>
+		<option  value="3">未决赔款清单</option>
+	</select>
+
+	<div ng-if="options.bizType==='1'" class="container-fluid">
+		<div ng-include="'/reins/page/templates/print/print.list.tpl.ply.html'"></div>		
+	</div>
+	<div ng-if="options.bizType==='2'" class="container-fluid">
+		<div ng-include="'/reins/page/templates/print/print.list.tpl.ClmClosed.html'"></div>		
+	</div>
+	<div ng-if="options.bizType==='3'" class="container-fluid">
+		<div ng-include="'/reins/page/templates/print/print.list.tpl.ClmOpened.html'"></div>
+	</div>

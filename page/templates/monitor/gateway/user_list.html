@@ -1,0 +1,48 @@
+
+<script id="queryFormTmpl" type="text/x-jsrender">
+<div class="page-title">
+  &nbsp;
+    <a href="/">
+        <i class="fa fa-home fa-fw fa-lg"></i>
+        回到首页
+    </a>
+    / 网关配置
+</div>
+<div id="search-panel">
+    <div class="col-md-10 column" >
+        <div class="row clearfix">
+            <div class="col-md-12 column background-color-white padding-left-right-base box panel box-info">
+                <div class="box-header with-border">
+                </div>
+                <div class="tabbable boxbody">
+                    <div id="toolbar" class="btn-group">
+                        
+                    </div>
+                    <div class="tab-content list-table">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 column">
+        <div class="row margin-left-1x">
+            <div class="col-md-12 column background-color-component-default">
+                <div class="page-header margin-top-3x">
+                    <div><h5><span class="color-red font-weight-bolder">| </span>网关配置</h5></div>
+
+                    <form role="form" class="searchform">
+                        <div class="form-group query-border">
+                           {{for queryConditions}} 
+                            <input name="{{:name}}" class="form-control input-sm" type="text" placeholder="{{:placeholder}}" />
+                           {{/for}}
+
+                        </div>
+                    <button type="button" class="btn btn-danger btn-search btn-sm btn-block">查询</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</script>           

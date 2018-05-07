@@ -1,0 +1,16 @@
+<script id="messageTml" type="text/x-jsrender">
+{^{for messages}}
+<div class="media msg-content">
+    <a class="media-left" href="#">
+        <i data-link="class{:read?'fa fa-lg fa-fw fa-envelope-open':'fa fa-lg fa-fw fa-envelope'}"></i>
+
+    </a>
+    <div class="media-body">
+        <h4 class="media-heading"><a href="#" data-link="{on 'click' ~readMsg #index data=read}" data-id="{{:id}}" class="message">{{:title}}</a><br/><small>{{hisgo:sendTime}}</small></h4>
+    </div>
+</div>
+{{/for}}
+<div style="text-align: center;">
+    <a href="#/msg/list" data-router="/msg/list">更多</a>
+</div>
+</script>

@@ -1,0 +1,113 @@
+<div collapse="hideList">
+<!-- 查询条件 -->
+
+	<div ng-hide="searchTableFlag" class="search-toggle" ng-click="searchTableFlag = ! searchTableFlag">
+        <span class="glyphicon glyphicon-search"></span>
+    </div>
+    <div collapse="!searchTableFlag" class="well">
+	<div class="panel panel-default">
+	<div class="panel-heading">
+        <span class="panel-title">发票录入查询</span>          
+    </div>
+    <div class="panel-body">
+    	 <form name="searchForm" >
+         <table class="table table-bordered">
+            <tr>
+                <td >结算单号</td>
+                <td>
+                    <select ng-model="keywords.chargeoffPkgNoFlag">
+                        <option value="=" selected>=</option>
+                        <option value="*">*</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" ng-model="keywords.chargeoffPkgNo">
+                </td>                 
+                <!-- <td>核销包状态</td>
+                <td>
+                    <select ng-model="keywords.chargeoffStat" style="width:160px">
+                        <option value="0" selected="selected">全部</option>
+                        <option value="12">分项账单包未打包</option>
+                        <option value="1">分项账单包暂存</option>
+                        <option value="2">分项账单包提交  </option>
+                        <option value="3">分项账单包确认</option>
+                        <option value="4">分项账单包退回</option>                
+                        <option value="5">核销包暂存</option>
+                        <option value="6">核销包提交审批  </option>
+                        <option value="7">核销包审核中</option>
+                        <option value="8">核销包审核结束</option>
+                        <option value="10">核销包退回</option>
+                        <option value="9">核销包提交财务</option>
+                        <option value="11">核销包已核销</option>
+                    </select>
+                </td>    -->    
+                <td>发票状态</td>
+                <td>
+                    <!-- <select ng-model="keywords.settleStat" style="width:160px">
+                        <option value="6" selected>全部</option>
+                        <option value="0">待录入</option>
+                        <option value="1">已录入  </option>
+                    </select> -->
+                    <input type="radio" ng-value="6" name="keywords.settleStat" checked/>全部
+					<input type="radio" ng-value="0" name="keywords.settleStat"/>待录入
+					<input type="radio" ng-value="1" name="keywords.settleStat"/>已录入
+                </td>      
+            </tr>            
+            
+            <tr>
+                <td>提交/确认/退回时间</td>
+                <td></td>
+                
+                <td>
+                    <!-- <input type="text" datepicker2  ng-model = "keywords.startDate" >至
+                    <input type="text" datepicker2  ng-model = "keywords.endDate" > -->
+                    <input name="startDate" type="date" ng-model="keywords.startDate">至
+	         		<input name="endDate" type="date" ng-model="keywords.endDate ">
+                </td>
+                <td>应税免税标识</td>                  
+                
+				<td>
+					<input type="radio" ng-value="1" name="keywords.taxFlag" checked/>应税
+					<input type="radio" ng-value="0" name="keywords.taxFlag"/>免税
+				</td>
+                
+            </tr>
+            <tr>
+                
+				
+                
+            </tr>
+            <tr>
+                <td colspan="6" align="right">
+                    <a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
+                    <a ng-click="searchTableFlag = ! searchTableFlag" class="btn btn-default">取消</a>
+                    <a ng-click="searchInvoiceEntry()" class="btn btn-primary" >立即查询</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+    </div>
+   </div>
+   </div>
+	<div ng-include="'/reins/page/templates/settleInvoice/reinsSettleInvoiceEntry.list.html'"></div>  
+	<div class="clearfix panel-footer">
+	    <span class="pull-right">共找到{{pagination.totalItems}}份结算单信息</span>
+	</div>
+	<div>
+		<!-- 分页  -->
+		<pagination total-items="pagination.totalItems"
+	        page="pagination.pageIndex"
+	        items-per-page="pagination.pageSize"
+	        max-size="pagination.maxSize"
+	        previous-text="{{pagination.previousText}}"
+	        next-text="{{pagination.nextText}}"
+	        first-text="{{pagination.firstText}}"
+	        last-text="{{pagination.lastText}}"
+	        class="pagination-small"
+	        boundary-links="true"
+	        on-select-page="onSelectPage(page)">
+	  		</pagination>
+	</div>
+</div>
+
+<!-- <div ui-view="operation"></div> -->

@@ -1,0 +1,35 @@
+<!--再保人列表-->
+<div>
+    <div class="modal-header">
+        <h2>再保人管理--删除</h2>
+    </div>
+    <div class="modal-body">
+        <table class="table table-stripped">
+            <tr>
+                 <th>有效标志</th>
+		         <th>接受人代码</th>
+		         <th>接受人简称</th>
+             <!--    <th>接受人代码</th>
+                <th>接受人名称</th>
+                <th>接受人英文名称</th>
+                <th>接受人类型</th>
+                <th>境内境外标识</th> -->
+                <th>&nbsp;</th>
+            </tr>
+            <tr ng-repeat="reinsurer in reinsurerList">
+                <!-- <td>{{reinsurer.reinsCode}}</td>
+                <td>{{reinsurer.longName}}</td>
+                <td>{{reinsurer.reinsEName}}</td>
+                <td>{{reinsurer.reinsType }}</td>
+                <td>{{reinsurer.locationFlag}}</td> -->
+                <td>{{reinsurer.validStatus}}</td>
+                <td>{{reinsurer.reinsCode}}</td>
+                <td>{{reinsurer.shortName}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-danger" ng-click="deleteList()">确认删除</a>
+        <a class="btn btn-primary" ng-click="cancel()">撤销</a>
+    </div>
+</div>

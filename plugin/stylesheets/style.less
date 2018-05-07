@@ -1,0 +1,187 @@
+@import url(common.less);
+/*首页导航css样式修改 start*/
+.navbar{
+  border-bottom-color:@vi-color;
+  border-bottom-style: solid;
+  border-bottom-width: 5px;
+  .clean-bottom-radius;
+  .clean-border-left-right;
+}
+/*首页导航css样式修改 end*/
+
+/*首页菜单组件css样式 start*/
+.menu-dropdown{
+  color: white;
+}
+.menu-dropdown .dropdown-menu{
+  background-color:@black-color;
+  opacity:0.95;
+  filter:alpha(opacity=50);
+}
+/*中间菜单右边框竖线定义*/
+.menu-dropdown .dropdown-menu .menu-group > .menu:not(:first-child):not(:last-child) {
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-right-color: #e6e6e6;
+}
+/*第一个菜单定义右边框竖线定义*/
+.menu-dropdown .dropdown-menu .menu-group > .menu:first-child {
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-right-color: #e6e6e6;
+}
+
+.menu-dropdown .dropdown-menu .menu {
+  min-width: 220px;
+  float: left;
+}
+.menu-dropdown .dropdown-menu .menu-title {
+  margin:10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 12px;
+  background-color: #000000;
+
+}
+.menu-dropdown .dropdown-menu .menu-body {
+  float: left;
+}
+.menu-dropdown .dropdown-menu .menu-logo {
+  float: left;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-right-width: 1px;
+  border-right-style: dashed;
+  border-right-color: #e6e6e6;
+}
+.menu-dropdown .dropdown-menu .menu-content {
+  float: left;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.menu-dropdown .dropdown-menu .menu-content > a {
+  display: block;
+  color: #f5f5f5;
+  font-size: 12px;
+  padding-top: 5px;
+}
+/*首页菜单组件css样式 end*/
+
+/*下拉菜单背景透明 start*/
+.dropdown-menu {
+  opacity:0.95;
+  filter:alpha(opacity=50);
+}
+/*下拉菜单背景透明 end*/
+/*菜单消息通知样式 start*/
+.msg-badge {
+  color:#ffffff;
+  position: relative;
+  top: -8px;
+  right: 6px;
+  background-color: @vi-color;
+}
+/*菜单消息通知样式 end*/
+
+/*个人信息区域定义 start*/
+.avatar {
+  border-radius: 2px;
+}
+/*个人信息区域定义 end*/
+
+/*页面选项卡样式定义 start*/
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  color: #ffffff;
+}
+.nav-tabs-bottom-border-color{
+  border-bottom-width: 2px;
+}
+.nav-tabs > li > a {
+  color: gray;
+  line-height: 1.42857143;
+}
+/*页面选项卡样式定义 end*/
+
+/*页面底部定义*/
+.app-footer {
+  width: 100%;
+  text-align: center;
+  color:#D1D1D1;
+  background-color: @black-color;
+}
+
+/*消息内容和按钮定义 start*/
+.msg-button{
+  border-width: 1px;
+  border-style: solid;
+  border-color: #4596d3;
+  color:#4596d3;
+}
+.msg-content{
+  padding-top: 5px;
+  margin-top:0px;
+  margin-bottom: 8px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #d9d9d9;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color:#ffffff;
+}
+/*消息内容和按钮定义 end*/
+
+/*统计信息区样式  start*/
+.anylyis-component{
+  margin-top:10px ;
+  padding: 20px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+.anylyis-component  .anylyis-component-border {
+  border-right-color: #808080;
+  border-right-style: solid;
+  border-right-width: 1px;
+  padding-right: 10px;
+
+}
+/*统计信息区样式  end*/
+
+
+
+
+/*查询条件样式 start*/
+.query-border{
+  border-style: solid;
+  border-color: @vi-color;
+  border-width: 1px;
+  border-radius: 4px;
+}
+/*查询条件样式 end*/
+
+/*评论样式  start*/
+.discuss-border{
+  border-style: solid;
+  border-color: @default-bg-component-color;
+  border-width: 30px;
+  border-radius: 6px;
+}
+/*评论样式  end*/
+
+/*任务处理区table样式 start*/
+.table > thead > tr > th {
+  padding: 4px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+/*任务处理区table样式 end*/
+
+.radio{
+  float: left;
+}
+
+

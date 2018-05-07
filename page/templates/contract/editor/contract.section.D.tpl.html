@@ -1,0 +1,228 @@
+<div class="container-fluid">
+    <form ng-class="{'readonly': operation==='view'}">
+    <!--适用险种-->
+    <div ng-include="'contract/editor/contract.risks.tpl.html'"></div>
+
+    <!--暂存编号-->
+    <div class="row">
+        <div class="col-sm-2">
+            <label>暂存编号</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control"  type="text"  readonly ng-model="section.tmpContNo" ng-readonly="true">
+            <span></span>
+        </div>
+
+        <div class="col-sm-2">
+            <label>合同编号</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" readonly ng-model="section.contNo" ng-readonly="true">
+            <span></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label>合同分项号</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text"  ng-model="section.sectNo"  ng-required="true" 
+            ng-readonly="operation==='view'">
+            <span></span>
+        </div>
+        <div class="col-sm-2">
+            <label>分项中文描述</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.sectNme"  ng-required="true"
+                   ng-readonly="operation==='view'" >
+            <span></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label>分项英文描述</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.sectEnm" ng-readonly="operation==='view'"
+                   ng-readonly="true" ng-required="true">
+            <span></span>
+        </div>
+
+        <div class="col-sm-2">
+            <label>币别</label>
+        </div>
+        <div class="col-sm-4">
+            <select class="form-control" ng-model="section.currency" ng-options="c.id as c.value for c in currencys" ng-if="operation != 'view'"></select>
+            <div ng-model="section.currency" ng-readonly="true" ng-if="operation === 'view'">
+                {{section.currency | code : 'currency'}}
+            </div>
+            <span></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">
+            <label>溢额线数</label>
+        </div>
+        <div class="col-sm-4">
+            <input nonnegtive class="form-control" type="text" ng-model="section.surplusLines" ng-readonly="operation === 'view'"
+                    ng-required="true">
+            <span></span>
+        </div>
+
+        <div class="col-sm-2">
+            <label>合同限额</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.contQuota" ng-readonly="operation === 'view'"
+                   currency >
+            <span></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label>台风赔偿限额</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="" ng-model="section.hurricaneLimit" ng-readonly="operation === 'view'"
+                   currency>
+            <span></span>
+        </div>
+
+        <div class="col-sm-2">
+            <label>洪水赔偿限额</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="" ng-model="section.floodLimit" ng-readonly="operation === 'view'"
+                 currency >
+            <span></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label>地震赔偿限额</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="" ng-model="section.earthquakeLimit" ng-readonly="operation === 'view'"
+                   currency >
+            <span></span>
+        </div>
+
+        <div class="col-sm-2">
+            <label>合同自留额</label>
+        </div>
+        <div class="col-sm-4">
+            <input ng-required="true" class="form-control" type="text" ng-model="section.reten" 
+                   currency
+                   ng-readonly="operation === 'view'">
+            <span></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label>含税费比例（%）</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.taxRate"
+               percentage  ng-readonly="operation === 'view'" ng-required="true">
+            <span></span>
+        </div>
+
+        <div class="col-sm-2">
+            <label>固定手续费（含税）比例（%）</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.commRate" ng-required="true"
+                   percentage
+                   ng-readonly="operation === 'view'" >
+            <span></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label>重大赔案通知额</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.gteateLoss" ng-required="true"
+                   currency   ng-readonly="operation === 'view'">
+            <span></span>
+        </div>
+
+        <div class="col-sm-2">
+            <label>现金赔款通知额</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.cashLoss"
+                   currency     ng-readonly="operation === 'view'" ng-required="true">
+            <span></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">
+            <label>其他费用</label>
+        </div>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label>经纪人费(%)</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.brokeRate" percentage
+                   ng-readonly="operation === 'view'" >
+            <span></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label>地震险子分项号</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.eqsectNo" ng-readonly="operation === 'view'">
+            <span></span>
+        </div>
+
+        <div class="col-sm-2">
+            <label>手续费(含税)比例(%)</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.eqCommRate" ng-readonly="operation === 'view'"
+                  percentage >
+            <span></span>
+        </div>
+    </div>
+    <!--地震险模块-->
+    <table class="table table-stripped"  name="earthquake">
+        <tr>
+            <td colspan="4">地震险适用险别</td>
+        </tr>
+        <tr ng-show="operation != 'view'">
+            <td colspan="3">
+                <div >
+                    <select class="form-control" ng-model="risk.classCode2" ng-options = "cd.id as cd.value for cd in classes"
+                            ng-change="changeIns(risk.classCode2)"></select>
+                    <select class="form-control" ng-model="risk.insrncCde" ng-options="cc.id as cc.value for cc in insrncCdes"
+                            ng-change="changeRiComCdes(risk.insrncCde)"></select>
+                    <select class="form-control" ng-model="risk.riComCde" ng-options="ac.id as ac.value for ac in riComCdes" ></select>
+                </div>
+            <td><a class="btn btn-default" ng-show="operation != 'view'"
+                   ng-click="addEarthRisk(section.contOutInssectEqDtls, risk.riComCde, risk.insrncCde)">增加</a></td>
+        </tr>
+        <tr ng-repeat="ri in section.contOutInssectEqDtls">
+            <td>{{ri.rdrCde}}</td>
+            <td>{{ri.rdrName}}</td>
+            <td><a class="btn btn-default" ng-if="operation != 'view'"
+                   ng-show="ri.riComCde != ''" ng-click="delEarthRisk(section.contOutInssectEqDtls, ri)">删除</a></td>
+            <td></td>
+    </table>
+
+    <!--浮动手续费-->
+    <div ng-include="'contract/editor/contract.adjustrate.tpl.html'"></div>
+</form>
+</div>

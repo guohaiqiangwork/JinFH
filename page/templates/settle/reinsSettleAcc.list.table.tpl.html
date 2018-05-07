@@ -1,0 +1,53 @@
+ <div class="table-responsive">
+	        <table class="table table-striped table-hover">
+	        	<thead>
+		        <tr>
+		            <th><input type="checkbox"  ng-model="checkAll" ng-click="checkAllSettleAcc()">全选</th>
+		            <th>结算单编号</th>
+		            <th>结算人编号</th>
+		            <th>结算人名称</th>
+		            <th>结付币种</th>
+		            <th>结付金额</th>
+		            <th>经办人</th>
+		            <th>结算单生成日期</th> 
+		            <th>结算单转收付日期</th>
+		            <th>实际付款日期</th>
+		          
+		        </tr>
+		        </thead>
+		        <tbody>
+		        <tr ng-repeat="settleAcc in settleAccList" class="hover-visible-wrapper">
+		            <td><input type="checkbox" ng-model="settleAcc.checked">{{$index+1}}</td>	            
+		            <td><a ng-href="#/settleAccs/{{settleAcc.settleNo}}/view">{{settleAcc.settleNo}}</a></td>
+		            <td>{{settleAcc.payCode}}</td>
+		            <td>{{settleAcc.payName}}</td>
+		            <td>{{settleAcc.currency}}</td>
+		            <td>{{settleAcc.settleValue}}</td>
+		            <td>{{settleAcc.operatorCode}}</td>
+		            <td>{{settleAcc.operateDate.time | date : config.display.dateFormat}}</td>
+		            <td>{{settleAcc.sendDate.time | date : config.display.dateFormat}}</td>
+		            <td>{{settleAcc.sendFlag}}</td>
+		            
+		            <!--  
+		            <td><a ng-href="#/reinsurers/{{reinsurer.reinsCode}}/view">{{reinsurer.reinsCode}}</a></td>
+		            <td>{{reinsurer.shortName}}</td>
+		            -->
+		            <!--<td>{{reinsurer.reinsEName}}</td>
+		            <td ng-show="reinsurer.reinsType === null || reinsurer.reinsType === ''"></td>
+		            <td ng-show="reinsurer.reinsType === '0'">直保公司</td>
+		            <td ng-show="reinsurer.reinsType === '1'">经纪公司</td>
+		            <td ng-show="reinsurer.reinsType === '2'">专业再保公司</td>
+		            <td ng-show="reinsurer.reinsType === '3'">自保公司</td>
+		            <td ng-show="reinsurer.locationFlag === null || reinsurer.locationFlag === ''"></td>
+		            <td ng-show="reinsurer.locationFlag === '1'">境内</td>
+		            <td ng-show="reinsurer.locationFlag === '2'">境外（含港澳台）</td> -->
+		            
+		            <td>
+		            	<div class="btn-group btn-group-sm hover-visible"> 
+		            		<a class="btn btn-default" ng-click="deleteSettleAcc()">打印结付清单</a>
+	            		</div>
+	            	</td>
+		        </tr>
+		        </tbody>
+		    </table>
+	    </div>

@@ -1,0 +1,20 @@
+<!-- <div ng-if="splitMode.flag!='no'">	 -->
+	<div collapse="hideList">
+	    <div collapse="reinsShareList != null && reinsShareList.length > 1">
+	        <div ng-include="'/reins/page/templates/undwrt/dangerunit.list.' + certiType + '.tpl.html'"></div>
+	    </div>
+	    <div class="pull-right" ng-if="reinsShareList.length > 1">
+	        <a class="btn btn-default" ng-click="resultBack()">返回</a>
+	    </div>
+	    <div ng-if="reinsShareList.length > 0" ng-repeat="reinsShare in reinsShareList">
+	        <div style="margin-top: 51px;" ng-include="'/reins/page/templates/undwrt/dangerunit.result.' + certiType + '.tpl.html'"></div>
+	    </div>
+	    <div ng-if="!(reinsShareList.length > 0)">
+	        分保试算无结果！
+	    </div>
+	</div>
+	<div ui-view="operation"></div>
+<!-- </div> 
+<div ng-if="splitMode.flag==='no'">
+	数据不正常
+</div>-->

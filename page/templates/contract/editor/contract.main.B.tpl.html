@@ -1,0 +1,155 @@
+<div class="container-fluid">
+
+    <form ng-class="{'readonly': operation==='view'}" name="frmSearchContract" novalidate>
+        <div style="margin-top:20px">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label>合同编号</label>
+                </div>
+
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" ng-model="contract.treatyNo" ng-readonly="true" placeholder="系统自动生成">
+                    <span></span>
+                </div>
+				<div class="col-sm-2">
+                    <label>合同状态</label>
+                </div>
+
+                <div class="col-sm-4">
+                    <select class="form-control" ng-show="(operation != 'view')" 
+                    ng-model="contract.stateFlag"
+                            ng-options="c.id as c.value for c in mayStateFlags"
+                            ng-required="true">
+                    </select>
+                    <div ng-show="(operation === 'view')">{{contract.stateFlag | code : 'nprop.stateFlag'}}</div>
+                    <span></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <label>合同简称</label>
+                </div>
+
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" ng-model="contract.refNo" 
+                    ng-readonly="operation==='view' || effected" ng-required="true">
+                    <span></span>
+                </div>
+
+                <div class="col-sm-2">
+                    <label>合同全称</label>
+                </div>
+
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" ng-model="contract.treatyName" 
+                    ng-readonly="operation==='view' || effected">
+                    <span></span>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <label>合同英文名称</label>
+                </div>
+
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" ng-model="contract.treatyEName" 
+                    ng-readonly="operation==='view' || effected">
+                    <span></span>
+                </div>
+
+                <div class="col-sm-2">
+                    <label>业务年度</label>
+                </div>
+
+                <div class="col-sm-4">
+                    <input  class="form-control" type="text" ng-model="contract.uwYear"  
+                    ng-readonly="operation==='view' || effected"   ng-required="true">
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <label>合同起期</label>
+                </div>
+                <div class="col-sm-4 ">
+                	<div ng-show="operation!='view'&&!effected">
+	                    <input type ="date" class="form-control"  ng-model="contract.startDate"
+	                              ng-required="true" >
+	                    <span></span>
+	                    
+                    </div>
+                     <div ng-show="operation === 'view' || effected">
+                     	{{contract.startDate | date : config.display.dateFormat }}
+                     </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <label>合同止期</label>
+                </div>
+				
+                <div class="col-sm-4 " >
+                	<div ng-if="operation!='view'">
+	                    <input type ="date" class="form-control" ng-model="contract.endDate" 
+	                             ng-required="true"  ng-blur="checkEndDate(contract)"  >
+	                    <span></span>
+                    </div>
+                    <div  ng-if="operation === 'view'">
+                    	{{contract.endDate | date : config.display.dateFormat}}
+                    </div>
+               </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <label>续转合同编码</label>
+                </div>
+
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" ng-model="contract.exTreatyNo" ng-readonly="operation==='view' || effected" 
+                    typeahead="state.id as state.id +'-'+ state.value for state in getByReturn('exTreatyNo',$viewValue) | filter:$viewValue "
+                  typeahead-wait-ms="500">
+                    <span></span>
+                </div>
+
+                <div class="col-sm-2">
+                    <label>续转日期</label>
+                </div>
+
+                <div class="col-sm-4">
+                    <input type ="date" class="form-control" type="text"
+                           
+                           ng-model="contract.extendDate" ng-if="operation!='view' && !effected" ng-readonly="operation ==='view' " >
+                    <div ng-if="operation === 'view' || effected" >{{contract.extendDate | date : config.display.dateFormat}}</div>
+                    <span></span>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <label>币别</label>
+                </div>
+
+                <div class="col-sm-4">
+                    <select class="form-control" ng-show="(operation != 'view' && !effected)" ng-model="contract.currency" ng-options="c.id as c.value for c in currencys"></select>
+                    <div ng-if="(operation==='view' || effected)" >{{contract.currency | code : 'currency' }}</div>
+                    <span></span>
+                </div>
+
+                <div class="col-sm-2">
+                    <label>合同类型</label>
+                </div>
+
+                <div class="col-sm-4">
+                    <select class="form-control" ng-show="(operation != 'view' && !effected)" 
+                    ng-model="contract.treatyType"
+                            ng-options="c.id as c.value for c in treatyTypes"
+                            ng-required="true"></select>
+                    <span></span>
+                    <div  ng-show="(operation==='view' || effected) ">{{contract.treatyType | code: 'nprop.treatyType'}}</div>
+                </div>
+
+            </div>
+            
+        </div>
+    </form>
+</div>

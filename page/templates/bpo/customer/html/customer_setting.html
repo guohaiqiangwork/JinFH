@@ -1,0 +1,85 @@
+<div class="row" id="customer-setting">
+</div>
+<script id="settingTmpl" type="text/x-jsrender">
+    <div class="col-xs-12">
+        <div class="box panel box-info">
+            <div class="box-header with-border">
+                <h4 class="box-title">
+                  <a href="#collapseOne" data-parent="#accordion" data-toggle="collapse" aria-expanded="true" class="">
+                    客户信息
+                  </a>
+                </h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapseOne">
+                <div class="box-body">
+                {{for customer}}
+                   <div class="col-lg-6 col-md-3 col-xs-3">
+                        <div class="form-group">
+                            <label class="col-lg-5 col-sm-5 col-xs-5 control-label" for="jobContent">客户代码</label>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+                                {{:customerCode}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-3 col-xs-3">
+                        <div class="form-group">
+                            <label class="col-lg-5 col-sm-5 col-xs-5 control-label" for="jobContent">客户名称</label>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+                                {{:customerName}}
+                            </div>
+                        </div>
+                    </div>
+                {{/for}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="box panel box-info">
+            <div class="box-header with-border">
+                <h4 class="box-title">
+                  <a href="#collapseTwo" data-parent="#accordion" data-toggle="collapse" aria-expanded="true" class="">
+                    档案条目信息
+                  </a>
+                </h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapseTwo">
+                <div class="box-body">
+                    <div id="toolbar" class="btn-group">
+                        <button id="btn_add" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+                        </button>
+                        <button id="btn_delete" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+                        </button>
+                    </div>
+                    <div id="cfg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="box panel box-info">
+            <div class="box-header with-border">
+                <h4 class="box-title">
+                  <a href="#collapseTwo" data-parent="#accordion" data-toggle="collapse" aria-expanded="true" class="">
+                    档案目录信息
+                  </a>
+                </h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapseTwo">
+                <div class="box-body">
+                    <div id="toolbarFolder" class="btn-group">
+                        <button id="folder_add" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+                        </button>
+                        <button id="folder_delete" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+                        </button>
+                    </div>
+                    <div id="folders"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

@@ -1,0 +1,56 @@
+<!DOCTYPE weblogic-web-app PUBLIC "-//BEA Systems, Inc.//DTD Web Application 6.1//EN" "http://www.bea.com/servers/wls610/dtd/weblogic-web-jar.dtd">
+<weblogic-web-app>
+  <jsp-descriptor>
+    <jsp-param>
+      <param-name>compileCommand</param-name>
+      <param-value>javac</param-value>
+    </jsp-param>
+    <jsp-param>
+      <param-name>verbose</param-name>
+      <param-value>true</param-value>
+    </jsp-param>
+    <jsp-param>
+      <param-name>keepgenerated</param-name>
+      <param-value>true</param-value>
+    </jsp-param>
+    <jsp-param>
+      <param-name>pageCheckSeconds</param-name>
+      <param-value>1</param-value>
+    </jsp-param>
+    <jsp-param>
+      <param-name>packagePrefix</param-name>
+      <param-value>jsp_servlet</param-value>
+    </jsp-param>
+    <jsp-param>
+      <param-name>noTryBlocks</param-name>
+      <param-value>false</param-value>
+    </jsp-param>
+    <jsp-param>
+      <param-name>precompile</param-name>
+      <param-value>false</param-value>
+    </jsp-param>
+    <jsp-param>
+      <param-name>compilerSupportsEncoding</param-name>
+      <param-value>true</param-value>
+    </jsp-param>
+    <jsp-param>
+      <param-name>superclass</param-name>
+      <param-value>weblogic.servlet.jsp.JspBase</param-value>
+    </jsp-param>
+    <jsp-param>
+      <param-name>encoding</param-name>
+      <param-value>GBK</param-value>
+    </jsp-param>
+    <jsp-param>
+      <param-name>workingDir</param-name>
+      <param-value>./reins_workingDir</param-value>
+    </jsp-param>    
+  </jsp-descriptor>
+<!--   <session-descriptor>
+		<session-param>
+			<param-name>CookieName</param-name>
+			<param-value>sinosoftJSESSIONID</param-value>
+		</session-param>
+	</session-descriptor> -->
+</weblogic-web-app>
+

@@ -1,0 +1,29 @@
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+    	<thead>
+		     <tr>
+		         <th><input type="checkbox"  ng-model="checkAll" ng-click="checkAllRelationships()">全选</th>
+		         <th>业务年度</th>
+		         <th>合同编号</th>
+		         <th>合同全称</th>
+		         <th>顺序号</th>
+		         <th>操作</th>
+		     </tr>
+		     </thead>
+		     <tbody>
+		     <tr ng-repeat="relationship in relationshipList" class="hover-visible-wrapper">
+		         <td><input type="checkbox" ng-model="relationship.checked">{{getIndex($index)}}</td>
+		         <td>{{relationship.uwYear}}</td>
+		         <td><a ng-href="#/relationships/{{relationship.uwYear}}{{relationship.treatyNo}}/view">{{relationship.treatyNo}}</a></td>
+		         <td>{{relationship.treatyName}}</td>
+		         <td>{{relationship.priorityNo}}</td>
+		         <td>
+		         	<div class="btn-group btn-group-sm hover-visible">
+		         		 <a ng-href="#/relationships/{{relationship.uwYear}}{{relationship.treatyNo}}/edit"  class="btn btn-default" >编辑</a>
+		         		<!-- <a ng-href="#/relationships/{{parameters}}/edit"  class="btn btn-default" >编辑</a> -->
+	         		</div>
+	         	</td>
+		     </tr>
+		     </tbody>
+	 </table>
+</div>

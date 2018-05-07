@@ -1,0 +1,82 @@
+<div class="row" id="user-power"></div>
+<script id="userPowerConfigTmpl" type="text/x-jsrender">
+    <div class="row page-title">
+        <div class="col-lg-12">
+            <a href="/">
+                <i class="fa fa-home fa-fw fa-lg"></i>
+                回到首页
+            </a>
+            / 用户权限复制
+        </div>
+    </div>
+    <div class="row lookup recorded">
+        <div class="col-lg-12">
+            <!-- style="position:absolute;" -->
+            <form id="formUserList" class="form-horizontal" role="form" method="post">
+                <div class="box panel box-info">
+                     <div class="box-header with-border">
+                        <h4 class="box-title">
+                          <a href="#collapseOne" data-parent="#accordion" data-toggle="collapse" aria-expanded="true" class="">
+                            用户信息
+                          </a>
+                        </h4>
+                    </div>
+                    <div class="panel-collapse collapse in" id="collapseOne">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                <div class="row form-group">
+                                    <div class="col-xs-4">
+                                        <label for="userCode" class="control-label">用户Id</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <input id="id" name="id" class="form-control" data-link="user.id" type="text" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                <div class="row form-group">
+                                    <div class="col-xs-4">
+                                        <label for="userCode" class="control-label">用户代码</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <input id="userCode" name="userCode" class="form-control" data-link="user.userCode" type="text" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--角色信息-->
+                <div class="box panel box-info">
+                     <div class="box-header with-border">
+                        <h4 class="box-title">
+                          <a href="#collapseOne" data-parent="#accordion" data-toggle="collapse" aria-expanded="true" class="">
+                            复制用户信息
+                          </a>
+                        </h4>
+                    </div>
+                    <div class="panel-collapse collapse in" id="collapseOne">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="tabbable">
+                                        <table id="user-list-table" class="table table-hover searchtable user-list-table">
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-tool-my">
+                    <div class="footer-my">
+                        <button type="button" class="btn btn-danger btn-sm" style="display: none" id="btn-submit-user-list">保存</button>
+                        <button type="button" id="btn-close-user-list" class="btn btn-default btn-close btn-sm">关 闭</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</script>

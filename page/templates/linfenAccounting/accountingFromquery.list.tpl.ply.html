@@ -1,0 +1,206 @@
+         <div class="row">
+                <div class="col-lg-2">
+                    <label>保单号</label>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="input-group">
+                      	<select  ng-model="keywords.policyNoFlag">
+                    	 	<option value="=" selected="true">=</option>
+                     	<option value="*">*</option>
+                   	</select>
+                        <input type="text" ng-model="keywords.policyNo">
+                        <span></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-2">
+                    <label>危险单位号</label>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <select ng-model = "keywords.dangerNoFlag">
+                            <option value="=" selected="true">=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" ng-model = "keywords.dangerNo">
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+         <div class="row">
+                <div class="col-lg-2">
+                    <label>投保单号</label>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                      	<select  ng-model="keywords.proposalNoFlag">
+                    	 	<option value="=" selected="true">=</option>
+                     	<option value="*">*</option>
+                   	</select>
+                        <input type="text" ng-model="keywords.proposalNo">
+                        <span></span>
+                    </div>
+                </div>
+                
+             <div class="col-lg-2">
+                    <label>投保单号</label>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                      	<select  ng-model="keywords.insuredNameFlag">
+                    	 	<option value="=" selected="true">=</option>
+                     	<option value="*">*</option>
+                   	</select>
+                        <input type="text" ng-model="keywords.insuredName">
+                        <span></span>
+                    </div>
+                </div>
+         </div>
+         <div class="row">
+                <div class="col-lg-2">
+                    <label>分包业务号</label>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                      	<select  ng-model="keywords.riskCodeFlag">
+                    	 	<option value="=" selected="true">=</option>
+                     	<option value="*">*</option>
+                   	</select>
+                        <input type="text" ng-model="keywords.riskCode">
+                        <span></span>
+                    </div>
+                </div>
+                
+             	<div class="col-lg-2">
+                    <label>出单公司</label>
+                </div>
+                <div class="col-lg-4">
+                     <div class="input-group">
+                         <select  ng-model="keywords.currency" ng-options="c.id as c.value for c in currencys">
+	            	<option value=''>全部</option>
+       					    </select>
+                         <span></span>
+                     </div>
+	            </div>
+         </div>
+		<div class="row">
+                <div class="col-lg-2">
+                    <label>险类</label>
+                </div>
+                <div class="col-lg-4">
+                     <div class="input-group">
+                         <select  ng-model="keywords.currency" ng-options="c.id as c.value for c in currencys">
+	            	<option value=''>全部</option>
+       					    </select>
+                         <span></span>
+                     </div>
+	            </div>
+                
+             <div class="col-lg-2">
+                    <label>险种</label>
+                </div>
+                <div class="col-lg-4">
+                	<div class="input-group">
+                        <input type="text" datepicker2
+                               ng-model = "keywords.startDate">至<input type="text"
+                                datepicker2 ng-model = "keywords.endDate">
+                        <span></span>
+                  </div>
+                </div>
+         </div>
+	<div class="row">
+		<div class="col-lg-2">
+			<label>业务年度</label>
+		</div>
+     	<div class="col-lg-4">
+	         <div class="input-group">
+	           	<select  ng-model="keywords.comCode">
+	         	 	<option value="=" selected="true">=</option>
+	          	<option value="*">*</option>
+	        	</select>
+	             <input type="text" ng-model="keywords.comCode">
+	             <span></span>
+	         </div>
+     	</div>
+     	
+     	<div class="col-lg-2">
+			<label>币种</label>
+		</div>
+     	<div class="col-lg-4">
+	         <div class="input-group">
+	           	<select  ng-model="keywords.comCode">
+	         	 	<option value="=" selected="true">=</option>
+	          	<option value="*">*</option>
+	        	</select>
+	             <input type="text" ng-model="keywords.comCode">
+	             <span></span>
+	         </div>
+     	</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-lg-2">
+			<label>起保日期</label>
+		</div>
+     	<div class="col-lg-4">
+	         <div class="input-group">
+	           	<select  ng-model="keywords.comCode">
+	         	 	<option value="=" selected="true">=</option>
+	          	<option value="*">*</option>
+	        	</select>
+	             <input type="text" ng-model="keywords.comCode">
+	             <span></span>
+	         </div>
+     	</div>
+     	
+     	<div class="col-lg-2">
+			<label>被保险人</label>
+		</div>
+     	<div class="col-lg-4">
+	         <div class="input-group">
+	           	<select  ng-model="keywords.comCode">
+	         	 	<option value="=" selected="true">=</option>
+	          	<option value="*">*</option>
+	        	</select>
+	             <input type="text" ng-model="keywords.comCode">
+	             <span></span>
+	         </div>
+     	</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-lg-2">
+			<label>账单生成状态</label>
+		</div>
+     	<div class="col-lg-4">
+	         <div class="input-group">
+	           	<input type="radio" name="radiobutton" value="radiobutton" checked>全部 
+				<input type="radio" name="radiobutton" value="radiobutton">已生成账单 
+				<input type="radio" name="radiobutton" value="radiobutton"> 未生成账单<br> 
+	             <span></span>
+	         </div>
+     	</div>
+     	
+     	<div class="col-lg-2">
+			<label>分包方式</label>
+		</div>
+     	<div class="col-lg-4">
+	         <div class="input-group">
+	           	<input type="checkbox" name="checkbox1" value="checkbox"> 临汾
+				<input type="checkbox" name="checkbox2" value="checkbox"> 混合 
+	             <span></span>
+	         </div>
+     	</div>
+	</div>
+
+    <div class="row">
+     	<div class="col-lg-12" align="right">
+        	<a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
+            <a ng-click="searchTable.flag = !searchTable.flag" class="btn btn-default">取消</a>
+            <a ng-click="searchPlyInfo()" class="btn btn-primary" ng-disabled="!searchForm.$valid">立即查询</a>
+    	 </div>
+    </div>
+	    
+	    
+   	

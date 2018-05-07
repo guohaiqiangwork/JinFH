@@ -1,0 +1,81 @@
+<div>
+    <div class="modal-header">
+        <h3 ng-if="!(mode==='1' && contract==='batch')">合同账单{{contract.treatyNo}}</h3>
+        <h3 ng-if="mode==='1' && contract==='batch'">合同账单</h3>
+    </div>
+    <!-- ng-show="!(pageJumpView === true)" -->
+    <div class="modal-body">
+        <span ng-show="!(pageJumpView === 0) && !(pageJumpView === 1) "> <!--  张晓永 2015-06-15 -->
+            账单类型 :
+             <select ng-if="!(contract === 'batch')" 
+             		 ng-model="keywords.billType" 
+                     ng-options="billType.id as billType.value for billType in options.billTypes">
+            </select> 
+             <select ng-if="contract === 'batch'" 
+             		 ng-model="keywords.billType" 
+                     ng-options="billType.id as billType.value for billType in options.billTypes">
+            </select>
+        </span>&nbsp;
+        <!-- <span ng-show="options.optTypes.length>0" >
+            账单属性:
+            <select ng-model="keywords.optType"
+                    ng-options="optType.id as optType.value for optType in options.optTypes">
+            </select>
+        </span> -->
+        <span ng-if="billTypeFlag!=09">
+             <span ng-if="(keywords.billType === '01' && contAttr === 'prop' && contract === 'batch')">
+                账单期类型:
+                <select ng-model="keywords.billPeriodCde" 
+                	ng-options="billPeriodCde.id as billPeriodCde.value for billPeriodCde in options.billPeriodCdes">
+                </select>
+            </span>
+             <span ng-show="!(pageJumpView === 0) && !(pageJumpView === 1)">   <!--  张晓永 2015-06-15 -->
+                合同账单期:
+                <select
+                        ng-if="operation != 'view'" ng-model="keywords.accperiod">
+                    <option  ng-repeat="accperiod in billData.accPeriodQ">{{accperiod}}</option> <!-- {{aaa}} -->
+                </select>
+            </span>&nbsp;
+            <span ng-if="(keywords.billType === '06' && contAttr === 'prop')">
+                账单期:
+                 <select ng-model="keywords.billDate" 
+                        >
+                    <option  ng-repeat="billDate in options.billDates" >{{billDate}}</option>
+                </select>
+            </span> 
+            <span ng-if="(keywords.billType === '01' && keywords.billPeriodCde==='1' && contAttr === 'prop')">
+                账单期:
+                <select ng-model="keywords.billDate">
+                    <option  ng-repeat="billDate in options.billDates" >{{billDate}}</option>
+                </select>
+            </span>
+             <span ng-if="contAttr === 'nprop' ">
+                账单期:
+                <select ng-model="keywords.billDate" 
+                        >
+                    <option  ng-repeat="billDate in options.billDates" >{{billDate}}</option>
+                </select>
+            </span> 
+        </span>
+        <span ng-show="!(pageJumpView === 0) && !(pageJumpView === 1) "> <!--  张晓永 2015-06-15 -->
+               <a href="" class="btn btn-default" ng-if="!(contract === 'batch')" ng-click="changeDate(keywords)">显示账单</a>
+        </span>
+          
+		<div ng-if="display.flag">
+	        <!-- 账单显示 （ng-if=""） --> <!--ng-if="keywords.billType==='06'"-->
+	        <div ng-if="pagination.totalItems>0"
+	                ng-include="'/reins/page/templates/bill/contract.bill.display.tpl.html'">
+	        </div>
+	        <!--生成账单 （ng-if=""）-->
+	        <div ng-if="pagination.totalItems===0"
+	                ng-include="'/reins/page/templates/bill/bill.create.tpl.html'">
+	        </div>
+        </div>
+        <div ng-if="!display.flag" style="height:200px;">
+        </div>
+        
+        <div ng-if="global.isBusy" class="loadingBusyImg">
+            <img src="reins/page/templates/assets/img/loading_small.gif"/>
+        </div>
+    </div>
+</div>

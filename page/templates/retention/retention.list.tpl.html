@@ -1,0 +1,151 @@
+<div collapse="hideList">
+    
+    <div ng-hide="showSearch" class="search-toggle" ng-click="showSearch = ! showSearch">
+	    <span class="glyphicon glyphicon-search"></span>
+	</div>
+    
+    <!-- 查询条件 -->
+	<div collapse="!showSearch" class="well">
+	    <h4>查询自留额</h4>
+	    <form name="searchRetentions" novalidate>
+	        <div  class="container-fluid well">
+		        <div class="row">
+		            <div class="col-md-12">
+		                <div class="col-lg-6">
+		                    <div class="col-lg-3" aligb="right">
+		                       <label>险种：</label>
+		                    </div>
+		                    <div class="col-lg-3">
+		                        <div class="input-group">
+		                            <input type="text" class="form-control"
+		                                   ng-model="keywords.id.riskCode" placeholder="险种"
+		                                    >
+		                            <span></span>
+		                        </div>
+		                    </div>
+		                </div>
+		                <div class="col-lg-6">
+		                    <div class="col-lg-3">
+		                        <label>占用性质/建筑：</label>
+		                    </div>
+		                    <div class="col-lg-3">
+		                        <div>
+		                            <input type="text" class="form-control" ng-model="keywords.id.riskClass">
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		        
+		        <div class="row">
+		            <div class="col-md-12">
+		            	<div class="col-lg-6">
+		                    <div class="col-lg-3" aligb="right">
+		                        <label>生效时间：</label>
+		                    </div>
+		                    <div class="col-lg-3">
+		                        <div class="input-group">
+		                            <input type="text" class="form-control" placeholder="生效时间" datepicker2
+		                                   ng-model="keywords.id.effcTm" >
+		                            <span></span>
+		                        </div>
+		                    </div>
+		                </div>
+		                
+		                <div class="col-lg-6">
+		                    <div class="col-lg-3">
+		                        <label>失效时间：</label>
+		                    </div>
+		                    <div class="col-lg-3">
+		                        <div>
+		                            <input type="text" class="form-control" placeholder="失效时间" ng-model="keywords.expdTm" datepicker2>
+		                        </div>
+		                    </div>
+		                </div>
+		                
+		            </div>
+		        </div>
+		        
+		        <div class="row">
+		            <div class="col-md-12">
+		            	
+		                <div class="col-lg-6">
+		                    <div class="col-lg-3">
+		                        <label>风险等级：</label>
+		                    </div>
+		                    <div class="col-lg-3">
+		                        <div>
+		                            <input type="text" class="form-control" ng-model="keywords.id.riskLevel">
+		                        </div>
+		                    </div>
+		                </div>
+		                <div class="col-lg-6">
+		                </div>
+		            </div>
+		        </div>
+		        
+		        <div class="row">
+		            <div class="col-md-12">
+		                <div class="col-lg-6">
+		                </div>
+		                <div class="col-lg-6">
+		                    <div class="btn-group pull-right" style="padding-top:10px">
+		                        <a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchRetentions.$dirty">重置</a>
+			                    <a ng-click="showSearch = ! showSearch" class="btn btn-default">取消</a>
+			                    <a ng-click="search()" class="btn btn-primary" ng-disabled="!searchRetentions.$valid">立即查询</a>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+	    	</div>
+    	</form>
+   	</div>
+    <!-- 显示查询结果列表 -->
+    <div class="page-header">
+    	<div class="btn-group pull-right">
+            <button type="button" class="btn btn-default" ng-model="global.viewType" btn-radio="'thumbnail'">
+                <span class="glyphicon glyphicon-th-large"></span>
+            </button>
+            <button type="button" class="btn btn-default" ng-model="global.viewType" btn-radio="'table'">
+                <span class="glyphicon glyphicon-th-list"></span>
+            </button>
+        </div>
+    
+    	<div class="btn-group pull-right">
+	        <p>
+	        	<a class="btn btn-default" ng-href="#/admin/retentions/new" ng-show="false">新增</a>
+	            <a class="btn btn-danger" ng-disabled="selectedCount === 0" ng-click="deleteRetention()" ng-show="false">删除</a>
+	            <a class="btn btn-default" ng-click="" ng-show="false">导入自留额</a>
+	        </p>
+	    </div>
+	    <h3>自留额管理</h3>
+    </div>
+
+    <div class="panel panel-default " ng-show="retentionList.length > 0">
+	    <!-- 显示查询结果列表 -->
+	    <div ng-if="global.viewType==='thumbnail'" ng-include="'retention/retention.list.thumbnail.tpl.html'"></div>
+
+        <div ng-if="global.viewType==='table'" ng-include="'retention/retention.list.table.tpl.html'"></div>
+	    
+    </div>
+	<div class="clearfix panel-footer">
+        <span class="pull-right">共: {{pagination.totalItems}}份</span>
+    </div>
+    <div class="clearfix pull-right" ng-show="retentionList.length > 0">
+        <!-- 分页  -->
+	    <pagination total-items="pagination.totalItems"
+	                page="pagination.pageIndex"
+	                items-per-page="pagination.pageSize"
+	                max-size="pagination.maxSize"
+	                previous-text="{{pagination.previousText}}"
+	                next-text="{{pagination.nextText}}"
+	                first-text="{{pagination.firstText}}"
+	                last-text="{{pagination.lastText}}"
+	                class="pagination-small"
+	                boundary-links="true"
+	                on-select-page="onSelectPage(page)">
+	    </pagination>
+    </div>
+</div>
+<!-- 添加下一级页面接口 -->
+<div ui-view="operation"></div>

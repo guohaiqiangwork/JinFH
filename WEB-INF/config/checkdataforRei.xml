@@ -1,0 +1,833 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DrawDataSQL1>
+<DrawDataSQL>
+<checktime>day</checktime>  
+<div>
+ <SQL>
+    <checksqldesc>保费检查</checksqldesc>
+	<checkpoint>Rei0001</checkpoint>
+	<checktype>P</checktype>
+	<certino>policyno</certino>
+	<checksql>
+	select policyno,riskcode,sum(premium) as premium , 统计日期 
+from (
+    select flag, riskcode, policyno,-decode(premium,null,0,premium)+decode(middlecost,null,0,middlecost) premium,统计日期
+    from 
+    (
+    select '业务' flag, c.riskcode, c.policyno, sum(b.premium1) premium,
+      sum(decode(a.disfee,null,0,a.disfee)) as middlecost,
+      decode(sign(c.startdate-c.underwriteenddate),1,c.startdate,c.underwriteenddate) 统计日期
+    from   prpmiddlecost a, 
+      (select policyno,currency1,
+              sum(amount1) amount1,
+              sum(premium1) premium1
+       from  prpcfeeorigin 
+       group by policyno,currency1) b,  prpcmainorigin c  
+    where a.certino(+)=c.policyno  
+     and b.policyno=c.policyno 
+     and c.coinsflag ='0'  
+     and decode(sign(c.startdate-c.underwriteenddate),1,c.startdate,c.underwriteenddate)&gt;= date 'STARTDATE' 
+         and decode(sign(c.startdate-c.underwriteenddate),1,c.startdate,c.underwriteenddate)&lt;= date 'ENDDATE' 
+     and c.underwriteflag in ('1','3') 
+     and c.riskcode in(
+          select distinct a.riskcode from fhrisk a,fhtreaty b where  a.treatyno = b.treatyno and b.opttype ='00' )
+    group by c.riskcode, c.policyno, decode(sign(c.startdate-c.underwriteenddate),1,c.startdate,c.underwriteenddate)
+
+    union all
+
+    select '业务' flag, c.riskcode, c.policyno,b.premium,b.middlecost,
+           decode(sign(c.startdate-c.underwriteenddate),1,c.startdate,c.underwriteenddate) 统计日期
+    from  (select a.policyno,a.currency ,sum(a.coinsamount) as amount,sum(a.coinspremium) as premium,
+           sum(a.middlecostfee) as middlecost from    prpccoinsdetailorigin a, prpccoins b  
+           where a.policyno=b.policyno  and  a.serialno=b.serialno and b.coinstype in('1','2') 
+           group by a.policyno,a.currency) b, 
+          (select policyno, sum(coinsrate) as coinsrate from  prpccoins  where coinstype in ('1','2') 
+          group by policyno) a, prpcmainorigin  c 
+    where a.policyno=c.policyno and b.policyno=c.policyno 
+          and c.coinsflag in('1','2','3') and c.underwriteflag in ('1','3') 
+          and c.riskcode in(
+          select distinct a.riskcode from fhrisk a,fhtreaty b where  a.treatyno = b.treatyno and b.opttype ='00' )
+          and decode(sign(c.startdate-c.underwriteenddate),1,c.startdate,c.underwriteenddate)&gt;= date 'STARTDATE'
+           and decode(sign(c.startdate-c.underwriteenddate),1,c.startdate,c.underwriteenddate)&lt;= date 'ENDDATE'
+
+     union all
+	
+     select '业务' flag, c.riskcode, c.endorseno as policyno, a.chgpremium1 as premium, e.disfee as middlecost,
+            decode(sign(c.underwriteenddate-c.validdate),1,c.underwriteenddate,c.validdate) 统计日期
+     from  prpphead c, prppmain b, Prpmiddlecost  e, 
+          (select endorseno, currency1,sum(chgamount1) chgamount1,sum(chgpremium1) chgpremium1
+           from  Prppfee group by endorseno,currency1) a 
+     where  c.endorseno=b.endorseno(+) and c.endorseno=a.endorseno(+) 
+          and c.endorseno=e.certino(+)   and b.coinsflag='0' 
+          and decode(sign(c.underwriteenddate-c.validdate),1,c.underwriteenddate,c.validdate)&gt;= date 'STARTDATE'  
+          and decode(sign(c.underwriteenddate-c.validdate),1,c.underwriteenddate,c.validdate)&lt;= date 'ENDDATE' 
+          and c.underwriteflag in ('1','3') and c.riskcode in(
+          select distinct a.riskcode from fhrisk a,fhtreaty b where  a.treatyno = b.treatyno and b.opttype ='00' )
+          and c.endortype not in('56' ) 
+
+     union all
+  
+     select '业务' flag, c.riskcode, c.endorseno as policyno, d.chgpremium as premium, d.chgmiddlecost as middlecost,
+           decode(sign(c.underwriteenddate-c.validdate),1,c.underwriteenddate,c.validdate) 统计日期
+     from prpphead c,prppmain b,
+          (select a.policyno,a.endorseno,a.currency as currency, sum(a.chgcoinsamount) aschgamount,
+                  sum(a.chgcoinspremium) as chgpremium,sum(a.chgmiddlecostfee) as chgmiddlecost
+           from prppcoinsdetail a,prpccoins b 
+           where a.policyno=b.policyno and a.serialno=b.serialno and b.coinstype in ('1','2') 
+           group by a.policyno,a.currency,a.endorseno) d, 
+           (select policyno,sum(coinsrate) as coinsrate from prpccoins  
+           where  coinstype in ('1','2') group by policyno) h 
+     where  c.endorseno=b.endorseno(+) and c.endorseno=d.endorseno(+) 
+          and c.policyno=h.policyno(+)    and b.coinsflag in('1','2','3') 
+          and c.underwriteflag in ('1','3')  and c.riskcode in(
+          select distinct a.riskcode from fhrisk a,fhtreaty b where  a.treatyno = b.treatyno and b.opttype ='00' )
+          and decode(sign(c.underwriteenddate-c.validdate),1,c.underwriteenddate,c.validdate)&gt;= date 'STARTDATE'  
+          and decode(sign(c.underwriteenddate-c.validdate),1,c.underwriteenddate,c.validdate)&lt;= date 'ENDDATE'  
+          and c.endortype not in('56') 
+     )
+     where decode(premium,null,0,premium)-decode(middlecost,null,0,middlecost)!=0
+         
+     union all
+    
+    (select '再保' flag, c.riskcode, b.policyno, sum(a.payvalue) as payvalue,
+         decode(sign(c.startdate-c.underwriteenddate),1,c.startdate,c.underwriteenddate) 统计日期
+     from fsobranchd  a,fcorepolicy b,prpcmainorigin  c 
+     where b.repolicyno=a.recertifyno and b.policyno=c.policyno and c.coinsflag not in('4')  
+           and decode(sign(c.startdate-c.underwriteenddate),1,c.startdate,c.underwriteenddate)&gt;= date 'STARTDATE' 
+           and decode(sign(c.startdate-c.underwriteenddate),1,c.startdate,c.underwriteenddate)&lt;= date 'ENDDATE' 
+           and b.underwriteflag in ('1','3')
+           and c.underwriteflag in ('1','3')    and c.riskcode in(
+          select distinct a.riskcode from fhrisk a,fhtreaty b where  a.treatyno = b.treatyno and b.opttype ='00' )
+     group by c.riskcode, b.policyno, decode(sign(c.startdate-c.underwriteenddate),1,c.startdate,c.underwriteenddate)
+ 
+     union all
+
+     select '再保' flag, c.riskcode, b.endorno as policyno, sum(a.payvalue) as payvalue,
+         decode(sign(c.underwriteenddate-c.validdate),1,c.underwriteenddate,c.validdate) 统计日期
+     from fsobranchd  a,fporeendor b,prpphead c,prppmain d 
+     where a.recertifyno=b.reendorno and b.endorno=d.endorseno 
+          and b.endorno=c.endorseno   and d.coinsflag not in ('4') 
+          and decode(sign(c.underwriteenddate-c.validdate),1,c.underwriteenddate,c.validdate)&gt;= date 'STARTDATE' 
+            and decode(sign(c.underwriteenddate-c.validdate),1,c.underwriteenddate,c.validdate)&lt;= date 'ENDDATE' 
+          and b.underwriteflag in ('1','3')  
+          and c.underwriteflag in ('1','3')  and c.riskcode in(
+          select distinct a.riskcode from fhrisk a,fhtreaty b where  a.treatyno = b.treatyno and b.opttype ='00' )
+     group by c.riskcode, b.endorno, decode(sign(c.underwriteenddate-c.validdate),1,c.underwriteenddate,c.validdate)
+     )
+)
+group by riskcode, policyno, 统计日期
+having abs(sum(premium))>0.1 
+order by riskcode, 统计日期
+    </checksql>
+</SQL>
+<SQL>
+    <checksqldesc>已决赔款核对</checksqldesc>
+	<checkpoint>Rei0002</checkpoint>
+	<checktype>Co</checktype>
+	<certino>compensateno</certino>
+	<checksql>
+	select compensateno,RiskCode,sum(sumpaid) from (
+    SELECT a.compensateno AS CompensateNo,a.RiskCode, -a.sumpaid*decode(b.coinsrate,null,100,b.coinsrate)/100 AS SumPaid  
+    FROM prplcompensate a, (           
+        SELECT PrpCcoins.policyno,sum(Prpccoins.CoinsRate) as CoinsRate              
+        FROM PrpCcoins  
+        WHERE PrpCcoins.Coinstype in ('1','2')         
+        GROUP BY PrpCcoins.policyno )b    
+    WHERE NOT EXISTS (     
+        SELECT 1 from prpcmain     
+        WHERE prpcmain.coinsflag = '4'  AND prpcmain.policyno = a.policyno )   
+    AND a.policyno =b.policyno(+)   AND a.underwriteflag in ('1','3')  
+    and a.riskcode !='2901' and a.classcode !='05'
+    AND a.underwriteenddate between 'STARTDATE'  AND  'ENDDATE'  
+    union all    
+    SELECT florepay.claimno AS CompensateNo,florepay.RiskCode, SUM(fsobranchd.payvalue) AS ZBSumPaid 
+    FROM florepay,fsobranchd 
+    WHERE Exists (    
+        SELECT prplcompensate.compensateno    FROM prplcompensate, prpcmain, prplclaim    
+        WHERE prplcompensate.policyno = prpcmain.policyno    
+        AND prpcmain.coinsflag != '4'     AND prplcompensate.underwriteflag in ('1','3')     
+        AND prplcompensate.underwriteenddate between 'STARTDATE' AND 'ENDDATE' 
+        AND florepay.claimno = prplcompensate.compensateno )   
+    AND fsobranchd.recertifyno= florepay.repayno  AND fsobranchd.paytype in ('C','F') 
+    and fsobranchd.riskcode !='2901'  and fsobranchd.classcode !='05'
+    GROUP BY florepay.claimno,florepay.RiskCode 
+)
+group by RiskCode,compensateno
+having abs(sum(sumpaid))>0.01
+	</checksql>
+</SQL>
+
+<SQL>
+    <checksqldesc>未决部分核对</checksqldesc>
+	<checkpoint>Rei0003</checkpoint>
+	<checktype>cl</checktype>
+	<certino>claimno</certino>
+	<checksql>
+   select claimno,substr(claimno,2,4) as riskcode,sum(BizSumNoPaid) as sumpaid
+   from (
+   
+    /*业务部分（估损、未决）*/
+    select claimno AS ClaimNo, decode(sum(sumclaim),null,0, sum(sumclaim)) as BizSumNoPaid from 
+    (
+    select a.claimno,sum(b.sumclaim) sumclaim
+    from prplclaim a,prplclaimloss b,prplclaimstatus c
+    where a.claimno=b.claimno  and a.claimno = c.businessno and c.nodetype ='claim' and c.status ='4'
+    and a.claimdate&lt;=date'ENDDATE' and a.classcode !='05'
+    and (endcasedate is null or endcasedate&gt;date'ENDDATE')
+    and substr(b.inputdate,1,10)&lt;=date'ENDDATE'
+    group by a.claimno
+    union all    
+    select a.claimno,sum(-c.sumrealpay-c.exceptdeductiblepay) as OutStanding 
+    from prplclaim a,prplcompensate b,prplloss c,prplclaimstatus d
+    where a.claimno=b.claimno and a.claimno = d.businessno and d.nodetype ='claim' and d.status ='4'
+    and b.compensateno=c.compensateno
+    and a.claimdate&lt;=date'ENDDATE' and a.classcode !='05'
+    and (endcasedate is null or endcasedate&gt;date'ENDDATE')
+    and substr(b.underwriteenddate,1,10)&lt;=date'ENDDATE'
+    and b.UnderWriteFlag in ('1','3')
+    group by a.claimno
+    union all
+    select a.claimno,sum(-c.sumrealpay) as OutStanding 
+    from prplclaim a,prplcompensate b,prplpersonloss c,prplclaimstatus d
+    where a.claimno=b.claimno and a.claimno = d.businessno and d.nodetype ='claim' and d.status ='4'
+    and b.compensateno=c.compensateno
+    and a.claimdate&lt;=date'ENDDATE' and a.classcode !='05'
+    and (endcasedate is null or endcasedate&gt;date'ENDDATE')
+    and substr(b.underwriteenddate,1,10)&lt;=date'ENDDATE'
+    and b.UnderWriteFlag in ('1','3')
+    group by a.claimno
+    union all
+    select a.claimno,sum(-c.sumrealpay-c.exceptdeductiblepay) as OutStanding 
+    from prplclaim a,prplcompensate b,prplcharge c,prplclaimstatus d
+    where a.claimno=b.claimno and a.claimno = d.businessno and d.nodetype ='claim' and d.status ='4'
+    and b.compensateno=c.compensateno
+    and a.claimdate&lt;=date'ENDDATE' and a.classcode !='05'
+    and (endcasedate is null or endcasedate&gt;date'ENDDATE')
+    and substr(b.underwriteenddate,1,10)&lt;=date'ENDDATE'
+    and b.UnderWriteFlag in ('1','3')
+    group by a.claimno
+    ) a
+    group by claimno
+    union all
+    /*再保第一部分（求再保未决）*/
+    SELECT LastRepay.PayNo AS ClaimNo, SUM(-fsoBranchd.PayValue) AS ZBSumNoPaid
+    FROM fsoBranchd,(SELECT floRepay.* 
+              FROM floRepay, 
+                   (SELECT PayNo,Max(CreateDate) CreateDate FROM floRePay 
+                       WHERE  CreateDate&lt;date'ENDDATE'+1
+                       GROUP BY PayNo) MaxRepay 
+             WHERE floRepay.payNo = MaxRepay.payNo 
+               AND floRepay.CreateDate = MaxRepay.CreateDate ) LastRepay
+    WHERE fsoBranchd.recertifyno = LastRepay.RepayNo
+    and fsoBranchd.accpayDate &lt;=date'ENDDATE'
+    AND fsoBranchd.payType = 'O'   and fsoBranchd.classcode !='05'
+    AND fsoBranchd.payTimes = 1 
+    GROUP BY LastRepay.PayNo
+)
+group by claimno
+having sum(BizSumNoPaid)>abs(0.01)
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>分保单</checksqldesc>
+	<checkpoint>Rei0004</checkpoint>
+	<checktype>re</checktype>
+	<certino>repolicyno</certino>
+	<checksql>
+			select distinct repolicyno from fsoreplan a where paytype='P' and not exists
+			(select * from fcorepolicy b where a.repolicyno=b.repolicyno)
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>分批单</checksqldesc>
+	<checkpoint>Rei0005</checkpoint>
+	<checktype>re</checktype>
+	<certino>repolicyno</certino>
+	<checksql>
+			select distinct repolicyno from fsoreplan a where paytype='P' and not exists
+			(select * from fcorepolicy b where a.repolicyno=b.repolicyno)
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>分赔案</checksqldesc>
+	<checkpoint>Rei0006</checkpoint>
+	<checktype>rep</checktype>
+	<certino>repayno</certino>
+	<checksql>
+		select repayno from fsoreplan a where paytype in ('C','F','O') and not exists
+		(select * from florepay b where a.repayno=b.repayno)
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>核对内外收付信息一致性</checksqldesc>
+	<checkpoint>Rei0007</checkpoint>
+	<checktype>re</checktype>
+	<certino>repolicyno</certino>
+	<checksql>
+		select x.paytype||'_'||x.currency||'_'||x.riskcode as repolicyno,x.payvalue,y.payvalue,x.payvalue-y.payvalue from 
+		(select paytype,currency,riskcode,sum(payvalue) as payvalue from fsobranchd where paydate between '2008-04-15' and '2008-04-25'
+		and paytype in ('P','E','C','F')and reinsmode like '2%' group by currency,riskcode,paytype) x,
+		(select paytype,currency,riskcode,sum(payvalue)  as payvalue from fsoreplan where paydate between '2008-04-15' and '2008-04-25'
+		and paytype in ('P','E','C','F') and reinsmode like '2%' group by currency,riskcode,paytype )y
+		where x.currency = y.currency  and x.riskcode = y.riskcode and x.paytype = y.paytype and x.payvalue!=y.payvalue
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>机构一致性校验</checksqldesc>
+	<checkpoint>Rei0008</checkpoint>
+	<checktype>com</checktype>
+	<certino>comcode</certino>
+	<checksql>
+			select comcode,count(distinct paycode) 
+			from fsobranchd where accpaydate between 'STARTDATE' and 'ENDDATE'
+			group by comcode having count(distinct paycode)&gt;1
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>险种和险类代码A</checksqldesc>
+	<checkpoint>Rei0009</checkpoint>
+	<checktype>re</checktype>
+	<certino>RECERTIFYNO</certino>
+	<checksql>
+	select * from fsobranchd where length(riskcode)!=4
+	
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>险种和险类代码B</checksqldesc>
+	<checkpoint>Rei0010</checkpoint>
+	<checktype>re</checktype>
+	<certino>RECERTIFYNO</certino>
+	<checksql>
+    select * from fsobranchd where length(classcode)!=2
+    
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>归属机构与核算单位一致</checksqldesc>
+	<checkpoint>Rei0011</checkpoint>
+	<checktype>re</checktype>
+	<certino>RECERTIFYNO</certino>
+	<checksql>
+		select * from fsobranchd a,prpdcompany b where a.accpaydate between  'STARTDATE' and 'ENDDATE'
+        and a.reinsmode not in ('391','392') and a.comcode=a.paycode and b.centerflag != '1' 
+        and a.comcode = b.comcode
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>归属机构与核算单位不一致</checksqldesc>
+	<checkpoint>Rei0012</checkpoint>
+	<checktype>rece</checktype>
+	<certino>RECERTIFYNO</certino>
+	<checksql>
+ 		select * from 
+		(select recertifyno,b.uppercomcode,a.paycode from fsobranchd a,prpdcompany b 
+		where accpaydate between  'STARTDATE' and 'ENDDATE'
+		and reinsmode not in ('391','392') and a.comcode!=a.paycode and a.comcode=b.comcode) a,prpdcompany b
+		where a.uppercomcode = a.paycode and b.comcode=a.uppercomcode and b.centerflag != '1'
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>保单与业务一致性校验</checksqldesc>
+	<checkpoint>Rei0013</checkpoint>
+	<checktype>po</checktype>
+	<certino>policyno</certino>
+	<checksql>
+			select distinct policyno from prpcdangerunit a  
+			where  not exists(select * from prpcmain b  where  a.policyno = b.policyno) 
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>批单与业务一致性校验A</checksqldesc>
+	<checkpoint>Rei0014</checkpoint>
+	<checktype>end</checktype>
+	<certino>endorseno</certino>
+	<checksql>
+			select distinct endorseno,policyno from prppdangerunit a  where   not exists(select * from prpphead b  
+			where  a.endorseno = b.endorseno)
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>批单与业务一致性校验B</checksqldesc>
+	<checkpoint>Rei0015</checkpoint>
+	<checktype>end</checktype>
+	<certino>endorseno</certino>
+	<checksql>
+			select distinct endorseno,policyno from prppdangerunit a  
+			where   not exists(select * from prppmain b where  a.endorseno = b.endorseno) 
+
+
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>审核通过的保单危险单位与分保单数据一致性校验</checksqldesc>
+	<checkpoint>Rei0016</checkpoint>
+	<checktype>po</checktype>
+	<certino>policyno</certino>
+	<checksql>
+			select a.policyno,a.startdate,a.underwriteenddate from fcorepolicy  
+			a where not exists (select * from prpcdangerunit b where a.policyno = b.policyno and 
+			a.reinsureflag ='1') 
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>审核通过的批单危险单位与分保单数据一致性校验</checksqldesc>
+	<checkpoint>Rei0017</checkpoint>
+	<checktype>ree</checktype>
+	<certino>reendorno</certino>
+	<checksql>
+			select a.reendorno,a.riskcode,a.endorno,a.policyno,a.startdate,a.underwriteenddate from fporeendor 
+			a where not exists (select * from prpPdangerunit b where a.endorno = b.endorseno and 
+            b.reinsureflag ='1')
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>复核信息多余</checksqldesc>
+	<checkpoint>Rei0018</checkpoint>
+	<checktype>re</checktype>
+	<certino>recertifyNo</certino>
+	<checksql>
+		select distinct recertifyNo,a.accpaydate,a.paydate from fsobranchd a 
+		where not exists (select * from fcorepolicy b where a.recertifyNo = b.repolicyNo and b.reinsureflag ='1' 
+		) and a.paytype ='P'
+		union all
+		select distinct recertifyNo,a.accpaydate,a.paydate from fsobranchd a 
+		where not exists (select * from fporeendor b where a.recertifyNo = b.reendorno and b.reinsureflag ='1' 
+		) and a.paytype ='E'
+		union all
+		select distinct recertifyNo,a.accpaydate,a.paydate from fsobranchd a 
+		where not exists (select * from florepay b where a.recertifyNo = b.repayno and b.reinsureflag ='1' 
+		) and a.paytype in('C','F')
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>保单缺少试算信息</checksqldesc>
+	<checkpoint>Rei0019</checkpoint>
+	<checktype>po</checktype>
+	<certino>policyno</certino>
+	<checksql>
+          select * from prpcdangerunit a  where not exists (select * from prpcreinsshare b where a.policyno = b.policyno ) 
+          and a.reinsureflag ='1' and a.amount!=0
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>再保缺少分保单信息</checksqldesc>
+	<checkpoint>Rei0020</checkpoint>
+	<checktype>po</checktype>
+	<certino>policyno</certino>
+	<checksql>
+			Select * From prpcdangerunit a Where a.reinsureflag='1'
+			And Not Exists (Select * From fcorepolicy b Where b.policyNo=a.policyNo) 
+            and riskcode in(
+            select distinct a.riskcode from fhrisk a,fhtreaty b 
+            where  a.treatyno = b.treatyno and b.opttype ='00')
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>理赔比再保多出来的立案业务</checksqldesc>
+	<checkpoint>Rei0021</checkpoint>
+	<checktype>cl</checktype>
+	<certino>claimno</certino>
+	<checksql>
+			select claimno from PrpLclaim
+			where claimno in (select businessno from prplclaimstatus
+            where businessno not in(select claimno from prpldangerunit)
+			and nodetype = 'claim' and status = '4')and classcode !='05'
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>再保比理赔多出来的立案业务</checksqldesc>
+	<checkpoint>Rei0022</checkpoint>
+	<checktype>ce</checktype>
+	<certino>certino</certino>
+	<checksql>
+      select certino  from prpldangerunit a 
+          where not exists (select b.*from prplclaimstatus b
+          where a.riskcode = b.riskcode and b.nodetype = 'claim' and status = '4')
+          and a.riskcode not like '05%' and a.certitype ='1'
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>理赔比再保多出来的实赔业务 </checksqldesc>
+	<checkpoint>Rei0023</checkpoint>
+	<checktype>co</checktype>
+	<certino>compensateno</certino>
+	<checksql>               
+      select compensateno from PrpLcompensate where underwriteflag in('1','3') 
+      and compensateno not in 
+      (select certino from prpldangerunit where certitype ='3') 
+      and underwriteFlag IN ('1','3')  and classcode !='05'
+
+
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>再保比理赔多出来的实赔业务</checksqldesc>
+	<checkpoint>Rei0024</checkpoint>
+	<checktype>ce</checktype>
+	<certino>certino</certino>
+	<checksql>
+			select certino from prpldangerunit a where a.certino not in 
+            (select  compensateno from PrpLcompensate where certitype ='3' and underwriteFlag IN ('1','3')  and classcode !='05')
+            and certitype ='3'  and a.riskcode not like '05%'
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>未做帐数据记录</checksqldesc>
+	<checkpoint>Rei0025</checkpoint>
+	<checktype>re</checktype>
+	<certino>recertifyNo</certino>
+	<checksql>
+		select recertifyNo from fsobranchd where accpaydate between 'STARTDATE' and 'ENDDATE'
+		and (accflag!='1' or accno is null) and reinsmode not in ('391','392','181','182')
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>帐单与收付数据一致性</checksqldesc>
+	<checkpoint>Rei0026</checkpoint>
+	<checktype>ac</checktype>
+	<certino>accno</certino>
+	<checksql>
+		select a.accno from (select treatyno,currency,accno,sum(payvalue) payvalue 
+    	from fsobranchd where accpaydate between 'STARTDATE' and 'ENDDATE' and paytype in ('C','F') 
+    	group by treatyno,currency,accno) a,
+    	(select a.accno,a.itemvalue,b.currency from fzitem a,fzacc b
+      	where a.accno=b.accno  and a.itemcode='11' and b.accperiod = 'ACCPERIOD') b 
+      	where a.accno=b.accno and a.currency=b.currency and a.payvalue != b.itemvalue
+    	union all
+    	select a.accno from 
+    	(select currency,accno,sum(payvalue) payvalue from fsobranchd where accpaydate between 'STARTDATE' and 'ENDDATE'
+    	and paytype in ('P','E') group by currency,accno) a,
+    	(select a.accno,a.itemvalue,b.currency from fzitem a,fzacc b
+   		where a.accno=b.accno  and a.itemcode='01' and b.accperiod = 'ACCPERIOD') b
+    	where a.accno=b.accno and a.currency=b.currency and a.payvalue != b.itemvalue
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>预估帐单帐单项与余额一致性</checksqldesc>
+	<checkpoint>Rei0027</checkpoint>
+	<checktype>ac</checktype>
+	<certino>accNo</certino>
+	<checksql>
+		select accNo from fzAcc a
+			where (a.balance1 != (select sum(decode(itemflag,'C',itemValue1,'D',-itemValue1))
+                        from fzItem where accno=a.accno )
+       		or a.balance != (select sum(decode(itemflag,'C',itemValue,'D',-itemValue))
+                        from fzItem where accno=a.accno))
+  			and a.accPeriod = 'ACCPERIOD' 
+  			and accType='01' and accKind in ('G','B')
+	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>明细帐单帐单项与余额一致性</checksqldesc>
+	<checkpoint>Rei0028</checkpoint>
+	<checktype>ac</checktype>
+	<certino>accNo</certino>
+	<checksql>
+		select accNo from fzpayacc a
+		where (a.balance1 != (select sum(decode(itemflag,'C',itemValue1,'D',-itemValue1))
+                        from fzpayitem where payaccno=a.payaccno )
+       	or a.balance != (select sum(decode(itemflag,'C',itemValue,'D',-itemValue))
+                        from fzpayitem where payaccno=a.payaccno))
+  		and a.accPeriod = 'ACCPERIOD' 
+  		and accType='01' and accKind in ('G','B')
+  	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>预估帐单与明细帐单余额一致性</checksqldesc>
+	<checkpoint>Rei0029</checkpoint>
+	<checktype>tr</checktype>
+	<certino>treatyno</certino>
+	<checksql>
+
+		select a.treatyno,a.sectionno  from 
+		(select treatyno,sectionno,currency,comcode,sum(balance) balance 		from fzacc 
+		where accperiod='ACCPERIOD'  and acckind ='G'		group by treatyno,sectionno,currency,comcode) a,
+		(select treatyno,sectionno,currency,paycode,sum(balance ) balance
+		from fzpayacc 
+		where accperiod='ACCPERIOD'and acckind ='G'		group by treatyno,sectionno,currency,paycode) b
+		where a.treatyno=b.treatyno		and a.currency=b.currency		and a.comcode=b.paycode
+		and a.sectionno=b.sectionno		and a.balance != b.balance
+		
+		union all
+
+		select a.treatyno,a.sectionno
+		from 
+		(select treatyno,sectionno,currency,sum(balance) balance 
+		from fzacc 		where accperiod='ACCPERIOD'  and acckind ='B'		group by treatyno,sectionno,currency) a,
+		(select treatyno,sectionno,currency,sum(balance ) balance		from fzpayacc 
+		where accperiod='ACCPERIOD'and acckind ='B'		group by treatyno,sectionno,currency) b
+		where a.treatyno=b.treatyno		and a.currency=b.currency		and a.sectionno=b.sectionno		and a.balance != b.balance
+  	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>预估帐单与明细帐单帐单项一致性</checksqldesc>
+	<checkpoint>Rei0030</checkpoint>
+	<checktype>tr</checktype>
+	<certino>treatyno</certino>
+	<checksql>
+		select x.treatyno,x.sectionno
+		from 
+		(select a.treatyno,a.sectionno,a.currency,comcode,b.itemcode,sum(itemvalue) itemvalue		from fzacc a,fzitem b
+		where a.accno=b.accno		and accperiod='ACCPERIOD'		and itemvalue!=0		and acctype = '01' and acckind in('G')
+		group by a.treatyno,a.sectionno,a.currency,comcode,b.itemcode
+		order by a.treatyno,a.sectionno,b.itemcode,comcode,currency) x,
+		(
+		select treatyno, a.sectionno,a.currency,paycode,itemcode,sum(itemvalue) itemvalue from fzpayacc a,fzpayitem b
+		where a.payaccno=b.payaccno		and accperiod='ACCPERIOD'		and itemvalue!=0 and acckind in('G')
+		group by treatyno,a.sectionno,a.currency,paycode,itemcode
+		order by treatyno,a.sectionno,itemcode,paycode,currency) y
+		where 		x.itemcode=y.itemcode(+)		and x.currency=y.currency (+)		and x.comcode=y.paycode(+)
+		and x.sectionno=y.sectionno(+)		and x.treatyno=y.treatyno(+)
+		and (x.itemvalue!=y.itemvalue or y.itemvalue is null)
+		union all
+		select x.treatyno,x.sectionno
+		from 
+		(select a.treatyno,a.sectionno,a.currency,b.itemcode,sum(itemvalue) itemvalue
+		from fzacc a,fzitem b
+		where a.accno=b.accno		and accperiod='ACCPERIOD'		and itemvalue!=0		and acctype = '01' and acckind in('B')
+		group by a.treatyno,a.sectionno,a.currency,b.itemcode
+		order by a.treatyno,a.sectionno,b.itemcode,currency) x,
+		(
+		select treatyno, a.sectionno,a.currency,itemcode,sum(itemvalue) itemvalue from fzpayacc a,fzpayitem b
+		where a.payaccno=b.payaccno		and accperiod='ACCPERIOD'		and itemvalue!=0 and acckind in('B')
+		group by treatyno,a.sectionno,a.currency,itemcode
+		order by treatyno,a.sectionno,itemcode,currency) y
+		where 		x.itemcode=y.itemcode(+)		and x.currency=y.currency (+)		and x.sectionno=y.sectionno(+)
+		and x.treatyno=y.treatyno(+)		and (x.itemvalue!=y.itemvalue or y.itemvalue is null)
+  	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>检验FzPlanDetail和FzItem之间数据是否一致</checksqldesc>
+	<checkpoint>Rei0031</checkpoint>
+	<checktype>ac</checktype>
+	<certino>accNo</certino>
+	<checksql>
+		select accNo from (select a.accno,a.createdate,b.itemCode,b.itemValue1,b.itemValue,sum(d.itemValue) sumItemValue
+		from fzacc a,fzItem b,fzPlanMain c,     
+		(select accNo,reinsNo,itemCode,sum(itemValue) itemValue from fzPlanDetail group by accNo,reinsNo,itemCode) d 
+		where a.accno=c.accno and a.accno=b.accno and c.accno = d.AccNo and c.reinsNo=d.reinsNo and b.itemCode = d.itemCode 
+		and a.accPeriod='ACCPERIOD' and a.accType = '01' and a.accKind in ('G','B')
+		group by a.accno,b.itemCode,b.itemValue1,b.itemValue,a.createdate) where  itemValue != sumItemValue
+  	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>检验FzPlanDetail和FzPlanMain之间数据是否一致</checksqldesc>
+	<checkpoint>Rei0032</checkpoint>
+	<checktype>ac</checktype>
+	<certino>accNo</certino>
+	<checksql>
+		select a.accno from fzPlanMain a,fzAcc d, 
+		(select accno,reinsNo,sum(decode(itemFlag,'C',itemValue,'D',-itemValue)) itemValue from fzPlanDetail  group by accno,reinsNo ) b 
+                where a.accNo=b.accNo and a.reinsno=b.reinsno  and a.accno=d.accno  and d.accPeriod='ACCPERIOD' 
+                and d.accType = '01' and d.accKind in ('G','B') and a.balance != b.itemValue
+  	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>检查分保费*项目比例是否和帐单中手续费、税、之间的数据是否一致</checksqldesc>
+	<checkpoint>Rei0033</checkpoint>
+	<checktype>tr</checktype>
+	<certino>treatyNo</certino>
+	<checksql>
+		Select a.treatyNo,a.itemNo From 
+  			(Select c.treatyno,b.belongType,b.itemno,a.currency1,sum(a.itemValue1*b.itemrate/100) as sumItemValue1
+     			From fzItem a,fhItem b,fzAcc c
+    			Where a.accno=c.accNo and c.accType='01' and c.accKind in ('G','B') 
+      			and c.accPeriod='ACCPERIOD' and c.belongType=b.belongType and c.treatyno=b.treatyno 
+      			and c.sectionNo=b.sectionno and b.itemno in ('02','03') 
+      			And a.itemCode ='01'    Group by c.treatyno,b.belongType,b.itemno,a.currency1 )a,
+  			(Select b.treatyno,b.belongType,a.itemcode,a.currency1,sum(a.itemValue1) as sumItemValue1 
+     			From fzItem a ,fzAcc b
+    			Where a.accNo = b.accNo and b.accType='01' and b.accKind in ('G','B')  
+      			and accPeriod='ACCPERIOD' and a.itemCode in ('02','03')   Group by b.treatyno,b.belongType,a.itemcode,a.currency1 )b
+		Where a.treatyNo=b.treatyNo and a.belongType=b.belongType 
+  		and a.itemno=b.itemcode and a.currency1=b.currency1 and a.sumItemValue1!=b.sumItemValue1 and abs(a.sumItemValue1-b.sumItemValue1)&gt;0.01 
+  	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>未做帐数据记录</checksqldesc>
+	<checkpoint>Rei0034</checkpoint>
+	<checktype>re</checktype>
+	<certino>repolicyNo</certino>
+	<checksql>
+		select repolicyNo from fsoreplan where paydate between 'STARTDATE' and 'ENDDATE'
+			and accflag='00' and reinsmode not in ('391','392','181','182')
+ 	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>月度帐单保费核对（原币）</checksqldesc>
+	<checkpoint>Rei0035</checkpoint>
+	<checktype>tr</checktype>
+	<certino>treatyno</certino>
+	<checksql>
+		select x.treatyno,x.sectionno
+		from(select b.treatyno,b.sectionno,a.currency1,sum(itemvalue1) itemvalue from fzitem a,fzacc b 
+				where a.accno=b.accno and b.accperiod='ACCPERIOD' and  b.acckind='I' and a.itemcode='01' 
+				group by b.treatyno,b.sectionno,a.currency1)x,
+			(select treatyno,sectionno,currency,sum(payvalue) payvalue from fsoreplan  
+				where sectionno is not null and accpaydate between 'STARTDATE' and 'ENDDATE'and reinsmode like '2%'
+				and paytype in ('P','E') group by treatyno,sectionno,currency)y
+		where x.treatyno = y.treatyno and x.sectionno = y.sectionno and x.currency1= y.currency and x.itemvalue!=y.payvalue
+ 	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>月度帐单赔款核对（原币）赔款</checksqldesc>
+	<checkpoint>Rei0036</checkpoint>
+	<checktype>tr</checktype>
+	<certino>treatyno</certino>
+	<checksql>
+		select x.treatyno,x.sectionno 
+		from(select b.treatyno,b.sectionno,a.currency1,sum(itemvalue1) itemvalue
+			from fzitem a,fzacc b where a.accno=b.accno and b.accperiod='ACCPERIOD' 
+				and  b.acckind='I' and a.itemcode='11'group by b.treatyno,b.sectionno,a.currency1)x,
+			(select treatyno,sectionno,currency,sum(payvalue) payvalue from fsoreplan  
+				where sectionno is not null and accpaydate between 'STARTDATE' and 'ENDDATE'
+				and reinsmode like '2%' and paytype in ('C','F') group by treatyno,sectionno,currency)y
+		where x.treatyno = y.treatyno and x.sectionno = y.sectionno and x.currency1= y.currency and x.itemvalue != y.payvalue
+ 	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>检验FzAcc和FzItem之间数据是否一致</checksqldesc>
+	<checkpoint>Rei0037</checkpoint>
+	<checktype>ac</checktype>
+	<certino>accno</certino>
+	<checksql>
+		select accNo from fzAcc a
+		where (a.balance1 != (select sum(itemvalue1) from fzItem where accno=a.accno and itemFlag='C')-
+                     (select sum(itemvalue1) from fzItem where accno=a.accno and itemFlag='D')
+       	or a.balance != (select sum(itemvalue) from fzItem where accno=a.accno and itemFlag='C')-
+                       (select sum(itemvalue) from fzItem where accno=a.accno and itemFlag='D'))
+  		and  a.accPeriod='ACCPERIOD' and accType='11' and accKind='I'
+ 	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>检验FzItem和FzPayItem之间数据是否一致</checksqldesc>
+	<checkpoint>Rei0038</checkpoint>
+	<checktype>ac</checktype>
+	<certino>accno</certino>
+	<checksql>
+		select accNo from 
+		(select a.accno,a.treatyno,a.sectionno,b.itemCode,b.itemValue1,sum(d.itemValue1)sumItemValue1,b.itemValue,sum(d.itemValue) sumItemValue
+			from fzacc a,fzItem b,fzPayAcc c,
+      	(select payAccNo,itemCode,sum(itemValue1) itemValue1,sum(itemValue) itemValue from fzPayItem group by payAccNo,itemCode ) d 
+			where  a.accno=c.accno and a.accno=b.accno and c.payAccno = d.payAccNo and b.itemCode=d.itemCode 
+       		and a.accPeriod='ACCPERIOD'  and a.accType = '11' and a.accKind='I' group by a.accno,a.treatyno,a.sectionno,b.itemCode,b.itemValue1,b.itemValue) 
+		where itemValue1 != sumItemValue1 or itemValue != sumItemValue
+ 	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>检验FzPayAcc和FzPayItem之间数据是否一致</checksqldesc>
+	<checkpoint>Rei0039</checkpoint>
+	<checktype>pa</checktype>
+	<certino>payaccno</certino>
+	<checksql>
+		select a.payaccno from fzPayAcc a,
+		(select payAccno,sum(itemValue1) itemvalue1,sum(itemValue) itemValue from fzPayItem where itemFlag='C' group by payAccno ) b,
+		(select payAccno,sum(itemValue1) itemvalue1,sum(itemValue) itemValue from fzPayItem where itemFlag='D' group by payAccno ) c   
+		where a.payAccNo=b.payAccNo and a.payAccno=c.payAccno and a.accPeriod='ACCPERIOD' and a.accType = '11' and a.accKind='I'
+		and (a.balance!=b.itemValue-c.itemValue or a.balance1!=b.itemValue1-c.itemValue1)
+ 	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>检验FzPlanDetail和FzItem之间数据是否一致</checksqldesc>
+	<checkpoint>Rei0040</checkpoint>
+	<checktype>ac</checktype>
+	<certino>accNo</certino>
+	<checksql>
+		select accNo from 
+		(select a.accno,a.createdate,b.itemCode,b.itemValue1,b.itemValue,sum(d.itemValue) sumItemValue from fzacc a,fzItem b,fzPlanMain c,
+		(select accNo,reinsNo,itemCode,sum(itemValue) itemValue from fzPlanDetail group by accNo,reinsNo,itemCode ) d 
+		where a.accno=c.accno and a.accno=b.accno and c.accno = d.AccNo and c.reinsNo=d.reinsNo 
+		and b.itemCode=d.itemCode and a.accPeriod='ACCPERIOD' and a.accType = '11' and a.accKind='I'
+		group by a.accno,b.itemCode,b.itemValue1,b.itemValue,a.createdate) where  itemValue!=sumItemValue
+ 	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>检验FzPlanDetail和FzPlanMain之间数据是否一致</checksqldesc>
+	<checkpoint>Rei0041</checkpoint>
+	<checktype>ac</checktype>
+	<certino>accNo</certino>
+	<checksql>
+		select a.accno 
+		from fzPlanMain a,fzAcc d,
+		(select accno,reinsNo,sum(itemValue) itemValue from fzPlanDetail where itemFlag='C' group by accno,reinsNo ) b,
+		(select accno,reinsNo,sum(itemValue) itemValue from fzPlanDetail where itemFlag='D' group by accno,reinsNo ) c   
+		where a.accNo=b.accNo and a.accno=c.accno and a.reinsno=b.reinsno and a.reinsno=c.reinsno 
+ 		and a.accno=d.accno and d.accPeriod='ACCPERIOD' and d.accType = '11' and d.accKind='I'and a.balance!=b.itemValue-c.itemValue 
+		order by a.accno,a.reinsNo
+ 	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>业务分保费数据与帐单分保费数据是否一致(对外帐单)</checksqldesc>
+	<checkpoint>Rei0042</checkpoint>
+	<checktype>tr</checktype>
+	<certino>treatyno</certino>
+	<checksql>
+		select a.treatyno ,a.sectionno 
+		from (select sum(payvalue) payvalue, currency, treatyno, sectionno,belongType
+          	from fsoreplan where treatyno in(select treatyno from fhsection group by treatyno)
+           	and paytype in ('P', 'E') and accpaydate between 'STARTDATE' and 'ENDDATE' 
+           	and sectionno in(select sectionno from fhsection group by sectionno)
+           	group by treatyno, sectionno,belongType, currency) a,
+       (select sum(a.itemvalue1) itemvalue1,a.currency1,b.treatyno,b.sectionno,b.belongType
+          	from fzitem a, fzacc b     
+          	where a.accno = b.accno and b.treatyno in(select treatyno from fhsection group by treatyno)
+           	and accperiod = 'ACCPERIOD' and b.acctype = '11' 
+           	and b.sectionno in(select sectionno from fhsection group by sectionno) and a.itemcode = '01' 
+           	group by b.treatyno, b.sectionno, b.belongType,a.currency1) b
+	 	where a.currency = b.currency1 and a.payvalue != b.itemvalue1 and a.sectionno = b.sectionno
+   		and a.treatyno = b.treatyno  and a.belongType=b.belongType  order by a.treatyno, a.sectionno
+ 	</checksql>
+</SQL>
+<SQL>
+    <checksqldesc>业务赔款数据与帐单赔款数据是否一致(对外帐单)</checksqldesc>
+	<checkpoint>Rei0043</checkpoint>
+	<checktype>tr</checktype>
+	<certino>treatyno</certino>
+	<checksql>
+		select a.treatyno,a.sectionno
+  		from (select sum(payvalue) payvalue, currency, treatyno, sectionno
+          	from fsoreplan 
+          	where treatyno in(select treatyno from fhsection group by treatyno)
+           	and paytype in ('C', 'F')and AccPayDate between 'STARTDATE' and 'ENDDATE'
+           	and sectionno in(select sectionno from fhsection group by sectionno)
+         	group by treatyno, sectionno, currency) a,
+       (select sum(a.itemvalue1) itemvalue1,a.currency1,b.treatyno,b.sectionno
+          	from fzitem a, fzacc b 
+          	where a.accno = b.accno and b.treatyno in(select treatyno from fhsection group by treatyno)
+           	and accperiod = 'ACCPERIOD' and b.acctype = '11' 
+           	and b.sectionno in(select sectionno from fhsection group by sectionno) and a.itemcode = '11'
+         	group by b.treatyno, b.sectionno, a.currency1) b
+ 		where a.currency = b.currency1 and a.payvalue != b.itemvalue1 and a.sectionno = b.sectionno and a.treatyno = b.treatyno
+ 		order by a.treatyno, a.sectionno
+ 	</checksql>
+</SQL>
+
+<SQL>
+    <checksqldesc>核查业务未决赔款数据与帐单数据是否一致</checksqldesc>
+	<checkpoint>Rei0044</checkpoint>
+	<checktype>tr</checktype>
+	<certino>treatyno</certino>
+	<checksql>
+		Select a.treatyno,a.sectionno
+       	From (Select c.exchcurrency,round(sum(a.payValue*c.exchRate),2) as sumOsLoss,treatyno,sectionno
+       	From (SELECT recertifyNo,treatyNo,sectionNo,currency,payValue
+       	FROM  FsoBranchD WHERE accPayDate &lt;= 'ENDDATE' AND payType  = 'O' )a,
+       		(SELECT a.repayNo FROM floRepay a, (SELECT PayNo,DangerNo,Max(CreateDate) CreateDate 
+        FROM floRePay WHERE CreateDate &lt;= 'ENDDATE' GROUP BY PayNo,DangerNo ) b 
+           WHERE a.payNo = b.payNo AND a.dangerNo=b.dangerNo AND a.CreateDate = b.CreateDate 
+           AND a.EndCaseFlag!='1') b,prpDexch c
+		Where a.recertifyNo=b.repayNo and a.currency=c.baseCurrency And c.exchDate=( Select max(exchDate) 
+		From prpdexch Where baseCurrency=a.currency and exchDate &lt;= 'ENDDATE')
+		Group By c.exchcurrency, a.treatyno,a.sectionno) a,
+		(Select b.exchCurrency,round(sum(a.osLoss*b.exchRate),2) as sumOsLoss,a.treatyno,a.sectionno
+  		From FzAcc a,PrpDexch b Where a.accType='11' and a.accKind='I' and a.accPeriod='ACCPERIOD'
+   		AND a.currency=b.baseCurrency AND b.exchDate=( Select max(exchDate) 
+   		From prpdexch Where baseCurrency=a.currency and exchDate &lt;= 'ENDDATE')
+ 		Group By exchCurrency,a.treatyno,a.sectionno )b 
+		Where a.sumOsLoss!=b.sumOsLoss and a.treatyno =b.treatyno and a.sectionno = b.sectionno
+ 	</checksql>
+</SQL>
+</div>
+</DrawDataSQL>
+</DrawDataSQL1>

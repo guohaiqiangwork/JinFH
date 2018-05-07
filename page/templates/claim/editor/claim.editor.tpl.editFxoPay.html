@@ -1,0 +1,163 @@
+<div class="page-header">
+ 	<div class="btn-group pull-right"> 
+        <a class="btn btn-primary" ng-click="modifyFxoPay(fxoPay)" ng-disabled="!frmSearchContract.$valid">保存</a>
+        <a class="btn btn-default" ng-href="#/fxoPays/prepaidInsurance">返回</a>
+    </div>
+    <h3>修改待摊金额</h3>
+ </div>
+
+    <form name="frmSearchContract" style="overflow:scroll;" class = "container-fluid">
+        <div class="row">
+            <div class="col-lg-2">
+                <label>立案号</label>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="input-group">
+                    {{fxoPay.claimNo}}
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="col-lg-2">
+                <label>币别</label>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="input-group">
+                    {{fxoPay.currency}}
+                    <span></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+                <label>风险单位号</label>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="input-group">
+                    {{fxoPay.riskUnitNo}}
+                    <span></span>
+                </div>
+            </div>
+			
+			<div class="col-lg-2">
+                <label>业务号</label>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="input-group">
+                    {{fxoPay.certiNo}}
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+                <label>赔案类型</label>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="input-group">
+                    {{fxoPay.clmType | code : 'clmassTypes'}}
+                    <span></span>
+                </div>
+            </div>
+			
+			<div class="col-lg-2">
+                <label>赔案次数</label>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="input-group">
+                    {{fxoPay.claimTimes}}
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+                <label>险种</label>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="input-group">
+                    {{fxoPay.riskCode}}
+                    <span></span>
+                </div>
+            </div>
+            
+             <div class="col-lg-2">
+                <label>保单号</label>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="input-group">
+                    {{fxoPay.policyNo}}
+                    <span></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+        	<div class="col-lg-2">
+                <label>出险原因</label>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="input-group">
+                    {{fxoPay.damageReason}}
+                    <span></span>
+                </div>
+            </div>
+            
+            <div class="col-lg-2">
+                <label>出险时间</label>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="input-group">
+                    {{fxoPay.damageDate}}
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+        	<div class="col-lg-2">
+                <label>总已决金额</label>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="input-group">
+                    {{fxoPay.paidSum}}
+                    <span></span>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <label>待摊已决金额</label>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="input-group">
+                    <input type="number" ng-readonly="operation === 'view'" ng-model="fxoPay.retPaid">
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-2">
+                <label>备注</label>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="input-group">
+                    <textarea  cols="30" rows="3"  ng-readonly="operation === 'view'" ng-model="fxoPay.remarks"></textarea>
+                    <span></span>
+                </div>
+            </div>
+
+        </div>
+    </form>

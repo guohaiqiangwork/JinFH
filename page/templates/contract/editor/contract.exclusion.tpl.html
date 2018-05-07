@@ -1,0 +1,56 @@
+<div>
+    <table style="overflow: auto;" class="table table-stripped">
+        <tr>
+            <td ng-if="operation != 'view' && !effected" align="center">除外责任</td>
+            <td ng-if="operation != 'view' && !effected"></td>
+            <td align="center">已选除外责任</td>
+        </tr>
+        <tr ng-if="operation != 'view' && !effected">
+        	<td align="center"><input type="checkbox" ng-model="check.leftCheckAll" ng-click="checkAllLeft()">全选 </td>
+        	  <td ></td>
+        	<td align="center"><input type="checkbox" ng-model="check.rightCheckAll" ng-click="checkAllRight()">全选 </td>
+        </tr>
+        <tr>
+            <td align="center" ng-if="operation != 'view' && !effected">
+            	<div style="overflow-x: auto; overflow-y: auto; height: 200px; width:280px;">
+            	<table align="left" style="margin-left:20px;">
+                    <tr ng-repeat="l in leftExclusions">
+                        <td align="left">
+                            <input type="checkbox"  ng-model="l.check" ng-click="checkLeft(l)">{{l.id}}-{{l.value}}
+                        </td>
+                    </tr>
+                </table>
+            	</div>
+            </td>
+            <td ng-if="operation != 'view' && !effected">
+	                <a class="btn btn-default" ng-click="addExclusion()">></a><br>
+	                <a class="btn btn-default" ng-click="delExclusion()"><</a>
+            </td>
+            <td align="center">
+            	<span ng-show="rightExclusions.length === 0">
+            		此险种还没有除外责任。
+            	</span>
+            	<div style="overflow-x: auto; overflow-y: auto; height: 200px; width:230px;">
+                <table align="left" style="margin-left:20px;" ng-show="rightExclusions.length > 0">
+                    <tr  ng-repeat="r in rightExclusions">
+                        <td align="left">
+                            <input type="checkbox"  ng-model="r.check" ng-click="checkRight(r)" ng-show="operation != 'view' && !effected">{{r.id}}-{{r.value}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                        </td>
+                    </tr>
+                </table>
+                </div>
+            </td>
+        </tr>
+        <tr ng-if="operation != 'view' && !effected">
+            <td align="center"><a class="btn btn-default" ng-click="cancel()">取消</a>
+            <td></td>
+            <td align="center"><a class="btn btn-default" ng-disable="readyToSave" ng-click="saveExclusion()">确定</a>
+        </tr>
+    </table>
+
+</div>

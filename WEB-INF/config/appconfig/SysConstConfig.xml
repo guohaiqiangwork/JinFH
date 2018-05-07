@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="GB2312" standalone="yes" ?>
+
+<sysconst>
+  <!-- 每页默认显示的行数 -->
+  <ROWS_PERPAGE>10</ROWS_PERPAGE>
+  <LIMETED_ROWSCOUNT>20</LIMETED_ROWSCOUNT>
+  <FIELD_SEPARATOR>_FIELD_SEPARATOR_</FIELD_SEPARATOR>
+  <GROUP_SEPARATOR>_GROUP_SEPARATOR_</GROUP_SEPARATOR>
+  <SESSION_EXPIRED_SECONDS>20000</SESSION_EXPIRED_SECONDS>
+  <!-- 资源文件 -->
+  <MESSAGE_RESOURCES>resources.ReinsResources</MESSAGE_RESOURCES>
+  <QUERY_ROWS>50</QUERY_ROWS>
+  <!-- 风险等级--> 
+  <GRADE_STANDARD>40,55,70</GRADE_STANDARD> 
+  <!--再保数据库连接-->
+  <REINS_JNDI>ddccDataSource</REINS_JNDI>
+  <!--再保单证统计数据库连接-->
+  <REINSREPORT_JNDI>reinsReportDataSource</REINSREPORT_JNDI>
+  
+  <!--insutil所需数据库连接-->
+  <INSUTIL_JNDI>ddccDataSource</INSUTIL_JNDI>
+  <!--权限控制所加数据连接-->
+  <DBJNDI>ddccDataSource</DBJNDI>
+   <UNDWRTDATASOURCE description="双核系统引用的数据源" modify="2">undwrtDataSource</UNDWRTDATASOURCE>
+   <!--工作任务定义-->
+   <TASKCODE_ZBXXCK>zbxxck</TASKCODE_ZBXXCK>
+   <TASKCODE_ZBZDDY>zbzddy</TASKCODE_ZBZDDY>
+   <CHECKCODE_READ>r</CHECKCODE_READ>
+   <CHECKCODE_WRITE>w</CHECKCODE_WRITE>
+   <CHECKCODE_EXE>x</CHECKCODE_EXE>
+   <!--财务系统帐套类型 --> 
+  <ACCBOOKTYPE description="帐套类型" modify="1">02</ACCBOOKTYPE> 
+  <ACCBOOKCODE description="帐套代码">11</ACCBOOKCODE> 
+	
+	<!--公司信息个性配置-->
+	<COM_ENAME_LONG>Sinosoft</COM_ENAME_LONG>
+	<COM_ENAME_SHORT>Sinosoft</COM_ENAME_SHORT>
+	<COM_CNAME_LONG>黄河财险股份有限公司</COM_CNAME_LONG>
+	<COM_CNAME_SHORT>黄河财险股份有限公司</COM_CNAME_SHORT>
+	<COM_EADDR>18/F, Building 4, No. 9, Rd. Guang'an, Beijing, China</COM_EADDR>
+	<!--  <COM_EADDR>12/F, Bank of China Tower NO.1 Fuxingmen Neidajie, Beijing,China Post Code: 100055</COM_EADDR>-->
+	<COM_POSTAL>100055</COM_POSTAL>
+	<COM_CADDR>北京市丰台区广安路9号院国投财富广场4号楼18层</COM_CADDR>
+	<COM_TEL_SHORT></COM_TEL_SHORT>
+	<COM_TEL_LONG>(010) 83367369</COM_TEL_LONG>
+	<COM_FAX_SHORT></COM_FAX_SHORT>
+	<COM_FAX_LONG>(010) 83367300</COM_FAX_LONG>
+	<COM_WEBSITE>www.zhufengic.com</COM_WEBSITE>
+	<COM_ACCOUNTNAME_LONG>中科软科技股份有限公司</COM_ACCOUNTNAME_LONG>
+	<COM_ACCOUNTNAME_SHORT>中科软科技股份有限公司</COM_ACCOUNTNAME_SHORT>
+	<COM_ACCOUNTNO></COM_ACCOUNTNO>
+	<COM_EMAIL></COM_EMAIL>
+	<SYSTEMCODE>sinosoft</SYSTEMCODE>
+	
+	<!--合约帐单生成配置-->
+    <ACC_CAL_PERIOD description="对内预估帐是否分期挂账">N</ACC_CAL_PERIOD>
+    <ACC_GEN_RDETAIL description="对外帐是否生成明细帐单">Y</ACC_GEN_RDETAIL>
+    <ACC_FINNALREINS description="帐单结付信息是否生成到最终接受人">Y</ACC_FINNALREINS>
+    <ACC_TCURRENCY description="对外帐单是否按照接受人帐户接受币种折币生成">Y</ACC_TCURRENCY>
+    <!--add begin by fengbo 20070725 增加生成对内手续费差额帐标志-->
+    <ACC_TB_GENCOMMACC description="对内帐是否生成浮动手续费差额帐">Y</ACC_TB_GENCOMMACC>
+    <!--add end by fengbo 20070725 增加生成对内手续费差额帐标志-->    
+    <ACC_COMMISSION_TR_FINALREINS description="手续费调整帐单/纯益手续费帐单是否生成到最终接受人 N-否 Y-是">N</ACC_COMMISSION_TR_FINALREINS>
+    <ACC_COMMISSION_TB_COM description="手续费调整帐单是否按照各机构比例生成对内帐 0-否 1-是">0</ACC_COMMISSION_TB_COM>
+    
+    <ACC_FR_FINNALREINS description="临分对外帐帐单结付信息是否生成到最终接受人">Y</ACC_FR_FINNALREINS>
+    <ACC_FR_TCURRENCY description="临分对外帐帐单是否按照接受人帐户接受币种折币生成">N</ACC_FR_TCURRENCY>
+  	<PRPALL_URL description="临汾确认调用承保接口">http://10.2.65.31:7001/reins/callBackReinsStatus</PRPALL_URL>
+  	<PRPALL_URLZ description="临汾附加核保因子调用承保接口">http://10.2.65.31:7001/reins/callBackFactorValue</PRPALL_URLZ>
+
+	 <!--菜单权限控制服务调用地址-->
+<!--    <MenuServerURL>21.8.129.3:8041</MenuServerURL>
+	收付接口IP地址设置
+    <PAY_URL description="收付接口IP地址">21.8.142.239:8003</PAY_URL>
+    <PAY_FLAG description="0-不送收付,1-送收付">1</PAY_FLAG> -->
+	  <!--影像地址 
+  <NEW_IMAGE_URL>21.8.129.3</NEW_IMAGE_URL>
+  <NEW_IMAGE_PORT>8031</NEW_IMAGE_PORT>
+	<powerUrl description="权限IP">http://10.2.65.31:7001//service/ForClaimWebInterf</powerUrl>-->
+	<OFFLINEHOST description="进行离线服务IP地址">10.1.3.65</OFFLINEHOST> 
+	
+  <PAYMENT_URL description="收付应用地址">http://10.2.65.31:7001//service/DmGpReinsPaymentWebService?wsdl</PAYMENT_URL>
+	
+	
+  <!-- 险种特殊判断配置信息 begin author LJ 20141023 此部分请根据客户所给信息进行配置 -->
+  <PML_CLASS description="PML试算险类配置 多个用逗号分隔，没有请配置为 00">10,12,11</PML_CLASS>
+	<PROPERTYCLASS description="财产险险类代码，多个用逗号分隔">01</PROPERTYCLASS>
+	<AUTOMOBLIECLASS description="车险险类代码，多个用逗号分隔">08</AUTOMOBLIECLASS>
+	<ENGINEERINGCLASS description="工程险险类代码，多个用逗号分隔">07</ENGINEERINGCLASS>
+	<RESPONSIBILITYCLASS description="责任险险类代码，多个用逗号分隔">12</RESPONSIBILITYCLASS>
+	<OTHERCLASS description="其他险种险类代码，多个用逗号分隔">99</OTHERCLASS>
+	<MARINECLASS description="船舶险险种代码，多个用逗号分隔">02</MARINECLASS>
+	<CARGOCLASS description="货运险险种代码，多个用逗号分隔">06</CARGOCLASS>
+
+	<HEALTHCLASS description="健康险类代码，多个用逗号分隔">10</HEALTHCLASS>
+	<AVIATIONCLASS description="航空险类代码，多个用逗号分隔">04</AVIATIONCLASS>
+	<ACCIDENTCLASS description="意外险险类代码，多个用逗号分隔">11</ACCIDENTCLASS>
+	<FAMILYPROPERTYCLASS description="家财险险类代码，多个用逗号分隔">17</FAMILYPROPERTYCLASS>
+	<COMPREHENSIVECLASS description="综合险险类代码，多个用逗号分隔">13</COMPREHENSIVECLASS>
+	<GUARANTEECLASS description="保证险 险类代码，多个用逗号分隔">16</GUARANTEECLASS>
+	<PLANTINGCLASS description="种植业  险类代码，多个用逗号分隔">14</PLANTINGCLASS>
+	<AQUACULTURECLASS description="养殖业险类代码，多个用逗号分隔">15</AQUACULTURECLASS>
+	<ATESTCLASS description="测试A 险类代码，多个用逗号分隔">18</ATESTCLASS>
+	<BTESTCLASS description="测试B试险类代码，多个用逗号分隔">77</BTESTCLASS>
+	<TESTCLASS description="测试险类代码，多个用逗号分隔">088</TESTCLASS>
+	<!-- 以下配置为险种代码 begin -->
+	<PUBLICRISK description="公众责任险险种代码，多个用逗号分隔">1201</PUBLICRISK>
+	<PRODUCTRISK description="产品责任险险种代码，多个用逗号分隔">1210</PRODUCTRISK>
+	<EMPLOYERRISK description="雇主责任险险种代码，多个用逗号分隔">1219</EMPLOYERRISK>
+	<AIRCARGORISK description="国内航空险险种代码，多个用逗号分隔">0618</AIRCARGORISK>
+	<SCHOOLLIABILITYRISK description="校方责任险种代码，多个用逗号分隔">1203</SCHOOLLIABILITYRISK>
+	<PASSENGERCARRIERRISK description= "道路客运承运人责任保险,，多个用逗号分隔">1205</PASSENGERCARRIERRISK>
+	<!-- 以上配置为险种代码 end -->
+	<OPENCOVERRISKCODE description="预约大保单险种代码">9999
+	</OPENCOVERRISKCODE>
+  	 <!-- 险种特殊判断配置信息 end  author LJ 20141023 此部分请根据客户所给信息进行配置 -->
+  	 <!-- add by wl 根据安城合并过来 目前先赋个控制 -->
+	<RISK_AOAPML_NOTIN_REINS></RISK_AOAPML_NOTIN_REINS>
+	
+  
+</sysconst>
