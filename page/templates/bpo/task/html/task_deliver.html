@@ -1,0 +1,142 @@
+<div class="row" id="task-deliver">
+</div>
+<script id="settingTmpl" type="text/x-jsrender">
+<div id="deliver-panel">
+    <div class="col-xs-12">
+        <div class="box panel box-info">
+            <div class="box-header with-border">
+                <h4 class="box-title">
+                  <a href="#collapseOne" data-parent="#accordion" data-toggle="collapse" aria-expanded="true" class="">
+                    交接信息
+                  </a>
+                </h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapseOne">
+                {{for task}}
+                <div class="box-body">
+                   <div class="col-lg-6 col-md-3 col-xs-3">
+                        <div class="form-group">
+                            <label class="col-lg-5 col-sm-5 col-xs-5 control-label" for="jobContent">任务ID</label>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+                                {{:taskId}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-3 col-xs-3">
+                        <div class="form-group">
+                            <label class="col-lg-5 col-sm-5 col-xs-5 control-label" for="jobContent">类型</label>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+                                交接
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                   <div class="col-lg-6 col-md-3 col-xs-3">
+                        <div class="form-group">
+                            <label class="col-lg-5 col-sm-5 col-xs-5 control-label" for="jobContent">创建人</label>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+                                <a href="#" class="form" id="creater" data-id={{:taskId}}>{{:creater}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-3 col-xs-3">
+                        <div class="form-group">
+                            <label class="col-lg-5 col-sm-5 col-xs-5 control-label" for="jobContent">计划交接时间</label>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+                                <a href="#" class="form" id="deliverTime" data-id="{{:taskId}}" data-format="dd.mm.yyyy">{{:deliverTime}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                   <div class="col-lg-6 col-md-3 col-xs-3">
+                        <div class="form-group">
+                            <label class="col-lg-5 col-sm-5 col-xs-5 control-label" for="jobContent">实际交接时间</label>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+                                <a href="#" class="form" id="realDeliverTime" data-id="{{:taskId}}" data-format="dd.mm.yyyy">{{:realDeliverTime}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-3 col-xs-3">
+                        <div class="form-group">
+                            <label class="col-lg-5 col-sm-5 col-xs-5 control-label" for="jobContent">交接人</label>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+                            <a href="#" class="form"  id="owner" data-id="{{:taskId}}">
+                                {{:owner}}
+                            </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                   <div class="col-lg-6 col-md-3 col-xs-3">
+                        <div class="form-group">
+                            <label class="col-lg-5 col-sm-5 col-xs-5 control-label" for="jobContent">联系方式</label>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+                             <a href="#" class="form" id="contactWay" data-id="{{:taskId}}">
+                                {{:contactWay}}
+                            </a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/for}}
+            </div>
+        </div>
+        <div class="box box-tool-my">
+            <div class="footer-my">
+                <button id="update" type="button" class="btn btn-primary btn-sm" id="btn-submit">保存</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="box panel box-info">
+            <div class="box-header with-border">
+                <h4 class="box-title">
+                  <a href="#collapseTwo" data-parent="#accordion" data-toggle="collapse" aria-expanded="true" class="">
+                    已移交信息
+                  </a>
+                </h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapseTwo">
+                <div class="box-body">
+                    <div id="toolbar" class="btn-group">
+                        <button id="add" type="button" class="btn btn-default">
+                            <i class="fa fa-barcode" aria-hidden="true">&nbsp;扫描交接</i>
+                        </button>
+                         <button id="batch" type="button" class="btn btn-default">
+                            <i class="fa fa-stack-overflow" aria-hidden="true">&nbsp;批量交接</i>
+                        </button>
+                    </div>
+                    <div class="tab-content list-table">
+                        <div class="tab-pane active">
+                            <table class="table  table-responsive table-condensed table-hover table-bordered table-striped dataTable searchtable">
+                                 <thead>
+                                    <tr>     
+                                    {{for queryResultTitles}}        
+                                        <th>{{:label}}{{:additionHtml}}</th>
+                                  {{/for}}  
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody id="deliver-data">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <form role="form" class="searchform">
+                 {{for task}}
+                <!-- <input name="status" class="form-control input-sm" type="hidden" value="03" /> -->
+                <input name="jiaojieTaskId" class="form-control input-sm" type="hidden" value="{{:taskId}}" />
+                {{/for}}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</script>

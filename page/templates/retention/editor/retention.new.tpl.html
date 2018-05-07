@@ -1,0 +1,81 @@
+<div class="row" class="form-control">
+    <div class="col-lg-12">
+        <div class="col-lg-4">
+            <label class="col-lg-4">业务年度：</label>
+            <div class="input-group">
+                <input type="number" class="form-control" 
+                       ng-model="retention.id.uwYear"
+                       ng-minlength="4"
+                       ng-maxlength="4"
+                       >
+                <span></span>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label class="col-lg-5">险种：</label>
+            <div class="input-group">
+                <input type="text" class="form-control"
+                       
+                       ng-model="retention.id.riskCode"
+                       ng-required="true">
+                <span></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="col-lg-4">
+            <label class="col-lg-4">风险等级：</label>
+            <div class="input-group">
+                <input type="text" class="form-control" 
+                       ng-model="retention.id.riskLevel">
+                <span></span>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label class="col-lg-5">占用性质/建筑类型：</label>
+            <div class="input-group">
+                <input type="text" class="form-control" 
+                       ng-model="retention.id.riskClass">
+                <span></span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="col-lg-4">
+            <label class="col-lg-4">币别：</label>
+            <div class="input-group">
+                <select class="form-control" ng-model="retention.currency" ng-options="c.id as c.value for c in currencys"></select>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label class="col-lg-5">自留额：</label>
+            <div class="input-group">
+                <input type="number" class="form-control" 
+                       ng-model="retention.retentionValue"
+                       >
+                <span></span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="col-lg-4">
+            <label class="col-lg-4">备注：</label>
+            <div class="input-group">
+                <textarea  class="form-control" ng-model="retention.reMarks" ></textarea>
+            </div>
+        </div>
+    </div>
+</div>

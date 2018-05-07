@@ -1,0 +1,310 @@
+<div class="container-fluid">
+<form name="frmSearchContract" novalidate>
+        <div class="row">
+            <div class="col-lg-2">
+            	<label>账单编号：</label>
+            </div>
+            <div class="col-lg-4" ng-if=" pageJumpView === '0'|| pageJumpView === '3' ">
+            	<input class="form-control"  type="text" placeholder="账单编码" ng-model="contracts.billOut" readonly/>
+            </div>
+            <div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           		{{contracts.billOut}}
+            </div>
+            <div class="col-lg-2">
+            	<label>合约分项：<label>
+            </div>
+            <div class="col-lg-4" ng-if=" pageJumpView === '0'|| pageJumpView === '3' ">
+           		<select class="form-control"  ng-model="contracts.inty">
+                    <option  ng-repeat="c in inties">{{c}}</option>
+                </select>
+            </div>
+            <div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           		{{contracts.inty}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+            	<label> 合约编码：</label>
+            </div>
+            <div class="col-lg-4" ng-if=" pageJumpView === '0'|| pageJumpView === '3' ">
+            	<input class="form-control" type="text"  ng-model="contracts.concNo" readonly/>
+            </div>
+            <div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           		{{contracts.concNo}}
+            </div>
+            <div class="col-lg-2">
+            	<label>对方业务号：</label>
+            </div>
+            <div class="col-lg-4" ng-if=" pageJumpView === '0'|| pageJumpView === '3' ">
+            	<input class="form-control" type="text"  ng-model="contracts.billIn"/>
+            </div>
+            <div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           		{{contracts.billIn}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+            	<label>分出人：</label>
+            </div>
+            <div class="col-lg-4" ng-if=" pageJumpView === '3' ">
+            	
+            	<select class="form-control"  ng-model="contracts.reinTr">
+                    <option  ng-repeat="d in reins">{{d}}</option>
+                </select>
+            </div>
+            <div class="col-lg-4" ng-if=" pageJumpView === '0' ">
+            	<input class="form-control"    ng-required="true"  type="text" ng-model="contracts.reinTr" readonly/>
+            </div>
+            <div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           		{{contracts.reinTr}}
+            </div>
+            <div class="col-lg-2">
+            	<label>业务年度：</label>
+            </div>
+            <div class="col-lg-4" ng-if=" pageJumpView === '0'|| pageJumpView === '3' ">
+            	<input class="form-control" type="text"  ng-model="contracts.busiYear" readonly/>
+             </div>
+             <div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           		{{contracts.busiYear}}
+            </div>
+        </div>
+        <div class="row" ng-if=" pageJumpView === '0' ">
+            <div class="col-lg-2">
+            	<label>最终分出人：</label>
+            </div>
+            <div class="col-lg-4" >
+            	<input class="form-control"    ng-required="true"  type="text" ng-model="contracts.freinTr" readonly/>
+                <span></span> 
+            </div>
+            <div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           		{{contracts.freinTr}}
+            </div>
+        </div>
+        <div class="row">
+        	 <div class="col-lg-2">
+        	 	 <label>账单起期：</label>
+        	 </div>
+        	 <div class=col-lg-4 ng-if=" pageJumpView === '0'|| pageJumpView === '3' ">
+        	 	<input class="form-control" type="text"  ng-model="contracts.billPeriFrom" > <!-- readonly -->
+        	 </div>
+        	 <div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           		{{contracts.billPeriFrom}}
+             </div>
+        	  <div class="col-lg-2">
+        	 	 <label>账单止期：</label>
+        	 </div>
+        	 <div class=col-lg-4 ng-if=" pageJumpView === '0'|| pageJumpView === '3' ">
+        	 	<input class="form-control" type="text"  ng-model="contracts.billPeriTo" > <!-- readonly -->
+        	 </div>
+        	 <div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           		{{contracts.billPeriTo}}
+             </div>
+        </div>
+        <div class="row">
+             <div class="col-lg-2">
+            	<label>账单余额：</label>
+            </div>
+            <div class="col-lg-4" ng-if=" pageJumpView === '0'|| pageJumpView === '3' "> 
+            	<input class="form-control" type="text"  ng-model="contracts.balance" readonly/>
+            </div>  
+            <div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           		{{contracts.balance}}
+            </div>
+           <div class="col-lg-2">
+            	<label>币别：</label>
+           </div>
+            <div class="col-lg-4" ng-if=" pageJumpView === '0'|| pageJumpView === '3' "> 
+            	<select  class="form-control" ng-model="contracts.curr" ng-options="c.id as c.value for c in currencys">
+            		 <option value=''>请选择币别</option>
+           		</select>
+            </div>
+            <div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           		{{contracts.curr}}
+            </div>
+        </div>
+        
+         <div class="row">
+            <div class="col-lg-2">
+            	<label>险类：</label>
+            </div>
+            <div class="col-lg-4" ng-if=" pageJumpView === '0'|| pageJumpView === '3' ">
+            	<select class="form-control" ng-model="contracts.incoClass" 
+            			ng-options="c.id as c.value for c in classCodeTmp"
+	                    ng-change="searchRiskCode(contracts.incoClass)">
+	            </select>
+            </div> 	
+            <div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           		{{contracts.incoClass}}
+            </div>
+            <div class="col-lg-2">
+            	<label>险种：</label>
+            </div>
+            <div class="col-lg-4" ng-if=" pageJumpView === '0'|| pageJumpView === '3' ">
+             	<select class="form-control" ng-model="contracts.inco" 
+	                    ng-options="c.id as c.id +'-'+ c.value for c in riskCodeByClassTmp">  <!-- as -->
+	            </select>
+	            <input class="form-control"  type="hidden" ng-model="contracts.billTmpNo" /> <!-- hidden -->
+	            <input class="form-control"  type="hidden" ng-model="contracts.id" />
+            </div>
+            <div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           		{{contracts.inco}}
+            </div>
+        </div> 
+        <!--现金赔款账单
+      		通知时间，出险时间，被保险人，总保险，出险原因
+         -->
+        <div class="row" ng-show="keywords.billType==='02'">
+        	<div class="col-lg-2">
+          		<label>通知时间：</label>  
+            </div>
+          	<div class="col-lg-4" ng-if=" pageJumpView === '0'|| pageJumpView === '3' " >         <!-- datepicker2 -->
+          		<input class="form-control" type="text" ng-model="contracts.noticeTm" datepicker2 >
+          	</div>
+          	
+			<div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           		{{contracts.noticeTm}}
+            </div>
+            <div class="col-lg-2">
+            	<label>出险时间：</label>
+            </div>
+            <div class="col-lg-4"> 
+            	<div ng-if="pageJumpView === '0'|| pageJumpView === '3'">
+                    <input  class="form-control"  type="text" ng-model="contracts.accdntTm" datepicker2   >
+                    <span></span>
+                </div>
+                <div ng-if="pageJumpView === '1' ">
+                    {{contracts.accdntTm}}
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-show="keywords.billType==='02'">
+        	<div class="col-lg-2">
+           	 	<label>被保险人：</label>
+            </div>
+          	<div class="col-lg-4" ng-if=" pageJumpView === '0'|| pageJumpView === '3' ">
+          		<input class="form-control"  type="text"  ng-model="contracts.insured" />
+         	 </div>
+         	 <div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           		{{contracts.insured}}
+             </div>
+            <div class="col-lg-2">
+            	<label>总保额：</label>
+            </div>
+            <div class="col-lg-4" ng-if=" pageJumpView === '0'|| pageJumpView === '3' " >
+          		<input class="form-control" type="text"  ng-model="contracts.sumAmt" />
+           	</div>
+           	<div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           		{{contracts.sumAmt}}
+            </div>
+        </div>
+        <div class="row" ng-if=" mode==='2' ">
+           <div class="col-lg-2" >
+            	<label>分入份额（%）：</label>
+            </div>
+            <div class="col-lg-4" ng-if=" pageJumpView === '0'|| pageJumpView === '3' ">
+            	<input class="form-control"  type="text"  ng-model="contracts.inShareRate"/>
+            </div>
+            <div class="col-lg-4" ng-if=" pageJumpView === '1'">
+            	{{contracts.inShareRate}}
+            </div>
+            <div class="col-lg-2" >
+            	<label>华泰原始险种：</label>
+            </div>
+            <div class="col-lg-4" ng-if=" pageJumpView === '0'|| pageJumpView === '3' ">
+            	<input class="form-control"  type="text"  ng-model="contracts.oriInco" />
+            </div>
+             <div class="col-lg-4" ng-if=" pageJumpView === '1'">
+            	{{contracts.oriInco}}
+            </div>
+        </div>
+        <div class="row" ng-show="keywords.billType==='02'">
+        	<div class="col-lg-2">
+         		<label>出险原因：</label>
+         	</div>
+          	<div class="col-lg-4" colspan="3" ng-if=" pageJumpView === '0'|| pageJumpView === '3' " >
+          		<textarea  ng-model="contracts.accRson" placeholder="输入文本.."></textarea>
+          	</div>
+          	<div class="col-lg-4" colspan="3" ng-if="pageJumpView === '1' ">
+          		{{contracts.accRson}}
+          	</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+            	<label>备注（对内）：<label>
+            </div>
+            <div class="col-lg-4" colspan="3" ng-if=" pageJumpView === '0'|| pageJumpView === '3' " >
+            	<textarea  ng-model="contracts.remaIn" placeholder="输入文本.."></textarea>
+            </div>
+            <div class="col-lg-4" colspan="3" ng-if="pageJumpView === '1' ">
+          		{{contracts.remaIn}}
+          	</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+            	<label>备注：</label>
+            </div>
+            <div class="col-lg-4" colspan="3" ng-if=" pageJumpView === '0'|| pageJumpView === '3' " >
+            	<textarea ng-model="contracts.rema" placeholder="输入文本.."></textarea>
+            </div>
+             <div class="col-lg-4" colspan="3" ng-if="pageJumpView === '1' ">
+          		{{contracts.rema}}
+          	</div>
+        </div>
+      
+        
+        <div class="row">
+            <div colspan="4">账单项目</div>
+        </div>
+        <table class="table table-bordered">
+	        <tr>
+	            <td>账单项目编码-名称</td>
+	         
+	            <td>账单项目金额</td>
+	            <td ng-if=" pageJumpView === '0'|| pageJumpView === '3' ">操作</td>
+	        </tr>
+	        <tr ng-repeat="billSub in contracts.ribillInContSubs">
+	            <td>
+	            	<div ng-if=" pageJumpView === '0'|| pageJumpView === '3' ">   
+		            	<input class="form-control"  type="hidden" ng-model="billSub.id" /> 
+		            	<select class="form-control"  
+		           		  ng-click="feeNamelist($index,billSub.fety)" ng-model="billSub.fety" ng-options="c.id as (c.id+'---'+c.value) for c in feecdes">
+		           		 <option value=''>请选择编码-名称</option>
+		            	</select>
+		            </div>
+	            	<div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           				{{billSub.fety}}
+            		</div>
+	            </td>
+	            <td>
+	            	<div ng-if=" pageJumpView === '0'|| pageJumpView === '3' ">   
+			            <input  onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" class="form-control" type="text" ng-model = "billSub.repaAmou" placeholder="输入金额"
+			            	   ng-change="getQuickRecords()"/>
+			        </div>
+	               <div class="col-lg-4" ng-if="pageJumpView === '1' ">
+           				{{billSub.repaAmou}}
+            	   </div>
+	            </td>           
+	            <td ng-if=" pageJumpView === '0'|| pageJumpView === '3' ">
+	            	<div>  
+	                	<a class="btn btn-danger" ng-click="removeBillAccount(billSub)">删除</a>
+	                </div>
+	            </td>
+	        </tr>
+	         <tr>
+            <td colspan="4" align="right">
+            	<div ng-if=" pageJumpView === '0'|| pageJumpView === '3' ">  
+                	<a class="btn btn-default" ng-click="addLayerBill()">添加</a>
+                </div>
+            </td>
+        </tr>
+	      </table>
+</form>    
+	 <a ng-if=" pageJumpView === '3'  && mode==='1'" 
+       class="btn btn-default" ng-click="createPropOutBill(contracts)" ng-disabled="frmSearchContract.$invalid" >生成账单</a>
+     <a ng-if="pageJumpView === '3'  && mode==='2'" 
+       class="btn btn-default" ng-click="createContInBill(contracts,'')" ng-disabled="frmSearchContract.$invalid" >生成帐单</a> 
+    <a ng-if="pageJumpView === '0'"  
+       class="btn btn-default" ng-click="updatePropOutBill(contracts)">保存</a>  <!-- && mode==='1' -->
+    <a ng-if="pageJumpView === '3'" class="btn btn-default" ng-click ="toggle()">取消</a>
+    <a ng-if="pageJumpView === '0' || pageJumpView === '1'" class="btn btn-default" ng-click ="pageJumpclose()">返回</a>
+   </div>

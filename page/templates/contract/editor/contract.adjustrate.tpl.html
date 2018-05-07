@@ -1,0 +1,60 @@
+<!--<h2 style="background: #dcdcdc">浮动手续费管理</h2>--><!-- 手续费、赔付率未处理，等待后台提供参数 -->
+<!--浮动手续费-->
+<hr>
+<h4>浮动手续费费率表</h4>
+<div class="container-fluid" style="overflow:scroll; height:auto;">
+    <table class="table table-stripped" ng-if="contAttr === 'prop'">
+    	
+    	 <tr>
+			<td class="btn-group" >
+				<input type="radio" ng-value="1" ng-model="keywords.commFlag" checked="true" />固定
+				<input type="radio" ng-value="0" ng-model="keywords.commFlag" />浮动
+			</td>
+		</tr>
+		<tr ng-if="keywords.commFlag != '1'">
+    		<td class=title><a href="importmodeFHFD.xls">下载浮动手续费模板：</a></td>
+    		<td  ng-controller="ContractEditorCtrl" ng-if="keywords.commFlag != '1'">
+		    <input type="file" file-model="myFile" >
+		    <button ng-click="importExcelDWR()" >导入</button>
+		</td>
+    	</tr>
+    	<!-- <tr ng-if="keywords.commFlag != '1'">
+          		<td><input type=file ng-model="importExcelFh" ></td>
+          		<td><input type="file" name="file" ng-disabled="disabled" ng-model="keywords.file"></td>
+          		
+          		<td ><input type="button"  class="button" value ="导入"    ng-click="importExcelDWR()"></td>
+          		<td></td>
+        </tr > -->
+    	
+     <!-- 后期注掉-begin -->
+      <tr ng-if="operation != 'view'">
+         <td colspan="3">
+         <div class="pull-right"><a class="btn btn-default" ng-if="operation != 'view'&&!effected" ng-click="addAdjustrate(section)" style="margin-top: 10px"><span class="glyphicon glyphicon-plus"></span></a></div></td>
+     </tr> 
+      <!-- 后期注掉-end -->
+     <tr ng-if="keywords.commFlag != '1'">
+         <th>赔付率上限（％）</th>
+         <th>赔付率下限（％）</th>
+         <th>手续费率(%)</th>
+         <th></th>
+     </tr>
+     <tr ng-repeat="adjustRate in section.fhCommRateList">
+         <td>
+             <input class="form-control" type="text" ng-model="adjustRate.upperPaidRate" ng-if="operation!='view'&&!effected"
+                    percentage ng-required="true" ng-blur="checkAdjustRate(section, adjustRate, 'upperPaidRate')"/>
+             <div ng-if="operation === 'view'||effected">{{adjustRate.upperPaidRate}}</div>
+         </td>
+         <td>
+             <input class="form-control" type="text" ng-model="adjustRate.lowPaidRate" ng-if="operation!='view'&&!effected"
+                    percentage ng-required="true" ng-blur="checkAdjustRate(section, adjustRate, 'lowPaidRate')"/>
+             <div ng-if="operation === 'view'||effected">{{adjustRate.lowPaidRate}}</div>
+         </td>
+         <td>
+             <input class="form-control" type="text" ng-model="adjustRate.commRate" ng-if="operation!='view'&&!effected"
+                   percentage ng-required="true" ng-blur="checkAdjustRate(section, adjustRate, 'commRate')"/>
+             <div ng-if="operation === 'view'||effected">{{adjustRate.commRate}}</div>
+         </td>
+         <td><a class="btn btn-default" ng-if="operation != 'view'&&!effected" ng-click="removeAdjustrate(section,adjustRate)"><span class="glyphicon glyphicon-minus"></span></a></td>
+     </tr>
+</table>
+</div>

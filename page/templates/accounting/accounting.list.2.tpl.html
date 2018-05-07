@@ -1,0 +1,39 @@
+<!--分赔单-->
+<h3>分赔</h3>
+<table class="table table-striped table-hover">
+   <thead>
+        <th>
+            <input type="checkbox">全选
+        </th>
+        <th>业务号</th>
+        <th>赔案号</th>
+        <th>立案号</th>
+        <th>保单号</th>
+        <th>出险日期</th>
+        <th>出险原因</th>
+        <th>被保险人</th>
+        <th>币别</th>
+       
+        <th>赔款金额</th>
+        <th></th>
+     </thead>
+    <tr ng-repeat="keyword in keywordsAll">
+        <td>
+            <input type="checkbox">
+        </td>
+        <td>{{keyword.certiNo}}</td>
+        <td>{{keyword.claimNo}}</td>
+        <td>{{keyword.registerNo}}</td>
+        <td>{{keyword.plyNo}}</td>
+        <td>{{keyword.damageDate.time | date : config.display.dateFormat}}</td>
+        <td>{{keyword.damageReason}}</td>
+        <td>{{keyword.insName}}</td>
+        <td>{{keyword.premCur}}</td>
+        <td>{{keyword.clmAmountVar | currency}}</td>
+        <td>
+            <a class="btn btn-default" ng-click="getFacPlyInfo(keyword)">账单</a>
+        </td>
+    </tr>
+</table>
+<br/>
+

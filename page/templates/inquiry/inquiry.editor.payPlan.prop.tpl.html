@@ -1,0 +1,103 @@
+<ng-form>
+            <hr>
+            <h4>分期付款信息</h4>
+           <!--  <a href="" class="btn btn-default" 
+            	ng-click="addFeoReinsProp()">
+            	<span class="glyphicon glyphicon-plus"></span>
+           	</a>          	
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                            <table class="table table-bordered" >
+                                <tr>
+                                    <td>
+                                         <div class="input-group">
+					                        <input size="2" type="text" ng-model="feoReins.dangerPlanPayNo"style="border:none" readonly/>
+					                        <span></span>
+					                     </div>
+                                    </td>
+
+                                    <td>
+                                    	<div class="input-group">
+                                        	<input style="border:none" type="date" ng-model="feoReins.startDate"/>
+                                        	<span></span>
+										</div>
+                                    </td>
+                                   <td> 
+                                        <div>
+                                            <div class="input-group">
+                                        	<input style="border:none" type="text" ng-model="feoReins.currency" placeholder="币种"/>
+                                        	<span></span>
+                                       	</div>      
+                                    </td>
+                                   
+                                    <td>
+									    应缴费金额添加失去焦点事件FormatPlanFee()
+									    <input type="text" name="dangerPlanPlanFee"  value="0.0000"  
+                                               style="border:none;width:100px"  onblur="FormatPlanFee(this)" onkeypress="return pressDecimal(event);">
+									    <input type = "hidden" name="dangerPlanNoTaxPlanFee" value="0.00">
+									    <input type = "hidden" name="dangerPlanTaxPlanFee"  value="0.00" >       
+									</td>                                   
+                                </tr>
+                            </table>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div style="overflow: scroll">
+                            <table class="table table-bordered" >
+                                <thead ng-if="dangerUnitFacEnquiry.feoReinsReceiveList.length >0">
+                                    <th nowrap>缴费期次</th>
+                                    <th nowrap>计划缴费截止日期</th>                                                                   
+                                    <th nowrap>币别</th>
+                                    <th nowrap>应缴费金额</th>
+                                </thead>
+                                <tr ng-repeat="feoReins in dangerUnitFacEnquiry.dangerPlanList">
+                                    <td>
+                                         <div class="input-group">
+					                        <input size="2" type="text" ng-model="feoReins.payNo"style="border:none" readonly/>
+					                        <span></span>
+					                     </div>
+                                    </td>
+
+                                    <td>
+										<div class="input-group">
+				                            {{feoReins.strPlanDate}} 
+				                            <span></span>
+				                        </div>
+                                    </td>
+ 
+                                    <td> 
+                                        <div class="input-group">
+				                             {{feoReins.currency|code:'currency'}}
+				                        <span></span>
+				                        </div>     
+                                    </td>
+
+                                    <td>
+                                         <div class="input-group">
+						                    {{feoReins.planFee | currency}}
+						                    <span></span>
+						                 </div>       
+                                    </td>
+                                    
+                                   <!--   <td size="10">
+                                        <div class="input-group">
+                                            <a href="" class="btn btn-default" 
+                                               ng-click="removeRecepterProp(feoReins)">
+                                               <span class="glyphicon glyphicon-minus"></span>
+											</a>
+                                        </div>
+                                    </td> -->
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+</ng-form>

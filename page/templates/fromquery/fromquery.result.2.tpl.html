@@ -1,0 +1,64 @@
+<div style="overflow: auto;height: auto;">
+	<div>
+		<table class="table table-bordered">
+	        <thead >
+	            <td nowrap>分保方式</td>
+	            <td nowrap>接受人</td>
+	            <td nowrap>最终接受人</td>
+	            <td nowrap>比例(%)</td>
+	            <td nowrap>保费币别</td>
+	            <td nowrap>保额</td>
+	            <td nowrap>含税保费</td>
+	            <td nowrap>不含税保费</td>
+	            <td nowrap>增值税</td>
+	        </thead>
+	        <tbody ng-repeat="row in reinsShare.groupped">
+                <tr ng-repeat="share in row.PlyEdrComShares">
+                    <td>{{share.reinsType}}</td>
+		            <td>{{share.riComName}}</td>
+		            <td>{{share.riFComName}}</td>
+		            <td>{{share.shareRate | formatPercent}}%</td>
+		            <td>{{share.currency}}</td>
+		            <td>{{share.amount | currency}}</td>
+		            <td>{{share.premium | currency}}</td>
+		            <td>{{share.exTaxPremium | currency}}</td>
+		            <td>{{share.tax | currency}}</td>
+		            
+                 </tr>
+	        </tbody>
+	        <tr>
+	            <td>合计</td>
+	            <td></td>
+	            <td></td>
+	            <td>{{reinsShare.shareRateCount|formatPercent}}</td> <!-- 比例 -->
+	            <td></td>
+	            <td>{{reinsShare.amountCount | currency}}</td> <!-- 保额 -->
+	            <td>{{reinsShare.premiumCount | currency}}</td> <!-- 保费 -->
+	            <td>{{reinsShare.exTaxPremiumCount | currency}}</td>
+	             <td>{{reinsShare.taxCount | currency}}</td>
+	        </tr>
+	    </table>
+	</div>
+	
+	<div>
+	    非比例临分
+	</div>
+	<table class="table table-bordered">
+	    <thead>
+	        <td>分保方式</td>
+	        <td>层号</td>
+	        <td>保费币别</td>
+	        <td>起赔点</td>
+	        <td>止赔点</td>
+	        <td>不含税层保费</td>
+	    </thead>
+	    <tr ng-repeat="riskunitsShare in  reinsShare.plyEdrXComShares">
+	        <td>{{riskunitsShare.reinsType}}</td>
+	        <td>{{riskunitsShare.layerNo}}</td>
+	        <td>{{riskunitsShare.currency}}</td>
+	        <td>{{riskunitsShare.excessLoss | currency}}</td>
+	        <td>{{riskunitsShare.stopLimit | currency}}</td>
+	        <td>{{riskunitsShare.layerPremium | currency}}</td>
+	    </tr>
+	</table>
+</div>

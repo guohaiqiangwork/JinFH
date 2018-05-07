@@ -1,0 +1,238 @@
+<form>
+		<a href="" class="btn btn-default" ng-if="(editType === 1) || (editType === '1')" ng-click="addLayer()">新增层</a>
+        <br/>
+        <tabset >
+            <tab ng-repeat = "layer in dangerUnitFacEnquiry.feoXLayerList">
+            
+            	<tab-heading>
+                    {{layer.layerNo}}
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-if="editTypeFlag">
+                         <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" ng-if="editTypeFlag">
+                        <li>
+							<a href="" class="btn btn-danger" ng-click="removeLayer(dangerUnitFacEnquiry.feoXLayerVos,layer)">删除层{layer.layerNo}}</a>
+						</li>
+                    </ul>
+                </tab-heading>
+            
+                <hr>
+                <h4>层信息</h4>
+                <div style="overflow: scroll">
+                    <table class="table table-bordered" >
+                        <thead>
+                            <th nowrap>层号</th>
+                            <th nowrap>币别</th>
+                            <th nowrap>全单起赔点</th>
+                            <th nowrap>全单赔偿限额</th>
+                            <th nowrap>全单分出比例</th>
+                            <th nowrap>起赔点</th>
+                            <th nowrap>赔偿限额</th>
+                            <th>不含税层保费</th>
+                            <th nowrap ng-if="certiType === '3'">不含税层保费变化量</th>
+                            <th nowrap>分出份额</th>
+                            <th nowrap>不含税层分保费</th>
+                            <th nowrap ng-if="certiType === '3'">不含税层分保费变化量</th>
+                        </thead>
+                        <tr >
+                            <td>{{layer.layerNo}}</td>
+                            <td>
+                            	<select ng-if="editTypeFlag" ng-model="layer.currency"  ng-options="c.id as c.value for c in currencys" 
+				                        ></select>
+		                        <div ng-if="pageFlag || !editTypeFlag">
+		                        	{{layer.currency | code:'currency'}}
+		                        </div>
+                            </td>
+                            <td>
+                            	<div ng-if="editTypeFlag" class="input-group">
+	                                <input  type="text" ng-model="layer.absExcessLoss" 
+	                                	ng-keyup="layer.excessLoss=intentionCalculator('nprop','getQipeidian',recepter,riskunit, layer)" 
+	                                	currency />
+                                	<span></span>
+                               	</div>
+                               	<div ng-if="pageFlag || !editTypeFlag">
+		                        	{{layer.absExcessLoss | currency}}
+		                        </div>
+                            </td>
+                            <td>
+                            	<div ng-if="editTypeFlag" class="input-group">
+	                            	<input ng-if="editTypeFlag" type="text" ng-model="layer.absLayerQuota" 
+	                            		ng-keyup="layer.layerQuota=intentionCalculator('nprop','getPeichangxiane',recepter,riskunit, layer)"
+	                            		currency/>
+                            		<span></span>
+                           		</div>
+                           		<div ng-if="pageFlag || !editTypeFlag">
+		                        	{{layer.absLayerQuota | currency}}
+		                        </div>
+                            </td>
+                            <td>
+                            	<input size="20" ng-if="editTypeFlag" type="text" ng-model="layer.absShareRate" percentage
+                           			ng-keyup="layer.shareRate=intentionCalculator('nprop','getFenchufeneNprop',recepter,riskunit, layer);
+                           			layer.layerrePreium=intentionCalculator('nprop','getCengfenbaofei',recepter,riskunit, layer)"
+                            		/>
+                           		<div ng-if="pageFlag || !editTypeFlag">
+                           			<input type="text" ng-readonly="true" style="border:none" ng-model="layer.absShareRate" percentage />
+		                        </div>
+                            </td>
+                            <td>
+                            	<div class="input-group" >
+	                            	<input type="text" ng-if="editTypeFlag"
+	                            		ng-model="layer.excessLoss" currency
+	                            		ng-keyup="layer.absExcessLoss=intentionCalculator('nprop','getQuandanQipeidian',recepter,riskunit, layer)" />
+                           			<span></span>
+                           		</div>
+                           		<div ng-if="pageFlag || !editTypeFlag">
+		                        	{{layer.excessLoss | currency}}
+		                        </div>
+                            </td>
+                            <td>
+                            	<div class="input-group" >
+	                            	<input type="text" ng-if="editTypeFlag"
+	                            		ng-model="layer.layerQuota" currency
+	                            		ng-keyup="layer.absLayerQuota=intentionCalculator('nprop','getQuandanPeichangxiane',recepter,riskunit, layer)"/>
+                            		<span></span>
+                           		</div>
+                            	<div ng-if="pageFlag || !editTypeFlag">
+		                        	{{layer.layerquota | currency}}
+		                        </div>
+                            </td>
+                            <td>
+                            	<div ng-if="certiType==='1'" class="input-group">
+                            		<input type="text" ng-if="editTypeFlag"
+										ng-model="layer.layerPremium" currency
+										ng-keyup="layer.layerrePreium=intentionCalculator('nprop','getCengfenbaofei',recepter,riskunit, layer)"/>
+									<span></span>
+	                            	<div ng-if="pageFlag || !editTypeFlag">
+			                        	{{layer.layerPremium | currency}}
+			                        </div>
+                            	</div>
+                            	<div ng-if="certiType==='3'" class="input-group">
+									<input type="text" ng-if="editTypeFlag"
+										ng-model="layer.layerPremium" currency
+										ng-blur="  intentionCalculator('nprop','getLayerChgPrem',recepter,riskunit, layer) ;
+													intentionCalculator('nprop','getCengfenbaofei',recepter,riskunit, layer);
+													intentionCalculator('nprop','getCengfenbaofeiBhl',recepter,riskunit, layer);
+													intentionCalculator('nprop','getAllFeoXReinsChgPrm',recepter,riskunit, layer);
+													intentionCalculator('nprop','getAllFeoXReinsPrm',recepter,riskunit, layer)"
+										/>
+									<span></span>
+	                            	<div ng-if="pageFlag || !editTypeFlag">
+			                        	{{layer.layerPremium | currency}}
+			                        </div>
+		                        </div>
+                            </td>
+                            <td  ng-if="certiType==='3'" class="input-group">
+									<input type="text" ng-if="editTypeFlag"
+										ng-model="layer.layerchgPremium"   currency
+										ng-readonly="true" />
+								<span></span>
+                            	<div ng-if="pageFlag || !editTypeFlag">
+		                        	{{layer.layerChgPremium | currency}}
+		                        </div>
+                            </td>
+                            <td ng-if="certiType==='1'">
+                            	<input size="20" type="text" style="border:none;" percentage ng-if="editTypeFlag"
+                            		ng-model="layer.shareRate" 
+                            		ng-blur="layer.absShareRate=intentionCalculator('nprop','getQuandanFenchublNprop',recepter,riskunit, layer);
+                            				layer.layerrePreium=intentionCalculator('nprop','getCengfenbaofei',recepter,riskunit, layer)"
+                            		/>
+                            	<div ng-if="pageFlag || !editTypeFlag">
+                            		<input type="text" ng-readonly="true" style="border:none" ng-model="layer.shareRate" percentage />
+		                        </div>
+                            </td>
+                            <td ng-if="certiType==='3'">
+                            	<input size="20" type="text" style="border:none;" percentage ng-if="editTypeFlag"
+                            		ng-model="layer.shareRate" 
+                            		ng-blur="intentionCalculator('nprop','getQuandanFenchublNprop',recepter,riskunit, layer);
+                            				 intentionCalculator('nprop','getCengfenbaofei',recepter,riskunit, layer);
+                            				 intentionCalculator('nprop','getCengfenbaofeiBhl',recepter,riskunit, layer);
+                            				 intentionCalculator('nprop','getAllFeoXReinsChgPrm',recepter,riskunit, layer);
+											 intentionCalculator('nprop','getAllFeoXReinsPrm',recepter,riskunit, layer)"
+                            		/>
+                            	<div ng-if="pageFlag || !editTypeFlag">
+                            		<input type="text" ng-readonly="true" style="border:none" ng-model="layer.shareRate" percentage />
+		                        </div>
+                            </td>
+                            <td>
+                            	<div class="input-group" >
+	                            	<input ng-if="editTypeFlag" type="text" style="border:none;" currency
+	                            		ng-model="layer.layerrePreium" 
+	                            		 ng-readonly="certiType === '3'"  />
+                            		 <span></span>
+                          		</div> 
+                            	<div ng-if="pageFlag || !editTypeFlag">
+		                        	{{layer.layerRepreium | currency}}
+		                        </div>
+                            </td>
+                            <td ng-if="certiType==='3'">
+                            	<div class="input-group" >
+	                            	<input ng-if="editTypeFlag" type="text" style="border:none;" currency
+	                            		ng-model="layer.layerReChgPrem"  ng-readonly="true" />
+                          			<span></span>
+                       			</div>
+                            	<div ng-if="pageFlag || !editTypeFlag">
+                            		<input type="text"
+                            			 ng-readonly="true" style="border:none" ng-model="layer.layerReChgPrem" currency />
+		                        </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div ng-if="certiType==='1'" ng-include="'riskunit/riskunit.intention.nprop.1.tpl.html'"></div>
+                <div ng-if="certiType==='3'" ng-include="'riskunit/riskunit.intention.nprop.3.tpl.html'"></div>
+
+                <hr>
+                <h4>分期付费信息</h4>
+                <a href="" class="btn btn-default" ng-if="(editTypeFlag) && layer.feoXReinsVos.length>0"
+                   ng-click="addPlanNprop(dangerUnitFacEnquiry,layer.layerNo)">生成缴费计划</a>
+	            <div style="overflow: scroll" >
+                    <tabset>
+                        <tab ng-repeat="recepter in layer.feoXReinsVos"
+                                heading="{{recepter.facRiComCde}}"
+                                active="recepter.active" disabled="recepter.disabled">
+                        <div ng-if="recepter.brokerFlag != true">
+				                            期数:
+				                            {{recepter.feoXPlanVos.length}}
+                        </div>
+                        <div ng-if="recepter.brokerFlag == true">
+				                             期数:
+				                            {{recepter.feoXPlanVos.length/recepter.feoXFReinsVos.length}}
+                        </div>
+                        
+                        
+
+                            <table class="table table-bordered" >
+                                <thead ng-if="recepter.feoXPlanVos.length>0">
+                                    <td nowrap>层号</td>
+                                    <td nowrap>分期</td>
+                                    <td nowrap>最终接受人</td>
+                                    <td nowrap>付款起期</td>
+                                    <td nowrap>付款止期</td>
+                                    <td nowrap>不含税分保费</td>
+                                    <td nowrap>增值税</td>
+                                    <td nowrap>城建税</td>
+                                    <td nowrap>教育费附加税</td>
+                                    <td width="73">百分比</td>
+                                    <td nowrap>出账标志</td>
+                                </thead>
+                                <tbody ng-repeat="fac in recepter.feoXPlanVos">
+                                    <tr >
+                                        <td>{{fac.layerNo}}</td>
+                                        <td>{{fac.termNo}}</td>
+                                        <td>{{fac.riFComCde}}</td>
+                                        <td>{{fac.payStrtTm}}</td>
+                                        <td>{{fac.payLmtTm}}</td>
+                                        <td>{{fac.facComPrm | currency}}</td>
+                                        <td>{{fac.facComVat | currency}}</td>
+                                		<td>{{fac.facComCityTax | currency}}</td>
+                                		<td>{{fac.facComEducationTax | currency}}</td>
+                                        <td><input ng-readonly="true" style="border:none;" ng-model="fac.planShare" ng-init="dealPlanShare()" percentage /></td>
+                                        <td>{{fac.accMrk}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </tab>
+                    </tabset>
+	            </div>
+</form>

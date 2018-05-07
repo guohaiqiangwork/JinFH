@@ -1,0 +1,85 @@
+.autocomplete {position:relative;width:10em;margin-bottom:1px;}
+.autocomplete {} 
+.autocompInput {position:absolute;left:0px;top:0px;z-index:12;} 
+.autocompContainer {position:absolute;left:0;top:1.6em;width:100%}
+.autocompContainer .yui-ac-content {
+	position: absolute;
+	width: 100%; 
+  border: 1px solid #404040;
+  background: #fff; 
+  overflow: hidden; z-index: 9050;
+}
+.autocompContainer .yui-ac-shadow {
+	position: absolute;
+	margin: .3em;
+  width: 100%;
+  background: #a0a0a0;
+  z-index: 9049;
+ }
+.autocompContainer ul {margin:0;padding:5px 0;width:100%;}
+.autocompContainer li {padding:0 5px; text-align:left;cursor:default;white-space:nowrap;}
+.autocompContainer li.yui-ac-highlight {background-color:#0086AB; color:#FFFFFF; width:100%;}
+.autocompContainer li.yui-ac-prehighlight {background:#FFFFCC; border:1px solid #003333; width:100%;}
+
+/*准驾车型*/
+ul {
+	margin:0;
+	padding:0;
+}
+#carNum{
+  background-color:#FFC;
+}
+#carNums { 
+	width: 80%; 
+}
+#carNums .yui-ac-content { 
+    position: absolute; width: 100%; 
+    border: 1px solid #404040; background: #fff; 
+    overflow: hidden; z-index: 9050;
+}
+#carNums .yui-ac-shadow {
+    position: absolute; margin: .3em;
+    width: 100%; background: #a0a0a0;
+    z-index: 9049;
+}
+#carNums ul { 
+    padding: 5px 0; 
+	  width: 100%; 
+}
+#carNums li { 
+    padding: 0 5px; 
+    cursor: default; 
+    white-space: nowrap;
+}
+#carNums li.yui-ac-highlight { 
+    background: #FFC; 
+}
+/*预计交车时间*/
+#date3{
+	background-color:#EEC;
+}
+#date4 { 
+	width: 80%; 
+}
+#date4 .yui-ac-content { 
+    position: absolute; width: 100%; 
+    border: 1px solid #404040; background: #fff; 
+    overflow: hidden; z-index: 9050;
+}
+#date4 .yui-ac-shadow {
+    position: absolute; margin: .3em;
+    width: 100%; background: #a0a0a0;
+    z-index: 9049;
+}
+#date4 ul { 
+    padding: 5px 0; 
+	  width: 100%; 
+}
+#date4 li { 
+    padding: 0 5px; 
+    cursor: default; 
+    white-space: nowrap;
+}
+#date4 li.yui-ac-highlight { 
+    background: #FFC; 
+}

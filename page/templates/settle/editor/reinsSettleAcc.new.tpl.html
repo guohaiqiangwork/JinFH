@@ -1,0 +1,130 @@
+<div class="container-fluid"  >
+	<div class="col-sm-12" >
+		<div class="row" >
+			<div class="col-sm-2">
+				<label>帐单编号:</label>
+			</div>
+			<div class="col-sm-4">
+				<input  type="text" class="form-control" ng-model="Accs.fzAcc.accNo"  
+					ng-readonly> <span></span>
+			</div>
+			<div class="col-sm-2">
+				<label>帐单类型:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control"
+					ng-model="Accs.fzAcc.accKindName" 
+					ng-required="true"> <span></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<label>险类:</label>
+			</div>
+			<div class="col-sm-4" >
+				<input type="text" class="form-control"
+					ng-model="Accs.fzAcc.className"   
+					ng-required="true" > <span></span>
+			</div>
+			<div class="col-sm-2">
+				<label>被保险人:</label>
+			</div>
+			<div class="col-sm-4">
+				<div>
+					<select class="form-control" style="width: 100%"
+						ng-model="Accs.fzAcc.insuredName"
+						></select>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<label>接受人:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" ng-model="Accs.fzAcc.reinsCode"
+					> <span></span>
+			</div>
+			<div class="col-sm-2">
+				<label>结付人:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" 
+					ng-model="Accs.fzAcc.payName"  ng-required="true">
+				<span></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<label>业务年度:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" ng-model="Accs.fzAcc.uwYear"
+					> <span></span>
+			</div>
+			<div class="col-sm-2">
+				<label>帐单生成日期:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control"
+					ng-model="Accs.fzAcc.accDate" > <span></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<label>帐单币种:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control"
+					ng-model="Accs.fzAcc.currency"> <span></span>
+			</div>
+			<div class="col-sm-2">
+				<label>帐单余额:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control"
+					ng-model="Accs.fzAcc.balance"> <span></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<label>直接业务单证号:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control"
+					ng-model="Accs.fzAcc.drcertifyNo"> <span></span>
+			</div>
+
+		</div>
+
+
+
+
+
+
+	</div>
+</div>
+<div style="overflow: scroll">
+	<table class="table table-bordered">
+		<tr>
+			<th>序号</th>
+			<th>结算单状态</th>
+			<th>临分分期</th>
+			<th>最终人接受代码</th>
+			<th>最终接收人名称</th>
+			<th>账单币种</th>
+			<th>账单余额</th>
+			<th>已结付金额</th>
+		</tr>
+		<tr>
+			
+			<td>{{planMain.serialNo}}</td>
+			<td>{{planMain.settleStatus}}</td>
+			<td>{{planMain.payTimes}}</td>
+			<td>{{planMain.fReinsCode}}</td>
+			<td>{{planMain.fReinsName}}</td>
+			<td>{{planMain.currency}}</td>
+			<td>{{planMain.balance}}</td>
+			<td>{{planMain.paidValue}}</td>
+	</table>
+</div>

@@ -1,0 +1,389 @@
+<div class="container-fluid">
+    <form ng-class="{'readonly': operation==='view'}" name="frmSearchContract" novalidate>
+        <div class="row">
+            <!-- <div class="col-sm-2">
+                <label>暂存编号</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" ng-model="contract.tmpContNo" ng-readonly="true" >
+                <span></span>
+            </div> -->
+
+            <div class="col-sm-2">
+                <label>合同编号</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" ng-model="contract.treatyNo"   ng-readonly="true">
+           
+                <span></span>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2">
+                <label required>合同简称</label>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" ng-model="contract.refNo" 
+               ng-required="true" ng-readonly="operation==='view' ||effected" >
+            
+                <span></span>
+            </div>
+
+            <div class="col-sm-2">
+                <label>业务类型</label>
+            </div>
+            <div class="col-sm-4">
+                <select class="form-control" ng-show="operation !='view'&&!effected" ng-model="contract.optType" 
+                 ng-options="c.id as c.value for c in inoutMrks"></select>
+                 <div ng-if="operation==='view' || effected">
+                    {{contract.optType | code : 'prop.optType'}}
+                </div>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2">
+                <label>合同类型</label>
+            </div>
+            <div class="col-sm-4">
+                <select class="form-control" ng-show="operation != 'view' && !effected" ng-model="contract.treatyType"
+                        ng-options="c.id as c.value for c in contGrpTypCdes"></select>
+                <div ng-show="operation==='view' || effected">
+                    {{contract.treatyType | code : 'prop.treatyType'}}
+                </div>
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label></label>
+            </div>
+            <div class="col-sm-4">
+                <div class="input-group">
+
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label>合同全称</label>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" ng-model="contract.treatyName" 
+                ng-readonly="operation==='view' || effected" >
+            
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>合同英文名称</label>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" ng-model="contract.treatyEName" 
+                ng-readonly="operation==='view' || effected">
+       
+                <span></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label>续转合同代码</label>
+            </div>
+            <div class="col-sm-4">
+                <input  class="form-control" type="text" ng-model="contract.exTreatyNo" ng-readonly="operation==='view' || effected"
+                 typeahead="state.id as state.id +'-'+ state.value for state in getByReturn('origContNo',$viewValue) | filter:$viewValue "
+                  typeahead-wait-ms="500">
+      
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>计算基础</label>
+            </div>
+            <div class="col-sm-4">
+                <select class="form-control" ng-model="contract.calculateBase"
+                        ng-init="contract.calculateBase='0'"
+                        ng-options="a.id as a.value for a in calculateBases" ng-show="operation!='view' &&!effected"></select>
+                <div  ng-show="operation==='view' || effected">
+                    {{contract.calculateBase | code : 'prop.calculateBase'}}
+                </div>
+                <span></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label>关闭日期</label>
+            </div>
+            <div class="col-sm-4">
+                <div ng-if="operation != 'view'&&!effected">
+                    <input type="date" class="form-control"  ng-model="contract.closeDate" 
+                    ng-readonly="operation==='view'" datepicker2>
+                </div>
+               <div ng-show="operation==='view' || effected">
+                    {{contract.closeDate | date : config.display.dateFormat}}
+                </div>             
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label >业务年度</label>
+            </div>
+            <div class="col-sm-4">
+               <div ng-if="operation != 'view'&&!effected">
+                <input  class="form-control"  ng-model="contract.uwYear"  type="text"
+                        ng-readonly="operation==='view' || effected" 
+                        ng-required="true" />  
+                </div>
+                 <div ng-show="operation==='view' || effected">
+                    {{contract.uwYear}}
+                </div> 
+                 <span></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label required>合同起期</label>
+            </div>
+            <div class="col-sm-4">
+                <div ng-if="operation != 'view'&&!effected">
+                    <input type="date" class="form-control"  ng-model="contract.startDate" 
+                              ng-required="true" ng-blur="checkEndDate(contract)" >
+                </div>
+                <div ng-show="operation==='view' || effected">
+                    {{contract.startDate | date : config.display.dateFormat}}
+                </div>    
+                  <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label required>合同止期</label>
+            </div>
+            <div class="col-sm-4">
+                <div ng-if="operation != 'view'">
+                    <input type="date" class="form-control"  ng-model="contract.endDate"
+                               ng-required="true" ng-blur="checkEndDate(contract)">
+                </div>
+                 <div ng-show="operation==='view' || effected">
+                    {{contract.endDate | date : config.display.dateFormat}}
+                </div> 
+                  <span></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label>续转日期</label>
+            </div>
+            <div class="col-sm-4">
+                <div ng-if="operation != 'view'&& !effected">
+                    <input type="date" class="form-control"  ng-model="contract.extendDate"
+                            ng-readonly="operation==='view' " datepicker2>
+                </div>
+                 <div ng-if="operation === 'view' || effected">
+                 {{contract.extendDate | date : config.display.dateFormat}}
+                </div>
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>分保基础</label>
+            </div>
+            <div class="col-sm-4">
+                <select class="form-control" ng-model="contract.rePremiumBase"
+                        ng-init="contract.rePremiumBase='00'"
+                        ng-options="a.id as a.value for a in feeBaseCdes" 
+                        ng-show="operation != 'view' && !effected"></select>
+                <div ng-model="contract.rePremiumBase" ng-show="operation==='view' || effected">
+                    {{contract.rePremiumBase  | code : 'prop.rePremiumBase'}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label required>出账天数</label>
+            </div>
+            <div class="col-sm-4">
+             <div ng-if="operation != 'view'&& !effected">
+                <input class="form-control"  type="text" ng-model="contract.accDate"
+                        ng-required="true"  ng-readonly="operation==='view' || effected"
+                       />
+                </div>
+                 <div ng-show="operation==='view' || effected">
+                    {{contract.accDate}}
+                </div>
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label required>结付天数</label>
+            </div>
+            <div class="col-sm-4">
+             <div ng-if="operation != 'view'&& !effected">
+                <input class="form-control"  type="text" ng-model="contract.dueDate" 
+                       ng-required="true"  ng-readonly="operation==='view' || effected"
+                       />           
+            </div>
+             <div ng-if="operation === 'view' || effected">
+                 {{contract.dueDate}}
+                </div>      
+                <span></span>
+        </div>
+        </div>
+       <!--  <div class="row">
+            <div class="col-sm-2">
+                <label>是否固定费率分保</label>
+            </div>
+            <div class="col-sm-4">
+                <div ng-if="operation!='view' && !effected" ng-init="contract.isFixedRate =0">
+                    <input  type="radio" ng-model="contract.isFixedRate" ng-value="1" ng-click="isFixedRate(contract.isFixedRate)">是
+                    <input  type="radio" ng-model="contract.isFixedRate" ng-value="0" ng-click="isFixedRate(contract.isFixedRate)">否
+                </div>
+                <div  ng-if="operation==='view' || effected">         
+                    <div   ng-if="contract.isFixedRate==='1'">是   </div>
+       			     <div  ng-if="contract.isFixedRate!=='1'"> 否</div>
+                </div>
+                <span></span>
+            </div>
+
+            <div class="col-sm-2">
+                <label required>固定费率分保费率%</label>
+            </div>
+            <div class="col-sm-4">
+                <input  class="form-control" type="text" ng-model="contract.fixedRate" ng-required="FixedRate"
+                          percentage ng-readonly="operation==='view' || effected"  >
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-sm-2">
+                <label>账单期</label>
+            </div>
+            <div class="col-sm-4">
+                <select class="form-control" ng-show="operation != 'view' && !effected" ng-model="contract.accPeriod"
+                        ng-options="c.id as c.value for c in billPeriodCdes"></select>
+                <div ng-show="operation==='view' || effected">
+                    {{contract.accPeriod | code : 'prop.accPeriod'}}
+                </div>
+                <span></span>
+            </div>
+            </div>
+
+           <!--  <div class="col-sm-2">
+                <label>管理费率%</label>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" ng-model="contract.expenseRate"
+                  percentage ng-readonly="operation==='view' || effected" >
+            </div> -->
+        
+
+      <!--   <div class="row">
+            <div class="col-sm-2">
+                <label>合同结清方式</label>
+            </div>
+            <div class="col-sm-4">
+                <select class="form-control" ng-show="operation != 'view' && !effected" ng-model="contract.cleanMode"
+                        ng-options="c.id as c.value for c in settleTypCdes"></select>
+                <div ng-show="operation==='view' || effected">
+                    {{contract.cleanMode | code : 'prop.cleanMode'}}
+                </div>
+                <span></span>
+            </div>
+
+            <div class="col-sm-2">
+                <label>结清年限</label>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" nonnegtive type="text"  ng-model="contract.cleanYear" ng-readonly="operation==='view' ||effected"
+                ng-requierd="true"
+                	ng-maxlength="2">
+                <span></span>
+            </div>
+        </div> -->
+       <!-- <!--  <div class="row" ng-disabled="contract.settleTypCde ==='1'">
+            <div class="col-sm-2">
+                <label>未满期保费转入（出）</label>
+            </div>
+            <div class="col-sm-4">
+                <input currency class="form-control" type="text" ng-model="contract.unearndPrm" ng-readonly="operation==='view' || effected|| contract.settleTypCde ==='1'">
+            </div>
+
+            <div class="col-sm-2">
+                <label>未决赔款转入（出）</label>
+            </div>
+            <div class="col-sm-4">
+                <input currency class="form-control" type="text" ng-model="contract.pendOut" ng-readonly="operation==='view' || effected|| contract.settleTypCde ==='1'">
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-sm-2">
+                <label>未满期保费转出比例%</label>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" ng-model="contract.unearndPrmoutRate" ng-readonly="operation==='view' || effected || contract.settleTypCde ==='1'"
+                       percentage>
+            </div>
+
+            <div class="col-sm-2">
+                <label>未决赔款转出比例%</label>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" ng-model="contract.pendOutRate" ng-readonly="operation==='view' || effected|| contract.settleTypCde ==='1'"
+                       percentage >
+            </div>
+        </div> --> 
+        <!-- <div class="row">
+            <div class="col-sm-2">
+                <label>合同免赔</label>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" currency type="text" ng-model="contract.deductible" 
+                	ng-readonly="operation==='view' || effected"
+                	ng-maxlength="8">
+            </div>
+
+            <div class="col-sm-2">
+                <label>损失分担</label>
+            </div>
+            <div class="col-sm-4">
+                <input  class="form-control" type="text" ng-model="contract.lossSharing" 
+                	ng-readonly="operation==='view' || effected"
+                	ng-maxlength="8">
+                <span></span>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-sm-2">
+                <label>合同状态</label>
+            </div>
+            <div class="col-sm-4">
+                <select class="form-control" ng-show="operation !='view'" ng-model="contract.stateFlag"
+                        ng-options="c.id as c.value for c in mayStateFlags"></select>
+                <div ng-show="operation === 'view' ">                
+                    {{contract.stateFlag | code : 'prop.stateFlag'}}
+                </div>
+                <span></span>
+            </div>
+           </div>
+   	</div>
+
+        <!--接收人管理-->
+        <div ng-include="'page/templates/contract/editor/contract.recepter.tpl.html'"></div>
+        <!-- 除外责任 2014-05-07 chc -->
+        <div >
+        	<h4>除外责任</h4> &nbsp;&nbsp;&nbsp;&nbsp;
+        	<a class="btn btn-default" ng-click="openExclusion(contract)" ng-show="operation != 'view' && !effected">修改除外责任</a>
+        	&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+        	<a class="btn btn-default" ng-click="collapseExclusion()">{{ES.collapseName}}</a>
+        	<br>
+        	<div style="width: 100%" collapse="ES.collapseFlag">
+	        	<table ng-show="contract.FhExItemKindList.length > 0"  class="table table-stripped" >
+	        		<tr>
+	        			<td nowrap>除外责任代码</td>
+	        			<td nowrap>除外责任名称</td>
+	        			<td nowrap></td>
+	        		</tr>
+	        		<tr ng-repeat="e in contract.FhExItemKindList" >
+	        			<td>{{e.riskCode}}</td>
+	        			<td>{{e.riskName}}</td>
+	        			<td><a class="btn btn-danger" ng-click="delExclusion(e)" ng-show="operation != 'view' && !effected">删除</a></td>
+	        		</tr>
+	        	</table>
+        	</div>
+        </div>
+    </form>
+</div>

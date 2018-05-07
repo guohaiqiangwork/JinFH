@@ -1,0 +1,35 @@
+<div >
+	<div class="modal-header">
+        <h3>添加最终接受人</h3>
+    </div>
+    <div class="modal-body">
+        <div class="pull-right">
+            <a class="btn btn-default" ng-model="addReinsurer" ng-if="operation !='view'"
+               ng-click="addFinalRecepterNprop()" >添加</a>
+        </div>
+
+        <table class="table table-stripped">
+           <tr>
+               <td>序号</td>
+               <td>最终接受人</td>
+               <td>接收份额(%)</td>
+               <td>是否首席</td>
+               <td></td>
+           </tr>
+           <tr>
+               <td>1</td>
+               <td><input type="text" ></td>
+               <td><input type="text" ></td>
+               <td><input type="checkbox" >首席</td>
+               <td><a class="btn btn-default" >删除</a></td>
+           </tr>
+       </table>
+
+
+        <div>
+            <a class="btn btn-primary" ng-click="ok()">确定</a>&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-default" ng-click="cancel()">取消</a>
+        </div>
+		
+    </div>
+</div>

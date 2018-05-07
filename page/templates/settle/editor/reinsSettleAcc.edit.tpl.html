@@ -1,0 +1,278 @@
+<div class="container-fluid">
+	<div class="col-sm-12">
+		<div class="row">
+			<div class="col-sm-2">
+				<label>结算单编号:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control"
+					ng-model="settleAcc.settleNo" readonly>
+
+			</div>
+			<div class="col-sm-2">
+				<label>结付人:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" ng-model="settleAcc.payCode"
+					ng-readonly="operation==='view'" ng-required="true" readonly>
+				<span></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<label>经办人:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control"
+					ng-model="settleAcc.operatorCode" ng-readonly="operation==='view'"
+					ng-required="true"> <span></span>
+			</div>
+			<!-- <div class="col-sm-2">
+                <label>接受人英文名称:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.reinsEName" placeholder="接受人英文名称"
+                       ng-readonly="operation==='view'">
+                <span></span>
+            </div> -->
+			<div class="col-sm-2">
+				<label>结付日期:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control"
+					ng-model="settleAcc.operateDate1" ng-readonly="operation==='view'"	
+					ng-required="true">
+					
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<label>结付币种:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control"
+					ng-model="settleAcc.currency" ng-readonly="operation==='view'">
+				<span></span>
+			</div>
+			<div class="col-sm-2">
+				<label>结付金额:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control"
+					ng-model="settleAcc.settleValue" ng-readonly="operation==='view'">
+				<span></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<label>收/付款标志:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" ng-model="settleAcc.settleFlag"
+					ng-readonly="operation==='view'"> <span></span>
+			</div>
+			<div class="col-sm-2">
+				<label>银行手续费:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control"
+					ng-model="settleAcc.bankComm" ng-readonly="operation==='view'">
+				<span></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<label>开户银行:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" ng-model="settleAcc.bank"
+					ng-readonly="operation==='view'"> <span></span>
+			</div>
+			<div class="col-sm-2">
+				<label>开户行地址:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" ng-model="settleAcc.addr"
+					ng-readonly="operation==='view'"> <span></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<label>开户人名称:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control"
+					ng-model="settleAcc.accountName" ng-readonly="operation==='view'">
+				<span></span>
+			</div>
+			<div class="col-sm-2">
+				<label>银行帐号:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control"
+					ng-model="settleAcc.accounts" ng-readonly="operation==='view'">
+				<span></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<label>转收付标志:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control"
+					ng-model="settleAcc.sendFlag" ng-readonly="operation==='view'">
+				<span></span>
+			</div>
+			<div class="col-sm-2">
+				<label>转收付日期:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control"
+					ng-model="settleAcc.sendDate1" ng-readonly="operation==='view'">
+				<span></span>
+			</div>
+		</div>
+		
+     
+     
+     
+	</div>
+</div>
+<div class="paper" style="margin-top:0;">
+	<table class="table table-bordered">
+		<tr>
+			<th>账单编号</th>
+			<th>账单期/临分分期</th>
+			<th>最终接收人编号</th>
+			<th>最终接收人名称</th>
+			<th>账单币种</th>
+			<th>账单余额/临分当期余额</th>
+			<th>本次结付金额</th>
+			<th>兑换率</th>
+			<th>本次结付金额(折币)</th>
+		</tr>
+		
+		
+		<tr >
+		     <td ng-model="planMain.accNo"><a ng-click="findAcc(planMain.accNo)" >{{planMain.accNo}}</a></td>
+		    <!--  <td ng-model="planMain.accNo"><a ng-href="#/Accs/{{planMain.accNo}}/new" >{{planMain.accNo}}</a></td>-->
+			<td ng-model="planMain.serialNo">{{planMain.serialNo}}</td> 
+			<td ng-model="planMain.fReinsCode">{{planMain.fReinsCode}}</td>
+			<td ng-model="planMain.fReinsName">{{planMain.fReinsName}}</td>
+			<td ng-model="planMain.currency">{{planMain.currency}}</td>
+			<td ng-model="planMain.balance">{{planMain.balance}}</td>		
+			<td ng-model="planMain.paidValue">{{planMain.paidValue}}</td>
+			<td ng-model="planMain.exchRate">{{planMain.exchRate}}</td>
+			<td ng-model="planMain.balance">{{planMain.balance}}</td>
+		</tr>
+		
+	</table>
+</div>
+<!-- <div style="overflow: scroll">
+    <table class="table table-bordered">
+        <tr>
+            <th>序号</th>
+            <th>标准普尔(Standard&Poor's)-评级</th>
+            <th>评级日期</th>
+            <th>A.M.Best-评级</th>
+            <th>评级日期</th>
+            <th nowrap style="width: 220px">其他评级</th>
+            <th>其他评级</th>
+            <th>评级日期</th>
+            <th>司内评级</th>
+            <th>评级日期</th>
+            <th ng-if="operation==='edit'">操作</th>
+        </tr>
+        <tr ng-repeat="prpdReinsAssess in reinsurer.prpdReinsAssess">
+        <tr>
+            <td>{{reinsurer.id.serialNo}}</td> 
+            <td>{{$index + 1}}</td> 
+            <td><input type="text" class="form-control" style="width:100px" ng-model="reinsurer.assessLevel" ng-readonly="operation==='view'"/></td>
+
+            <td ng-if="operation==='edit'"><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessDate"  ng-readonly="operation==='view'" datepicker2 /></td>
+            <td ng-if="operation==='view'"><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessDate"   ng-readonly="operation==='view'"/></td>
+
+            <td><input type="text" class="form-control" style="width:90px" ng-model="reinsurer.assessLevel2" ng-readonly="operation==='view'" /></td>
+
+            <td ng-if="operation==='edit'"><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessDate2"  ng-readonly="operation==='view'" datepicker2></td>
+            <td ng-if="operation==='view'"><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessDate2"  ng-readonly="operation==='view'"></td>
+
+            <td ng-if="operation==='edit'">
+                <input type="text" class="form-control" style="width:90px;float: left"
+                       ng-model="reinsurer.assessLevel3" ng-readonly="operation==='view'">
+                <input type="text" class="form-control" style="width:110px;float: right"
+                       ng-readonly="operation==='view'"
+                       ng-model="reinsurer.assessTyp" placeholder="评级类型"/>
+                <select class="form-control" style="width:110px;float: right"
+                         ng-model="prpdReinsAssess.assessTyp" ng-options="c.id as c.value for c in assessType">
+                </select>
+            </td>
+              <td ng-if="operation==='view'">
+                 <div ng-switch on="prpdReinsAssess.assessTyp">
+                      <div ng-switch-when="03">穆迪评级</div>
+                  </div>:
+                 {{reinsurer.assessLevel3}}--{{reinsurer.assessTyp}}
+              </td>
+            <td  ng-if="operation==='view'"><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessDate3" ng-readonly="operation==='view'"/></td>
+            <td  ng-if="operation==='edit'"><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessDate3" ng-readonly="operation==='view'" datepicker2 /></td>
+
+            <td><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessLeve4" ng-readonly="operation==='view'" /></td>
+
+            <td ng-if="operation==='view'"><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessDate4" ng-readonly="operation==='view'"/></td>
+            <td ng-if="operation==='edit'"><input type="text" class="form-control" style="width:100%" ng-model="reinsurer.assessDate4" ng-readonly="operation==='view'" datepicker2 /></td>
+
+            <td ng-if="operation==='edit' &&  reinsurer.deleteFlag !='1'"><a class="btn btn-danger" ng-click="removePrpdReinsAssess(reinsurer)" title="删除当前行">-</a></td> 
+        </tr>
+        <tr ng-if="operation==='edit'">
+            <td colspan="10" align="right">
+                <a class="btn btn-primary" title="添加行" ng-click="addLayerPrpdReinsAssess()">+</a>
+            </td>
+        </tr> 
+    </table>
+</div> -->
+<!--  <div style="overflow: scroll">-->
+<!-- <div>接受人税务信息</div>
+	<div ng-if="operation==='edit' || operation==='new'"  class="container-fluid">
+
+       税务信息导入<input type="file" value="浏览...">
+
+     <form ng-upload-form action="/reinsurer/prpdreins/uploadExcelForReinsVat.do" method="POST" enctype="multipart/form-data"
+          	 data-file-upload="options" on-file-upload-done="onFileUploadDone(data)" on-file-upload-fail="onFileUploadFail()"
+          	 ng-class="{'fileupload-processing': processing() || loadingFiles}">
+         
+         	<div class="row fileupload-buttonbar">
+             <div class="col-lg-7">
+              <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
+                  <i class="glyphicon glyphicon-plus"></i>
+                  <span>导入税务信息</span>
+                  <input type="file" name="file" ng-disabled="disabled">
+              </span>
+             </div>
+         	</div>
+        	<table class="table table-striped files ng-cloak">
+             <tr data-ng-repeat="file in queue" data-ng-class="{'processing': file.$processing()}">
+                 <td>{{file.name}} ({{file.size | formatFileSize}})</td>
+                 <td>
+                     <strong data-ng-show="file.error" class="error text-danger">上传失败!</strong>
+                 </td>
+                 <td>
+                     <div class="progress progress-striped active fade" data-ng-class="{pending: 'in'}[file.$state()]" data-file-upload-progress="file.$progress()">
+                     <div class="progress-bar progress-bar-success" data-ng-style ="{width: num + '%'}"></div></div>
+                 </td>
+                 <td>
+                     <button type="button" class="btn btn-primary start" data-ng-click="file.$submit()" data-ng-hide="!file.$submit || options.autoUpload" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'">
+                         <i class="glyphicon glyphicon-upload"></i>
+                         <span>上传</span>
+                     </button>
+                     <button data-ng-controller="FileDestroyController" type="button" class="btn btn-danger destroy" data-ng-click="file.$clear()" data-ng-hide="file.$state() == 'pending'">
+                         <i class="glyphicon glyphicon-trash"></i>
+                         <span>删除</span>
+                     </button>
+                 </td>
+             </tr>
+         	</table>
+     </form>
+ 	</div> -->
+ 	
+</div>

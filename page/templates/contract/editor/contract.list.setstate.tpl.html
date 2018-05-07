@@ -1,0 +1,49 @@
+<div>
+    <div class="modal-header">
+        <h3>设置状态</h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-stripped">
+            <tr>
+
+                <th>合同编号</th>
+                <th>业务年度</th>
+                <th>合同简称</th>
+                <th>合同状态</th>
+            </tr>
+            <!-- 非比例合同  -->
+            <tr ng-repeat="contract in contractList" ng-show="tableShow">
+                <td>
+                	<div ng-hide="fittingFlag">{{contract.treatyNo}}</div>
+                	<div ng-hide="fittingFlag">{{contract.tmpContractNo}}</div>
+               	</td>
+                <td>{{contract.uwYear}}</td>
+                <td>{{contract.refNo}}</td>
+                <td>
+                    <select ng-options="c.id as c.value for c in getPropertyStates(contract.stateFlag)" ng-model="contract.npropStateFlag"
+                            ng-init="contract.npropStateFlag = contract.stateFlag">
+                    </select>
+                </td>
+            </tr>
+            <!-- 比例合同  -->
+            <tr ng-repeat="contract in contractList" ng-hide="tableShow">
+                <td>{{contract.treatyNo}}</td>
+               
+                <td>{{contract.uwYear}}</td>
+                <td>{{contract.refNo}}</td>
+                <td>
+                    <select ng-options="c.id as c.value for c in getPropertyStates(contract.stateFlag)"
+                    		ng-model="contract.propStateFlag" 
+                            ng-init="contract.propStateFlag = contract.stateFlag">                    		
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a ng-click="setState()" class="btn btn-primary" >设置状态</a>
+        <a ng-hide="fittingFlag" ng-click="cancel()" class="btn btn-default" >取消</a>
+        <a ng-show="fittingFlag" ng-click="pageBackJump()" class="btn btn-default" >退出</a>
+    </div>
+</div>
+

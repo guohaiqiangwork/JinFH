@@ -1,0 +1,78 @@
+<br/>
+<div >
+
+    <tabset ng-show="opertation!='edit'">
+        <tab  ng-repeat = "section in createResult" heading={{section.sectionNo}}>
+            <form>
+                <table  class="table table-bordered">
+                    <tr>
+                        <td nowrap>层号：</td>
+                        <td nowrap>预估净自留保费：</td>
+                        <td nowrap>最低预付分保费（MDP）：</td>
+                        <td nowrap>费率：</td>
+                        <td nowrap>实际净自留保费</td>
+                        <td nowrap>实际分保费</td>
+                    </tr>
+                    <tr ng-repeat = "data in section.fhxLayerViewVoList">
+                        <td>{{data.layerNo}}</td>
+                        <td>{{data.EGNPI}}</td>
+                        <td>{{data.MDP}}</td>
+                        <td>{{data.rate}}</td>
+                        <td ><input type="hidden" ng-init="data.gnpi_ = data.gnpi" />{{data.GNPI}}</td>
+                        <td>{{data.rwp}}</td>
+                    </tr>
+                </table>
+            </form>
+        </tab>
+    </tabset>
+    <tabset ng-show="opertation==='edit'">
+        <tab  ng-repeat = "section in createResult" heading={{section.sectionNo}}>
+            <form>
+                <table  class="table table-bordered">
+                    <tr ng-if="section.fhxLayerViewVoList.length>0">
+                        <td nowrap>层号：</td>
+                        <td nowrap>预估净自留保费：</td>
+                        <td nowrap>最低预付分保费（MDP）：</td>
+                        <td nowrap>费率：</td>
+                        <td nowrap>实际净自留保费</td>
+                        <td nowrap>实际分保费</td>
+                    </tr>
+                    <tr ng-repeat = "data in section.fhxLayerViewVoList">
+                        <td>{{data.layerNo}}</td>
+                        <td>{{data.EGNPI}}</td>
+                        <td>{{data.MDP}}</td>
+                        <td>{{data.rate}}</td>
+                        <td >
+                            <div class="input-group">
+                                <input type="text" style="width:50%" ng-init="data.gnpi_ = data.gnpi" ng-model="data.GNPI" ng-Keyup = "change(data)"/>
+                                <span></span>
+                            </div>
+                        </td>
+                        <td>{{data.rwp}}</td>
+                    </tr>
+                </table>
+                
+            </form>
+        </tab>
+    </tabset>
+	<div ng-if = "createResult[0].fhxLayerViewVoList.length >0"> 
+		<a class="btn btn-default"
+			ng-if="!viewFlag"
+			 ng-show="opertation!='edit'" ng-click="toggleMode('edit')" 
+			>编辑</a>
+	    <a class="btn btn-default" 
+	    	ng-if="!viewFlag"
+	    	ng-show="opertation==='edit'" ng-click="toggleMode('save')" >保存</a>
+	    <a class="btn btn-default" 
+	    	ng-if="!viewFlag"
+	    	ng-show="opertation==='edit'" ng-click="toggleMode('cancel')" >取消编辑</a>
+	    <a class="btn btn-default"  
+	    	ng-if="!viewFlag"
+	    	ng-show="opertation!='edit'"
+	       ng-click="createBills()">生成账单</a>
+	    <a class="btn btn-default"
+	    	ng-if="!viewFlag"
+	    	  ng-show="opertation!='edit'" ng-click ="toggle()">返回</a>
+   	    <a class="btn btn-default" ng-click="changeDate(keywords)" ng-if="viewFlag">返回</a>
+	</div>
+</div>

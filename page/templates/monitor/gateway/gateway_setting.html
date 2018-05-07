@@ -1,0 +1,88 @@
+<div class="row" id="gateway"></div>
+<script id="gatewayTmpl" type="text/x-jsrender">
+<div class="content-wrapper" style="min-height: 100%;margin-left: 0px!important;background-color: transparent!important">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+      <!-- Main row -->
+      <div class="row">
+      <form id="form" class="form-horizontal" role="form" method="post">
+        <!-- Left col -->
+        <section class="col-lg-12 connectedSortable ui-sortable">
+          <div class="box box-primary">
+            <!-- Tabs within a box -->
+            <div class="box-header">
+              <h3 class="box-title">用户信息</h3>
+            </div>
+            <div class="box-body" id="user">
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                  <div class="row form-group">
+                    <div class="col-xs-4">
+                      <label for="id" class="control-label">用户ID:</label>
+                    </div>
+                    <div class="col-xs-6">
+                      <span class="text-label">{{:user.id}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                  <div class="row form-group">
+                    <div class="col-xs-4">
+                      <label for="userCode" class="control-label">用户代码:</label>
+                    </div>
+                    <div class="col-xs-6">
+                      <span class="text-label">{{:user.userCode}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                  <div class="row form-group">
+                    <div class="col-xs-4">
+                      <label for="userName" class="control-label">用户名称:</label>
+                    </div>
+                    <div class="col-xs-6">
+                      <span class="text-label">{{:user.userName}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                  <div class="row form-group">
+                    <div class="col-xs-4">
+                      <label for="userType" class="control-label">用户类型:</label>
+                    </div>
+                    <div class="col-xs-6">
+                      <span class="text-label">
+                      {{if user.userType=='1'}}
+                        普通用户
+                      {{else}}
+                        渠道用户
+                      {{/if}}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="col-lg-12 connectedSortable ui-sortable">
+          <div class="box box-primary">
+            <!-- Tabs within a box -->
+            <div class="box-header">
+              <h3 class="box-title">接口信息</h3>
+            </div>
+            <div class="box-body" id="user">
+              <div class="row">
+                <table id="apis">
+                  
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+      </form>
+    </div>
+  </section>
+</div>
+</script>           

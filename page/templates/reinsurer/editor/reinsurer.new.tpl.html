@@ -1,0 +1,301 @@
+<div class="container-fluid">
+    <div class="col-sm-12">
+		<div class="row">		      
+		     <div class="col-sm-2">
+                <label>接受人代码:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.reinsCode" placeholder="接受人代码(自动生成)" readonly>
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>接受人名称:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text"  class="form-control"
+                       ng-model="reinsurer.longName" placeholder="接受人名称"
+                       ng-required="true">
+                <span></span>
+            </div>
+		</div>		
+		<div class="row">
+		    <div class="col-sm-2">
+                <label>接受人简称:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text"  class="form-control"
+                       ng-model="reinsurer.shortName" placeholder="接受人简称">
+                <span></span>
+            </div>        
+            <div class="col-sm-2">
+                <label>境内境外标识:</label>
+            </div>	
+		    <div class="col-sm-4">
+		        <select  ng-model="reinsurer.locationFlag" class="form-control" style="width:30%;float: left"
+			             ng-options="c.id as c.value for c in location"></select> 
+			     <select ng-model="reinsurer.regionCode" class="form-control" style="width: 70%;float: right"
+			             ng-options="c.id as c.value for c in regionCodes" ng-required="true">
+			             <option value="">-请选择所在城市/地区-</option></select> 	
+			    		           
+		    </div>	    
+		</div> 
+		
+		<div class="row">
+			 <div class="col-sm-2">
+	                <label>中文地址:</label>
+	         </div>
+             <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.caddr" placeholder="中文地址">
+                <span></span>
+             </div>  
+             <div class="col-sm-2">
+                <label>所属国家:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"  ng-model="reinsurer.countryName" placeholder="所属国家" ng-required="true">
+                <span></span>                
+            </div>       
+		</div>
+		<div class="row">
+		    <div class="col-sm-2">
+                <label>英文地址:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.eaddr" placeholder="英文地址">
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>公司网址:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.webAddress" placeholder="公司网址">
+                <span></span>
+            </div>
+		</div>
+		<div class="row">
+             <div class="col-sm-2">
+                <label>标准普尔(Standard&Poor's)-评级:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.assessLevel" >
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>评级日期:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="date" class="form-control"
+                       ng-model="reinsurer.assessDate">
+                <span></span>
+            </div>           
+        </div>
+        <div class="row">
+             <div class="col-sm-2">
+                <label>A.M.Best-评级:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.assessLevel2" >
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>评级日期:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="date" class="form-control"
+                       ng-model="reinsurer.assessDate2">
+                       <!--  placeholder="2018-01-01" -->
+                <span></span>
+            </div>
+        </div>
+        <div class="row">
+             <div class="col-sm-2">
+                <label>穆迪(Moody's Investors Service)-评级:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                       ng-model="reinsurer.assessLevel3" >
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>评级日期:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="date" class="form-control"
+                       ng-model="reinsurer.assessDate3">
+                <span></span>
+            </div>
+        </div>
+		<div class="row">
+		    <div class="col-sm-2">
+                <label>最高线:</label>
+            </div>
+            <div class="col-sm-4">
+                    <select class="form-control" style="width:30%;float: left" 
+                            ng-model="reinsurer.tlCurrency" ng-options="c.id as c.value for c in currencys">
+                    </select>
+                    <input type="number"
+                           class="form-control"
+                           style="width: 70%;float: right"
+                           ng-model="reinsurer.topLine"
+                           placeholder="金额">
+                    <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>资本金信息:</label>
+            </div>
+            <div class="col-sm-4">
+                    <select class="form-control" style="width:30%;float: left" 
+                            ng-model="reinsurer.currency" ng-options="c.id as c.value for c in currencys">
+                    </select>                                       
+                    <input type="number" class="form-control"
+                           style="width: 70%;float: right"
+                           ng-model="reinsurer.capital"
+                           placeholder="金额">
+                    <span></span>
+            </div>
+		</div>
+		<div class="row">
+		     <div class="col-sm-2">
+                <label>警告线:</label>
+            </div>
+            <div class="col-sm-4">
+                    <select class="form-control" style="width:30%;float: left"
+                            ng-model="reinsurer.wlCurrency" ng-options="c.id as c.value for c in currencys">
+                    </select>
+                    <input type="number" class="form-control"
+                           style="width: 70%;float: right"
+                           ng-model="reinsurer.warningLine"
+                           placeholder="金额">
+                    <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>是否总公司:</label>
+            </div>
+            <div class="col-sm-4">
+                <div>
+                    <input type="radio" ng-model="reinsurer.flag" ng-value="1">是
+                    <input type="radio" ng-model="reinsurer.flag" ng-value="0">否
+                </div>
+            </div>
+		</div>
+		<div class="row">
+            <div class="col-sm-2">
+                <label>再保人属性:</label>
+            </div>
+            <div class="col-sm-4">
+                <div >
+                    <select ng-model="reinsurer.reinsType" class="form-control"
+                            ng-options="c.id as c.value for c in reinsType"></select>
+                </div>
+            </div>
+             <div class="col-sm-2">
+                <label>有效标志:</label>
+            </div>
+            <div class="col-sm-4">
+                <div >
+                    <select ng-model="reinsurer.validStatus" class="form-control"
+                             ng-options="c.id as c.value for c in flag"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label>备注:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" ng-model="reinsurer.remarks"  placeholder="备注">
+                <span></span>
+            </div>
+        </div>				
+     </div>
+ </div>
+ <div style="overflow: scroll">
+	<table class="table table-bordered">
+	    <tr>
+	        <th>序号</th>
+            <th>开户人名称</th>
+            <th>开户行地址</th>
+            <th>开户银行</th>
+            <th>币别</th>
+            <th>账号</th>
+            <th>起始时间</th>
+            <th>终止时间</th>
+            <th>类型</</th>
+            <th>标志</th>
+            <th>操作</th>
+	    </tr>
+	    <tr ng-repeat="prpDaccount in reinsurer.prpDAccountList">
+	        <td>{{prpDaccount.serialNo}}</td>
+	        <td><input type="text" class="form-control" ng-model="prpDaccount.accountName"/></td>
+	        
+            <td><input type="text" class="form-control" ng-model="prpDaccount.addr" /></td>
+            <td><input type="text" class="form-control" ng-model="prpDaccount.bank" /></td>	                 
+	         <td>	         
+                <select class="form-control" style="width: 100px" ng-model="prpDaccount.currency" 
+                        ng-options="c.id as c.value for c in currencys">
+                </select>
+             </td>
+            <td><input type="text" class="form-control" ng-model="prpDaccount.accounts"/></td>
+            <td> <input type="date" class="form-control" ng-model="prpDaccount.startDate"/></td>
+            <td> <input type="date" class="form-control" ng-model="prpDaccount.endDate"/></td> 
+            <td>
+                  <select class="form-control" style="width: 100px" ng-model="prpDaccount.type" 
+                            ng-options="c.id as c.value for c in type"></select>
+            </td>
+            <td>
+                <select class="form-control" style="width: 100px" ng-model="prpDaccount.validStatus" ng-options="c.id as c.value for c in flag">
+                </select>
+            </td>	        
+	        <td><a class="btn btn-danger" ng-click="removePrpdAccount(reinsurer,prpDaccount)"  title="删除当前行">-</a></td>
+	    </tr>
+	    <tr>
+	        <td colspan="11" align="right">
+	            <a class="btn btn-primary" ng-click="addLayerPrpdAccount()" title="添加行">+</a>
+	        </td>
+	    </tr>
+	</table>
+</div>	 
+<div style="overflow: scroll">
+    <table class="table table-bordered">
+        <tr>
+            <th>序号</th>
+            <th>纳税人身份</th>
+            <th>纳税人名称</th>
+            <th>纳税人识别号</th>
+            <th>开票地址</th>
+            <th>税务联系电话</th>
+            <th>开票开户行</th>
+            <th>开票银行账号</th>
+            <th>操作</th>
+        </tr>
+        <tr ng-repeat="prpDreinsVat in reinsurer.prpDreinsVatList">
+            <td>{{prpDreinsVat.comlevel2no}}</td>
+            <td>
+            	<div>
+                    <select ng-model="prpDreinsVat.taxpayerstatus" class="form-control"
+                            ng-options="c.id as c.value for c in taxpayerstatus"></select>
+                </div>
+            </td>
+            <td><input type="text" class="form-control" ng-model="prpDreinsVat.taxPayerName"/></td>
+            <td><input type="text" class="form-control" ng-model="prpDreinsVat.taxPayerId"/></td>
+            <td><input type="text" class="form-control" ng-model="prpDreinsVat.invoiceAddr"/></td>
+            <td><input type="text" class="form-control" ng-model="prpDreinsVat.taxPhone"/></td>
+            <td><input type="text" class="form-control" ng-model="prpDreinsVat.invoiceBank"/></td>
+            <td><input type="text" class="form-control" ng-model="prpDreinsVat.invoiceAccount"/></td>
+            
+
+            <td><a class="btn btn-danger" ng-click="removePrpdReinsVat(reinsurer,prpDreinsVat)"  title="删除当前行">-</a></td>
+        </tr>
+        <tr>
+            <td colspan="10" align="right">
+                <a class="btn btn-primary" ng-click="addLayerPrpdReinsVat()" title="添加行">+</a>
+            </td>
+        </tr>
+    </table>
+</div>

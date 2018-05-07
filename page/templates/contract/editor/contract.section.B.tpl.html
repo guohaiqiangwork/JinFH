@@ -1,0 +1,269 @@
+<!--比例分入溢额（预约，协议）分项-->
+<!--比例核共体溢额（预约，协议）分项-->
+<!--分项B（比例分入溢额（预约，协议）分项）-->
+<div class="container-fluid">
+    <form ng-class="{'readonly': operation==='view'}">
+<!--分项B-->
+
+    <!--适用险种-->
+    <div ng-include="'contract/editor/contract.risks.tpl.html'"></div>
+
+    <!--暂存编号-->
+    <div class="row">
+        <div class="col-sm-2">
+            <label>暂存编号</label>
+        </div>
+        <div class="col-sm-4">
+            <input   class="form-control" type="text"  ng-readonly="true" ng-model="section.tmpContNo">
+            <span></span>
+        </div>
+
+        <div class="col-sm-2">
+            <label>合同编号</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-readonly="true"readonly ng-model="section.contNo">
+            <span></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label>Section编号</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text"  ng-model="section.sectNo"  ng-required="true"
+            ng-readonly="operation==='view'||effected" ng-blur="checkNoRepeat(section, 'sectNo')">
+            <span></span>
+        </div>
+        <div class="col-sm-2">
+            <label>分项中文描述</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.sectNme"  ng-required="true"
+                   ng-readonly="operation==='view'||effected" 
+                   ng-maxlength="10">
+            <span></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label>分项英文描述</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.sectEnm" 
+            ng-readonly="operation==='view'||effected"
+                   ng-readonly="true" ng-required="true"
+                   ng-maxlength="25">
+            <span></span>
+        </div>
+
+        <div class="col-sm-2">
+            <label>币别</label>
+        </div>
+        <div class="col-sm-4">
+            <select class="form-control" ng-model="section.currency" ng-options="c.id as c.value for c in currencys" ng-show="operation != 'view'&&!effected"></select>
+            <div ng-model="section.currency" ng-readonly="true" ng-show="operation === 'view'||effected">
+                {{section.currency | code : 'currency'}}
+            </div>
+            <span></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">
+            <label>溢额线数</label>
+        </div>
+        <div class="col-sm-4">
+            <input nonnegtive class="form-control" type="text" ng-model="section.surplusLines" ng-readonly="operation === 'view'||effected"
+                    ng-required="true" >
+            <span></span>
+        </div>
+
+        <div class="col-sm-2">
+            <label>合同限额</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.contQuota" ng-readonly="operation === 'view'||effected"
+                  currency >
+            <span></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label>台风赔偿限额</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.hurricaneLimit" ng-readonly="operation === 'view'||effected"
+                   currency >
+            <span></span>
+        </div>
+
+        <div class="col-sm-2">
+            <label>洪水赔偿限额</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.floodLimit" ng-readonly="operation === 'view'||effected"
+                  currency >
+            <span></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label>地震赔偿限额</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.earthquakeLimit" ng-readonly="operation === 'view'||effected"
+                  currency >
+            <span></span>
+        </div>
+
+        <div class="col-sm-2">
+            <label>合同自留额</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.reten" ng-required="true"
+                 currency
+                   ng-readonly="operation === 'view'||effected" ng-required="true">
+            <span></span>
+        </div>
+    </div>
+    <div class="row">
+     <div class="col-sm-2">
+            <label>固定手续费（含营业税不含增值税）比例（%）</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.commRate" ng-required="true"
+            ng-readonly="operation==='view'||effected"
+                   percentage>
+            <span></span>
+        </div>
+        <div ng-if="operation === 'view'">
+	        <div class="col-sm-2">
+	            <label>营业税比例（%）</label>
+	        </div>
+	        <div class="col-sm-4">
+	            <input class="form-control" type="text" ng-model="section.taxRate" ng-required="true"
+	                   percentage
+	                   ng-readonly="operation === 'view'||effected">
+	            <span></span>
+	        </div>
+        </div>
+    </div>
+    <div class="row">
+         <!-- <div class="col-sm-2">
+                <label>应税免税标识</label>
+         </div>
+         <div class="col-sm-4" >
+            <select class="form-control" ng-model="section.freeTaxFlag" ng-required="true"
+            ng-options="c.id as c.value for c in freeTaxFlags" ng-show="operation != 'view'&& !effected"
+            ng-change="selectTaxFlagChange(section)"></select>
+            <div ng-show="operation==='view' || effected">
+                    {{section.freeTaxFlag | code : 'freeTaxFlag'}}
+            </div>            
+            <span></span>
+         </div> -->
+         <div class="col-sm-2">
+                <label>增值税比例（%）</label>
+         </div>
+         <div class="col-sm-4">
+                <input class="form-control" type="text" ng-model="section.vatRate" ng-required="true"
+                    percentage  ng-readonly="operation === 'view'||effected">
+                <span></span>
+         </div>
+     </div>
+        <div class="row">
+         <div class="col-sm-2">
+                <label>城建税比例（%）</label>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" ng-model="section.cityTaxRate" ng-required="true"
+                      percentage
+                       ng-readonly="operation === 'view'||effected" >
+                <span></span>
+            </div>
+            <div class="col-sm-2">
+                <label>教育费附加比例（%）</label>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" ng-model="section.educationTaxRate" ng-required="true"
+                    percentage  ng-readonly="operation === 'view'||effected">
+                <span></span>
+            </div>
+            
+        </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label>重大赔案通知额</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.gteateLoss" 
+                   currency
+                   ng-readonly="operation === 'view'||effected">
+            <span></span>
+        </div>
+
+        <div class="col-sm-2">
+            <label>现金赔款通知额</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.cashLoss" 
+                  currency
+                   ng-readonly="operation === 'view'||effected" ng-required="true">
+            <span></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">
+            <label>其他费用</label>
+        </div>
+        <div class="col-sm-4">
+                <span></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label>经纪人费比例</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.brokeRate" ng-readonly="operation === 'view'||effected"
+                   percentage >
+            <span></span>
+        </div>
+    </div>
+     <div class="row" ng-show="section.contOutInssectEqDtls.length > 0">
+            <div class="col-sm-2" >
+                <label>地震险模块</label>
+            </div>
+            <div class="col-sm-4">
+                <div class="input-group">
+                </div>
+            </div>
+        </div>
+    <div class="row" ng-show="section.contOutInssectEqDtls.length > 0">
+        <div class="col-sm-2">
+            <label>地震险子分项号</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.eqsectNo" ng-readonly="operation === 'view'||effected"
+            ng-required="section.contOutInssectEqDtls.length > 0" ng-maxlength="2" ng-blur="checkNoRepeat(section, 'eqsectNo')">
+            <span></span>
+        </div>
+
+        <div class="col-sm-2">
+            <label>手续费(含税)比例(%)</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" ng-model="section.eqCommRate" ng-readonly="operation === 'view'||effected"
+                 percentage ng-required="section.contOutInssectEqDtls.length > 0">
+            <span></span>
+        </div>
+    </div>
+   <!--地震险模块-->
+    <div ng-include="'contract/editor/contract.earthQuake.tpl.html'"></div>
+
+    <!--浮动手续费-->
+    <div ng-include="'contract/editor/contract.adjustrate.tpl.html'"></div>
+
+</form>
+</div>

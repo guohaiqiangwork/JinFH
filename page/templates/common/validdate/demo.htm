@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Untitled Document</title>
+		<link rel="stylesheet" type="text/css" media="screen" href="./css/common.css"/>
+	</head>
+	<script type="text/javascript" src="build/yahoo/yahoo.js"></script>
+	<script type="text/javascript" src="build/event/event.js" ></script>
+	<script type="text/javascript" src="build/dom/dom.js" ></script>
+	<script type="text/javascript" src="build/animation/animation.js" ></script>
+	<script type="text/javascript" src="build/container/container.js"></script>
+
+	<script type="text/javascript" src="build/quote/checkdata.js"></script>
+
+	<script type="text/javascript">
+	</script>
+	<body>
+		<!-- main frame -->
+		<div class="frm-frame">
+			<!-- logo frame -->
+			<div class="frm-logo">logo is here
+			</div>
+			<!-- menu frame -->
+			<div class="frm-menu"> >>menu >> is >> here
+			</div>
+			<!-- body frame -->
+			<div class="frm-body">
+				<div class="content-desc">
+					<span class="cd-head">Description here</span>
+					<ul>
+						<li>desc 1.</li>
+						<li>desc 2.</li>
+					</ul>
+				</div>
+				<div>
+					<table class="tb-form" id="t1">
+						<tr>
+							<th>文字</th><td><input name="text1" class="dt-text"></td>
+							<th>日期</th><td><input name="date1" class="dt-date"></td>
+							<th>数字</th><td><input name="num1" class="dt-num"></td>
+						</tr>
+						<tr>
+							<th>文字必填</th><td><input name="text1" class="dt-text dc-chk"></td>
+							<th>日期必填</th><td><input name="date1" class="dt-date dc-chk"></td>
+							<th>数字必填</th><td><input name="num1" class="dc-chk dt-num "></td>
+						</tr>
+					</table>
+					<button class="btn" onclick="YAHOO.quote.data.datacheck('t1')">check</button>&nbsp;&nbsp;
+					<button class="btn-add">asdasdf</button>
+					<q>asfdasd</q>
+				</div>
+				<div>
+					<table class="dg-grid">
+						<thead>
+							<tr>
+								<th width="40px">序号</th>
+								<th width="100px">名称</th>
+								<th width="300px">说明</th>
+								<th width="330px">处理方式</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><input id="a" class="dc-show" value="1"></td>
+								<td><input id="b" class="dc-show" value="asdfasfdasdsf"></td>
+								<td><input id="c" class="dc-show" value="asdasasdfsadfsafasdfas asdfasdfsadf asdfasdfasdsfasdfsdf"></td>
+								<td><input id="d" class="dc-show" value="asdfasdfsdfas asfdasdfasdfsdfas asfdasdfasdfsdfas asfdasdfasdfsdfas asfdasdfasdfsdfas asfd"></td>
+							</tr>
+							<tr>
+								<td><input id="a" class="dc-show" value="1"></td>
+								<td><input id="b" class="dc-show" value="asdfasfdasdsf"></td>
+								<td><input id="c" class="dc-show" value="asdasasdfas asdfasdfasdsfasdfsdf"></td>
+								<td><input id="d" class="dc-show" value="asdfasdfsdfas asfd"></td>
+							</tr>
+							<tr>
+								<td><input id="a" class="dc-show" value="1"></td>
+								<td><input id="b" class="dc-show" value="asdfasfdasdsf"></td>
+								<td><input id="c" class="dc-show" value="asdasasdfas asdfasdfasdsfasdfsdf"></td>
+								<td><input id="d" class="dc-show" value="asdfasdfsdfas asfd"></td>
+							</tr>
+							<tr>
+								<td><input id="a" class="dc-show" value="1"></td>
+								<td><input id="b" class="dc-show" value="asdfasfdasdsf"></td>
+								<td><input id="c" class="dc-show" value="asdasasdfas asdfasdfasdsfasdfsdf"></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+			</div>
+			<!-- foot frame -->
+			<div class="frm-foot"> foot info is here
+			</div>
+		</div>
+	</body>
+</html>

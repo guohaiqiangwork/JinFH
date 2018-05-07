@@ -1,0 +1,18 @@
+<div
+        ng-if="operation==='createInsurance'"
+        ng-include="'claim/claim.list.2.tpl.html'">
+</div>
+<div ng-if="operation==='prepareRiskShare'" 
+     ng-include="'claim/editor/claim.editor.tpl.prepareRiskShareResult.html'">
+</div>
+<div 
+	ng-if="operation==='editFxoPay'"
+	ng-include="'claim/editor/claim.editor.tpl.editFxoPay.html'">
+</div>
+<div 
+	ng-if="operation==='view'"
+	ng-include="'claim/editor/claim.editor.tpl.editFxoPay.html'">
+</div>
+<div  ng-if="operation==='preEncodeEvent'"
+	ng-include="'claim/editor/claim.eventPag.tpl.html'">
+</div>

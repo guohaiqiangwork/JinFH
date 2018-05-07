@@ -1,0 +1,45 @@
+<div class="">
+    <div>
+       <input type="checkbox"  ng-model="checkAll" ng-click="checkAllReinsurers()">全选
+    </div>
+
+    <div ng-repeat="reinsurer in reinsurerList" class="contract-thumbnail-wrapper hover-visible-wrapper">
+        <div>
+            <input type="checkbox" ng-model="reinsurer.checked">{{$index+1}}
+        </div>
+
+        <div class="contract-thumbnail">
+             <div>
+                  {{reinsurer.validStatus}}
+             </div>
+		     <div>
+		          {{reinsurer.reinsCode}}
+		     </div>
+		     <div>
+		         {{reinsurer.shortName}}
+		     </div>
+			<!-- <div>
+              {{reinsurer.shortName}}
+            </div>
+            <div>
+              {{reinsurer.reinsEName}}<
+            </div> -->
+           <!--  <div ng-show="reinsurer.reinsType === null || reinsurer.reinsType === ''"></div>
+            <div ng-show="reinsurer.reinsType === '0'">直保公司</div>
+            <div ng-show="reinsurer.reinsType === '1'">经纪公司</div>
+            <div ng-show="reinsurer.reinsType === '2'">专业再保公司</div>
+            <div ng-show="reinsurer.reinsType === '3'">自保公司</div>
+            <div ng-show="reinsurer.locationFlag === null || reinsurer.locationFlag === ''"></div>
+            <div ng-show="reinsurer.locationFlag === '1'">境内</div>
+            <div ng-show="reinsurer.locationFlag === '2'">境外（含港澳台）</div> -->
+        </div>
+
+        <div class="text-center" style="margin:5px 0 0 0">
+
+            <div class="btn-group btn-group-sm hover-visible">
+                <a class="btn btn-default" ng-href="#/admin/reinsurers/{{reinsurer.reinsCode}}/view">查看</a>
+                <a class="btn btn-default" ng-href="#/admin/reinsurers/{{reinsurer.reinsCode}}/edit">编辑</a>
+            </div>
+        </div>
+    </div>
+</div>

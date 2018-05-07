@@ -1,0 +1,83 @@
+<div class="row" id="sdd-type-edit">
+</div>
+<script id="sddTypeFormTmpl" type="text/x-jsrender">
+    <div class="row lookup recorded">
+        <form id="form" class="form-horizontal" role="form" method="post">
+            <div class="col-lg-12">
+                <input id="validStatus" name="validStatus" class="form-control" value='1' type="hidden" />
+                <input id="version" name="version" class="form-control" value='0' type="hidden" />
+                <div class="box panel box-info">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                          <a href="#collapseOne" data-parent="#accordion" data-toggle="collapse" aria-expanded="true" class="">
+                            代码类型信息
+                          </a>
+                        </h4>
+                    </div>
+                <div class="panel-collapse collapse in" id="collapseOne">
+                    <div class="box-body">
+                        <div id="div_error"></div>
+                        <!--第一行-->
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-xs-12">
+                                <div class="row form-group">
+                                    <div class="col-xs-4 col-md-4">
+                                        <label for="type" class="control-label "> <font
+                                            color="#FF0000" size="+1" style="vertical-align: middle">*</font>
+                                            代码类型</label>
+                                    </div>
+                                    <div class="col-xs-6 col-md-6">
+                                            <input id="type" name="type" class="form-control" data-link="sddType.type" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-xs-12">
+                                <div class="row form-group">
+                                    <div class="col-xs-4 col-md-4">
+                                        <label for="typeDesc" class="control-label">代码描述</label>
+                                    </div>
+                                    <div class="col-xs-6 col-md-6">
+                                        <input id="typeDesc" name="typeDesc" class="form-control" data-link="sddType.typeDesc" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-tool-my">
+                    <div class="footer-my">
+                        <button type="submit" class="btn btn-danger btn-sm" style="display: none" id="btn-submit">保存</button>
+                        <button type="button" id="btn-close" class="btn btn-default btn-close btn-sm">关 闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{if pageType=='setting'}}
+            <div class="col-xs-12">
+                <div class="box panel box-info">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                          <a href="#collapseThree" data-parent="#accordion" data-toggle="collapse" aria-expanded="true" class="">
+                            代码信息
+                        </a>
+                    </h4>
+                </div>
+                <div class="panel-collapse collapse in" id="collapseThree">
+                    <div class="box-body">
+                        <div id="toolbar" class="btn-group">
+                            <button id="addTypeCode" type="button" class="btn btn-default">
+                                <i class="fa fa-user-circle-o" aria-hidden="true">&nbsp;新增</i>
+                            </button>
+                        </div>
+                        <div class="tabbable" id="tabs-180259">
+                            <table id="list-table" class="table table-hover searchtable">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/if}}
+    </form>
+</div>
+</script>

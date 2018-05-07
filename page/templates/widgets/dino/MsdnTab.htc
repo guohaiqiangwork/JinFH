@@ -1,0 +1,74 @@
+<PUBLIC:HTC URN="MsdnTab">
+<PUBLIC:ATTACH EVENT="ondocumentready" HANDLER="DoInit" />
+
+<PUBLIC:PROPERTY NAME="label" />
+<PUBLIC:PROPERTY NAME="labelstyle" />
+<PUBLIC:PROPERTY NAME="backcolor" />
+<PUBLIC:PROPERTY NAME="stdcolor" />
+<PUBLIC:PROPERTY NAME="hicolor" />
+<PUBLIC:PROPERTY NAME="textstyle" />
+<PUBLIC:PROPERTY NAME="href" />
+<PUBLIC:PROPERTY NAME="page" />
+
+<SCRIPT LANGUAGE="jscript">
+
+function DoInit() {
+		SetDefaults();
+		BuildTable();
+}
+
+function SetDefaults() {
+	if (href == null) 	
+		href = "";
+	if (stdcolor == null) 	
+		stdcolor = "white";
+	if (backcolor == null) 	
+		backcolor = "#003399";
+	if (hicolor == null)
+		hicolor = "#ffcc00";
+	if (label == null)
+		label = "Expoware Soft";
+}
+
+function BuildTable() {
+	htmlText = "";
+	htmlText += "<table border=0 cellpadding=1 cellspacing=0 width=100% ";
+	
+	if (labelstyle == null)
+		htmlText += "style='font-family:verdana;'>";
+	else
+		htmlText += "class=" + labelstyle + ">";
+	htmlText += "<tr>";
+	htmlText += "<td valign=top nowrap bgcolor=" + backcolor + ">";
+
+	if (href != null)
+		htmlText += "<b><a href=\"" + href + "\" ";
+	else
+		htmlText += "<b><a ";
+	htmlText += "style='text-decoration:none; color:" + stdcolor + ";' ";	
+	htmlText += "onmouseover=\"this.style.color='" + hicolor + "'\" "; 
+	htmlText += "onmouseout=\"this.style.color='" + stdcolor + "'\"";
+	htmlText += ">";
+	htmlText += "&nbsp;&nbsp;" + label + "&nbsp;&nbsp;</a></b></td>";
+	htmlText += "<td align=right width=100%></td>";
+	htmlText += "</tr>";
+	htmlText += "<tr>";	
+	htmlText += "<td align=left valign=top width=100% height=1 colspan=2 ";
+	htmlText += "bgcolor=" + backcolor + ">";
+	htmlText += "<img height=1 width=2></td>";
+    htmlText += "</tr></table>";
+    
+    if (textstyle == null)
+    	htmlText += "<div " + "style='font-size:75%; font-family:verdana; color:000000'>";
+    else 
+    	htmlText += "<div class=" + textstyle + ">"
+     
+    htmlText += element.innerHTML;
+    htmlText += "</div>";
+    
+	element.innerHTML = htmlText;
+}
+
+</SCRIPT>
+
+</PUBLIC:HTC>

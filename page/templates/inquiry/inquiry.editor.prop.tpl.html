@@ -1,0 +1,218 @@
+<ng-form>
+            <hr>
+            <h4>接受人管理</h4>
+            <a href="" class="btn btn-default" 
+            	ng-click="addFeoReinsProp()">
+            	<span class="glyphicon glyphicon-plus"></span>
+           	</a>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6">
+                    </div>
+                    <div class="col-lg-6">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div style="overflow: scroll">
+                            <table class="table table-bordered" >
+                                <thead ng-if="dangerUnitFacEnquiry.feoReinsReceiveList.length >0">
+                                    <th nowrap>序号</th>
+                                    <th nowrap>接受人</th>                                    
+                                    <th nowrap>最终接受人</th>
+                                    <th nowrap>经纪人</th>
+                                    <th nowrap>接受的份额(%)</th>
+                                    <th nowrap>接受手续费(%)</th>
+                                    <th nowrap>增值税比例(%)</th>
+                                    <th nowrap>其他费用比例(%)</th>
+                                    <th nowrap>附加税比例(%)</th>
+                                    <th nowrap>特约</th>
+                                    <th nowrap>起保日期</th>
+                                    <th nowrap>终保日期</th>
+                                    <th nowrap>币种</th>
+                                    <th nowrap>分出保额</th>
+                                    <th nowrap ng-if="dangerUnitFacEnquiry.feoEnquiry.enquiryType === 'E'">分保额变化量</th>
+                                    <th nowrap>费率</th>
+                                    <th nowrap>分出不含税保费</th>
+                                    <th nowrap ng-if="dangerUnitFacEnquiry.feoEnquiry.enquiryType === 'E'">不含税分保费变化量</th>
+                                    <th nowrap>免赔额</th>
+                                    <th nowrap>免赔率</th>
+                                    <th nowrap>备注</th>
+                                    <th nowrap>特别约定</th>
+                                    <th nowrap>最迟付款天数</th> 
+                                    <th nowrap>删除</th> 
+                                </thead>
+                                <tr ng-repeat="feoReins in dangerUnitFacEnquiry.feoReinsReceiveList">
+                                    <td>
+                                         <div class="input-group">
+					                        <input size="2" type="text" ng-model="feoReins.serialNo"style="border:none" readonly/>
+					                        <span></span>
+					                     </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <select ng-model="feoReins.reinsCode" style="border:none;width:100px;"
+									              ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes">
+									        </select>       
+                                            <span></span> 
+                                        </div>
+                                    </td>
+                                    <td>
+                                    	<div class="input-group">
+                                            <!-- <input size="10" type="text" ng-model="feoReins.finalReinsCode" style="border:none" placeholder="必填"
+                                                   placeholder="" typeahead-loading="loading..."
+                                                   typeahead="state.id +'-'+ state.value +'-'+ state.other1 as state.id +'-'+ state.value +'-'+ state.other1 for state in getByReturn('reinsCode',$viewValue) | filter:$viewValue "
+                                                   ng-required="true" 	typeahead-wait-ms="500"
+                                                   > -->
+                                            <select ng-model="feoReins.finalReinsCode" style="border:none;width:100px;"
+									              ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes">
+									        </select> 
+                                            <span></span>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                    	<div class="input-group">
+                                        	<input size="10" type="checkbox" ng-model="feoReins.reinsType" ng-true-value="0" ng-false-value="1"style="border:none"/>
+                                        	<span></span>
+										</div>
+                                    </td>   
+                                                                 
+                                    <td>
+                                    	<div class="input-group" ng-class="{'warning':feoReins.warning}">
+					                        <input size="10" type="text" percentage ng-model="feoReins.signedLine"  ng-required="true" style="border:none" placeholder="必填"/>
+					                        <span></span>
+					                    </div>
+                                    </td>
+                                    <td>
+                                    	<div class="input-group">
+                                        	<input size="10" type="text" percentage ng-model="feoReins.signedComm" style="border:none" />
+                                        	<span></span>
+										</div>
+                                    </td>
+                                     <td>
+                                    	<div class="input-group">
+                                        	<input size="10" type="text" percentage ng-model="feoReins.vatRate" ng-required="true" style="border:none"/>
+                                        		<span></span>
+										</div>
+                                    </td>
+                                    <td>
+                                    	<div class="input-group">
+                                        	<input size="10" type="text" percentage ng-model="feoReins.othRate" style="border:none"/>
+                                        	<span></span>
+										</div>
+                                    </td>
+                                    <td>
+                                    	<div class="input-group">
+                                        	<input size="10" type="text" percentage ng-model="feoReins.addVatRate" ng-required="true" style="border:none"/>
+                                        		<span></span>
+										</div>
+                                    </td>
+                                    <td>
+                                    	<div class="input-group">
+                                        	<input size="10" type="checkbox" ng-model="feoReins.facFlag" ng-true-value="1" ng-false-value="0"style="border:none"/>
+                                        		<span></span>
+										</div>
+                                    </td>
+                                    <td>       
+                                        <div>
+                                            <input size="15" type="date" ng-model="feoReins.strStartDate"  style="border:none"/>
+                                        		<span></span>
+                                       	</div>
+                                    </td>
+                                    <td> 
+                                        <div>
+                                            <input size="15" type="date" ng-model="feoReins.strEndDate"  style="border:none"/>
+                                        		<span></span>
+                                       	</div>      
+                                    </td>  
+                                     <td> 
+                                        <div>
+                                            <select style="border:none;width:100px"
+						                            ng-model="feoReins.currency" ng-options="c.id as c.value for c in currencys">
+						                    </select>
+                                        		<span></span>
+                                       	</div>      
+                                    </td>
+
+                                    <td>
+                                    	<div>
+	                                        <input type="text" ng-model="feoReins.amount"  style="border:none;"/>	                                                
+                                        </div>        
+                                    </td>
+                                    <td ng-if="dangerUnitFacEnquiry.feoEnquiry.enquiryType === 'E'">
+                                    	<div>
+	                                        <input type="text" ng-model="feoReins.chgAmount" 
+	                                               ng-readonly="true" style="border:none;"/>	                                                
+                                        </div>        
+                                    </td>
+                                    <td>
+                                    	<div class="input-group">
+	                                    	<input size="10" type="text" ng-model="feoReins.rate" style="border:none"
+	                                        	   ng-init="feoReins.rate=enquiryPropCalculator('getRate',feoReins,dangerUnit, '')" percentage
+	                                               ng-keyup="feoReins.premium=enquiryPropCalculator('fenbaofei',feoReins,dangerUnit, '')" percentage1
+	                                              />
+                                            <span></span>
+                                        </div>
+                                    </td>
+                                     <td>
+                                    	<div>
+	                                        <input size="10" type="text" ng-model="feoReins.premium" style="border:none"
+	                                               ng-keyup="feoReins.rate=enquiryPropCalculator('getChangedRate',feoReins,dangerUnit, '')"
+	                                               />
+                                            <span></span>
+										</div>
+                                    </td>
+                                    <td ng-if="dangerUnitFacEnquiry.feoEnquiry.enquiryType === 'E'">
+                                    	<div class="input-group" >
+	                                        <input size="10" type="text" 
+	                                        	ng-model="feoReins.chgPremium" 
+	                                              ng-readonly="true" style="border:none;"  />
+                                            <span></span>
+										</div>
+                                    </td>
+                                     <td>
+										<div class="input-group" >
+							                <input size="10" type="text" ng-model="feoReins.deductible" style="border:none;"/>
+							                <span></span>
+								        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+							                <input size="10" type="text" ng-model="feoReins.deductibleRate" percentage style="border:none;"/>
+							                <span></span>
+								        </div>
+                                    </td>  
+                                                                                                          
+                                    <td>
+                                   		<textarea name="" cols="30" rows="2"
+									        		ng-model="feoReins.remarks" style="border:none;">
+									     </textarea>
+                                    </td>
+                                    <td>
+								        <textarea name="" cols="30" rows="2"
+								        		ng-model="feoReins.specialProvisions" style="border:none;">
+								        </textarea>
+                                        </div>
+                                    </td>
+                                    
+                                    <td>
+                                        <input type="number" ng-model="feoReins.deadLineDays" style="border:none;width:40px"/>
+                                    </td>
+                                     <td size="10">
+                                        <div class="input-group">
+                                            <a href="" class="btn btn-default" 
+                                               ng-click="removeRecepterProp(feoReins)">
+                                               <span class="glyphicon glyphicon-minus"></span>
+											</a>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+</ng-form>

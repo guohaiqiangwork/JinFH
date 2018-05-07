@@ -1,0 +1,158 @@
+<div class="row" id="apiOperate"></div>
+<script id="apiOperateTml" type="text/x-jsrender">
+  <div class="content-wrapper" style="min-height: 100%;margin-left: 0px!important;background-color: transparent!important">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+      <!-- Main row -->
+      <div class="row">
+      <form id="form" class="form-horizontal" role="form" method="post">
+        <!-- Left col -->
+        <section class="col-lg-12 connectedSortable ui-sortable">
+          <div class="box box-primary">
+            <!-- Tabs within a box -->
+            <div class="box-header">
+              <h3 class="box-title">限流/降级</h3>
+            </div>
+            <div class="box-body" id="api">
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                  <div class="row form-group">
+                    <div class="col-xs-4">
+                      <label for="serviceId" class="control-label">服务ID:</label>
+                    </div>
+                    <div class="col-xs-6">
+                      <span class="text-label">{{:serviceId}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                  <div class="row form-group">
+                    <div class="col-xs-4">
+                      <label for="serviceId" class="control-label">接口名称:</label>
+                    </div>
+                    <div class="col-xs-6">
+                      <span class="text-label">{{:url}}</span>
+                    </div>
+                  </div>
+                </div>
+                {{props apiDetail}}
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                  <div class="row form-group">
+                    <div class="col-xs-4">
+                      <label for="serviceId" class="control-label">接口类型:</label>
+                    </div>
+                    <div class="col-xs-6">
+                      {{if key=='post'}}
+                      <span class="text-label">
+                      <span class="label label-success">{{:key}}</span></span>
+                      {{else}}
+                      <span class="text-label">
+                       <span class="label label-info">{{:key}}</span></span>
+                      {{/if}}
+                    </div>
+                  </div>
+                </div>
+                {{for prop}}
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                  <div class="row form-group">
+                    <div class="col-xs-4">
+                      <label for="serviceId" class="control-label">接口描述:</label>
+                    </div>
+                    <div class="col-xs-6">
+                      <span class="text-label">{{:summary}}</span>
+                    </div>
+                  </div>
+                </div>
+                {{/for}}
+                {{/props}}
+              </div>
+            </div>
+          </div>
+          <!--节点信息-->
+          <div class="box box-primary">
+            <!-- Tabs within a box -->
+            <div class="box-header">
+              <h3 class="box-title">节点信息</h3>
+            </div>
+            <div class="box-body table-responsive" id="ips">
+              <table class="table no-margin">
+                <thead>
+                    <tr>
+                        <th>选项</th>
+                        <th>地址</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {{for ips}}
+                    <td><input name="ip" type="checkbox" value="{{:#data}}"/></td>
+                    <td>{{:#data}}</td>
+                  {{/for}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!--操作-->
+          <div class="box box-primary">
+            <!-- Tabs within a box -->
+            <div class="box-header">
+              <h3 class="box-title">操作</h3>
+            </div>
+            <div class="box-body" id="Command">
+              <!--第一行-->
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                  <div class="row form-group">
+                    <div class="col-xs-4">
+                      <label for="execution.isolation.semaphore.maxConcurrentRequests" class="control-label">并发数:</label>
+                    </div>
+                    <div class="col-xs-6">
+                      <input name="execution.isolation.semaphore.maxConcurrentRequests" id="maxConcurrentRequests" type="text" class="form-control" value="1"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                  <div class="row form-group">
+                    <div class="col-xs-4">
+                      <label for="execution.isolation.thread.timeoutInMilliseconds" class="control-label">超时时间(ms):</label>
+                    </div>
+                    <div class="col-xs-6">
+                      <input name="execution.isolation.thread.timeoutInMilliseconds" id="timeoutInMilliseconds" type="text" class="form-control" value="1000"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--第二行-->
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                  <div class="row form-group">
+                    <div class="col-xs-4">
+                      <label for="circuitBreaker.errorThresholdPercentage" class="control-label">断路器阀值（百分比）:</label>
+                    </div>
+                    <div class="col-xs-6">
+                      <input name="circuitBreaker.errorThresholdPercentage" id="errorThresholdPercentage" type="text" class="form-control" value="50"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                  <div class="row form-group">
+                    <div class="col-xs-4">
+                      <label for="circuitBreaker.sleepWindowInMilliseconds" class="control-label">恢复时间(s):</label>
+                    </div>
+                    <div class="col-xs-6">
+                      <input name="circuitBreaker.sleepWindowInMilliseconds" id="sleepWindowInMilliseconds" type="text" class="form-control" value="5"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="col-lg-12">
+           <button id="rate" type="button" class="btn btn-danger">设置</button>
+        </section> 
+      </form>
+      </div>
+    </section>
+  </div>
+</script>

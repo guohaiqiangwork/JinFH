@@ -1,0 +1,51 @@
+.yui-panel .hd {
+	background-color:#3d77cb;
+	color:#CCCCCC;
+	font-size:100%;
+	line-height:100%;
+	border:0px solid #FFF;
+	border-bottom:1px solid #000;
+	font-weight:bold;
+	overflow:hidden;
+	background:url(../pages/image/crash_bg.jpg) repeat-x;
+	padding:4px;
+}
+
+.yui-panel-container.focused .hd { background:#B1E3EB; color:#0086AB;}
+.yui-panel-container.hd {text-align:left; height:20px;}
+.yui-panel-container { text-align:left; border:1px solid #F7F7FD; }
+
+.button-group button {
+	font:100 100% verdana;
+	background: #fff url(../pages/image/crash_bg.jpg) top left repeat-x;
+	text-decoration:none;
+	background-color: #E4E4E4;
+	color: #333;
+	cursor: hand;
+	vertical-align: middle;
+	border: 1px solid #797979;
+	margin:2px;
+	padding:2px;
+}
+
+.button-group button.default {
+	font-weight:bold;
+	background: #fff url(../pages/image/crash_bg.jpg) top left repeat-x;
+}
+
+.button-group button:hover, 
+.button-group button.hover {
+	border:1px solid #90A029;
+	background: #fff url(../pages/image/crash_bg.jpg) top left repeat-x;
+	background-color:#EBF09E;
+	border-top-color:#FFF;
+	border-left-color:#FFF;
+}
+
+.button-group button:active {
+	border:1px solid #E4E4E4;
+	background: #fff url(../pages/image/crash_bg.jpg) top left repeat-x;
+	background-color:#BBB;
+	border-top-color:#333;
+	border-left-color:#333;
+}

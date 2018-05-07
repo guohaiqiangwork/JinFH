@@ -1,0 +1,33 @@
+<h4>接受人成份信息</h4>
+<!-- <a class="btn btn-default"  ng-if="operation !='view' && !(effected||effected)"
+   ng-show="contAttr==='prop'" ng-click="addRecepterProps(section)"><span class="glyphicon glyphicon-plus"></span></a> -->
+<div class="container-fluid" style="overflow:scroll; height:auto;">
+    <table class="table table-stripped" ng-if="contAttr === 'prop'">
+     <tr ng-if="keywords.commFlag != '1'">
+         <th>    接受人编号       </th>
+         <!-- <th>    接受人名称       </th> -->
+         <th>接受份额（％）</th>
+         <th>手续费比例(%)</th>
+         <th></th>
+     </tr>
+     <tr ng-repeat="reinss in section.fhSectionReinsList">
+         <td>
+             <input class="form-control" type="text" ng-model="reinss.reinsCode" ng-readonly="true" />
+         </td>
+         <!-- <td>
+             <input class="form-control" type="text" ng-model="reinss.reinsName" ng-if="operation!='view'&&!effected"
+                     ng-required="true" />
+         </td> -->
+         <td>
+             <input class="form-control" type="text" ng-model="reinss.shareRate"   percentage ng-readonly="true"/>
+             
+             
+         </td>
+         <td>
+             <input class="form-control" type="text" ng-model="reinss.commRate" ng-if="operation!='view'&&!effected"
+                   percentage ng-required="true" />
+             <input class="form-control" type="text" ng-model="reinss.commRate" ng-if="operation =='view'&&!effected"  percentage ng-readonly="true"/>
+         </td>
+     </tr>
+</table>
+</div>

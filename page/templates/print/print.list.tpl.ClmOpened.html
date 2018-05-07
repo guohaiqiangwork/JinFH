@@ -1,0 +1,92 @@
+<!-- 未决赔款清单打印 -->
+<form name="frmSearch1" novalidate  method="POST" action="/reins/reportPrint.do?reportKind=OutstandingBordereaux">
+		<div>
+				<label>合约编码</label>
+					<input type="text" name="treatyNo" ng-model="keywords.other1" >																								
+				</div>
+				
+				<div>
+					<label>合约简称</label>
+                   	<input type="text" name="refNo" ng-model="keywords.refNo">
+				</div>
+				
+				<div>
+				<label>报表格式</label>
+
+					<select  ng-model="keywords.reportType">
+						<option name="reportType" value="XLS">XLS</option>
+					</select>
+				</div>
+				
+				<div>
+				<label>打印险种</label>
+            		 <select name="riskCode" ng-model="riskCode">
+                    	<option value="">--全 部--</option><!--  c.id as c.value for-->
+                    	 <option ng-repeat=" c in riskCodes"
+                    	  value="{{c.id}}">{{c.value}}</option>                  	
+            		</select>	
+				</div>
+				                    	
+       			<div>
+	         		<div ng-if="reportDateType==='D'" class="container-fluid">
+	         			<label>截止期限</label>
+	         			<input name="endDate"   type="date">
+						<!-- <input name="startDate"   ng-value="keywords.startDate|date:'yyyy-MM-dd'">至
+		         		<input name="endDate"    ng-value="keywords.endDate|date:'yyyy-MM-dd'"> -->
+			        </div>
+		        	<div ng-if="reportDateType==='Q'" class="container-fluid">
+		        		<label>季度账单期</label>
+						<!-- <input name="startDate" type="month" ng-model="keywords.startDate"> -->
+						<select name = "accPeriodQ" ng-if="operation != 'view'" ng-model="keywords.accperiod">
+                    		<option  ng-repeat="accperiod in billData.accPeriodQ" value="{{accperiod}}">{{accperiod}}</option>
+               			 </select> 
+			        </div>
+			        <!-- reportDateType -->
+			        <div ng-if="reportDateType==='M'" class="container-fluid">
+			        	<label>月账单期</label>
+						<!-- <input name="startDate" type="month" ng-model="keywords.startDate"> -->	
+						<select ng-if="operation != 'view'" ng-model="keywords.accperiod">
+                    		<option  ng-repeat="accperiod in billData.accPeriodQ">{{accperiod}}</option>
+               			 </select>
+               			 <span>				
+                		<select name="accPeriodM" ng-model="keywords.billDate">
+                    		<option  ng-repeat="billDate in options.billDates" value="{{billDate}}">{{billDate}}</option>
+                		</select>
+            			</span>
+			        </div>
+       			</div>
+       			
+       			<div>
+					<label>业务币别</label>	
+					<!-- <input type="radio" name="currencySelect" ng-value="1" ng-click="hideCur()" ng-model="keywords.currency" checked/>所有币种
+					<input type="radio" name="currencySelect" ng-value="0" ng-click="showCur()" ng-model="keywords.currency" />单个币种 -->
+					<select name="currency">
+						<option value="0" selected="selected">全部</option>
+						<option value="CNY">CNY</option>
+						<option value="USD">USD</option>
+						<option value="HKD">HKD</option>
+						<option value="GPB">GPB</option>
+						<option value="JPY">JPY</option>
+						<option value="EUR">EUR</option>
+					</select>
+				</div>
+			<!--  <div>
+				<label>报表日期分类选择</label>
+				<input type="radio" name="reportDateType" value="D" onclick="chooseReportDate()">按日期
+  		        <input type="radio" name="reportDateType" value="Q" onclick="chooseReportDate()">按财务帐季度
+  				<input type="radio" name="reportDateType" value="M" onclick="chooseReportDate()">按财务帐月度
+			</div>  -->
+			<div>
+				<label>报表日期分类选择</label>
+			
+  				<select name="reportDateType" ng-model="reportDateType"  ng-change="getBillDate(keywords)">  				
+	             	<option  value="D">按日期</option>
+	             	<option  value="Q">按财务帐季度</option>
+	             	<option  value="M">按财务帐月度</option>
+	      	 	</select>
+			</div>
+				<a class="btn btn-default" ng-click="reset()" >重置</a>
+				<button type="submit" class="btn btn-default">确定 </button>
+		
+
+	</form>

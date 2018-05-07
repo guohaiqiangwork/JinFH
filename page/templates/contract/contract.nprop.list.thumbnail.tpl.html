@@ -1,0 +1,44 @@
+<div class="">
+    <div ng-if="mode==='admin'">
+        <input type="checkbox" ng-model="checkAll" ng-click="checkAllContracts()">全选
+    </div>
+
+    <div ng-repeat="contract in contractList " class="contract-thumbnail-wrapper hover-visible-wrapper">
+        <div ng-if="mode==='admin'">
+            <input type="checkbox" ng-model="contract.checked">
+            {{getListIndex($index, pagination)}}
+        </div>
+
+        <div class="contract-thumbnail" ng-class="{'animated shake':contract.stateFlag==='2'}">
+
+			<div>
+                {{contract.treatyNo}}
+            </div>
+            <div>
+                {{contract.uwYear}}
+            </div>
+            <div>{{contract.refNo}}</div>
+            <div>{{contract.startDate.time | date : config.display.dateFormat}}</div>
+            <div>{{contract.endDate.time | date : config.display.dateFormat}}</div>
+            <div>{{contract.treatyType | code : 'nprop.treatyType'}}</div>
+            <div>{{contract.stateFlag | code : 'nprop.stateFlag'}}</div>
+        </div>
+
+        <div class="text-center" style="margin:5px 0 0 0">
+            <div>
+                <span class="contract-status" ng-class="{'status-temp':contract.stateFlag==='0',
+                                                        'status-pendding':contract.stateFlag==='1',
+                                                        'status-rejected':contract.stateFlag==='2'}"></span>
+                {{contract.treatyNo}}
+            </div>
+
+            <div class="btn-group btn-group-sm hover-visible">
+            	
+                <a class="btn btn-default" ng-if="mode==='admin'"  ng-href="#/{{mode}}/contracts/nprop/{{mode}}/{{contract.tmpTreatyNo}}/view">查看</a>
+                <a class="btn btn-default" ng-if="!(mode==='admin')" ng-href="#/contracts/nprop/{{mode}}/{{contract.tmpTreatyNo}}/view">查看</a>
+               	<a class="btn btn-default" ng-if="mode==='admin' && contract.stateFlag !='6'" ng-href="#/{{mode}}/contracts/nprop/{{mode}}/{{contract.tmpTreatyNo}}/edit">编辑</a>
+                <button ng-if="mode==='bill'" ng-click="openContractBill(contract)" class="btn btn-default"><span class="glyphicon glyphicon-list-alt"></span> 账单</button>
+            </div>
+        </div>
+    </div>
+</div>

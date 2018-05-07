@@ -1,0 +1,57 @@
+<div>
+    <tabset>
+        <tab ng-repeat = "section in stoplossrecoBill" heading={{section.sectionNo}}>
+            <table  class="table table-bordered">
+                <tr>
+                    <td nowrap>层号：</td>
+                    <td nowrap>预估净自留保费：</td>
+                    <td nowrap>最低预付分保费（MDP）：</td>
+                    <td nowrap>费率：</td>
+                    <td nowrap>实际净自留保费</td>
+                    <td nowrap>实际分保费</td>
+                    <td nowrap>赔款（已决+未决）</td>
+                    <td nowrap>赔付率%</td>
+                </tr>
+                <tr ng-repeat = "data in section.fhxLayerViewVoList">
+                    <td>{{data.layerNo}}</td>
+                    <td>{{data.egnpi}}</td>
+                    <td>{{data.mdp}}</td>
+                    <td>{{data.rate}}</td>
+                    <td ng-show="opertation==='save'">{{data.gnpi}}</td>
+                    <td ng-show="opertation==='edit'">
+                        <div class="input-group">
+                            <input type="number" style="width:80%" ng-model="data.gnpi" ng-Keyup="change(data)"/>
+                            <span></span>
+                        </div>
+                    </td>
+
+                    <td>{{data.rwp}}</td>
+                    <td ng-show="opertation==='save'">{{data.paid}}</td>
+                    <td ng-show="opertation==='save'">{{data.paidRate}}</td>
+                    <td ng-show="opertation==='edit'">
+                        <div class="input-group">
+                            <input type="number" style="width:80%" ng-model="data.paid">
+                            <span></span>
+                        </div>
+                    </td>
+                    <td ng-show="opertation==='edit'">
+                        <div>
+                            <input type="number" style="width:80%" ng-model="data.paidRate">
+                            <span></span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </tab>
+    </tabset>
+    <a class="btn btn-default" ng-show="opertation==='save'" ng-click="toggleMode('edit')">编辑</a>
+    <a class="btn btn-default" ng-show="opertation==='edit'" ng-click="getSectionDtl()">保存</a>
+    <a class="btn btn-default" ng-show="opertation==='edit'" ng-click="toggleMode('save')">取消编辑</a>
+    <a class="btn btn-default"  ng-show="opertation==='save'">生成账单</a>
+    <a class="btn btn-default"  ng-show="opertation==='save'" ng-click ="toggle()">返回</a>
+</div>
+        <ul>
+            <li style="color: red">保存按钮及生成账单按钮事件没有，需调整（接口传参）</li>
+            <li style="color: red">编辑状态下输入框改变事件为实现：</li>
+            <li style="color: red"> 录入实际净自留保费后，实际分保费的值变化，公式：实际分保费=实际净自留保费*费率</li>
+        </ul>

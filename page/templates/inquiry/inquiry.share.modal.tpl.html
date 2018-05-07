@@ -1,0 +1,23 @@
+<div >
+    <div class="modal-header">
+        <h3>分保信息</h3>
+    </div>
+    <div class="modal-body">
+    	<div ng-if="reinsShares.length > 0" ng-repeat="reinsShare in reinsShares">
+    		<div ng-if="reinsShares.classcode ==='Lib'">
+		        <div ng-if="certiType==='1' || certiType==='2'" ng-include="'riskunitLiab/riskunit.result.1.tpl.html'"></div>
+		    	<div ng-if="certiType==='3' || certiType==='4'" ng-include="'riskunitLiab/riskunit.result.3.tpl.html'"></div>
+	    	</div>
+	    	<div ng-if="!(reinsShares.classcode ==='Lib')">
+		        <div ng-if="certiType==='1' || certiType==='2'" ng-include="'riskunit/riskunit.result.1.tpl.html'"></div>
+		    	<div ng-if="certiType==='3' || certiType==='4'" ng-include="'riskunit/riskunit.result.3.tpl.html'"></div>
+	    	</div>
+	    	
+	    </div>
+        <div>
+            <a class="btn btn-default" ng-click="ok()">关闭</a>&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+</div>
+
+

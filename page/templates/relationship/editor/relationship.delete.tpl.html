@@ -1,0 +1,27 @@
+<div>
+    <div class="modal-header">
+        <h2>合约关系--删除</h2>
+    </div>
+    <div class="modal-body">
+         <table class="table table-stripped">
+                <tr>
+                    <th>业务年度</th>
+                    <th>合同编号</th>
+                    <th>合同全称</th>
+                    <th>顺序号</th>
+                </tr>
+             <tr ng-repeat="relationship in relationshipList" >
+                 <td>{{relationship.uwYear}}</td>
+                 <td>{{relationship.treatyNo}}</td>
+                 <td>{{relationship.treatyName}}</td>
+                 <td>{{relationship.priorityNo}}</td>
+             </tr>
+         </table>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-danger" ng-click="deleteList()">确认删除</a>'
+        <a class="btn btn-primary" ng-click="cancel()">撤销</a>'
+    </div>
+
+
+</div>

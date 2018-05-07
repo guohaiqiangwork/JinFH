@@ -1,0 +1,28 @@
+ <div class="table-responsive">
+	        <table class="table table-striped table-hover">
+	        	<thead>
+		        <tr>
+		            <th><input type="checkbox"  ng-model="checkAll" ng-click="checkAllReinsurers()">全选</th>
+		            <th>有效标志</th>
+		            <th>接受人代码</th>
+		            <th>接受人简称</th>
+		            <th>操作</th>
+		        </tr>
+		        </thead> 
+		        <tbody>
+		        <tr ng-repeat="reinsurer in reinsurerList" class="hover-visible-wrapper">
+		            <td><input type="checkbox" ng-model="reinsurer.checked">{{getIndex($index)}}</td>	            
+		            <td>{{reinsurer.validStatus}}</td>
+		            <td><a ng-href="#/reinsurers/{{reinsurer.reinsCode}}/view">{{reinsurer.reinsCode}}</a></td>
+		            <td>{{reinsurer.shortName}}</td>
+		            
+		            <td>
+		            	<div class="btn-group btn-group-sm hover-visible"> 
+		            		<a class="btn btn-default" ng-href="#/reinsurers/{{reinsurer.reinsCode}}/edit">修改</a>
+		            		<a class="btn btn-default" ng-href="#/reinsEditRecords/{{reinsurer.reinsCode}}">修改记录</a>
+	            		</div>
+	            	</td>
+		        </tr>
+		        </tbody>
+		    </table>
+	    </div>

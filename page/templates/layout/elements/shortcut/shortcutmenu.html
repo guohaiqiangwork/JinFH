@@ -1,0 +1,16 @@
+                     
+<script id="customMenusTml" type="text/x-jsrender">
+     {^{for usermenus}}
+        <div class="col-md-4 column padding-left-right-base padding-top-2x" >
+            <a  href="javascript:;"  data-router="{{:actionUrl}}" data-title="{{:menuCname}}" class="{{:id}}">
+            <div>
+               <i class="color-red img-thumbnail fa fa-fw fa-3x {{:image}} "></i>
+            </div>
+            </a>
+            <div class="text-center" data-toggle="tooltip" data-placement="bottom"  data-title="{{:menuCname}}">
+                {{:menuCname}}
+            </div>
+             
+        </div>
+     {{/for}}
+</script>

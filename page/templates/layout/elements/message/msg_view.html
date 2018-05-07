@@ -1,0 +1,16 @@
+<div id="message-view-body"></div>
+<script id="message-view-temp" type="text/x-jsrender">
+    <div id="all-task-icon" style="height: 300px;padding: 0 40px;">
+    {{for message}}
+        <div>
+            <h2 style="text-align: center;font-size: 16px;"><strong>{{:title}}</strong></h2>
+            <div style="text-align: right;color: gray;border-bottom: 1px solid gray;"><b>发布时间:{{publishTime:sendTime}}</b></div>
+            <br>
+            <p>{{:content}}</p>
+        </div>
+    {{/for}}
+    </div>
+    <div style="text-align: center;">
+        <button class="btn btn-info btn-float-box-close">关闭</button>
+    </div>
+</script>

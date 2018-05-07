@@ -1,0 +1,27 @@
+<div>
+    <div class="page-header">
+        <h3 style="display:inline-block">理赔分摊</h3>
+    </div>
+    <table class="table table-stripped">
+        <tr>
+        	<td nowrap>风险单位号</td>
+        	<td nowrap>风险单位描述</td>
+            <td nowrap>分保方式</td> 
+            <td nowrap>接受人</td>
+            <td nowrap>最终接受人</td>
+            <td width="30">分摊比例（%）</td>
+            <td nowrap>分摊币别</td>
+            <td nowrap>分摊赔款</td>
+        </tr>
+        <tr ng-repeat="settle in settles">
+            <td>{{settle.dangerNo}}</td>
+            <td>{{settle.description}}</td>
+            <td>{{settle.contGrptypCde}}</td>
+            <td>{{settle.reinsName}}</td>
+            <td>{{settle.finalReinsName}}</td>
+            <td><input ng-readonly="true" style="width:200px;" style="border:none" ng-model="settle.riComSharerate" percentage /></td>
+            <td>{{settle.riCur | code:'currency'}}</td>
+            <td>{{settle.riComClm | currency}}</td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,159 @@
+    <hr>
+    <h4>超赔分层接受人信息</h4>
+    <a href="" class="btn btn-default" 
+    	ng-if="(editType === 1) || (editType === '1')"
+    	ng-click="addRecepterNprop(layer)">
+    	<span class="glyphicon glyphicon-plus"></span>
+   	</a>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+            </div>
+            <div class="col-lg-6">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <ng-form>
+                    <div style="overflow: scroll">
+                        <table class="table table-bordered">
+                            <thead ng-if="layer.feoXReinsVos.length>0">
+                            	<tr>
+	                            	<td nowrap>序号</td>
+	                                <td nowrap>接受人</td>
+	                                <td nowrap>经纪人</td>
+	                                <td>接受比例（%）</td>
+	                                <td nowrap>不含税分保费</td>
+	                                <td nowrap>不含税变化保费</td>
+	                                <td nowrap>增值税</td>
+                                    <td nowrap>城建税</td>
+                                    <td nowrap>教育费附加税</td>
+	                                <td nowrap>备注</td>
+	                                <td nowrap></td>
+                            	</tr>
+                            </thead>
+                            <tr ng-repeat-start="recepter in layer.feoXReinsVos">
+                                <!--<td>{{tabsNprop[0].feoXReinsVos | json}}</td>-->
+                                <td><a href="" ng-click="layer.feoXReinsVos[$index].active = true" >{{ $index +1}}</a></td>
+                                <td>
+                                    <div class="input-group" ng-if="editTypeFlag">
+                                        <input size="30" type="text" ng-model="recepter.facRiComCde"
+                                        	ng-blur="distinctReceiver('nprop',layer,recepter,'recepter');selectXFacRiComCdeChange(riskunitsFacPlyInfo,recepter)"
+                                               ng-readonly="operation ==='view'" placeholder="" typeahead-loading="loading..."
+                                               typeahead="state.id +'-'+ state.value +'-'+ state.other1 as state.id +'-'+ state.value +'-'+ state.other1 for state in getByReturn('reinsCode',$viewValue) | filter:$viewValue "
+                                               ng-required="true" 	typeahead-wait-ms="500" >
+                                        <span></span>
+                                    </div>
+                                    <div ng-if="pageFlag || !editTypeFlag">
+			                        	{{recepter.facRiComCde}}
+			                        </div>
+                                </td>
+                                <td>
+                                	<input type="checkbox" ng-model="recepter.brokerFlag" ng-if="editTypeFlag"
+                                        ng-init="dealBrokerToBoolean()" 
+                                        ng-click="ctrlFinalRecepter('nprop',recepter)"/>
+                                    <div ng-if="pageFlag || !editTypeFlag">
+                                     	<span ng-if="recepter.brokerFlag==='1'">是</span>
+                                     	<span ng-if="recepter.brokerFlag==='0'">否</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group" ng-class="{'warning':recepter.warning}" ng-if="editTypeFlag">
+                                        <input size="20" type="text" ng-model="recepter.shareRate" percentage  
+                                               ng-readonly="operation ==='view'" ng-required="true"
+                                               ng-blur="recepter.absShareRate=intentionCalculator('nprop','getQuandanjsblNprop',recepter,riskunit, layer);
+                                               		intentionCalculator('nprop','getFenbaofeiNprop',recepter,riskunit, layer);
+                                               		intentionCalculator('nprop','getFeoXReinsChgPrm',recepter,riskunit, layer) "
+                                                >
+                                        <span></span>
+                                    </div>
+                                    <div ng-if="pageFlag || !editTypeFlag">
+                                     	<input type="text" ng-readonly="true" style="border:none" ng-model="recepter.shareRate" percentage />
+                                    </div>
+                                </td>
+                                
+								<td>
+                                        <input type="text" size="20" ng-model="facP.facAbsComShare" percentage ng-if="editTypeFlag"
+                                        	ng-keyup="facP.faccomChgAmt=intentionCalculator('prop','getFenbaoEBhl',facP,riskunit, '');
+                                        	facP.facComProp=intentionCalculator('prop','getJsbl',facP,riskunit, '');
+                                        	intentionCalculator('prop','getFenbaoFBhl',facP,riskunit, '');
+                                        	intentionCalculator('prop','getFenbaoFNew',facP,riskunit, '');
+                                        	intentionCalculator('prop','jingfenbaofeiNew',facP,riskunit, '')"
+                                        />
+                                        <div ng-if="pageFlag || !editTypeFlag">
+                                        	<input type="text" ng-readonly="true" style="border:none" ng-model="facP.facAbsComShare" percentage />	
+                                       	</div>
+								</td>
+                                
+                                <td>
+                                	<input ng-if="editTypeFlag" type="text" ng-init="dealPremiumToFix2()"
+                                		 ng-model="recepter.premium"  currency
+                                		 	ng-blur="intentionCalculator('nprop','getFeoXReinsChgPrm',recepter,riskunit, layer) "
+                                		/>
+                               		<div ng-if="pageFlag || !editTypeFlag">
+                                     	{{recepter.premium | currency}}
+                                    </div>
+                             	</td>
+                             	<td>
+                             		<div class="input-group" ng-if="editTypeFlag">
+                                	<input  type="text" ng-model="recepter.chgPreium" 
+                                		 currency  ng-readonly="true"
+                                		/>
+                               		</div>
+                               		<div ng-if="pageFlag || !editTypeFlag">
+                                     	{{recepter.chgPreium | currency}}
+                                    </div>
+                             	</td>
+                             	<!-- 增值税比例 -->
+                             	<td>
+                                	<input ng-if="editTypeFlag" type="text" size="20" ng-model="recepter.facComVat" percentage ng-required="true"
+                                		/>
+                                	<span></span>
+                               		<div ng-if="pageFlag || !editTypeFlag">
+                                     	<input type="text" ng-readonly="true" style="border:none" ng-model="recepter.facComVat" percentage />
+                                    </div>
+                             	</td>
+                             	<!-- 城建税比例 -->
+                             	<td>
+                                	<input ng-if="editTypeFlag" type="text" size="20" ng-model="recepter.facComCityTax" percentage ng-required="true"
+                                		/>
+                                	<span></span>
+                               		<div ng-if="pageFlag || !editTypeFlag">
+                                     	<input type="text" ng-readonly="true" style="border:none" ng-model="recepter.facComCityTax" percentage />
+                                    </div>
+                             	</td>
+                             	<!-- 教育费附加税比例 -->
+                             	<td>
+                                	<input ng-if="editTypeFlag" type="text" size="20" ng-model="recepter.facComEducationTax" percentage ng-required="true"
+                                		/>
+                                	<span></span>
+                               		<div ng-if="pageFlag || !editTypeFlag">
+                                     	<input type="text" ng-readonly="true" style="border:none" ng-model="recepter.facComEducationTax" percentage />
+                                    </div>
+                             	</td>
+                                <td>
+                                
+                                	<textarea ng-if="editTypeFlag" rows="5" cols="30" ng-model="recepter.remarks" ></textarea>
+                                	<div ng-if="pageFlag || !editTypeFlag">
+                                     	{{recepter.remarks}}
+                                    </div>
+                               	</td>
+                               
+                                <td >
+                                	<div class="input-group" ng-if="editTypeFlag" style="width: 179px;">
+	                                    <a ng-if="recepter.brokerFlag"
+	                                       class="btn btn-default" ng-click="addFinalRecepterNprop(recepter)" >添加最终接受人</a>
+	                                    <a ng-if="recepter.isNewFlag==='1'"
+	                                    	class="btn btn-default" ng-click="removeRecepterNprop(layer,recepter)">
+	                                    	<span class="glyphicon glyphicon-minus"></span></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </ng-form>
+            </div>
+        </div>
+    </div>
+
+                

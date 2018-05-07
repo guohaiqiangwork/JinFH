@@ -1,0 +1,74 @@
+<prep>
+    <div ng-if="operation!='contract.prop.searchContract'">
+        <textarea name="" id="" cols="80" rows="10">
+                {{ contractList | json}}
+        </textarea>
+    </div>
+
+    <div>
+        <a class="btn btn-primary" ng-click="ok()">确定</a>&nbsp;&nbsp;&nbsp;
+    </div>
+    <br/>
+
+    <div >
+        显示结果:
+        <!--<div class="btn-group">
+            <button type="button" class="btn btn-default"
+                    ng-model = "options.treatyType"
+                    btn-radio="'{{code.id}}'"
+                    ng-repeat="code in codes['nprop.treatyType']">{{code.value}}</button>
+        </div>-->
+        <div ng-if="operation==='contract.prop.searchContract'">
+            <div class="clearfix">
+                <!-- 显示查询结果列表 -->
+                <table class="table table-stripped">
+                    <thead>
+                    <th>
+                        <input type="checkbox" ng-model="checkAll" ng-click="checkAllContracts()" >全选
+                    </th>
+                    <th>暂存编号</th>
+                    <th>合同编号</th>
+                    <th>业务年度</th>
+                    <th>合同简称</th>
+                    <th>合同起期</th>
+                    <th>合同止期</th>
+                    <th>合同类型</th>
+                    <th>合同状态</th>
+                    <th></th>
+                    </thead>
+                    <tr ng-repeat="contract in contractList " >
+                        <td><input type="checkbox" ng-model="contract.checked">
+                            {{getIndex($index, pagination)}}</td>
+                        <td><a ng-href="#/contracts/prop/{{mode}}/{{contract.tmpContNo}}/view">{{contract.tmpContNo}}</a></td>
+                        <td>{{contract.contNo}}</td>
+                        <td>{{contract.contYear}}</td>
+                        <td>{{contract.refNme}}</td>
+                        <td>{{contract.contBgnTm.time | date : config.display.dateFormat}}</td>
+                        <td>{{contract.contEndTm.time | date : config.display.dateFormat}}</td>
+                        <td>{{contract.contGrpTypCde | code : 'prop.contGrpTypCde'}}</td>
+                        <td>{{contract.contStatus | code : 'prop.contStatus'}}</td>
+                        <td>
+                            <a ng-if="mode==='admin'" ng-href="#/contracts/prop/{{mode}}/{{contract.tmpContNo}}/edit" class="btn btn-default" >编辑</a>
+                            <a ng-if="mode==='bill'" ng-click="openContractBill(contract)" class="btn btn-default" >账单</a>
+                        </td>
+                    </tr>
+                </table>
+                <!-- 分页  -->
+                <div class="pull-right">
+                    <pagination total-items="pagination.totalItems"
+                                page="pagination.pageIndex"
+                                items-per-page="pagination.pageSize"
+                                max-size="pagination.maxSize"
+                                previous-text="{{pagination.previousText}}"
+                                next-text="{{pagination.nextText}}"
+                                first-text="{{pagination.firstText}}"
+                                last-text="{{pagination.lastText}}"
+                                class="pagination-small"
+                                boundary-links="true"
+                                on-select-page="onSelectPage(page)">
+                    </pagination>
+                </div>
+            </div>
+        </div>
+    </div><br>
+</prep>

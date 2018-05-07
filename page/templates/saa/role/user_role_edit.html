@@ -1,0 +1,99 @@
+<div class="row" id="user-role-edit"></div>
+<script id="userRoleFormTmpl" type="text/x-jsrender">
+    <!-- <div class="row page-title">
+        <div class="col-lg-12">
+            <a href="/">
+                <i class="fa fa-home fa-fw fa-lg"></i>
+                回到首页
+            </a>
+            / 
+        </div>
+    </div> -->
+    <div class="row lookup recorded">
+        <div class="col-lg-12">
+            <!-- style="position:absolute;" -->
+            <form id="form-userrole" class="form-horizontal" role="form" method="post">
+                <input id="id" name="id" class="form-control" data-link="userRole.id" type="hidden" />
+                <div class="box panel box-info">
+                    <div class="panel-collapse collapse in" id="collapseOne">
+                        <div class="box-body">
+                            <div id="div_error"></div>
+                            <!--第一行-->
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                    <div class="row form-group">
+                                        <div class="col-xs-4">
+                                            <label for="roleCode" class="control-label"> <font
+                                                        color="#FF0000" size="+1" style="vertical-align: middle">*</font>角色代码</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <input id="roleCode" name="roleCode" class="form-control" data-link="userRole.roleCode" type="text" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                    <div class="row form-group">
+                                        <div class="col-xs-4">
+                                            <label for="roleCode" class="control-label "> <font
+                                                        color="#FF0000" size="+1" style="vertical-align: middle">*</font>
+                                                        用户代码</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <input id="userCode" name="userCode" class="form-control" data-link="userRole.userCode" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--第四行-->
+                            <!--第五行-->
+                            <div class="row">
+
+                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                    <div class="row form-group">
+                                        <div class="col-xs-4">
+                                            <label for="startDate" class="control-label "><font
+                                                        color="#FF0000" size="+1" style="vertical-align: middle">*</font>
+                                                    生效时间</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <div class="input-group date form_date" data-date-format="yyyy-mm-dd">
+                                                <input id="startDate" name="startDate" class="form-control" type="text" data-link="userRole.startDate" />
+                                                <span class="input-group-addon">  
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                    <div class="row form-group">
+                                        <div class="col-xs-4">
+                                            <label for="endDate" class="control-label "><font
+                                                        color="#FF0000" size="+1" style="vertical-align: middle">*</font>
+                                                    失效时间</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <div class="input-group date form_date" data-date-format="yyyy-mm-dd">
+                                                <input id="endDate" name="endDate" class="form-control" type="text" data-link="userRole.endDate"
+                                                />
+                                                <span class="input-group-addon">  
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-tool-my">
+                    <div class="footer-my">
+                        <button type="submit" class="btn btn-danger btn-sm" style="display: none" id="btn-userole-submit">保存</button>
+                        <button type="button" id="btn-close-userrole" class="btn btn-default btn-close btn-sm">关 闭</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</script>

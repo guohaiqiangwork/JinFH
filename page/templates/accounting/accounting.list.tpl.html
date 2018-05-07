@@ -1,0 +1,446 @@
+<div collapse="hideList">
+	
+     <div class="page-header">
+        <h3 style="display:inline-block">临分分入</h3>
+        <div ng-hide="searchTableFlag" class="search-toggle" ng-click="searchTableFlag = !searchTableFlag">
+        	<span class="glyphicon glyphicon-search"></span>
+   		</div>
+     <!--   <a class="btn btn-default pull-right" ng-click="searchTableFlag = ! searchTableFlag">条件查询</a>  -->
+    </div> 
+    <div collapse="!searchTableFlag" class="well" style="background-color:darkgray">
+
+
+		<h4>查询临分业务</h4>
+	    <form name="searchForm" novalidate>
+            <select ng-model="options.bizType" ng-change="changeReset(options.bizType)">
+             	
+                <option  value="1">分保</option>
+                <option  value="2">分赔</option>
+            </select> 
+        
+        
+        <div ng-if="options.bizType==='3'" class="container-fluid">
+            <form name="searchForm" >
+
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>保单号</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <select ng-model="keywords.plyNoFlag">
+                                <option value="=">=</option>
+                                <option value="*">*</option>
+                            </select>
+                            <input type="text" ng-model="keywords.plyNo">
+                            <span></span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-2">
+                        <label>归属部门</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <select ng-model="keywords.deptCodeFlag">
+                                <option value="=">=</option>
+                                <option value="*">*</option>
+                            </select>
+                            <input type="text" ng-model="keywords.deptCode">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>投保单号</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <select ng-model="keywords.plyAppNoFlag">
+                                <option value="=">=</option>
+                                <option value="*">*</option>
+                            </select>
+                            <input type="text" ng-model="keywords.plyAppNo">
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <label>险种代码</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <select ng-model="keywords.insrnCCdeFlag">
+                                <option value="=">=</option>
+                                <option value="*">*</option>
+                            </select>
+                            <input type="text" ng-model="keywords.insrnCCde">
+                            <span></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>业务年度</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <input type="number" ng-model="keywords.bizStartYear">
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <label>保险起期</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                    
+                    	<div class="input-group">
+	                            <input type="text" datepicker2
+	                                   ng-model = "keywords.startDate">至<input type="text"
+	                                                                           datepicker2
+	                                                                           ng-model = "keywords.endDate">
+	                            <span></span>
+	                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>被保险人名称</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <select ng-model="keywords.insNameFlag">
+                                <option value="=">=</option>
+                                <option value="*">*</option>
+                            </select>
+                            <input type="text" ng-model="keywords.insName">
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                    </div>
+
+                    <div class="col-lg-4">
+                    </div>
+                </div>
+				<div class="row">
+	                <div class="col-lg-12" align="right">
+	                	<a class="btn btn-default " ng-click="searchTableFlagclose()">取消</a>
+		                    <a ng-show="searchForm.$dirty" class="btn btn-default" ng-click="changeReset()">重置</a>
+			                <a class="btn btn-primary "ng-click="showReinsShareList(options.bizType,'1')">查询</a>
+	                </div>
+	            </div>
+            </form>
+        </div>
+
+        <div ng-if="options.bizType==='1'" class="container-fluid">
+            <form name="searchForm" >
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>保单号</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <select ng-model="keywords.plyNoFlag">
+                                <option value="=">=</option>
+                                <option value="*">*</option>
+                            </select>
+                            <input type="text" ng-model="keywords.plyNo">
+                            <span></span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-2">
+                        <label>归属部门</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <select ng-model="keywords.deptCodeFlag">
+                                <option value="=">=</option>
+                                <option value="*">*</option>
+                            </select>
+                            <input type="text" ng-model="keywords.deptCode">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <div class="col-lg-2">
+                        <label>批单号</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <select ng-model="keywords.edrNoFlag">
+                                <option value="=">=</option>
+                                <option value="*">*</option>
+                            </select>
+                            <input type="text" ng-model="keywords.edrNo">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <label>被保险人名称</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <select ng-model="keywords.insNameFlag">
+                                <option value="=">=</option>
+                                <option value="*">*</option>
+                            </select>
+                            <input type="text" ng-model="keywords.insName">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>险种代码</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <select ng-model="keywords.insrnCCdeFlag">
+                                <option value="=">=</option>
+                                <option value="*">*</option>
+                            </select>
+                            <input type="text" ng-model="keywords.insrnCCde">
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <label>业务年度</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <input type="number" ng-model="keywords.bizStartYear">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>保险起期</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <input type="text" datepicker2
+	                                   ng-model = "keywords.startDate">至<input type="text"
+	                                                                           datepicker2
+	                                                                           ng-model = "keywords.endDate">
+	                            <span></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+	                <div class="col-lg-12" align="right">
+		                <div>
+		               	    <a class="btn btn-default " ng-click="searchTableFlagclose()">取消</a>
+		                    <a ng-show="searchForm.$dirty" class="btn btn-default" ng-click="changeReset()">重置</a>
+			                <a class="btn btn-primary "ng-click="showReinsShareList(options.bizType,'1')">查询</a>
+			            </div>
+	                </div>
+	            </div>
+            </form>
+        </div>
+
+        <div ng-if="options.bizType==='2'" class="container-fluid">
+            <form name="searchForm" >
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>保单号</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <select ng-model="keywords.plyNoFlag">
+                                <option value="=">=</option>
+                                <option value="*">*</option>
+                            </select>
+                            <input type="text" ng-model="keywords.plyNo">
+                            <span></span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-2">
+                        <label>被保险人名称</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <select ng-model="keywords.insNameFlag">
+                                <option value="=">=</option>
+                                <option value="*">*</option>
+                            </select>
+                            <input type="text" ng-model="keywords.insName">
+                            <span></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>批单号</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <select ng-model="keywords.edrNoFlag">
+                                <option value="=">=</option>
+                                <option value="*">*</option>
+                            </select>
+                            <input type="text" ng-model="keywords.edrNo">
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <label>立案号</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <select ng-model="keywords.registerNoFlag">
+                                <option value="=">=</option>
+                                <option value="*">*</option>
+                            </select>
+                            <input type="text" ng-model="keywords.registerNo">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>险种代码</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <select ng-model="keywords.insrnCCdeFlag">
+                                <option value="=">=</option>
+                                <option value="*">*</option>
+                            </select>
+                            <input type="text" ng-model="keywords.insrnCCde">
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <label>业务年度</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <input type="number" ng-model="keywords.bizStartYear">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>保险起期</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                           <input type="text" datepicker2
+	                                   ng-model = "keywords.startDate">至<input type="text"
+	                                                                           datepicker2
+	                                                                           ng-model = "keywords.endDate">
+	                            <span></span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-2">
+                        <label>归属部门</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <select ng-model="keywords.deptCodeFlag">
+                                <option value="=">=</option>
+                                <option value="*">*</option>
+                            </select>
+                            <input type="text" ng-model="keywords.deptCode">
+                            <span></span>
+                        </div>
+                    </div>
+
+                </div>
+                 <div class="row">
+                    <div class="col-lg-2">
+                        <label>出险日期</label>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                           <input type="text" datepicker2
+	                                   ng-model = "keywords.damageStartDate">至<input type="text"
+	                                                                           datepicker2
+	                                                                           ng-model = "keywords.damageEndDate">
+	                            <span></span>
+                        </div>
+                    </div>
+                    
+                   
+                </div>
+                <div class="row">
+	                <div class="col-lg-12" align="right">
+		                <div>
+							<a class="btn btn-default " ng-click="searchTableFlagclose()">取消</a>
+		                    <a ng-show="searchForm.$dirty" class="btn btn-default" ng-click="changeReset()">重置</a>
+			                <a class="btn btn-primary "ng-click="showReinsShareList(options.bizType,'1')">查询</a>
+						</div>
+					</div>
+				</div>		
+            </form>
+        </div>
+   		
+   		</form>
+    </div>
+
+    <!--查询列表-->
+     <div class="panel panel-default ">
+	    <div>
+	        <div ng-include="'accounting/accounting.list.' + options.bizType + '.tpl.html'"></div>
+	    </div>
+		<div class="clearfix panel-footer">
+	        <span class="pull-right">共:{{pagination.totalItems}}&nbsp;份</span>
+	    </div>
+	    <div class="pull-right">
+		    <pagination total-items="pagination.totalItems"
+		                page="pagination.pageIndex"
+		                items-per-page="pagination.pageSize"
+		                max-size="pagination.maxSize"
+		                previous-text="{{pagination.previousText}}"
+		                next-text="{{pagination.nextText}}"
+		                first-text="{{pagination.firstText}}"
+		                last-text="{{pagination.lastText}}"
+		                class="pagination-small"
+		                boundary-links="true"
+		                on-select-page="onSelectPage(page)">
+		    </pagination>
+		</div>
+    </div>
+</div>
+<div ui-view="operation"></div>

@@ -1,0 +1,140 @@
+@import url("style.less");
+/*流程图页面样式*/
+.workflow-state {
+  padding: 10px;
+}
+.workflow-state .workflow-state-content {
+  text-align: right;
+}
+.workflow-state .workflow-state-content span {
+  padding-right: 20px;
+}
+
+.workflow-nav {
+  background-color: #F0F8FF;
+  .font-weight-bolder;
+  border-color:	#D3D3D3;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 0 0 10px 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  padding-top: 5px;
+}
+.workflow-nav .workflow-nav-info {
+  margin-top: 20px;
+}
+.workflow-nav .workflow-nav-info span {
+  margin-right: 20px;
+}
+.workflow-nav .workflow-nav-node a {
+  padding-right: 10px;
+}
+.workflow-nav .workflow-nav-node dl {
+  display: inline-table;
+  padding: 2px;
+  text-align: center;
+  border-top-left-radius: 21px;
+  border-top-right-radius: 21px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.workflow-nav .workflow-nav-node .finish {
+  background-color: #4cae4c;
+  color: #ffffff;
+}
+.workflow-nav .workflow-nav-node .doing {
+  background-color: #eea236;
+  color: #ffffff;
+}
+.workflow-nav .workflow-nav-node .undo {
+  background-color: #dedede;
+  color: #000000;
+}
+.workflow-fixed-div {
+  position: fixed;
+
+  z-index: 1;
+}
+.fixed-media {
+  position: fixed;
+  right: 220px;
+  top: 220px;
+  z-index: 10;
+}
+.workflow-subhead {
+  border-bottom-color:	#D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 0.5px;
+}
+.workflow-border {
+  border-color:	#D3D3D3;
+  border-style: solid;
+  border-width: 0.5px;
+  height: 70px;
+  line-height: 60px;
+}
+.workflow-nav .affix-top{
+
+}
+
+.workflow-nav .affix{
+  left: 0px;
+  top:0px;
+  width: 100%;
+  background-color: #F0F8FF;
+  .font-weight-bolder;
+  border-color:	#D3D3D3;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 0 0 10px 10px;
+  padding-top: 5px;
+  z-index: 1000;
+}
+#workflow_pin .affix-top
+{
+  position:fixed;
+  right:-50px;
+  top:170px;
+
+}
+#workflow_pin  .affix
+{
+  right:-50px;
+  top:170px;
+
+
+}
+//.affix-bottom
+//{
+//  ……
+//}
+.right-menu-col {
+  padding-right: 0;
+}
+.workflow-right-menu {
+
+  background-color: #e0e0e0;
+//  margin-top: 10px;
+//  margin-left: 70px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  border: 1px solid #808080;
+  border-right:none;
+}
+.workflow-right-menu .media {
+  border-bottom-style: solid;
+  border-bottom-color: #808080;
+  border-bottom-width: 1px;
+  height: 65px;
+  margin-top: 0;
+  padding-left: 8px;
+  padding-top: 10px;
+}
+.workflow-right-menu .media img{
+  margin-top: 9px;
+}
+.workflow-right-menu .media p{
+  text-align: center;
+  margin: auto;
+}

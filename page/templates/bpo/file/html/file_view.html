@@ -1,0 +1,97 @@
+<div class="row" id="file-edit"></div>
+<div class="bootbox-body row"></div>
+<script id="queryFormTmpl" type="text/x-jsrender">
+<div id="fileview-panel">
+	<div class="col-xs-12">
+        <div class="box panel box-info">
+            <div class="box-header with-border">
+                <h4 class="box-title">
+                  <a href="#collapseOne" data-parent="#accordion" data-toggle="collapse" aria-expanded="true" class="">
+                    档案信息
+                  </a>
+                </h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapseOne">
+                <div class="box-body">
+                {{for file.bpoFileCfgs}}
+				<div class="col-lg-6 col-md-6 col-xs-12">
+					<div class="row form-group">
+						<div class="col-xs-4">
+							<label for="{{:fileField}}" class="control-label"> <font
+								color="#FF0000" size="+1" style="vertical-align: middle">*</font>{{:fileFieldName}}</label>
+						</div>
+						<div class="col-xs-6">
+								<input id="{{:fileField}}" name="{{:fileField}}"	
+								class="form-control" data-link="value" type="text"/>
+			
+						</div>
+					</div>
+				</div>
+				{{/for}}
+                </div>
+            </div>
+        </div>
+	</div>
+	<div class="col-xs-12">
+        <div class="box panel box-info">
+            <div class="box-header with-border">
+                <h4 class="box-title">
+                  <a href="#collapseOne" data-parent="#accordion" data-toggle="collapse" aria-expanded="true" class="">
+                    目录信息
+                  </a>
+                </h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapseOne">
+                <div class="box-body">
+					{{for folders}}
+					<span class="label label-info">{{: #data}}</span>
+					{{/for}}
+                </div>
+            </div>
+        </div>
+	</div>
+	<div class="col-xs-12">
+        <div class="box panel box-info">
+            <div class="box-header with-border">
+                <h4 class="box-title">
+                  <a href="#collapseOne" data-parent="#accordion" data-toggle="collapse" aria-expanded="true" class="">
+                    影像信息
+                  </a>
+                </h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapseOne">
+                <div class="box-body">
+                	<div id="imagetoolbar" class="btn-group">
+                        <button id="addImage" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+                        </button>
+                    </div>
+                	<div class="tab-content list-table">
+            			<div class="tab-pane active">
+							<table class="table  table-responsive table-condensed table-hover table-bordered table-striped dataTable searchtable">
+                                 <thead>
+                                    <tr>     
+                                    {{for queryResultTitles}}        
+                                        <th>{{:label}}{{:additionHtml}}</th>
+                                  	{{/for}}  
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody id="image-data">
+                                	{{for images}}
+                                	<tr>
+                                		<td>{{:name}}</td>
+                                		<td>{{:type}}</td>
+                                		<td><a href="#" title="查看" ><i class="fa fa-eye fa-lg view" data-id="{{:id}}"></i></a></td>
+                                	</tr>
+                                	{{/for}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+</script>

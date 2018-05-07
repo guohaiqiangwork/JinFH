@@ -1,0 +1,121 @@
+<div class="row" id="task-deliver">
+</div>
+<script id="settingTmpl" type="text/x-jsrender">
+<div id="deliver-panel">
+    <div class="col-lg-12">
+        <div class="box panel box-info">
+            <div class="box-header with-border">
+                <h4 class="box-title">
+                  <a href="#collapseOne" data-parent="#accordion" data-toggle="collapse" aria-expanded="true" class="">
+                    邮寄信息
+                  </a>
+                </h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapseOne">
+                {{for task}}
+                <div class="box-body">
+                   <div class="col-lg-6 col-md-3 col-xs-3">
+                        <div class="form-group">
+                            <label class="col-lg-5 col-sm-5 col-xs-5 control-label" for="jobContent">邮寄单号</label>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+                                {{:taskId}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-3 col-xs-3">
+                        <div class="form-group">
+                            <label class="col-lg-5 col-sm-5 col-xs-5 control-label" for="jobContent">物流类型</label>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+                               <a href="#" class="form" id="mailType" data-source="{'01':'第三方物流','02':'天信致远物流','03':'自送'}" data-id={{:mailType}} data-value={{:mailType}}></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                   <div class="col-lg-6 col-md-3 col-xs-3">
+                        <div class="form-group">
+                            <label class="col-lg-5 col-sm-5 col-xs-5 control-label" for="transportId">批次号</label>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+                                <a href="#" class="form" id="transportId" data-id={{:taskId}}>{{:transportId}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-3 col-xs-3">
+                        <div class="form-group">
+                            <label class="col-lg-5 col-sm-5 col-xs-5 control-label" for="mailTime">邮寄时间</label>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+                                <a href="#" class="form" id="mailTime" data-id="{{:taskId}}" data-format="yyyy-mm-dd">{{:mailTime}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="col-lg-6 col-md-3 col-xs-3">
+                        <div class="form-group">
+                            <label class="col-lg-5 col-sm-5 col-xs-5 control-label" for="mailAddress">邮寄地址</label>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+                            <a href="#" class="form"  id="mailAddress" data-id="{{:taskId}}">
+                                {{:mailAddress}}
+                            </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/for}}
+            </div>
+        </div>
+        <div class="box box-tool-my">
+            <div class="footer-my">
+                <button id="update" type="button" class="btn btn-primary btn-sm" id="btn-submit">保存</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="box panel box-info">
+            <div class="box-header with-border">
+                <h4 class="box-title">
+                  <a href="#collapseTwo" data-parent="#accordion" data-toggle="collapse" aria-expanded="true" class="">
+                    已邮寄信息
+                  </a>
+                </h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapseTwo">
+                <div class="box-body">
+                    <div id="toolbar" class="btn-group">
+                        <button id="add" type="button" class="btn btn-default">
+                            <i class="fa fa-barcode" aria-hidden="true">&nbsp;扫描邮寄</i>
+                        </button>
+                         <button id="batch" type="button" class="btn btn-default">
+                            <i class="fa fa-stack-overflow" aria-hidden="true">&nbsp;批量邮寄</i>
+                        </button>
+                    </div>
+                    <div class="tab-content list-table">
+                        <div class="tab-pane active">
+                            <table class="table  table-responsive table-condensed table-hover table-bordered table-striped dataTable searchtable">
+                                 <thead>
+                                    <tr>     
+                                    {{for queryResultTitles}}        
+                                        <th>{{:label}}{{:additionHtml}}</th>
+                                  {{/for}}  
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody id="deliver-data">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <form role="form" class="searchform">
+                 {{for task}}
+                <!-- <input name="status" class="form-control input-sm" type="hidden" value="04" /> -->
+                <input name="youjiTaskId" class="form-control input-sm" type="hidden" value="{{:taskId}}" />
+                {{/for}}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</script>

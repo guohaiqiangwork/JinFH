@@ -1,0 +1,15 @@
+/* 数据控制：是否必填，是否可选，是否弹出框，是否readonly，出错类型 */
+.dc-show{overflow:hidden; width:95%; text-overflow:ellipsis;  border:none; background:none; cursor:pointer;}
+.dc-chk{ background-color:#FFFFBB;}
+.dc-err{ background-color:#FF8484;}
+.yui-tt {
+	visibility:hidden;
+	position:absolute;
+	color:#333;
+	background-color:#FDFFB4;
+	font-family:arial,helvetica,verdana,sans-serif;
+	padding:2px;
+	border:1px solid #FCC90D;
+	font:100% sans-serif;
+	width:auto;
+}

@@ -1,0 +1,271 @@
+<div>
+	 <div class="modal-header">
+        <h3>分保单详情</h3>
+    </div>
+    <div class="modal-body">
+    	 <div>
+    	 	<tabset>
+    	 		 <tab heading="分保单主信息">
+    	 		 	<form name="searchForm">
+    	 		 	<div class="row">
+			            <div class="col-lg-2">
+                  			<label>保单号</label>
+		                </div>
+		
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.policyNo}}
+		                        <span></span>
+		                    </div>
+		                </div>
+		
+		                <div class="col-lg-2">
+		                    <label>危险单位号</label>
+		                </div>
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.dangerNo}}
+		                        <span></span>
+		                    </div>
+		                </div>
+			        </div>
+			        <div class="row">
+			            <div class="col-lg-2">
+                  				<label>险种代码</label>
+		                </div>
+		
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.riskCode}}
+		                        <span></span>
+		                    </div>
+		                </div>
+		
+		                <!-- <div class="col-lg-2">
+		                    <label>出单公司</label>
+		                </div>
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.deptCde}}-{{plyRiskUnit.comCName}}
+		                        <span></span>
+		                    </div>
+		                </div> -->
+			        </div>
+			        <div class="row">
+			            <div class="col-lg-2">
+                  				<label>保险起期</label>
+		                </div>
+		
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.startDate}}
+		                        <span></span>
+		                    </div>
+		                </div>
+		
+		                <div class="col-lg-2">
+		                    <label>保险止期</label>
+		                </div>
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.endDate}}
+		                        <span></span>
+		                    </div>
+		                </div>
+			        </div>
+			        <div class="row">
+			            <div class="col-lg-2">
+                  				<label>保额币别</label>
+		                </div>
+		
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.currency}}
+		                        <span></span>
+		                    </div>
+		                </div>
+		
+		                <div class="col-lg-2">
+		                    <label>保费币别</label>
+		                </div>
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.currency}}
+		                        <span></span>
+		                    </div>
+		                </div>
+			        </div>
+			        <div class="row">
+			            <div class="col-lg-2">
+                  				<label>总保额</label>
+		                </div>
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.amount | currency}}
+		                        <span></span>
+		                    </div>
+		                </div>
+		
+		                <div class="col-lg-2">
+		                    <label>总含税保费</label>
+		                </div>
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.premium | currency}}
+		                        <span></span>
+		                    </div>
+		                </div>
+			        </div>
+			        <div class="row">
+			            <div class="col-lg-2">
+                  				<label>我司所占保额</label>
+		                </div>
+		
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.baseAmount | currency}}
+		                        <span></span>
+		                    </div>
+		                </div>
+		
+		                <div class="col-lg-2">
+		                    <label>我司含税保费</label>
+		                </div>
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.basePremium | currency}}
+		                        <span></span>
+		                    </div>
+		                </div>
+			        </div>			        
+			        <div class="row">
+			            <div class="col-lg-2">
+                  				<label>总不含税保费</label>
+		                </div>
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.repremium | currency}}
+		                        <span></span>
+		                    </div>
+		                </div>
+		
+		                <div class="col-lg-2">
+		                    <label>总增值税</label>
+		                </div>
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.taxFee | currency}}
+		                        <span></span>
+		                    </div>
+		                </div>
+			        </div>		      
+			        <div class="row">
+			            <div class="col-lg-2">
+                  				<label>我司不含税保费</label>
+		                </div>
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.baseNoTaxPremium | currency}}
+		                        <span></span>
+		                    </div>
+		                </div>
+		
+		                <div class="col-lg-2">
+		                    <label>我司增值税</label>
+		                </div>
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.baseTaxFee | currency}}
+		                        <span></span>
+		                    </div>
+		                </div>
+			        </div>		        
+			        <div class="row">
+			            <div class="col-lg-2">
+                  				<label>我司所占份额</label>
+		                </div>
+		
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.baseRate}}%
+		                        <span></span>
+		                    </div>
+		                </div>
+		
+		                <div class="col-lg-2">
+		                    <label>被保险人</label>
+		                </div>
+		                <div class="col-lg-4">
+		                    <div class="input-group"> {{plyRiskUnit.insuredName}}
+		                        <span></span>
+		                    </div>
+		                </div>
+			        </div>
+			        </form>
+    	 		 </tab>
+    	 		 
+    	 		 
+    	 		 
+    	 		 <tab heading="保单费用信息">
+    	 		 	<div style="overflow: auto;height: auto;">
+						<table class="table table-bordered">
+					        <thead >
+					        	<tr>
+					        		<td nowrap>保单号</td>
+						            <td nowrap>险种</td>
+						            <td nowrap>保额币别</td>
+						            <td nowrap>保额</td>
+						            <td nowrap>保费币别</td>
+						            <td nowrap>含税保费</td>
+						            <td nowrap>不含税保费</td>
+						            <td nowrap>增值税</td>
+					        	</tr>
+					        </thead>
+					        <tbody>
+				                <tr>
+				                    <td> {{plyRiskUnit.policyNo}} </td>
+						            <td> {{plyRiskUnit.riskCode}} </td>
+						            <td> {{plyRiskUnit.currency}} </td>
+						            <td> {{plyRiskUnit.amount | currency}} </td>
+						            <td> {{plyRiskUnit.currency}} </td>
+						            <td> {{plyRiskUnit.premium | currency}} </td>
+						            <td> {{plyRiskUnit.noTaxPremium | currency}} </td>
+						            <td> {{plyRiskUnit.taxFee | currency}} </td>
+				                 </tr>
+					        </tbody>
+					    </table>
+					</div>
+    	 		 </tab>
+    	 		 
+    	 		 
+    	 		 
+    	 		 <tab heading="分保信息">
+    	 		 	<div class="row">
+			            <div class="col-lg-4" style="font-weight:normal;">
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我司共保比例%：</label>
+		                </div>
+		
+		                <div class="col-lg-2">
+		                    <div class="input-group"> {{plyRiskUnit.baseRate}}
+		                        <span></span>
+		                    </div>
+		                </div>
+		
+		                <div class="col-lg-4" style="font-weight:normal;">
+		                    <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分保已安排%：</label>
+		                </div>
+		                <div class="col-lg-2">
+		                    <div class="input-group"> {{plyRiskUnit.shareRate}}%
+		                        <span></span>
+		                    </div>
+		                </div>
+			        </div>
+			        <div class="modal-body">
+			        	<div ng-if="reinsShares.length > 0" ng-repeat="reinsShare in reinsShares">
+			        		<div ng-if="reinsShares.classcode ==='Lib'">
+								<!-- <div ng-include="'riskunitLiab/riskunit.result.1.tpl.html'"></div> -->
+								<div ng-include="'/reins/page/templates/fromquery/fromquery.result.2.lib.tpl.html'"></div>
+							</div>
+							<div ng-if="!(reinsShares.classcode ==='Lib')">
+								<!-- <div ng-include="'riskunit/riskunit.result.1.tpl.html'"></div> -->
+								<div ng-include="'/reins/page/templates/fromquery/fromquery.result.2.tpl.html'"></div>
+							</div>
+	    				</div>
+    				</div>
+    	 		 </tab>
+    	 		 
+    	 		 
+    	 		 
+    	 		<!--  <tab heading="超赔层信息">
+    	 		 	<div ng-include="'/reins/page/templates/fromquery/fromquery.intention.nprop.tpl.html'"></div>
+    	 		 </tab> -->
+    	 	</tabset>
+    	 </div>
+    	 <div>
+            <a class="btn btn-default" ng-click="ok()">关闭</a>&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+</div>

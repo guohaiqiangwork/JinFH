@@ -1,0 +1,115 @@
+<!-- 比例合同分项 -->
+<div class="container-fluid">
+    <form ng-class="{'readonly': operation==='view'}" name="frmSearchContract" novalidate>
+        <!--适用险种-->
+        <div ng-include="'/reins/page/templates/contract/editor/contract.risks.tpl.html'"></div>
+
+        <div class="row">
+            <div class="col-sm-2">
+                <label>合同分项号</label>
+            </div>
+
+            <div class="col-sm-4">
+                <input class="form-control" type="text" ng-model="section.sectionNo"
+                       ng-readonly="operation === 'view' || effected"
+                       ng-required="true">
+                <span></span>
+            </div>
+
+            <div class="col-sm-2">
+                <label>分项中文描述</label>
+            </div>
+
+            <div class="col-sm-4">
+                <input class="form-control" type="text" ng-model="section.sectionCDesc"
+                       ng-readonly="operation === 'view' || effected"
+                        ng-required="true">
+                <span></span>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label>分项英文描述</label>
+            </div>
+
+            <div class="col-sm-4">
+                <input class="form-control" type="text" ng-model="section.sectionEDesc"
+                       ng-readonly="operation === 'view' || effected"
+                        ng-required="true">
+                <span></span>
+            </div>
+
+            <div class="col-sm-2">
+                <label>币别</label>
+            </div>
+
+            <div class="col-sm-4">
+                    <select class="form-control" ng-if="(operation != 'view' && !effected)" ng-model="section.currency" ng-options="c.id as c.value for c in currencys"></select>
+                    <div ng-if="(operation==='view' || effected)" >{{section.currency | code : 'currency' }}</div>
+                    <span></span>
+                </div>
+        </div>
+        
+        <div class="row">
+            <!-- <div class="col-sm-2">
+            	<label>预估净自留保费(GNPI)</label>
+            </div>
+
+            <div class="col-sm-4">
+                <input class="form-control" type="text" ng-model="section.EGNPI" currency
+                       ng-readonly="operation === 'view' || effected" ng-blur="countLayerPremium(section)"
+                        ng-required="true">
+                <span></span>
+            </div> -->
+			<div class="col-sm-2">
+                <label>应税免税标识</label>
+            </div>
+            <div class="col-sm-4" >
+            <select class="form-control" ng-model="section.vatFlag" ng-required="true"
+            ng-options="c.id as c.value for c in vatFlags" ng-show="operation != 'view'&& !effected"
+            ng-change="selectTaxFlagChange(section)"></select>
+            <div ng-show="operation==='view' || effected">
+                    {{section.vatFlag | code : 'vatFlag'}}
+            </div>            
+            <span></span>
+            </div>
+        </div>
+        <div class="row">
+        	<div class="col-sm-2">
+                <label>增值税比例（%）</label>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" ng-model="section.taxRate" ng-required="true"
+                    percentage  
+                    ng-readonly="operation === 'view'||effected">
+                <span></span>
+            </div>
+            <!-- <div class="col-sm-2">
+                <label>城建税比例（%）</label>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" ng-model="section.cityTaxRate" ng-required="true"
+                      percentage
+                      ng-readonly="operation === 'view'||effected" >
+                <span></span>
+            </div>
+        </div>
+        <div class="row">
+        	<div class="col-sm-2">
+                <label>教育费附加比例（%）</label>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" ng-model="section.educationTaxRate" ng-required="true"
+                    percentage  ng-readonly="operation === 'view'||effected">
+                <span></span>
+            </div> -->
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
+        <!--层管理-->
+        <div ng-include="'/reins/page/templates/contract/editor/contract.layer.tpl.html'"></div>
+    </form>
+</div>
