@@ -1,0 +1,31 @@
+define({
+    prompt:{
+        fcoRepolicy:{
+            UwYear:'业务年度',
+            InsuredName:'被保险人',
+            StartDate:'起保日期'
+
+        },
+        floRepay:{
+            RepayNo:'分赔案号',
+            PolicyNo:'保单号',
+            DamageDate:'出险日期',
+            DamageReason:'出险原因',
+            InsuredName:'被保险人',
+            ComCode:'出单公司',
+            Currency:'币种',
+            OutStanding:'未决金额'
+        },
+        fpoReendor:{
+            ReendorNo:'分批单号',
+            PolicyNo:'保单号',
+            ComCode:'出单公司',
+            InsuredNam:'被保险人',
+            Currency:'币种',
+            AmountChg:'保额变化量',
+            BaseRate:'我司占比%',
+            ShareRate:'分出份额%'
+        }
+    }
+
+})

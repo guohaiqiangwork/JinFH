@@ -1,0 +1,104 @@
+<div ng-controller="AccountingFromQueryListCtrl">
+    <div ng-hide="searchTableFlag" class="search-toggle" ng-click="searchTableFlag = ! searchTableFlag">
+        <span class="glyphicon glyphicon-search"></span>
+    </div>
+    <div collapse="!searchTableFlag" class="well">
+        <form name="fcoRepolicyForm">
+
+            <table id="QueryInput" class="common table" cellpadding="3" cellspacing="0">
+                <input type="hidden" name="operateType" value="Gen">
+                <input type="hidden" name="opt" value="">
+                <tr>
+                    <td class=title>保单号：</td>
+                    <td class=input>
+                        <select name="policyNoTag" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" name="policyNo" class="condition" maxlength="44"></td>
+                    <td class=title>危险单位号：</td>
+                    <td class=input>
+                        <select name="dangerNoTag" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" name="dangerNo" class="condition" maxlength="5"></td>
+                </tr>
+
+                <tr>
+                    <td class=title>投保单号：</td>
+                    <td class=input>
+                        <select name="proposalNoTag" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" name="proposalNo" class="condition" maxlength="44">
+                    </td>
+                    <td class=title>询价单号：</td>
+                    <td class=input>
+                        <select name="enquiryNoTag" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" name="enquiryNo" class="condition" maxlength="22">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class=title>分保业务号：</td>
+                    <td class=input>
+                        <select name="recertifyNoTag" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" name="recertifyNo" class="condition" maxlength="22"></td>
+
+
+                    <td class=title>业务年度：</td>
+                    <td class=input>
+                        <select name="uwYearTag" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" name="uwYear" class="condition" maxlength="4">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class=title>帐单生成状态：</td>
+                    <td class=input>
+                        <input type="radio" name="accType" value="0">全部
+                        <input type="radio" name="accType" value="1">已生成帐单
+                        <input type="radio" name="accType" value="2" checked>未生成帐单
+                    </td>
+                    <input type="hidden" name="approve" value="1">
+                    <td class=title>分保方式：</td>
+                    <td class=common1 colspan="3">
+                        <input type="checkbox" name="reinsType" value="1" checked="checked">临分
+                        <input type="checkbox" name="reinsType" value="2" checked="checked">混合
+                    </td>
+
+                    <input type="hidden" name="biztype" value="P">
+                </tr>
+                <tr>
+                    <td class=title>分保方式：</td>
+                    <td>
+                        <input type="checkbox" name="reinsType" value="3">自留
+                        <input type="checkbox" name="reinsType" value="0">合约
+                        <input type="checkbox" name="reinsType" value="1">临分
+                        <input type="checkbox" name="reinsType" value="2">混合
+                        <input type="checkbox" name="reinsType" value="" checked>全部
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" align="right">
+                        <a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
+                        <a ng-click="searchTableFlag = ! searchTableFlag" class="btn btn-default">取消</a>
+                        <a ng-click="searchContracts()" class="btn btn-primary" ng-disabled="!searchForm.$valid">立即查询</a>
+
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>

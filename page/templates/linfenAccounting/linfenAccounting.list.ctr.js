@@ -1,10 +1,12 @@
 define(['app',
-    'config',
+    'config','constants',
     '/reins/page/templates/fromquery/fromquery.item.ctrl.js',
     '/reins/page/templates/inquiry/inquiry.detail.modal.ctrl.js'
-], function (app,config) {
-    app.registerController('AccountingFromQueryListCtrl', ['$scope', '$stateParams',  '$filter', '$modal', '$location','OutqueryService','CodeService'
-        , function ($scope, $stateParams, $filter, $modal, $location,outqueryService,codeService) {
+], function (app,config,constants) {
+    app.registerController('AccountingFromQueryListCtrl', ['$scope', '$stateParams',  '$filter', '$modal', '$location','OutqueryService','CodeService',
+         function ($scope, $stateParams, $filter, $modal, $location,outqueryService,codeService) {
+			$scope.prompt =constants.prompt;//页面常量配置
+			 console.log($scope.prompt)
 
             //分保单详情
             $scope.openPlyFromQuery = function (repolicyNo,dangerNo) {
@@ -123,10 +125,9 @@ define(['app',
                 		'insuredName':'',// 被保险人
                 		'riskCode'   :'',// 险种
                 		'currency'   :'',// 保额币别
-                		'currency'   :'',// 保费币别
                 		'startDate'  :'',//起保日期
                 		'comCode'    :'',//业务所属公司代码
-                		'endDate'    :'',//终止日期
+                		'endDate'    :''//终止日期
                         	
 	            }
 	        }
@@ -260,6 +261,32 @@ define(['app',
 	        //add by chaiyuming 20150409 end
 
             var init = function(){
+                $scope.recertify={
+                    recertifyNoTag:'=',
+                    recertifyNo:'',
+                    policyNoTag:'=',
+                    policyNo:'',
+                    dangerNoTag:'=',
+                    dangerNo:'',
+                    payNoTag:'=',
+                    payNo:'',
+                    uwYearTag:'=',
+                    uwYear:'',
+                    damageDateTag:'=',
+                    damageDate:'',
+                    startDateTag:'=',
+                    startDate:'',
+                    compensateNoTag:'=',
+                    compensateNo:'',
+                    repolicyNoTag:'=',
+                    repolicyNo:'',
+                    approve:'',
+                    reinsType:'',
+                    insuredNameTag:'=',
+                    insuredName:'',
+                    accType:'',
+                    biztype:''
+                };
             	$scope.type = {
                 		flag: ""
                 	};

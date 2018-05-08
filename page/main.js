@@ -47,6 +47,7 @@ require.config({
         'angular-couch-potato'  :  '../plugin/angular-couch-potato',
         'angupoly': '../plugin/angupoly',
         'index': '../page/templates/layout/index_init',
+        'constants':'../plugin/constants',
         'recepter': '../page/templates/common/directives/recepter',
         'menus': '../page/templates/common/configs/menus',
         'mainCtrl': '../page/templates/common/controllers/main.ctrl',

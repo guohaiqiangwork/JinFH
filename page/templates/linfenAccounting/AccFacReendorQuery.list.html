@@ -1,0 +1,57 @@
+<div ng-controller="AccountingFromQueryListCtrl">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <th>序号</th>
+                <th>{{prompt.fpoReendor.ReendorNo}}</th>
+                <th>{{prompt.fpoReendor.PolicyNo}}</th>
+                <th>批单号</th>
+                <th>生效日期</th>
+                <th>转收付时间</th>
+                <th>{{prompt.fpoReendor.ComCode}}</th>
+                <th>{{prompt.fpoReendor.InsuredNam}}</th>
+                <th>临分确认人</th>
+                <th>{{prompt.fpoReendor.Currency}}</th>
+                <th>{{prompt.fpoReendor.AmountChg}}</th>
+                <th>含税保费变化量</th>
+                <th>{{prompt.fpoReendor.BaseRate}}</th>
+                <th>{{prompt.fpoReendor.ShareRate}}</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class=sub>
+            <tr class=common>
+                <td><input type="button" class="middlebutton" value="生成帐单" onclick="genAcc('FB');return false;">
+                    <input type="button" class="button" value="打印分保条" onclick="PrintParticularsButtonAction();return false;">
+                    <input type="button" class="button" value="帐单删除" onclick="delAcc();return false;">
+                    <input type="button" class="button" value="账单转收付" onclick="payment();return false;"></td>
+                <td class="title2" width="25%" align="center">
+                    <input type="button" class="button" value="帐单删除" onclick="delAcc();return false;">
+                <td><input name="settleBtn" type="button" class="middlebutton" value="复核并转收付" onclick="settleReendor('F');return false;"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+        <!--<jsp:include page="AccFacBranchList.jsp" />-->
+        <!--<jsp:include page="AccFacReinsList.jsp" />-->
+        <!--<script src="Account.js"> </script>-->
+        <!--<jsp:include page="StaticJavascript.jsp" />-->
+        <!--<script src="showpage.js"> </script>-->
