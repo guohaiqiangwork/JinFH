@@ -55,7 +55,7 @@
                    <td align=center>
                    <%if (url.equals("")){
                    	%>
-                   	<input class="button" name="buttonClose" type="button" alt="关闭" value="返回" onClick="history.back(-1);return false;">
+                   	<input class="button" name="buttonClose" type="button" alt="关闭" value="返回" onClick="history.go(-1);return false;">
                    <%}else{%>
                      <a href="javascript:back('<%=url%>')" class="reins" >[ 返回 ]</a>
                    <%}%>

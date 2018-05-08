@@ -53,7 +53,7 @@
 		                </div>
 		
 		                <div class="col-lg-4">
-		                    <div class="input-group"> {{plyRiskUnit.startDate}}
+		                    <div class="input-group"> {{plyRiskUnit.startDate | date : config.display.dateFormat}}
 		                        <span></span>
 		                    </div>
 		                </div>
@@ -62,7 +62,7 @@
 		                    <label>保险止期</label>
 		                </div>
 		                <div class="col-lg-4">
-		                    <div class="input-group"> {{plyRiskUnit.endDate}}
+		                    <div class="input-group"> {{plyRiskUnit.endDate | date : config.display.dateFormat}}
 		                        <span></span>
 		                    </div>
 		                </div>
@@ -92,7 +92,7 @@
                   				<label>总保额</label>
 		                </div>
 		                <div class="col-lg-4">
-		                    <div class="input-group"> {{plyRiskUnit.amount | currency}}
+		                    <div class="input-group"> {{plyRiskUnit.amount}}
 		                        <span></span>
 		                    </div>
 		                </div>
@@ -101,7 +101,7 @@
 		                    <label>总含税保费</label>
 		                </div>
 		                <div class="col-lg-4">
-		                    <div class="input-group"> {{plyRiskUnit.premium | currency}}
+		                    <div class="input-group"> {{plyRiskUnit.premium}}
 		                        <span></span>
 		                    </div>
 		                </div>
@@ -112,7 +112,7 @@
 		                </div>
 		
 		                <div class="col-lg-4">
-		                    <div class="input-group"> {{plyRiskUnit.baseAmount | currency}}
+		                    <div class="input-group"> {{plyRiskUnit.baseAmount}}
 		                        <span></span>
 		                    </div>
 		                </div>
@@ -121,7 +121,7 @@
 		                    <label>我司含税保费</label>
 		                </div>
 		                <div class="col-lg-4">
-		                    <div class="input-group"> {{plyRiskUnit.basePremium | currency}}
+		                    <div class="input-group"> {{plyRiskUnit.basePremium}}
 		                        <span></span>
 		                    </div>
 		                </div>
@@ -131,7 +131,7 @@
                   				<label>总不含税保费</label>
 		                </div>
 		                <div class="col-lg-4">
-		                    <div class="input-group"> {{plyRiskUnit.repremium | currency}}
+		                    <div class="input-group"> {{plyRiskUnit.repremium}}
 		                        <span></span>
 		                    </div>
 		                </div>
@@ -140,7 +140,7 @@
 		                    <label>总增值税</label>
 		                </div>
 		                <div class="col-lg-4">
-		                    <div class="input-group"> {{plyRiskUnit.taxFee | currency}}
+		                    <div class="input-group"> {{plyRiskUnit.taxFee}}
 		                        <span></span>
 		                    </div>
 		                </div>
@@ -150,7 +150,7 @@
                   				<label>我司不含税保费</label>
 		                </div>
 		                <div class="col-lg-4">
-		                    <div class="input-group"> {{plyRiskUnit.baseNoTaxPremium | currency}}
+		                    <div class="input-group"> {{plyRiskUnit.baseNoTaxPremium}}
 		                        <span></span>
 		                    </div>
 		                </div>
@@ -159,7 +159,7 @@
 		                    <label>我司增值税</label>
 		                </div>
 		                <div class="col-lg-4">
-		                    <div class="input-group"> {{plyRiskUnit.baseTaxFee | currency}}
+		                    <div class="input-group"> {{plyRiskUnit.baseTaxFee}}
 		                        <span></span>
 		                    </div>
 		                </div>
@@ -209,11 +209,11 @@
 				                    <td> {{plyRiskUnit.policyNo}} </td>
 						            <td> {{plyRiskUnit.riskCode}} </td>
 						            <td> {{plyRiskUnit.currency}} </td>
-						            <td> {{plyRiskUnit.amount | currency}} </td>
+						            <td> {{plyRiskUnit.amount}} </td>
 						            <td> {{plyRiskUnit.currency}} </td>
-						            <td> {{plyRiskUnit.premium | currency}} </td>
-						            <td> {{plyRiskUnit.noTaxPremium | currency}} </td>
-						            <td> {{plyRiskUnit.taxFee | currency}} </td>
+						            <td> {{plyRiskUnit.premium}} </td>
+						            <td> {{plyRiskUnit.noTaxPremium}} </td>
+						            <td> {{plyRiskUnit.taxFee}} </td>
 				                 </tr>
 					        </tbody>
 					    </table>

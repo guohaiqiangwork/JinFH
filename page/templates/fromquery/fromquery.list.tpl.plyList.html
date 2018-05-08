@@ -22,9 +22,9 @@
 			<td>{{riskUnit.insuredName}}</td>
 			<td>{{riskUnit.startDate.time | date : config.display.dateFormat}}</td>
 			<td>{{riskUnit.currency}}</td>
-			<td>{{riskUnit.amount | currency}}</td>
+			<td>{{riskUnit.amount}}</td>
 			<td>{{riskUnit.currency}}</td>
-			<td>{{riskUnit.premium | currency}}</td>
+			<td>{{riskUnit.premium}}</td>
 			<td><a class="btn btn-default" ng-click="openPlyFromQuery(riskUnit.rePolicyNo,riskUnit.dangerNo)">详情</a>
 			</td>
 		</tr>

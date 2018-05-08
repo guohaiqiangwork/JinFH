@@ -282,7 +282,7 @@
                             <td>{{plan.currency | code : 'currency'}}</td>
                             <td>
                                 <div ng-if="operation!='view' && !effected" class=" col-sm-9">
-                                    <input class="form-control " type="text" currency ng-model="plan.payValue"
+                                    <input class="form-control " type="text"  ng-model="plan.payValue"
                                            ng-change="checkPayValue(layer, plan)">
                                     <span></span>
                                 </div>

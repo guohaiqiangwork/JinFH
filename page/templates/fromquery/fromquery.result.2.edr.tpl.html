@@ -22,17 +22,17 @@
                 <tr ng-repeat="share in row.PlyEdrComShares">
 		            <td>{{share.reinsType}}</td>
 		            <td>{{share.shareRate}}%</td>
-		            <td>{{share.amount | currency}}-{{share.chgAmount | currency}}</td>
-		            <<td>{{share.premium | currency}}-{{share.chgPremium | currency}}</td>
-		            <td>{{share.chgAmount | currency}}</td>
-		            <td>{{share.chgPremium | currency}}</td>
-		             <td>{{share.noTaxPremium  | currency}}</td>
-		             <td>{{share.chgTaxFee | currency}}</td>
-		            <td>{{share.reamount | currency}}</td>
-		            <td>{{share.premium | currency}}</td>
-		            <td>{{share.noTaxPremium | currency}}</td>
-		            <td>{{share.taxFee | currency}}</td>
-		            <td>{{share.amount | currency}}</td>
+		            <td>{{share.amount}}-{{share.chgAmount}}</td>
+		            <<td>{{share.premium}}-{{share.chgPremium}}</td>
+		            <td>{{share.chgAmount}}</td>
+		            <td>{{share.chgPremium}}</td>
+		             <td>{{share.noTaxPremium}}</td>
+		             <td>{{share.chgTaxFee}}</td>
+		            <td>{{share.reamount}}</td>
+		            <td>{{share.premium}}</td>
+		            <td>{{share.noTaxPremium}}</td>
+		            <td>{{share.taxFee}}</td>
+		            <td>{{share.amount}}</td>
 				</tr>
 	        </tbody>
 	        <tr>
@@ -40,17 +40,17 @@
 	            <td>{{reinsShare.shareRateCount | formatPercent}}</td>
 	            <td></td>
 	            <td></td>
-	            <td>{{reinsShare.oriAmountCount | currency}}</td>
-	            <td>{{reinsShare.oriPremiumCount | currency}}</td>
-	            <td>{{reinsShare.chgAmountCount | currency}}</td>
-	            <td>{{reinsShare.chgPremiumCount | currency}}</td>
-	            <td>{{reinsShare.chgExTaxPremiumCount | currency}}</td>
-	            <td>{{reinsShare.chgTaxCount | currency}}</td>	            
-	            <td>{{reinsShare.amountCount | currency}}</td>
-	            <td>{{reinsShare.premiumCount | currency}}</td>
-	            <td>{{reinsShare.exTaxPremiumCount | currency}}</td>
-	            <td>{{reinsShare.taxCount | currency}}</td>	            
-	           	<td>{{reinsShare.speValueCount | currency}}</td>
+	            <td>{{reinsShare.oriAmountCount}}</td>
+	            <td>{{reinsShare.oriPremiumCount}}</td>
+	            <td>{{reinsShare.chgAmountCount}}</td>
+	            <td>{{reinsShare.chgPremiumCount}}</td>
+	            <td>{{reinsShare.chgExTaxPremiumCount}}</td>
+	            <td>{{reinsShare.chgTaxCount}}</td>	            
+	            <td>{{reinsShare.amountCount}}</td>
+	            <td>{{reinsShare.premiumCount}}</td>
+	            <td>{{reinsShare.exTaxPremiumCount}}</td>
+	            <td>{{reinsShare.taxCount}}</td>	            
+	           	<td>{{reinsShare.speValueCount}}</td>
 
 	        </tr>
 	    </table>
@@ -74,8 +74,8 @@
 	        <td>{{riskunitsShare.reinsType}}</td>
 	        <td>{{riskunitsShare.layerNo}}</td>
 	        <td>{{riskunitsShare.currency}}</td>
-	        <td>{{riskunitsShare.excessLoss | currency}}</td>
-	        <td>{{riskunitsShare.layerPremium | currency}}</td>
+	        <td>{{riskunitsShare.excessLoss}}</td>
+	        <td>{{riskunitsShare.layerPremium}}</td>
 	    </tr>
 	</table>
 </div>

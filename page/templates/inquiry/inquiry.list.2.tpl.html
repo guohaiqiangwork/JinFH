@@ -22,8 +22,8 @@
 	        <td>{{record.endorseNo}}</td>
 	        <td>{{record.insuredName}}</td>
 	        <td>{{record.currency|code:'currency'}}</td>
-	        <td>{{record.sumAmount | currency}}</td>
-	        <td>{{record.sumPremium | currency}}</td>	
+	        <td>{{record.sumAmount}}</td>
+	        <td>{{record.sumPremium}}</td>	
 	        <td>
 	            <div class="btn-group btn-group-sm" ng-if="(record.verifyFlag ==='1') || (record.verifyFlag ==='2')">
 	                <a class="btn btn-default" ng-if="record.enquiryType === 'T'" ng-click="editorFacPlyInfo(record.enquiryType,record.proposalNo,record.dangerNo,editor)">编辑</a>

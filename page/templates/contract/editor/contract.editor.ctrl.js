@@ -226,9 +226,15 @@ define(['app',
                         _pay.payNo = 1;
                         _pay.planDate = $scope.contract.startDate;
                         _pay.currency = layer.currency;
-
+                        //slh
+                        if(_pay.currency==="01"){
+                        	alert("请选择币别！！");
+                            return false;
+                        }
+                        //slh
                         _pay.payValue = (parseFloat(MDP) - every*(parseInt(payTimes) - 1)).toFixed(2) +"";
-                        _pay.payTimes = payTimes;
+                        //_pay.payTimes = payTimes;
+                        _pay.payNo = payTimes;
                         layer.fhxPlanList.push(_pay);
                         if(payTimes > 1){
                         	 var ele = ( (new Date(end).getTime()) - (new Date(start).getTime()) ) /  parseInt(payTimes);
@@ -1023,6 +1029,9 @@ define(['app',
                     $scope.addLayer = function() {
                         $scope.count = $scope.count + '1';
                         var _layer = angular.copy(contractService.getElement("npropLayer"));
+                        //slh 解决复制分项出现的“分期”信息冗余
+                        _layer.fhxPlanList.length = 0;
+                        //slh
                         _layer.layerNo = getLayerName();
                         _layer.isActive = true;
                         _layer.currency = $scope.contract.currency;
@@ -1590,6 +1599,10 @@ define(['app',
                     	var receiveRateFlag = true;  //接受人之和是否等于100
                     	var existFinal = true;  //存在最终接受人
                     	var existPri = true;     //是否存在接受人
+						//slh
+                    	var bPriFinalRel = true;   //经纪人时最终接受人和接受人的关系
+                    	var rPriFinalRel = true;   //再保人时最终接受人和接受人的关系
+						//slh
                     	if($scope.contAttr === 'nprop'){
                     		
                     				var countRate = 0.0;
@@ -1613,9 +1626,24 @@ define(['app',
     	                    					} else {
     	                    						rein.brokerFlag = "0";
     	                    					}
-    	                    					
-    	                    					
-    	                    					
+    	                    					//slh  再保人时
+    	                    					if(rein.brokerFlag==="0"&&rein.reinsCode===rein.freinsCode){
+    	                    					    rPriFinalRel = true;
+    	                    						passFlag=true;
+    	                    					}else if(rein.brokerFlag==="0"&&rein.reinsCode!=rein.freinsCode){
+    	                    						rPriFinalRel = false;
+    	                    						passFlag=false;
+    	                    					}
+    	                    					//slh
+    	                    					//slh 经纪人时
+    	                    					if(rein.brokerFlag==="1"&&rein.reinsCode!=rein.freinsCode){
+    	                    						bPriFinalRel = true;
+    	                    						passFlag=true;
+    	                    					}else if(rein.brokerFlag==="1"&&rein.reinsCode===rein.freinsCode){
+    	                    						bPriFinalRel = false;
+    	                    						passFlag=false;
+    	                    					}
+    	                    					//slh
     	                    					if(rein.warning === true){
     	                    						passFlag = false;
     	                    						return false;
@@ -1669,6 +1697,10 @@ define(['app',
                     		alert("请确认所有经纪人名下都有最终接受人！！");
                     	}else if(!receiveRateFlag){
                     		alert("请确认所有接收人的份额之和为100！！");
+                    	}else if(!rPriFinalRel){
+                    		alert("接收人和最终接受人不相等")
+                    	}else if(!bPriFinalRel){
+                    		alert("接收人和最终接受人相等")
                     	}else if(!passFlag){
                     		alert("请检查最终接受人的分配比例！！");
                     	}

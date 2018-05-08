@@ -84,7 +84,7 @@
             </div>
             <div class="col-sm-4">
                 <input class="form-control" type="text" ng-model="section.reinsureRate"
-                      percentage   ng-readonly="operation === 'view'||effected" ng-required="true"  >
+                      percentage   ng-readonly="operation === 'view'||effected" >
                 <span></span>
             </div>
 
@@ -186,7 +186,7 @@
                 <label>业务比例(%) </label>
             </div>
             <div class="col-sm-4">
-                <input class="form-control" type="text" ng-model="section.shareholderRate" ng-required="true"
+                <input class="form-control" type="text" ng-model="section.shareholderRate" 
                     percentage  ng-readonly="operation === 'view'||effected"> 
                 <span></span>
             </div>
@@ -196,7 +196,7 @@
                 <label>主共业务比例(%)</label>
             </div>
             <div class="col-sm-4">
-                <input class="form-control" type="text" ng-model="section.shareholderMainCoinsRate" ng-required="true"
+                <input class="form-control" type="text" ng-model="section.shareholderMainCoinsRate" 
                       percentage
                        ng-readonly="operation === 'view'||effected" >
                 <span></span>
@@ -205,7 +205,7 @@
                 <label>从共业务比例(%)</label>
             </div>
             <div class="col-sm-4">
-                <input class="form-control" type="text" ng-model="section.shareholdersubCoinsRate" ng-required="true"
+                <input class="form-control" type="text" ng-model="section.shareholdersubCoinsRate" 
                     percentage  ng-readonly="operation === 'view'||effected">
                 <span></span>
             </div>
@@ -436,7 +436,27 @@
         
         <!--合约分项纯益手续费-->
         <div ng-include="'/reins/page/templates/contract/editor/contract.profitrate.tpl.html'"></div>
-        
+        <div >
+        	<h4>除外责任</h4> &nbsp;&nbsp;&nbsp;&nbsp;
+        	<a class="btn btn-default" ng-click="openExclusion(contract)" ng-show="operation != 'view' && !effected">修改除外责任</a>
+        	&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+        	<a class="btn btn-default" ng-click="collapseExclusion()">{{ES.collapseName}}</a>
+        	<br>
+        	<div style="width: 100%" collapse="ES.collapseFlag">
+	        	<table ng-show="contract.fhExItemKindList.length > 0"  class="table table-stripped" >
+	        		<tr>
+	        			<td nowrap>除外责任代码</td>
+	        			<td nowrap>除外责任名称</td>
+	        			<td nowrap></td>
+	        		</tr>
+	        		<tr ng-repeat="e in contract.fhExItemKindList" >
+	        			<td>{{e.riskCode}}</td>
+	        			<td>{{e.riskName}}</td>
+	        			<td><a class="btn btn-danger" ng-click="delExclusion(e)" ng-show="operation != 'view' && !effected">删除</a></td>
+	        		</tr>
+	        	</table>
+        	</div>
+        </div>
         
         <!--高价车 ng-if="contract.contGrpTypCde ==='B'" inoutMrk ==='1' 成数分出才显示高价车-->
        <!--  <div ng-if="(contract.inoutMrk==='1') && (contract.contGrpTypCde==='B') && (section.sectionCarFlag==='1') "

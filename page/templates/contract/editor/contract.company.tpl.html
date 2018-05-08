@@ -12,18 +12,27 @@
         <table  class="table table-bordered" ng-if="contAttr ==='nprop'" ng-show="layer.fhxCompanyList.length > 0">
             <thead>
                 <th nowrap>业务所属公司</th>
-                <th nowrap>机构名称</th>
+                <!-- <th nowrap>机构名称</th> -->
                 <th ng-if="operation != 'view'">&nbsp;</th>
             </thead>
             <tr ng-repeat-start="company in layer.fhxCompanyList">
                 <td>
                     <div class="input-group" >
-                        <input class="form-control" type="text" ng-model="company.comCode"  ng-required="true" placeholder="必填"
-                               ng-readonly="operation ==='view' || effected " placeholder="" typeahead-loading="loading..."  >
-                        <span></span>
+                    	<select ng-if="operation === 'new'"  ng-model="company.comCode" 
+                    			ng-options="c.id as c.id +'-'+ c.value for c in comCodes">	
+	                    	<option value="">--请选择--</option>           	
+	            		</select>
+                    	 <select ng-if="operation === 'edit'"  ng-model="company.comCode" 
+                    			ng-options="c.id as c.id +'-'+ c.value for c in comCodes">	
+	                     <option value="" ng-selected="{{company.comCode}}" >{{company.comCode}}</option>	
+	            		</select>  
+	            	
+                        <input ng-if="operation === 'view'" class="form-control" type="text" ng-model="company.comCode"  ng-required="true" placeholder="必填"
+                               ng-readonly="operation ==='view' || effected " placeholder="" typeahead-loading="loading..." > 
+                        <span></span> 
                     </div>
                 </td>
-                <td>
+               <!--  <td>
                     <div class="input-group" >
                         <input type="text" ng-model="company.comName" class="form-control"
                                ng-readonly="operation ==='view' || effected" placeholder="" typeahead-loading="loading..."> 
@@ -35,7 +44,7 @@
                         <a class="btn btn-default" ng-model="removeCompany" ng-if="operation !='view'"
                            ng-click="removeCompanyNprop(layer,layer,company)">-</a>
                     </div>
-                </td>
+                </td> -->
             </tr >
             <tr ng-repeat-end class="well">
             </tr>

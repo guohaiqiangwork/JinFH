@@ -136,8 +136,8 @@ define(['app',
                     }
                 });
                 if($scope.contAttr === 'prop'){
-                    risk.fhExItemKindList.splice( 0, risk.fhExItemKindList.length);
-                    risk.fhExItemKindList = angular.copy(exclusions);
+                    risk.fhSectionList[0].fhExItemKindList.splice( 0, risk.fhSectionList[0].fhExItemKindList.length);
+                    risk.fhSectionList[0].fhExItemKindList = angular.copy(exclusions);
                 }else{
                     risk.fhxExItemKindList.splice( 0, risk.fhxExItemKindList.length);
                     risk.fhxExItemKindList = angular.copy(exclusions);

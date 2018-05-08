@@ -1,4 +1,4 @@
-<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <div style="overflow: auto;height: auto;">
 	<div>
 		<table class="table table-bordered">
@@ -21,12 +21,12 @@
 		            <td>{{share.frReinsName}}</td>
 		            <td>{{share.shareRate | formatPercent}}%</td>
 		            <td>{{share.currency}}</td>
-		            <td>{{share.amount | currency}}</td>
+		            <td>{{share.amount}}</td>
 		            <!-- 20140821 fxy edit 待组长提供字段（每次事故赔偿限额） 20140828 hdl edit -->
-		            <td>{{share.amount | currency}}</td>
-		            <td>{{share.premium | currency}}</td>
-		            <td>{{share.exTaxPremium | currency}}</td>
-		            <td>{{share.tax | currency}}</td>
+		            <td>{{share.amount}}</td>
+		            <td>{{share.premium}}</td>
+		            <td>{{share.exTaxPremium}}</td>
+		            <td>{{share.tax}}</td>
                  </tr>
 	        </tbody>
 	        <tr>
@@ -35,11 +35,11 @@
 	            <td></td>
 	            <td>{{reinsShare.shareRateCount|formatPercent}}</td> <!-- 比例 -->
 	            <td></td>
-	            <td>{{reinsShare.amountCount | currency}}</td> <!-- 保额 -->
-	            <td>{{reinsShare.speValueCount | currency}}</td> <!-- 每次事故赔偿限额 -->
-	            <td>{{reinsShare.premiumCount | currency}}</td> <!-- 保费 -->
-	             <td>{{reinsShare.exTaxPremiumCount | currency}}</td>
-	             <td>{{reinsShare.taxCount | currency}}</td>
+	            <td>{{reinsShare.amountCount}}</td> <!-- 保额 -->
+	            <td>{{reinsShare.speValueCount}}</td> <!-- 每次事故赔偿限额 -->
+	            <td>{{reinsShare.premiumCount}}</td> <!-- 保费 -->
+	             <td>{{reinsShare.exTaxPremiumCount}}</td>
+	             <td>{{reinsShare.taxCount}}</td>
 	        </tr>
 	    </table>
 	</div>
@@ -60,9 +60,9 @@
 	        <td>{{riskunitsShare.reinsType}}</td>
 	        <td>{{riskunitsShare.layerNo}}</td>
 	        <td>{{riskunitsShare.currency}}</td>
-	        <td>{{riskunitsShare.excessLoss | currency}}</td>
-	        <td>{{riskunitsShare.stopLimit | currency}}</td>
-	        <td>{{riskunitsShare.layerPremium | currency}}</td>
+	        <td>{{riskunitsShare.excessLoss}}</td>
+	        <td>{{riskunitsShare.stopLimit}}</td>
+	        <td>{{riskunitsShare.layerPremium}}</td>
 	    </tr>
 	</table>
 </div>

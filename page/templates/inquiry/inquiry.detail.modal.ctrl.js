@@ -866,7 +866,9 @@ define(['app',
         //控件
         var checkoutRequired = function(){
         	var flag = true;
-              if($scope.dangerUnitFacEnquiry.feoReinsReceiveList !== null ){           	
+        	var signedLine = 0.00;
+        	var signedLinef = 0.00;
+              if($scope.dangerUnitFacEnquiry.feoReinsReceiveList !== null ){ 
             	$.each($scope.dangerUnitFacEnquiry.feoReinsReceiveList,function(index,temp){            		
                     if(temp.reinsType === "0"){
                     	if(temp.reinsCode === temp.finalReinsCode){
@@ -874,21 +876,31 @@ define(['app',
                     		flag = false;
                             return ;
                     	}
-                    }else if(temp.reinsCode !== temp.finalReinsCode){
+                    }else if(temp.reinsType === "1"){
+                    	if(temp.reinsCode !== temp.finalReinsCode){
                     		alert("不是经纪人，接受人和最终接受人必须相同");
                     		flag = false;
                             return ;
+                    	}
                     }else if(temp.reinsCode === null || temp.reinsCode === ""){
                     	alert("请录入接收人信息！");
                     	flag = false;
                         return ;
-                    }/*else if(temp.signedLine !== $scope.dangerUnitFacEnquiry.feoEnquiry.facShare){
-                    	alert("比例临分信息中的接受份额不等于普通临分比例");
-                		flag = false;
-                        return ;
-                    } */                                           
+                    }/*else if(temp.facFlag === "1"){
+                    	signedLinef = temp.signedLine + signedLinef;
+                    }else{
+                    	signedLine = temp.signedLine + signedLine;
+                    }*/                                          
                 });
-            }
+	            }/*else if(signedLine !== $scope.dangerUnitFacEnquiry.feoEnquiry.facShare){
+	              	alert("比例临分信息中的接受份额不等于普通临分比例");
+	          		flag = false;
+	                return ;
+	            }else if(signedLinef !== $scope.dangerUnitFacEnquiry.feoEnquiry.specialFacShare){
+	              	alert("比例临分信息中的特约接受份额不等于特约临分比例");
+	          		flag = false;
+	                return ;
+	            }*/
             	return flag;
             }
 

@@ -152,7 +152,7 @@ function deleteRow(PageCode,Field,intPageDataKeyCount,intRowCount)
 
 
 function genAcc(acctype)
-{		alert("开始生成账单"+acctype);
+{		
 	   var count = 0;
 	   var ilength = fm.chooseflag.length;
 
@@ -190,7 +190,6 @@ function genAcc(acctype)
 
 	   fm.acctype.value=acctype;
 	   var oldTarget = fm.target;
-	   alert("准备掉后台")
 	      fm.action="/reins/genAcc.do";
 	      if(acctype != "FB"){
 	        fm.target = "_new"; // 在页面框架的隐藏页面上提交

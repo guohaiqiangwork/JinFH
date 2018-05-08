@@ -324,7 +324,7 @@ define(['angular', 'config'], function (angular, config) {
                              "fhCommRateList":[],
 //                            "fhCommRateList":[]
 //                            "contOutExpensiveCars":[]
-                            
+                             "fhExItemKindList":[]
                         }
 
                     ],
@@ -347,8 +347,7 @@ define(['angular', 'config'], function (angular, config) {
 						    "fhFinalReinsList":[]
 //						    "fhFinalReinsList":[]
 						}
-                    ],
-                    "fhExItemKindList":[]
+                    ]
                 }
                 ,
 

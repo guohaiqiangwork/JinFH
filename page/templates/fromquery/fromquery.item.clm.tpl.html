@@ -151,7 +151,7 @@
 	                  				<label>赔款金额</label>
 			                </div>
 			                <div class="col-lg-4">
-			                    <div class="input-group"> {{plyRiskUnit.totClmAmout | currency}}
+			                    <div class="input-group"> {{plyRiskUnit.totClmAmout}}
 			                        <span></span>
 			                    </div>
 			                </div>
@@ -190,7 +190,7 @@
 						            <td> {{plyRiskUnit.floReItemList.itemCode}} </td>
 						            <td> {{plyRiskUnit.itemName }} </td>
 						            <td> {{plyRiskUnit.sCurrency}} </td>
-						            <td> {{plyRiskUnit.totClmAmout | currency}} </td>				                 </tr>
+						            <td> {{plyRiskUnit.totClmAmout}} </td>				                 </tr>
 					        </tbody>
 					    </table>
 					</div>
@@ -222,7 +222,7 @@
 						            <td>{{settle.fReinsName}}</td>
 						            <td>{{settle.ShareRate}}</td>
 						            <td>{{settle.tCurrency | code:'currency'}}</td>
-						            <td>{{settle.payValue | currency}}</td>
+						            <td>{{settle.payValue}}</td>
 						        </tr>
 					        </tbody>
 					    </table>

@@ -114,7 +114,6 @@
   var fm = fcoRepolicyForm;
   function doSubmit() {
 	  fm.opt.value = 'facOut';
-	  alert("查询开始了");
 	  fm.action="/reins/recertifyQuery.do";
       fm.submit();
   }
