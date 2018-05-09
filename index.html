@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="./css/AdminLTE.min.css">
 <link type="text/css" rel="stylesheet" href="./plugin/bootstrap-table/dist/bootstrap-table.min.css">
 <link rel="stylesheet" href="./plugin/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="./page/templates/assets/css/bootstrap.3.1.1.css">
 <!--<link rel="stylesheet" href="./plugin/bootstrap-olive/bootstrap-olive.css" />-->
 <link type="text/css" rel="stylesheet" href="./plugin/bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css" />
 <!--选择框-->
@@ -30,7 +31,7 @@
 <link rel="stylesheet"  href="./plugin/stylesheets/style.css" />
 <link rel="stylesheet"  href="./css/style.css" />
 <link rel="stylesheet" href="./page/templates/assets/css/form.css" />
-<!--<link rel="stylesheet" href="./page/templates/assets/css/main.css" />-->
+<link rel="stylesheet" href="./page/templates/assets/css/main.css" />
 
 <style>
     .popover  {
@@ -163,7 +164,7 @@ var jessionid = localStorage.getItem("JSESSIONID");
 <div class="container autoHeight" id="app">
 <div class="row clearfix">
 <div class="col-md-12 column clean-padding-left-right">
-    <nav class="navbar navbar-default navbar-inverse " role="navigation">
+    <nav class="navbar" role="navigation" style="background-color:#f8f8f8;color: black">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -172,8 +173,11 @@ var jessionid = localStorage.getItem("JSESSIONID");
                 <span class="icon-bar"></span>
             </button>
             
-            <span class="navbar-brand" style="margin-top: -5px;"><span class="color-white font-weight-bolder"><img src="./img/arch6-logo.png"></span><span
-                        class="color-white font-weight-bold">国泰保险</span></span>
+            <span class="navbar-brand" style="margin-top: -5px;">
+                <span class="color-black font-weight-bolder glyphicon glyphicon-certificate" style="font-size:30px">
+                    <!--<img src="./img/arch6-logo.png">-->
+                </span>
+                <span class="color-black font-weight-bold">国泰保险</span></span>
                         
         </div>
 
@@ -183,7 +187,7 @@ var jessionid = localStorage.getItem("JSESSIONID");
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <div class="media padding-top-8 color-white" id ="userData">
+                    <div class="media padding-top-8 color-black" id ="userData">
 
                     </div>
                 </li>

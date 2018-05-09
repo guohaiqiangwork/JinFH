@@ -146,6 +146,7 @@ define(['app', 'config'], function (app, config) {
                 securityService.getUserMenu($scope.global.user)
                     .then(
                     function(data){
+                    	console.log(data)
                         $scope.menus = data;
                     },
                     function(){

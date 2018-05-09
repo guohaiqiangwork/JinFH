@@ -116,7 +116,7 @@
             </div>
             <div class="col-sm-4">
                 <div ng-if="operation != 'view'&&!effected">
-                    <input type="date" class="form-control"  ng-model="contract.closeDate" 
+                    <input type="date" class="form-control"  ng-model="contract.close" 
                     ng-readonly="operation==='view'" datepicker2>
                 </div>
                <div ng-show="operation==='view' || effected">
@@ -145,7 +145,7 @@
             </div>
             <div class="col-sm-4">
                 <div ng-if="operation != 'view'&&!effected">
-                    <input type="date" class="form-control"  ng-model="contract.startDate" 
+                    <input type="date" class="form-control"  ng-model="contract.stardate" 
                               ng-required="true" ng-blur="checkEndDate(contract)" >
                 </div>
                 <div ng-show="operation==='view' || effected">
@@ -158,7 +158,7 @@
             </div>
             <div class="col-sm-4">
                 <div ng-if="operation != 'view'">
-                    <input type="date" class="form-control"  ng-model="contract.endDate"
+                    <input type="date" class="form-control"  ng-model="contract.end"
                                ng-required="true" ng-blur="checkEndDate(contract)">
                 </div>
                  <div ng-show="operation==='view' || effected">
@@ -173,7 +173,7 @@
             </div>
             <div class="col-sm-4">
                 <div ng-if="operation != 'view'&& !effected">
-                    <input type="date" class="form-control"  ng-model="contract.extendDate"
+                    <input type="date" class="form-control"  ng-model="contract.extend"
                             ng-readonly="operation==='view' " datepicker2>
                 </div>
                  <div ng-if="operation === 'view' || effected">

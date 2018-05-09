@@ -443,13 +443,13 @@
         	<a class="btn btn-default" ng-click="collapseExclusion()">{{ES.collapseName}}</a>
         	<br>
         	<div style="width: 100%" collapse="ES.collapseFlag">
-	        	<table ng-show="contract.fhExItemKindList.length > 0"  class="table table-stripped" >
+	        	<table ng-show="section.fhExItemKindList.length > 0"  class="table table-stripped" >
 	        		<tr>
-	        			<td nowrap>除外责任代码</td>
+	        			<td nowrap>除外责任代码</td>-
 	        			<td nowrap>除外责任名称</td>
 	        			<td nowrap></td>
 	        		</tr>
-	        		<tr ng-repeat="e in contract.fhExItemKindList" >
+	        		<tr ng-repeat="e in section.fhExItemKindList" >
 	        			<td>{{e.riskCode}}</td>
 	        			<td>{{e.riskName}}</td>
 	        			<td><a class="btn btn-danger" ng-click="delExclusion(e)" ng-show="operation != 'view' && !effected">删除</a></td>

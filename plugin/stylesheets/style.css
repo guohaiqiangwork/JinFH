@@ -7,13 +7,13 @@ body,
 button,
 input,
 select,
-textarea,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+textarea
+ {
+    font-family: Microsoft YaHei, '宋体', Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+    font-size: 12px;
+}
+/*补救措施*/
+h1 > a,h2 > a,h3 > a,h4 > a,h5 > a,h6 > a{
     font-family: Microsoft YaHei, '宋体', Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
     font-size: 12px;
 }
@@ -235,6 +235,7 @@ h6 {
     border-left: none;
     border-right: none;
     margin-bottom: 0px;
+    z-index: 1;
 }
 /*首页导航css样式修改 end*/
 /*首页菜单组件css样式 start*/
@@ -243,7 +244,7 @@ h6 {
     color: white;
 }
 .menu-dropdown .dropdown-menu {
-    background-color: #363636;
+    /*background-color: #363636;*/
     opacity: 0.95;
     filter: alpha(opacity=50);
 }
@@ -907,7 +908,7 @@ img{
        transform: scale(1.6);    
 } */
 a.dropdown-toggle{
-    color: #fff !important;
+    color: #999 !important;
 }
 a.dropdown-toggle:hover{
     color: #00a2ca !important;

@@ -155,7 +155,7 @@ h1, h2, h3 {
     height: 60px;
     border-radius: 30px;
     background-color: #B7CCE2;
-    top: -40px;
+    top: -110px;
     color:#fff;
     padding-top:34px;
     transition: all 0.2s linear;
@@ -169,7 +169,7 @@ h1, h2, h3 {
     border-radius: 35px;
     background-color: #4584D3;
     cursor:pointer;
-    top: -35px;
+    top: -100px;
     left:-35px;
     padding-top: 43px;
 }
