@@ -1,15 +1,5 @@
-/*--------------------------------------------------|
-| dTree 2.05 | www.destroydrop.com/javascript/tree/ |
-|---------------------------------------------------|
-| Copyright (c) 2002-2003 Geir Landr?               |
-|                                                   |
-| This script can be used freely as long as all     |
-| copyright messages are intact.                    |
-|                                                   |
-| Updated: 17.04.2003                               |
-|--------------------------------------------------*/
 // Node object
-function Node(id, pid, name, url, title, target, icon, iconOpen, open, hasCheckBox, value, boundLowLevel,valueReadonly,boundUpperLevel) {
+function Node(id, pid, name, url, title, target, icon, iconOpen, open, hasCheckBox, value, boundLowLevel,valueReadonly,intranetCheckBox,intranetValue,internetCheckBox,internetValue) {
   this.index = -1; //inner treeCheckBox array index
   this.id = id;
   this.pid = pid;
@@ -33,13 +23,32 @@ function Node(id, pid, name, url, title, target, icon, iconOpen, open, hasCheckB
   if(valueReadonly == null){
     valueReadonly = false;
   }
-  if(boundUpperLevel==null){
-  	boundUpperLevel==false;
-  }
   this.hasCheckBox = hasCheckBox;
   this.boundLowLevel = boundLowLevel;
   this.valueReadonly = valueReadonly;
-  this.boundUpperLevel = boundUpperLevel;
+  if(intranetCheckBox == null){
+    intranetCheckBox = false;
+  }
+  if(internetValue=="1" || this.internetValue=="true"){
+    this.internetValue=true;
+  }else if(internetValue=="0" || this.internetValue=="false"){
+    this.internetValue=false;
+  }else{
+    this.internetValue=internetValue;
+  }
+  this.intranetCheckBox = intranetCheckBox;
+ if(internetCheckBox == null){
+    internetCheckBox = false;
+  }
+  if(intranetValue=="1" || this.intranetValue=="true"){
+    this.intranetValue=true;
+  }else if(intranetValue=="0" || this.intranetValue=="false"){
+    this.intranetValue=false;
+  }else{
+    this.intranetValue=intranetValue;
+  }
+this.internetCheckBox = internetCheckBox; 
+ 
   if(pid=="" || pid==id){
     this.pid = -1;
   }
@@ -66,20 +75,20 @@ function dTree(objName) {
     inOrder       : false
   }
   this.icon = {
-    root    : contextRootPath+'/common/dtree/base.gif',
-    folder    : contextRootPath+'/common/dtree/folder.gif',
-    folderOpen  : contextRootPath+'/common/dtree/folderopen.gif',
-    node    : contextRootPath+'/common/dtree/page.gif',
-    empty   : contextRootPath+'/common/dtree/empty.gif',
-    line    : contextRootPath+'/common/dtree/line.gif',
-    join    : contextRootPath+'/common/dtree/join.gif',
-    joinBottom  : contextRootPath+'/common/dtree/joinbottom.gif',
-    plus    : contextRootPath+'/common/dtree/plus.gif',
-    plusBottom  : contextRootPath+'/common/dtree/plusbottom.gif',
-    minus   : contextRootPath+'/common/dtree/minus.gif',
-    minusBottom : contextRootPath+'/common/dtree/minusbottom.gif',
-    nlPlus    : contextRootPath+'/common/dtree/nolines_plus.gif',
-    nlMinus   : contextRootPath+'/common/dtree/nolines_minus.gif'
+    root    : 'common/dtree/base.gif',
+    folder    : 'common/dtree/folder.gif',
+    folderOpen  : 'common/dtree/folderopen.gif',
+    node    : 'common/dtree/page.gif',
+    empty   : 'common/dtree/empty.gif',
+    line    : 'common/dtree/line.gif',
+    join    : 'common/dtree/join.gif',
+    joinBottom  : 'common/dtree/joinbottom.gif',
+    plus    : 'common/dtree/plus.gif',
+    plusBottom  : 'common/dtree/plusbottom.gif',
+    minus   : 'common/dtree/minus.gif',
+    minusBottom : 'common/dtree/minusbottom.gif',
+    nlPlus    : 'common/dtree/nolines_plus.gif',
+    nlMinus   : 'common/dtree/nolines_minus.gif'
   };
   this.obj = objName;
   this.aNodes = [];
@@ -89,11 +98,12 @@ function dTree(objName) {
   this.selectedFound = false;
   this.completed = false;
   this.initIndex = false;
+  this.initsIndex = false;
 };
 
 // Adds a new node to the node array
-dTree.prototype.add = function(id, pid, name, url, title, target, icon, iconOpen, open, hasCheckBox, value, boundLowLevel, valueReadonly,boundUpperLevel) {
-  this.aNodes[this.aNodes.length] = new Node(id, pid, name, url, title, target, icon, iconOpen, open, hasCheckBox, value, boundLowLevel, valueReadonly , boundUpperLevel);
+dTree.prototype.add = function(id, pid, name, url, title, target, icon, iconOpen, open, hasCheckBox, value, boundLowLevel, valueReadonly,intranetCheckBox,intranetValue,internetCheckBox,internetValue) {
+  this.aNodes[this.aNodes.length] = new Node(id, pid, name, url, title, target, icon, iconOpen, open, hasCheckBox, value, boundLowLevel, valueReadonly,intranetCheckBox,intranetValue,internetCheckBox,internetValue);
 };
 
 // Open/close all nodes
@@ -149,16 +159,16 @@ dTree.prototype.node = function(node, nodeId) {
   if (node.hasCheckBox){
     str += '<input type=checkbox name=\"treeCheckBox\" value=\"' + node.id + '\"';
     if ((((!this.config.folderLinks || !node.url) && node._hc)|| (this.root.id == node.id)) && node.boundLowLevel){
-      str += ' onpropertychange="javascript: ' + this.obj + '.boundLowLevel(' + nodeId + ');';
-      if (node.boundUpperLevel){
-          str+= this.obj + '.boundUpperLevel(' + nodeId + ');';
-      } 
-      str+= '"';
-      
-    } else {
-      if (node.boundUpperLevel){
-        str += ' onpropertychange="javascript: ' + this.obj + '.boundUpperLevel(' + nodeId + ');"';
+      if(node.intranetCheckBox){
+      	str += ' onpropertychange="javascript: ' + this.obj + '.setintranetCheck(' + nodeId + ');javascript: ' + this.obj + '.boundLowLevel(' + nodeId + ');"';
+      }else{
+      	str += ' onpropertychange="javascript: ' + this.obj + '.boundLowLevel(' + nodeId + ');"';
       }
+      
+    }else{
+    	if(node.intranetCheckBox){
+    		str += ' onpropertychange="javascript: ' + this.obj + '.setintranetCheck(' + nodeId + ');"';
+    	}
     }
     if (node.value == true){
       str += ' checked ';
@@ -197,8 +207,36 @@ dTree.prototype.node = function(node, nodeId) {
   }
   else if ((!this.config.folderLinks || !node.url) && node._hc && node.pid != this.root.id)
     str += '<a href="javascript: ' + this.obj + '.o(' + nodeId + ');" class="node">';
-  str += node.name;
-  if (node.url || ((!this.config.folderLinks || !node.url) && node._hc)) str += '</a>';
+  str += node.name;//加了名字！！
+  if (node.url || ((!this.config.folderLinks || !node.url) && node._hc)) str += '</a>';  
+  
+//添加IntranetCheckBox开始
+  if (node.intranetCheckBox){
+    str += '<input type=checkbox name=\"intranetCheckBox\" value=\"' + node.id+ '\"';
+    if (node.intranetValue == true){
+      str += ' checked ';
+    }
+    if(node.valueReadonly==true){
+    str += ' disabled';
+    }
+    str += '>';
+  }
+  //添加IntranetCheckBox结束
+  
+  //添加InternetCheckBox开始
+  if (node.internetCheckBox){
+    str += '<input type=checkbox name=\"internetCheckBox\" value=\"' + node.id + '\"';
+    if (node.internetValue == true){
+      str += ' checked ';
+    }
+    if(node.valueReadonly==true){
+    str += ' disabled';
+    }
+    str += '>';
+  }
+  //添加InternetnetCheckBox结束
+  
+  
   str += '</div>';
   if (node._hc) {
     str += '<div id="d' + this.obj + nodeId + '" class="clip" style="display:' + ((this.root.id == node.pid || node._io) ? 'block' : 'none') + ';">';
@@ -208,7 +246,6 @@ dTree.prototype.node = function(node, nodeId) {
   this.aIndent.pop();
   return str;
 };
-
 // Adds the empty and line icons
 dTree.prototype.indent = function(node, nodeId) {
   var str = '';
@@ -402,7 +439,26 @@ if (!Array.prototype.pop) {
     return lastElement;
   }
 };
+dTree.prototype.setintranetCheck=function(id){
 
+    if(this.initsIndex == false){
+    for(var i=0;i<fm.intranetCheckBox.length;i++){
+      var value = fm.intranetCheckBox[i].value;
+      for (var n=0; n<this.aNodes.length; n++) {
+        if(this.aNodes[n].id==value){
+          this.aNodes[n].indexs = i;
+          break;
+        }
+      }
+    }
+    this.initsIndex = true;
+  }
+    var node = this.aNodes[id];
+    	//alert(fm.treeCheckBox[3].checked);
+ 		if(fm.intranetCheckBox[node.indexs].checked == false){
+ 			fm.intranetCheckBox[node.indexs].checked=true;
+ 		}
+};
 dTree.prototype.boundLowLevel=function(id){
   if(!event){
     event=window.event;
@@ -431,39 +487,3 @@ dTree.prototype.boundLowLevel=function(id){
     }
   }
 }
-
-dTree.prototype.boundUpperLevel=function(id){
-	if(!event){
-    	event=window.event;
-  	}
-	if(event.shiftKey==true){
-    	return;
-    }
-    if(this.initIndex == false){
-    for(var i=0;i<fm.treeCheckBox.length;i++){
-      var value = fm.treeCheckBox[i].value;
-      for (var n=0; n<this.aNodes.length; n++) {
-        if(this.aNodes[n].id==value){
-          this.aNodes[n].index = i;
-          break;
-        }
-      }
-    }
-    this.initIndex = true;
-    }
-
-	var node = this.aNodes[id];
-    if (fm.treeCheckBox[node.index].checked == false){
-        return;
-    }
-
-	for(var n=0; n<this.aNodes.length; n++){
-		if(this.aNodes[n].id==node.pid && this.aNodes[n].id != node.id){
-			 if(this.aNodes[n].index!=-1&&fm.treeCheckBox[this.aNodes[n].index].disabled==false){
-			 	fm.treeCheckBox[this.aNodes[n].index].checked=fm.treeCheckBox[node.index].checked;
-			 	break;
-			 }
-		}
-	}
-}
-	

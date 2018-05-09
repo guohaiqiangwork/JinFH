@@ -866,8 +866,6 @@ define(['app',
         //控件
         var checkoutRequired = function(){
         	var flag = true;
-        	var signedLine = 0.00;
-        	var signedLinef = 0.00;
               if($scope.dangerUnitFacEnquiry.feoReinsReceiveList !== null ){ 
             	$.each($scope.dangerUnitFacEnquiry.feoReinsReceiveList,function(index,temp){            		
                     if(temp.reinsType === "0"){
@@ -886,21 +884,9 @@ define(['app',
                     	alert("请录入接收人信息！");
                     	flag = false;
                         return ;
-                    }/*else if(temp.facFlag === "1"){
-                    	signedLinef = temp.signedLine + signedLinef;
-                    }else{
-                    	signedLine = temp.signedLine + signedLine;
-                    }*/                                          
+                    }                                         
                 });
-	            }/*else if(signedLine !== $scope.dangerUnitFacEnquiry.feoEnquiry.facShare){
-	              	alert("比例临分信息中的接受份额不等于普通临分比例");
-	          		flag = false;
-	                return ;
-	            }else if(signedLinef !== $scope.dangerUnitFacEnquiry.feoEnquiry.specialFacShare){
-	              	alert("比例临分信息中的特约接受份额不等于特约临分比例");
-	          		flag = false;
-	                return ;
-	            }*/
+	            }
             	return flag;
             }
 

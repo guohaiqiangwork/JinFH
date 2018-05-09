@@ -8,7 +8,7 @@
                     	 	<option value="=" selected="true">=</option>
                      	<option value="*">*</option>
                    	</select>
-                        <input type="text" ng-model="keywords.PolicyNo">
+                        <input type="text" ng-model="keywords.policyNo">
                         <span></span>
                     </div>
                 </div>
@@ -76,19 +76,18 @@
          	
          	
          	<div class="row">
-                <div class="col-lg-2">
+         		<div class="col-lg-2">
                     <label>保费币别</label>
                 </div>
                 <div class="col-lg-4">
-                    <div class="input-group">
-                        <select ng-model = "keywords.currencyFlag">
-                            <option value="=" selected="true">=</option>
-                            <option value="*">*</option>
-                        </select>
-                        <input type="text" ng-model = "keywords.currency">
-                        <span></span>
-                    </div>
-                </div>
+                     <div class="input-group">
+                         <select  ng-model="keywords.currency" ng-options="c.id as c.value for c in currencys">
+	            			<option value=''>全部</option>
+       					 </select>
+                         <span></span>
+                     </div>
+	            </div>
+
              	<div class="col-lg-2">
                     <label>险种</label>
                 </div>
@@ -110,15 +109,15 @@
                     <label>保额币别</label>
                 </div>
                 <div class="col-lg-4">
-                    <div class="input-group">
-                        <select ng-model = "keywords.currencyFlag1">
-                            <option value="=" selected="true">=</option>
-                            <option value="*">*</option>
-                        </select>
-                        <input type="text" ng-model = "keywords.currency">
-                        <span></span>
-                    </div>
-                </div>
+                     <div class="input-group">
+                         <select  ng-model="keywords.currency1" ng-options="c.id as c.value for c in currencys">
+	            			<option value=''>全部</option>
+       					 </select>
+                         <span></span>
+                     </div>
+	            </div>
+         	
+         	
              	<!-- <div class="col-lg-2">
 					<label>是否包含下级机构</label>
 				</div>

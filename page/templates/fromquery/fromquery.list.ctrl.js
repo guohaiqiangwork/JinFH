@@ -84,10 +84,10 @@ define(['app',
 	            if($scope.options.bizType == "3"){
 	            	$scope.resetClmSearchBox();
 	            }
-//	            $location.path("/fromquerys/" +keywords);
+	            $location.path("/fromquerys/" +keywords);
 	            //切换分保、分陪、分批时，重新查询一遍列表数据
-//	            $scope.searchFacPlyInfo_(keywords);
-	            //$scope.searchFacPlyInfo($scope.keywords, $scope.pagination, $scope.global.user, ""); 
+	            $scope.searchFacPlyInfo_(keywords); 
+	           // $scope.searchFacPlyInfo($scope.keywords, $scope.pagination, $scope.global.user, ""); 
 	        };
 	        
 	        //临分询价-条件查询 searchFacPlyInfo
@@ -113,7 +113,7 @@ define(['app',
                 		'insuredName':'',// 被保险人
                 		'riskCode'   :'',// 险种
                 		'currency'   :'',// 保额币别
-                		'currency'   :'',// 保费币别
+                		'currency1'   :'',// 保费币别
                 		'startDate'  :'',//起保日期
                 		'comCode'    :'',//业务所属公司代码
                 		'endDate'    :'',//终止日期
@@ -133,8 +133,6 @@ define(['app',
 	            		'riskUnitNoFlag' :'',
 	            		'endorNoFlag' :'',
 	            		'policyNoFlag' :'',
-	            		
-	
                         'policyNo':'',// 保单号
                         'endorNo':'',//批单号
                 		'dangerNo':'',// 风险单位号

@@ -1,5 +1,6 @@
 <div class="pull-right">
-    <a class="btn btn-primary" ng-click="saveRelationship()"
+    <!-- 修改 by renshuai -->
+    <a class="btn btn-primary" ng-click="saveRelationship(operation)"
        ng-if="operation != 'view'"
        ng-disabled="!saveRelationships.$valid">保存</a>
     <a class="btn btn-default" ng-if="operation === 'view'" ng-click="toggleOperation('edit')">编辑</a>

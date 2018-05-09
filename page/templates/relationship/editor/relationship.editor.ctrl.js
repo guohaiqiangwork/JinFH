@@ -12,39 +12,59 @@ define(['app',
     	}
        //返回  
        $scope.comeBack = function(){
-       
-       		$location.path("/relationships");
-          	//初始化关系列表
-            $scope.searchRelationship($scope.keywords, $scope.pagination, {});
+    	
+   			 
+   			 $location.path("/relationships");
+   			 //初始化关系列表
+   			 $scope.searchRelationship($scope.keywords, $scope.pagination, {});
+   		
+  		   
        }
-
+    
+       
+       
         //新建合同关系
         var createRelationship = function(){
-        	$scope.relationship=
-        	relationshipService.createRelationship($scope.relationship,{}).then(
-                function(data){
-                	if(data.result === "success"){
+       			relationshipService.createRelationship($scope.relationship,{}).then(
+        					function(data){
+        						if(data.result === "success"){
 //                		var msg = data.msg.split(",");
 //                		var treatyNo = (msg[0].split(":"))[1];
 //                		var uwYear = ((msg[1].split(":"))[1]).substring(0, ((msg[1].split(":"))[1]).length -1);
-                		var treatyNo = data.msg.treatyNo;
-                		var uwYear = data.msg.uwYear;
-                		alert("保存成功！业务年度为："+uwYear+" 合同编号为："+treatyNo);
-                		var url="/relationships";
-                		$location.path(url);
+        							var treatyNo = data.msg.treatyNo;
+        							var uwYear = data.msg.uwYear;
+        							alert("保存成功！业务年度为："+uwYear+" 合同编号为："+treatyNo);
+        							var url="/relationships";
+        							$location.path(url);
 //                        $location.path("/relationships/" + uwYear + treatyNo +"/view");
-                	}else{
-                		alert("保存失败！"+data.msg);
-                	}
-                   
-                },
-                function(code){
-                    alert("网络错误！保存失败!");
-                    
-                  //  console.log("---------save relationship  error reason " + code);
-                }
-            );
+        						}else{
+        							alert("保存失败！"+data.msg);
+        						}
+        						
+        					},
+        					function(code){
+        						alert("网络错误！保存失败!");
+        						
+        						//  console.log("---------save relationship  error reason " + code);
+        					}
+        			);
+        	
         };
+		 //add by renshuai 校验
+		        
+				var check =function(treatyNo,priorityNo){                   
+					  relationshipService.checked(treatyNo,priorityNo).then(
+				                function(data){				               
+				                if(data.result === "success"){				                	
+				                	alert("该合同已存在！");
+				                	$location.path("/relationships");			                		
+				                }else{				                	
+				                	createRelationship();
+				                }
+				                
+				                }				               				                
+				           );					  				 
+				  } 
          
         //更新合同关系
         var updateRelationship = function(){
@@ -54,9 +74,9 @@ define(['app',
                     		var treatyNo = data.msg.treatyNo;
                     		var uwYear = data.msg.uwYear;
                     		alert("保存成功！业务年度为："+uwYear+" 合同编号为："+treatyNo);
-                    		var url="/relationships";
-                    		$location.path(url);
+                    	    $location.path("/relationships");                  		
 //                       $location.path("/relationships/" + uwYear + treatyNo +"/view");
+                    		
                     	}else{
                     		alert("保存失败！"+data.msg);
                     	}
@@ -123,9 +143,10 @@ define(['app',
         	$scope.operation = op;
         };
         //点击保存按钮后判断操作
-        $scope.saveRelationship = function(){
-            if($scope.operation === "new"){
-                createRelationship();
+        $scope.saveRelationship = function(operation){
+            if($scope.operation === "new"){   
+            	console.log("$scope.relationship.treatyNo:**"+$scope.relationship.treatyNo);
+            	check($scope.relationship.treatyNo,$scope.relationship.priorityNo);           	
             }else if($scope.operation === "edit"){
                 updateRelationship();
             }
@@ -196,8 +217,8 @@ define(['app',
                 console.log($stateParams.relationshipNo);
                 $scope.relationship.uwYear = $stateParams.relationshipNo.substring(0,4);
                 $scope.relationship.treatyNo = $stateParams.relationshipNo.substring(4,$stateParams.relationshipNo.length);
-                //add by renshuai
                 
+                //add by renshuai
                 $scope.ship($scope.relationship.treatyNo,$scope.relationship.uwYear);
                 getRelationship($scope.relationship,{});
             }

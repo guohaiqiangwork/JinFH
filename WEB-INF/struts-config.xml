@@ -19,7 +19,7 @@
 		<form-bean name="reendorForm" type="org.apache.struts.action.DynaActionForm" />
 	</form-beans>
 	<global-exceptions>
-	 	<exception key="exception" type="java.lang.Exception" path="/common/ErrorPage.jsp" /> 
+	 	<exception key="exception" type="java.lang.Exception" path="/permission/ErrorPage.jsp" /> 
 		<!-- <exception key="exception" type="java.lang.Exception" path="/page/templates/undwrt/error.tpl.html" /> -->
 		
 	</global-exceptions>
@@ -55,8 +55,8 @@
       <forward name="false" path="/index.jsp" />
     </action>
     <action type="com.sinosoft.reins.function.insutil.ui.control.facade.UIChangePasswordFacade" validate="false" scope="request" path="/changePassword">
-      <forward name="success" path="/common/MessagePage.jsp" />
-      <forward name="false" path="/common/ErrorPage.jsp"/>
+      <forward name="success" path="/permission/MessagePage.jsp" />
+      <forward name="false" path="/permission/ErrorPage.jsp"/>
     </action>
 
 		<action type="com.sinosoft.reins.out.ui.control.facade.UIAccFacade"
@@ -1835,8 +1835,8 @@
 		<action
 			type="com.sinosoft.reins.out.ui.control.facade.UIModifyRetentionValueFacade"
 			scope="request" path="/ModifyReternValue">
-			<forward name="success" path="/common/MessagePage.jsp" />
-			<forward name="false" path="/common/ErrorPage.jsp" />
+			<forward name="success" path="/permission/MessagePage.jsp" />
+			<forward name="false" path="/permission/ErrorPage.jsp" />
 		</action>
 		<!-- add by wangshizhu end 2008-07-24 -->
 
@@ -2462,6 +2462,7 @@
 			<forward name="seeprepareQuery" path="/common/code/SeeReinsTrialAdjus.jsp" />
 		</action>
 		<action path="/showReinsimportExcel"
+		
 			type="com.sinosoft.reins.out.ui.control.action.UIShowImportExcelAction"
 			name="fm" scope="request">
 			<forward name="importExcel"
@@ -2473,8 +2474,32 @@
 		<action type="com.sinosoft.platform.ui.control.action.MainAction"
 			scope="request" path="/main">
 		</action>
+		
+		<action  path="/config" type="com.sinosoft.reins.permission.ui.facade.UIUserGradeFacade" scope="request"  >
+			<forward name="success" path="/authorityjsp/saa/grade/GradeQuery.jsp"  />
+		</action>
+		
+		<action path="/userGrade"
+			type="com.sinosoft.reins.permission.ui.facade.UIUserGradeFacade"
+			name="fm" scope="request">
+			<forward name="query" path="/permission/UserGradeQueryList.jsp" />
+			<forward name="queryContinue" path="/permission/UserGradeQueryList.jsp"/>
+			<forward name="queryTask" path="/permission/UserGradeTaskQueryList.jsp" />
+			<forward name="insert" path="/permission/MessagePage.jsp" />
+			<forward name="deleteTask" path="/permission/MessagePage.jsp" />
+		</action>
+		<action path="/permission"
+			type="com.sinosoft.reins.permission.ui.facade.UIPermissionFacade"
+			name="fm" scope="request">
+			<forward name="query" path="/permission/QueryPermissionOverview.jsp" />
+			<forward name="prepareInsert" path="/permission/AddPermission.jsp" />
+			<forward name="prepareUpdate" path="/permission/AddPermission.jsp" />
+			<forward name="view" path="/permission/AddPermission.jsp?actionType=view" />
+			<forward name="insert" path="/permission/MessagePage.jsp" />
+			<forward name="update" path="/permission/MessagePage.jsp" />
+		</action>
 		<!-- add by  2018-1-17 菜单的请求 end -->
 	</action-mappings>
 	<message-resources parameter="resources.ReinsResources" />
-
+		
 </struts-config>

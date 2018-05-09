@@ -173,9 +173,25 @@ define(
                         "url":"#/paymentss"
                     }
                 }
+            },
+            "7": {
+                "id" : "reins.authority ",
+                "label": "权限管理",
+                "url": "",
+                "menus": {
+                	"7.1": {
+                		 "id":"reins.allocation",
+     		             "label":"岗位代码",
+                         "url":"/reins/permission.do?actionType=query "
+                        },
+                    "7.2": {
+                    	 "id":"reins.grade",
+                 		"label":"人员权限",
+                         "url":"/reins/permission/QueryUserGradeView.jsp "
+                         }
+                    
+                }
             }
-            
-            
             
         } ,
         
@@ -205,8 +221,8 @@ define(
                 "id": "reins.product.treaty.planmaintenance",
                 "label": "自留额管理",
                 "url": "#/admin/retentions"
-            }
         } 
         
+    }
     }
 );

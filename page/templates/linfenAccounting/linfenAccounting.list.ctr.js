@@ -1,12 +1,12 @@
 define(['app',
-    'config','constants',
-    '/reins/page/templates/fromquery/fromquery.item.ctrl.js',
-    '/reins/page/templates/inquiry/inquiry.detail.modal.ctrl.js'
+    'config','constants'
 ], function (app,config,constants) {
-    app.registerController('AccountingFromQueryListCtrl', ['$scope', '$stateParams',  '$filter', '$modal', '$location','OutqueryService','CodeService',
-         function ($scope, $stateParams, $filter, $modal, $location,outqueryService,codeService) {
+    app.registerController('AccountingFromQueryListCtrl', ['$scope', '$stateParams',  '$filter', '$modal', '$location',
+        'OutqueryService','CodeService','facultativeService','$q',
+         function ($scope, $stateParams, $filter, $modal, $location,outqueryService,codeService,facultativeService,$q) {
 			$scope.prompt =constants.prompt;//页面常量配置
-			 console.log($scope.prompt)
+			 console.log($scope.prompt);
+
 
             //分保单详情
             $scope.openPlyFromQuery = function (repolicyNo,dangerNo) {
@@ -313,10 +313,9 @@ define(['app',
                 		'insuredName':'',// 被保险人
                 		'riskCode'   :'',// 险种
                 		'currency'   :'',// 保额币别
-                		'currency'   :'',// 保费币别
                 		'startDate'  :'',//起保日期
                 		'comCode'    :'',//业务所属公司代码
-                		'endDate'    :'',//终止日期
+                		'endDate'    :''//终止日期
                 		
                 		
                 };
@@ -334,7 +333,7 @@ define(['app',
                 };
                 
                 $scope.options = {
-                		bizType : '1'
+                		bizType : 'P'
                 }
                 
                 //add by chaiyuming 20150409 begin
@@ -346,10 +345,18 @@ define(['app',
                 
               //为printIp取值提供依据
                 $scope.config = config;
-                //add by chaiyuming 20150409 end
-                
-            };
 
+
+
+                //查询列表信息
+                facultativeService.checkFacultative($scope.operation,$scope.recertify,$scope.pagination,$scope.options.bizType,'','').then(
+                    function(data){
+                        console.log(data);
+                    }
+                );
+
+            };
+             $scope.operation = $stateParams.operation;
             init();
         }]);
 });

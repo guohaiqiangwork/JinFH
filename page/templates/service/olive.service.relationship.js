@@ -22,7 +22,8 @@ define(['angular', 'config'], function (angular, config) {
                 createRelationship: config.backend.ip + config.backend.base + 'processFhPriority.do?actionType=insert',
                 updateRelationship: config.backend.ip + config.backend.base + 'processFhPriority.do?actionType=update',
                 deleteRelationships: config.backend.ip + config.backend.base + 'processFhPriority.do?actionType=delete',
-                getRelation:        config.backend.ip + config.backend.base + 'processFhPriority.do?actionType=data'
+                getRelation:        config.backend.ip + config.backend.base + 'processFhPriority.do?actionType=data',
+                checked    :        config.backend.ip + config.backend.base + 'processFhPriority.do?actionType=checked'
             }
         })
         .factory('RelationshipService',['$http', '$q', 'RelationshipServiceConfig', function ($http, $q, relationshipServiceConfig) {
@@ -178,6 +179,30 @@ define(['angular', 'config'], function (angular, config) {
                         data:{
                         	treatyNo:treatyNo,
                         	uwYear:uwYear
+                        },
+                        timeout:  config.backend.timeout
+                    })
+                        .success(function(data){
+                            deffered.resolve(data);
+                        })
+                        .error(function(e, code){
+                            deffered.reject(code);
+                        });
+                    return deffered.promise;
+                },
+                //add by renshuai 增加校验方法
+                checked: function (treatyNo,priorityNo) {
+                	
+                    var deffered = $q.defer();
+                    console.log("_____ url is coming..");
+                    $http({
+                        method:config.data.method==='files'? 'GET':'POST',
+                        url: relationshipServiceConfig[config.data.method].checked,
+                        headers: {
+                        },
+                        data:{
+                        	treatyNo:treatyNo,
+                        	priorityNo:priorityNo
                         },
                         timeout:  config.backend.timeout
                     })

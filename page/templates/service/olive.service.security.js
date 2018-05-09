@@ -23,22 +23,31 @@ define(['angular', 'config', 'menus'], function (angular, config, menus) {
             var parseUserMenu = function(_bigMenu, _userMenu) {
 
                 _bigMenu.menu = filterUserMenu(_bigMenu.menu, _userMenu);
-                _bigMenu.admin = filterUserMenu(_bigMenu.admin, _userMenu);
 
-//                console.log(_bigMenu.menu);
                 return _bigMenu;
             };
+
+            var filterUserMenuId = function(_bigMenuId, _userMenu) {
+				 var result = _bigMenuId;
+               $.each(result, function(index, menu){
+                    if ($.inArray(menu.id, _userMenu) === -1){
+                    	menu.hide = true;
+                   }
+               });
+
+               return result;
+           };
 
             var filterUserMenu = function (_bigMenu, _userMenu) {
 
                 var result = _bigMenu;
 
                 $.each(result, function(index, menu){
+                	if ($.inArray(menu.id, _userMenu) === -1){
+                    	menu.hide = true;
+                   }
                     if(angular.isDefined(menu.menus)){
-                        filterUserMenu(menu.menus, _userMenu);
-                    }else{
-                        if ($.inArray(menu.id, _userMenu) === -1)
-                            menu.hide = true;
+                        filterUserMenuId(menu.menus, _userMenu);
                     }
                 });
 

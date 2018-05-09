@@ -233,15 +233,15 @@ define(['app',
                         }
                         //slh
                         _pay.payValue = (parseFloat(MDP) - every*(parseInt(payTimes) - 1)).toFixed(2) +"";
-                        //_pay.payTimes = payTimes;
-                        _pay.payNo = payTimes;
+                        _pay.payTimes = payTimes;
                         layer.fhxPlanList.push(_pay);
                         if(payTimes > 1){
                         	 var ele = ( (new Date(end).getTime()) - (new Date(start).getTime()) ) /  parseInt(payTimes);
                         	 console.log("分期后的天数间隔为 ： " + (ele/86400000));
                              for(var i = 2; i <= payTimes; i++){
                                  var _pay =angular.copy(contractService.getElement("npropPay"));
-                                 _pay.id.payNo = i;
+                                // _pay.id.payNo = i;
+                                 _pay.payNo = i;
                                  var temp = (new Date(start).getTime()) + (ele * (i-1));
                                  var temp = $scope.fomatTimeYNR(temp);
 //                                 var temp = start + ele * i;
@@ -1599,21 +1599,26 @@ define(['app',
                     	var receiveRateFlag = true;  //接受人之和是否等于100
                     	var existFinal = true;  //存在最终接受人
                     	var existPri = true;     //是否存在接受人
-						//slh
                     	var bPriFinalRel = true;   //经纪人时最终接受人和接受人的关系
                     	var rPriFinalRel = true;   //再保人时最终接受人和接受人的关系
-						//slh
+                    	var nReinCo = true;   //是否选择再保人
                     	if($scope.contAttr === 'nprop'){
                     		
                     				var countRate = 0.0;
                     				
                     				$.each($scope.contract.fhxLayerList, function(index, temp){
+                    					//slh
+                    					if(parseFloat(temp.layerNo)>1){
+                    						countRate = 0.0;
+                    					}
+                    					//slh
                     					if(temp.fhxReinsList.length < 1){
                         					existPri = false;
                         					passFlag = false;
                         					return false;
                         				}else{
     	                    				$.each(temp.fhxReinsList, function(index3, rein){
+    	                    					
     	                    					countRate += parseFloat(rein.shareRate);
     	                    					if(rein.brokerFlag==="true" && rein.fhxFinalReinsList.length === 0){
     	                    						existFinal = false;
@@ -1626,8 +1631,14 @@ define(['app',
     	                    					} else {
     	                    						rein.brokerFlag = "0";
     	                    					}
+    	                    					//slh
+    	                    					if(rein.brokerFlag==="0"&&rein.reinsCode===""&&rein.freinsCode===""){
+    	                    						nReinCo=false;
+    	                    						passFlag=false;
+    	                    					}
+    	                    					
     	                    					//slh  再保人时
-    	                    					if(rein.brokerFlag==="0"&&rein.reinsCode===rein.freinsCode){
+    	                    					if(rein.brokerFlag==="0"&&rein.reinsCode===rein.freinsCode&&rein.reinsCode!=""&&rein.freinsCode!=""){
     	                    					    rPriFinalRel = true;
     	                    						passFlag=true;
     	                    					}else if(rein.brokerFlag==="0"&&rein.reinsCode!=rein.freinsCode){
@@ -1695,12 +1706,14 @@ define(['app',
                     		alert("请确定所有层中都有接受人！！");
                     	}else if(!existFinal){
                     		alert("请确认所有经纪人名下都有最终接受人！！");
+                    	}else if (!nReinCo){
+                    		alert("请选择再保人！！");
                     	}else if(!receiveRateFlag){
                     		alert("请确认所有接收人的份额之和为100！！");
                     	}else if(!rPriFinalRel){
-                    		alert("接收人和最终接受人不相等")
+                    		alert("接收人和最终接受人不相等!!!");
                     	}else if(!bPriFinalRel){
-                    		alert("接收人和最终接受人相等")
+                    		alert("接收人和最终接受人相等!!!");
                     	}else if(!passFlag){
                     		alert("请检查最终接受人的分配比例！！");
                     	}

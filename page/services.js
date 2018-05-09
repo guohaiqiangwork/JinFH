@@ -20,7 +20,8 @@ define(['angular',
     '../page/templates/service/olive.service.settle',//add by wl ���㵥���
     '../page/templates/service/olive.service.settleAcc',
     '../page/templates/service/olive.service.settleAcc',
-    '../page/templates/service/olive.service.excessLoss'
+    '../page/templates/service/olive.service.excessLoss',
+    '../page/templates/service/olive.service.facultative'//临分
     
 ], function (angular) {
     angular.module('olive.service', [
@@ -45,6 +46,7 @@ define(['angular',
         'olive.service.settle',//add by wl ���㵥���
         'olive.service.settleAcc',
         'olive.service.settleAcc',
-        'olive.service.excessLoss'
+        'olive.service.excessLoss',
+        'olive.service.facultative'
     ]);
 });
