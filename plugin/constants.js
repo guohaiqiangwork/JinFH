@@ -3,7 +3,13 @@ define({
         fcoRepolicy:{
             UwYear:'业务年度',
             InsuredName:'被保险人',
-            StartDate:'起保日期'
+            StartDate:'起保日期',
+            RepolicyNo:'分保单号',
+            PolicyNo:'保单号',
+            Currency:'币种',
+            Amount:'总保额',
+            BaseRate:'我司占比%',
+            ShareRate:'分出份额%'
 
         },
         floRepay:{
@@ -28,4 +34,4 @@ define({
         }
     }
 
-})
+});

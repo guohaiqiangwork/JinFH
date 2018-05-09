@@ -276,24 +276,23 @@ define(['app',
                     compensateNo:'',
                     repolicyNoTag:'=',
                     repolicyNo:'',
-                    approve:'',
+                    approve:'1',
                     reinsType:'',
                     insuredNameTag:'=',
                     insuredName:'',
                     accType:'',
-                    biztype:''
-
+                    biztype:'P',
+                    operateType:'Gen',
+                    opt:''
                 };
-            	$scope.type = {
-                		flag: ""
-                	};
-            	
-                $scope.type.flag = '1';
-                
-
-                var key = angular.copy($scope.keywords);
-                key.id="currency";
-                key.value="";
+                // $scope.type = {
+                // 		flag: ""
+                // 	};
+                //
+                // $scope.type.flag = '1';
+                // var key = angular.copy($scope.keywords);
+                // key.id="currency";
+                // key.value="";
                 
                 $scope.pagination = {
                         totalItems:0,
@@ -312,16 +311,13 @@ define(['app',
                 }
 
                 //条件查询列表按钮是否点击标志位
-                $scope.searchClickFlag = false;
-                
+                // $scope.searchClickFlag = false;
                 //查询接口添加标志位
                 // $scope.searchPlyInfoList($scope.options.bizType, $scope.keywords, $scope.pagination, $scope.global.user, "");
-                
               //为printIp取值提供依据
-                $scope.config = config;
+              //   $scope.config = config;
 
                 //查询列表信息
-                debugger
                 facultativeService.checkFacultative($scope.operation,$scope.keywords,$scope.pagination,$scope.options.bizType,'','').then(
                     function(data){
                         console.log(data);
