@@ -7,7 +7,6 @@ define(['app',
 			$scope.prompt =constants.prompt;//页面常量配置
 			 console.log($scope.prompt);
 
-
             //分保单详情
             $scope.openPlyFromQuery = function (repolicyNo,dangerNo) {
             	console.log("openPlyFromQuery---"+repolicyNo);
@@ -76,14 +75,13 @@ define(['app',
             
             //切换账单，重置条件框的内容
 	        $scope.changeReset = function(keywords){
-	            console.log("changeReset's is coming...");
-	            if($scope.options.bizType == "1"){
+	            if($scope.options.bizType === "P"){
 	            	$scope.resetSearchBox();
 	            }
-	            if($scope.options.bizType == "2"){
+	            if($scope.options.bizType === "E"){
 	            	$scope.resetEdrSearchBox();
 	            }
-	            if($scope.options.bizType == "3"){
+	            if($scope.options.bizType === "C"){
 	            	$scope.resetClmSearchBox();
 	            }
 //	            $location.path("/fromquerys/" +keywords);
@@ -129,10 +127,9 @@ define(['app',
                 		'comCode'    :'',//业务所属公司代码
                 		'endDate'    :''//终止日期
                         	
-	            }
+	            };
 	        }
-	        
-	        //add by chaiyuming 20150415 begin
+
 	        //重置查询框中内容---分批单
 	        $scope.resetEdrSearchBox = function(){
 	            $scope.keywords = {
@@ -174,11 +171,8 @@ define(['app',
                 		'startDate':'',/// 保险起期
                 		'endDate' :'',//终止日期
                 		'treatyNo':'',
-	            }
+	            };
 	        }
-	        //add by chaiyuming 20150415 end
-	        
-	        //add by chaiyuming 20150420 begin
 	        //重置查询框中内容---分赔案
 	        $scope.resetClmSearchBox = function(){
 	            $scope.keywords = {
@@ -211,30 +205,34 @@ define(['app',
                         'diffFlag':'',
                         'claimInfoFlag':'',
                         'reinsType':'',
-	            }
+	            };
 	        }
-	        //add by chaiyuming 20150420 end
-	        
 	        //分出查询-分保单查询-条件查询
-	        $scope.searchPlyInfo = function(){
-	        	$scope.pagination.pageIndex = 1;
-	        	
-	        	$scope.searchPlyInfoList($scope.options.bizType, $scope.keywords, $scope.pagination, $scope.global.user, ""); 
-	        }
+	        // $scope.searchPlyInfo = function(){
+	        // 	$scope.pagination.pageIndex = 1;
+	        //
+	        // 	$scope.searchPlyInfoList($scope.options.bizType, $scope.keywords, $scope.pagination, $scope.global.user, "");
+	        // }
 
 	        //临分询价-查询接口 searchFacPlyInfo
-	        $scope.searchPlyInfoList = function(interfaceFlag, keywords, pagination, user, lan) {
-	            console.log("(分出查询-条件查询)searchPlyInfoDtl's is coming...");
-	            outqueryService.searchPlyInfo(interfaceFlag, keywords, pagination, user, lan).then(
-	                function(data){
-	                	$scope.plyRiskUnitList = data.data;
-	                	pagination.totalItems = data.total;
-	                },
-	                function(code){
-	                    throw(code);
-	                    //alert(message);
-	                }
-	            );
+	        $scope.searchPlyInfoList = function() {
+                facultativeService.checkFacultative($scope.operation,$scope.keywords,$scope.pagination,$scope.options.bizType,'','').then(
+                    function(data){
+                        $scope.plyRiskUnitList = data.data;
+                        // pagination.totalItems = data.total;
+                    },function(code){
+                        throw(code);
+                    }
+                );
+	            // outqueryService.searchPlyInfo(interfaceFlag, keywords, pagination, user, lan).then(
+	            //     function(data){
+	            //     	$scope.plyRiskUnitList = data.data;
+	            //     	pagination.totalItems = data.total;
+	            //     },
+	            //     function(code){
+	            //         throw(code);
+	            //     }
+	            // );
 	        };
 	        
 	      //查询字典
@@ -251,17 +249,15 @@ define(['app',
 	                }
 	            );
 	        };
-	        //add by chaiyuming 20150409 begin
 	        //根据页号查询合同列表
 	        $scope.onSelectPage = function(pageIndex){
 	            $scope.pagination.pageIndex = pageIndex;
 	            var _pagination = angular.copy($scope.pagination);
 				$scope.searchPlyInfoList($scope.options.bizType, $scope.keywords, _pagination, $scope.global.user, ""); 
 	        };
-	        //add by chaiyuming 20150409 end
 
             var init = function(){
-                $scope.recertify={
+                $scope.keywords={
                     recertifyNoTag:'=',
                     recertifyNo:'',
                     policyNoTag:'=',
@@ -286,6 +282,7 @@ define(['app',
                     insuredName:'',
                     accType:'',
                     biztype:''
+
                 };
             	$scope.type = {
                 		flag: ""
@@ -293,32 +290,10 @@ define(['app',
             	
                 $scope.type.flag = '1';
                 
-              //获取币别
-                $scope.keywords = {
-                    id:'',
-                    value:''
-                }
+
                 var key = angular.copy($scope.keywords);
                 key.id="currency";
                 key.value="";
-                //$scope.getCode(key,{},"currencys");
-                
-              //初始化条件查询对应的绑定字段
-                $scope.keywords = {
-                        //分保、分批
-                		'endorNo':'',//批单号
-                		'policyNo'   :'',// 保单号
-                		'dangerNo'   :'',// 风险单位号
-                		'proposalNo' :'', //  投保单号
-                		'insuredName':'',// 被保险人
-                		'riskCode'   :'',// 险种
-                		'currency'   :'',// 保额币别
-                		'startDate'  :'',//起保日期
-                		'comCode'    :'',//业务所属公司代码
-                		'endDate'    :''//终止日期
-                		
-                		
-                };
                 
                 $scope.pagination = {
                         totalItems:0,
@@ -335,27 +310,25 @@ define(['app',
                 $scope.options = {
                 		bizType : 'P'
                 }
-                
-                //add by chaiyuming 20150409 begin
+
                 //条件查询列表按钮是否点击标志位
                 $scope.searchClickFlag = false;
                 
                 //查询接口添加标志位
-                $scope.searchPlyInfoList($scope.options.bizType, $scope.keywords, $scope.pagination, $scope.global.user, "");
+                // $scope.searchPlyInfoList($scope.options.bizType, $scope.keywords, $scope.pagination, $scope.global.user, "");
                 
               //为printIp取值提供依据
                 $scope.config = config;
 
-
-
                 //查询列表信息
-                facultativeService.checkFacultative($scope.operation,$scope.recertify,$scope.pagination,$scope.options.bizType,'','').then(
+                debugger
+                facultativeService.checkFacultative($scope.operation,$scope.keywords,$scope.pagination,$scope.options.bizType,'','').then(
                     function(data){
                         console.log(data);
                     }
                 );
-
             };
+
              $scope.operation = $stateParams.operation;
             init();
         }]);

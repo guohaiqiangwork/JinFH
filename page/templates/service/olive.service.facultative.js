@@ -14,7 +14,7 @@ define(['angular', 'config'], function (angular, config) {
                 /**
                  **临汾查询
                  */
-                checkFacultative: function (operation,recertify,pagination,bizType, user, lan) {
+                checkFacultative: function (operation,keywords,pagination,bizType, user, lan) {
 
                     var deffered = $q.defer();
 
@@ -26,7 +26,7 @@ define(['angular', 'config'], function (angular, config) {
                         },
                         data:{
                             operation:operation,
-                            keywords:recertify,
+                            keywords:keywords,
                             pagination:pagination,
                             bizType:bizType,
                             user:user,

@@ -9,109 +9,109 @@
                 <tr>
                     <td class=title>分赔案号：</td>
                     <td class=input>
-                        <select ng-model="recertify.recertifyNoTag" class="tag">
+                        <select ng-model="keywords.recertifyNoTag" class="tag">
                             <option value="=">=</option>
                             <option value="*">*</option>
                         </select>
-                        <input type="text"  ng-model="recertify.recertifyNo" class="condition" maxlength="40"></td>
+                        <input type="text"  ng-model="keywords.recertifyNo" class="condition" maxlength="40"></td>
                     <td class=title>{{prompt.floRepay.PolicyNo}}:</td>
                     <td class=input>
-                        <select ng-model="recertify.policyNoTag" class="tag">
+                        <select ng-model="keywords.policyNoTag" class="tag">
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
-                        <input type="text"  ng-model="recertify.policyNo" class="condition" maxlength="44" ></td>
+                        <input type="text"  ng-model="keywords.policyNo" class="condition" maxlength="44" ></td>
                 </tr>
                 <tr>
                     <td class=title>危险单位号：</td>
                     <td class=input>
-                        <select ng-model="recertify.dangerNoTag" class="tag">
+                        <select ng-model="keywords.dangerNoTag" class="tag">
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
-                        <input type="text"  ng-model="recertify.dangerNo" class="condition" maxlength="5"></td>
+                        <input type="text"  ng-model="keywords.dangerNo" class="condition" maxlength="5"></td>
                     <td class=title>立案号：</td>
                     <td class=input>
-                        <select ng-model="recertify.payNoTag" class="tag">
+                        <select ng-model="keywords.payNoTag" class="tag">
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
-                        <input type="text"  ng-model="recertify.payNo" class="condition" maxlength="44"></td>
+                        <input type="text"  ng-model="keywords.payNo" class="condition" maxlength="44"></td>
                 </tr>
 
                 <tr>
                     <td class=title>{{prompt.fcoRepolicy.UwYear}}:</td>
                     <td class=input>
-                        <select ng-model="recertify.uwYearTag" class="tag">
+                        <select ng-model="keywords.uwYearTag" class="tag">
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
-                        <input type="text" ng-model="recertify.uwYear" class="condition" maxlength="4">
+                        <input type="text" ng-model="keywords.uwYear" class="condition" maxlength="4">
                     </td>
                     <td class=title>出险日期：</td>
                     <td class=input>
-                        <select ng-model="recertify.damageDateTag" class="tag">
+                        <select ng-model="keywords.damageDateTag" class="tag">
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
-                        <input type="text" ng-model="recertify.damageDate" class="date" maxlength="10" onClick="return Calendar('damageDate');"> 至 <input type="text" name="damageDate2" class="date" maxlength="10" onClick="return Calendar('damageDate2');"></td>
+                        <input type="text" ng-model="keywords.damageDate" class="date" maxlength="10" onClick="return Calendar('damageDate');"> 至 <input type="text" name="damageDate2" class="date" maxlength="10" onClick="return Calendar('damageDate2');"></td>
                 </tr>
                 <tr>
                     <td class=title>{{prompt.fcoRepolicy.StartDate}}:</td>
                     <td class=input>
-                        <select ng-model="recertify.startDateTag" class="tag">
+                        <select ng-model="keywords.startDateTag" class="tag">
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
-                        <input type="text" ng-model="recertify.startDate" class="date" maxlength="10" onClick="return Calendar('startDate');"> 至 <input type="text" name="startDate2" class="date" maxlength="10" onClick="return Calendar('startDate2');"></td>
+                        <input type="text" ng-model="keywords.startDate" class="date" maxlength="10" onClick="return Calendar('startDate');"> 至 <input type="text" name="startDate2" class="date" maxlength="10" onClick="return Calendar('startDate2');"></td>
                     <td class=title>理算书号：</td>
                     <td class=input>
-                        <select ng-model="recertify.compensateNoTag" class="tag">
+                        <select ng-model="keywords.compensateNoTag" class="tag">
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
-                        <input type="text"  ng-model="recertify.compensateNo" class="condition" maxlength="22"></td>
+                        <input type="text"  ng-model="keywords.compensateNo" class="condition" maxlength="22"></td>
                 </tr>
 
                 <tr>
                     <td class=title>分保单号：</td>
                     <td class=input>
-                        <select ng-model="recertify.repolicyNoTag" class="tag">
+                        <select ng-model="keywords.repolicyNoTag" class="tag">
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
-                        <input type="text"  ng-model="recertify.repolicyNo" class="condition" maxlength="22"></td>
-                    <input type="hidden" ng-model="recertify.approve" value="1">
+                        <input type="text"  ng-model="keywords.repolicyNo" class="condition" maxlength="22"></td>
+                    <input type="hidden" ng-model="keywords.approve" value="1">
                 </tr>
                 <tr>
                     <td class=title>分保方式：</td>
                     <td class=common1>
-                        <input type="checkbox" ng-model="recertify.reinsType" value="1" checked="checked">临分
-                        <input type="checkbox" ng-model="recertify.reinsType" value="2" checked="checked">混合</td>
+                        <input type="checkbox" ng-model="keywords.reinsType" value="1" checked="checked">临分
+                        <input type="checkbox" ng-model="keywords.reinsType" value="2" checked="checked">混合</td>
                     <td class=title>{{prompt.fcoRepolicy.InsuredName}}：</td>
                     <td class=input>
-                        <select ng-model="recertify.insuredNameTag" class="tag">
+                        <select ng-model="keywords.insuredNameTag" class="tag">
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
-                        <input type="text" ng-model="recertify.insuredName" class="condition" maxlength="100">
+                        <input type="text" ng-model="keywords.insuredName" class="condition" maxlength="100">
                     </td>
                 </tr>
                 <tr>
                     <td class=title>帐单生成状态：</td>
                     <td class=common1>
-                        <input type="radio" ng-model="recertify.accType" value="0" >全部
-                        <input type="radio" ng-model="recertify.accType" value="1" >已生成帐单
-                        <input type="radio" ng-model="recertify.accType" value="2" checked="checked">未生成帐单
+                        <input type="radio" ng-model="keywords.accType" value="0" >全部
+                        <input type="radio" ng-model="keywords.accType" value="1" >已生成帐单
+                        <input type="radio" ng-model="keywords.accType" value="2" checked="checked">未生成帐单
                     </td>
 
-                    <input type="hidden" ng-model="recertify.biztype" value="C">
+                    <input type="hidden" ng-model="keywords.biztype" value="C">
                 </tr>
                 <tr>
                     <td colspan="6" align="right">
                         <a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
                         <a ng-click="searchTableFlag = ! searchTableFlag" class="btn btn-default">取消</a>
-                        <a ng-click="searchContracts()" class="btn btn-primary" ng-disabled="!searchForm.$valid">立即查询</a>
+                        <a ng-click="searchPlyInfoList()" class="btn btn-primary">立即查询</a>
 
                     </td>
                 </tr>

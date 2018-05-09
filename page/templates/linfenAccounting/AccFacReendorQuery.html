@@ -6,78 +6,77 @@
         <form name="fcoReendorForm" action="/reins/recertifyQuery.do?rows=10&opt=facOut" method="post">
 
         <table class="table">
-            <input type="hidden" name="operateType" value='<%=operateType%>'>
             <tr>
                 <td class=title>批单申请号：</td>
                 <td class=input>
-                    <select name="endorNoTag" class="tag">
+                    <select ng-model="keywords.endorNoTag" class="tag">
                         <option value="=" >=</option>
                         <option value="*">*</option>
                     </select>
-                    <input type="text" name="endorNo" class="condition" maxlength="50"></td>
+                    <input type="text" ng-model="keywords.endorNo" class="condition" maxlength="50"></td>
                 <td class=title>保单号：</td>
                 <td class=input>
-                    <select name="policyNoTag" class="tag">
+                    <select ng-model="keywords.policyNoTag" class="tag">
                         <option value="=" >=</option>
                         <option value="*">*</option>
                     </select>
-                    <input type="text" name="policyNo" class="condition" maxlength="44"></td>
+                    <input type="text" ng-model="keywords.policyNo" class="condition" maxlength="44"></td>
             </tr>
             <tr>
                 <td class=title>危险单位号：</td>
                 <td class=input>
-                    <select name="dangerNoTag" class="tag">
+                    <select ng-model="keywords.dangerNoTag" class="tag">
                         <option value="=" >=</option>
                         <option value="*">*</option>
                     </select>
                     <input type="text" name="dangerNo" class="condition" maxlength="5"></td>
                 <td class=title>{{prompt.fcoRepolicy.UwYear}}:</td>
                 <td class=input>
-                    <select name="uwYearTag" class="tag">
+                    <select ng-model="keywords.uwYearTag" class="tag">
                         <option value="=" >=</option>
                         <option value="*">*</option>
                     </select>
-                    <input type="text" name="uwYear" class="condition" maxlength="4">
+                    <input type="text" ng-model="keywords.uwYear" class="condition" maxlength="4">
             </tr>
 
             <tr>
                 <td class=title>{{prompt.fcoRepolicy.InsuredName}}:</td>
                 <td class=input>
-                    <select name="insuredNameTag" class="tag">
+                    <select ng-model="keywords.insuredNameTag" class="tag">
                         <option value="=">=</option>
                         <option value="*">*</option>
                     </select>
-                    <input type="text" name="insuredName" class="condition" maxlength="100">
+                    <input type="text" ng-model="keywords.insuredName" class="condition" maxlength="100">
                 </td>
                 <td class=title>分批单号：</td>
                 <td class=input>
-                    <select name="recertifyNoTag" class="tag">
+                    <select ng-model="keywords.recertifyNoTag" class="tag">
                         <option value="=">=</option>
                         <option value="*">*</option>
                     </select>
-                    <input type="text" name="recertifyNo" class="condition" maxlength="22"></td>
+                    <input type="text" ng-model="keywords.recertifyNo" class="condition" maxlength="22"></td>
                 <input type="hidden" name="approve" value="1">
             </tr>
 
             <tr>
                 <td class=title>分保方式：</td>
                 <td>
-                    <input type="checkbox" name="reinsType" value="1" checked="checked">临分
-                    <input type="checkbox" name="reinsType" value="2" checked="checked">混合
+                    <input type="checkbox" ng-model="keywords.reinsType" value="1" checked="checked">临分
+                    <input type="checkbox" ng-model="keywords.reinsType" value="2" checked="checked">混合
                 </td>
                 <input type="hidden" name="biztype" value="E">
                 <td class=title>帐单生成状态：</td>
                 <td class=common1 colspan="3">
-                    <input type="radio" name="accType" value="0" checked="checked">全部
-                    <input type="radio" name="accType" value="1">已生成帐单
-                    <input type="radio" name="accType" value="2">未生成帐单
+                    <input type="radio" ng-model="keywords.accType" value="0" checked="checked">全部
+                    <input type="radio" ng-model="keywords.accType" value="1">已生成帐单
+                    <input type="radio" ng-model="keywords.accType" value="2">未生成帐单
                 </td>
             </tr>
             <tr>
                 <td colspan="6" align="right">
                     <a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
                     <a ng-click="searchTableFlag = ! searchTableFlag" class="btn btn-default">取消</a>
-                    <a ng-click="searchContracts()" class="btn btn-primary" ng-disabled="!searchForm.$valid">立即查询</a>
+                    <a ng-click="searchPlyInfoList()" class="btn btn-primary">立即查询</a>
 
                 </td>
             </tr>
