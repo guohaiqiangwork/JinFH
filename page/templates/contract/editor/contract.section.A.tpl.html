@@ -22,7 +22,7 @@
                 <input class="form-control" type="text" ng-model="section.treatyNo"   ng-readonly="true">
                 <span></span>
             </div>
-             <div  ng-model="contract.treatyType"  ng-if="contract.treatyType === '21' ||effected">
+             <div  ng-model="contract.treatyType"  ng-if="contract.treatyType != '31' || effected">
            <div class="col-sm-2" >
                 <label>线数</label>
             </div>
@@ -132,7 +132,7 @@
             </div>
             <div class="col-sm-4">
                 <input class="form-control" type="text" ng-model="section.retentionValue" ng-required="true"
-                       ng-readonly="operation === 'view'||effected" ng-blur="setLimitValue(section)">
+                       ng-readonly="operation === 'view'||effected" >
                 <span></span>
             </div>
             
@@ -450,8 +450,8 @@
 	        			<td nowrap></td>
 	        		</tr>
 	        		<tr ng-repeat="e in section.fhExItemKindList" >
-	        			<td>{{e.riskCode}}</td>
-	        			<td>{{e.riskName}}</td>
+	        			<td>{{e.itemKind}}</td>
+	        			<td>{{e.itemKindDesc}}</td>
 	        			<td><a class="btn btn-danger" ng-click="delExclusion(e)" ng-show="operation != 'view' && !effected">删除</a></td>
 	        		</tr>
 	        	</table>

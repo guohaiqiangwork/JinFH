@@ -17,20 +17,20 @@
                 <th>{{prompt.fcoRepolicy.shareRate}}</th>
             </thead>
             <tbody>
-            <tr>
+            <tr ng-repeat="plyRisk in plyRiskUnitList">
+                <td><input type="radio" value="0" name="gender" ng-click="QueryAcc(plyRisk.rePolicyNo)"/> </td>
+                <td>{{plyRisk.rePolicyNo}}</td>
+                <td>{{plyRisk.policyNo}}</td>
+                <td></td>
+                <td>{{plyRisk.insuredName}}</td>
                 <td></td>
                 <td></td>
                 <td></td>
+                <td>{{plyRisk.currency}}</td>
+                <td>{{plyRisk.amount}}</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{plyRisk.baseRate}}</td>
+                <td>{{plyRisk.shareRate}}</td>
             </tr>
             </tbody>
         </table>
@@ -43,5 +43,57 @@
                 <input type="button" class="button" value="账单转收付" onclick="payment();return false;">
             </tr>
         </table>
+
+        <h5>临分对内账单</h5>
+        <table class="table table-striped table-hover">
+            <thead>
+            <th>账单类型</th>
+            <th>账单状态</th>
+            <th>账单编号</th>
+            <th>出单公司</th>
+            <th>接受人编码</th>
+            <th>分保业务单证号</th>
+            <th>账单币种</th>
+            <th>账单余额</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+        <h5>临分对外账单</h5>
+        <table class="table table-striped table-hover">
+            <thead>
+            <th>账单类型</th>
+            <th>账单状态</th>
+            <th>账单编号</th>
+            <th>出单公司</th>
+            <th>接受人编码</th>
+            <th>分保业务单证号</th>
+            <th>账单币种</th>
+            <th>账单余额</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+
     </div>
 </div>

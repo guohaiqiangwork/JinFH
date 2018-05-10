@@ -118,14 +118,10 @@ define(['app',
 		    	  }	  
 	    	  }
 	    	  if(temp==='setState'){
-		    	  	if(contract[0].stateFlag == "4"){
-				    		  alert("已生效状态不能设置状态");
-				    		  return;
-				    	  } 
-				    	   if(contract[0].stateFlag == "6"){
-				    		  alert("已关闭状态不能设置状态");
-				    		  return;
-				    	  }   
+			    	   if(contract[0].stateFlag == "6"){
+			    		  alert("已关闭状态不能设置状态");
+			    		  return;
+			    	  }   
 		    	  }
 	    	  //add by zhx end
             var url = changeUrl(temp);

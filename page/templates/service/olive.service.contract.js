@@ -477,9 +477,9 @@ define(['angular', 'config'], function (angular, config) {
                 "propExclusion":{
                 	 "treatyNo":"",//合约号
                      "sectionNo":"",//合约分项号
-                     "riskCode":"",//险种,PK
+                     "itemKind":"",//险种,PK
 //                     "objTypeCdeName":""
-                     "riskName":""
+                     "itemKindDesc":""
                 },
 
                 //浮动手续费费率

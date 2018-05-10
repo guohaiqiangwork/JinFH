@@ -6,7 +6,20 @@ define(['app',
          function ($scope, $stateParams, $filter, $modal, $location,outqueryService,codeService,facultativeService,$q) {
 			$scope.prompt =constants.prompt;//页面常量配置
 			 console.log($scope.prompt);
-
+            $scope.QueryAcc = function (rePolicyNo) {
+                var queryAcc ={
+                    biztype:"P",
+                    flag3:"F",
+                    operateType:"Gen",
+                    recertifyNo:rePolicyNo}
+                facultativeService.checkQueryAcc(queryAcc).then(
+                    function(data){
+                        $scope.plyRiskUnitList = data.data;
+                    },function(code){
+                        throw(code);
+                    }
+                );
+            }
             //分保单详情
             $scope.openPlyFromQuery = function (repolicyNo,dangerNo) {
             	console.log("openPlyFromQuery---"+repolicyNo);
@@ -74,26 +87,25 @@ define(['app',
             };
             
             //切换账单，重置条件框的内容
-	        $scope.changeReset = function(keywords){
+	        $scope.changeReset = function(keywords,bizType){
 	            if($scope.options.bizType === "P"){
 	            	$scope.resetSearchBox();
 	            }
 	            if($scope.options.bizType === "E"){
 	            	$scope.resetEdrSearchBox();
+                    $scope.searchPlyInfoList(bizType);
 	            }
 	            if($scope.options.bizType === "C"){
 	            	$scope.resetClmSearchBox();
+                    $scope.searchPlyInfoList(bizType);
 	            }
-//	            $location.path("/fromquerys/" +keywords);
-	            //切换分保、分陪、分批时，重新查询一遍列表数据
-//	            $scope.searchFacPlyInfo_(keywords);
-	            //$scope.searchFacPlyInfo($scope.keywords, $scope.pagination, $scope.global.user, ""); 
+
 	        };
 	        
 	        //临分询价-条件查询 searchFacPlyInfo
 	        $scope.searchFacPlyInfo_ = function(){
 	        	$scope.pagination.pageIndex = 1;
-	        	$scope.searchPlyInfoList($scope.options.bizType, $scope.keywords, $scope.pagination, $scope.global.user, ""); 
+	        	$scope.searchPlyInfoList($scope.options.bizType, $scope.keywords, $scope.pagination, $scope.global.user, "");
 	        }
 	        
 	        //重置查询框中内容---分保单
@@ -167,7 +179,6 @@ define(['app',
                 		'insuredName':'',// 被保险人
                 		'riskCode':'',// 险种
                 		'currency':'',// 保额币别
-                		'currency':'',// 保费币别
                 		'startDate':'',/// 保险起期
                 		'endDate' :'',//终止日期
                 		'treatyNo':'',
@@ -215,11 +226,11 @@ define(['app',
 	        // }
 
 	        //临分询价-查询接口 searchFacPlyInfo
-	        $scope.searchPlyInfoList = function() {
-                facultativeService.checkFacultative($scope.operation,$scope.keywords,$scope.pagination,$scope.options.bizType,'','').then(
+	        $scope.searchPlyInfoList = function(bizType) {
+                $scope.keywords.bizType=bizType;
+                facultativeService.checkFacultative($scope.operation,$scope.keywords,$scope.pagination,'','').then(
                     function(data){
                         $scope.plyRiskUnitList = data.data;
-                        // pagination.totalItems = data.total;
                     },function(code){
                         throw(code);
                     }
@@ -286,15 +297,6 @@ define(['app',
                     opt:'facOut',
                     reinsOutType:''
                 };
-                // $scope.type = {
-                // 		flag: ""
-                // 	};
-                //
-                // $scope.type.flag = '1';
-                // var key = angular.copy($scope.keywords);
-                // key.id="currency";
-                // key.value="";
-                
                 $scope.pagination = {
                         totalItems:0,
                         pageIndex:1,
@@ -306,24 +308,20 @@ define(['app',
                         firstText: config.pagination.firstText,
                         lastText: config.pagination.lastText
                 };
-                
-                $scope.options = {
-                		bizType : 'P'
+
+                $scope.options={
+                    bizType:'P'
                 }
-
-                //条件查询列表按钮是否点击标志位
-                // $scope.searchClickFlag = false;
-                //查询接口添加标志位
-                // $scope.searchPlyInfoList($scope.options.bizType, $scope.keywords, $scope.pagination, $scope.global.user, "");
-              //为printIp取值提供依据
-              //   $scope.config = config;
-
                 //查询列表信息
-                facultativeService.checkFacultative($scope.operation,$scope.keywords,$scope.pagination,$scope.options.bizType,'','').then(
-                    function(data){
-                        console.log(data);
-                    }
-                );
+                if($scope.options.bizType!=='E' && $scope.options.bizType!=='C'){
+                    facultativeService.checkFacultative($scope.operation,$scope.keywords,$scope.pagination,'','').then(
+                        function(data){
+                            $scope.plyRiskUnitList = data.data;
+                        },function(code){
+                            throw(code);
+                        }
+                    );
+                }
             };
 
              $scope.operation = $stateParams.operation;

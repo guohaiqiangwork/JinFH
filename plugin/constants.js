@@ -8,7 +8,7 @@ define({
             PolicyNo:'保单号',
             Currency:'币种',
             Amount:'总保额',
-            BaseRate:'我司占比%',
+            baseRate:'我司占比%',
             ShareRate:'分出份额%'
 
         },
@@ -29,7 +29,7 @@ define({
             InsuredNam:'被保险人',
             Currency:'币种',
             AmountChg:'保额变化量',
-            BaseRate:'我司占比%',
+            baseRate:'我司占比%',
             ShareRate:'分出份额%'
         }
     }

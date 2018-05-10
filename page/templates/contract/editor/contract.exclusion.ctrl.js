@@ -124,8 +124,8 @@ define(['app',
                 $.each($scope.rightExclusions, function(index, exclusion){
                     if(contAttr === "prop"){
                         element = angular.copy(contractService.getElement("propExclusion"));
-                        element.riskCode = exclusion.id;
-                        element.riskName = exclusion.value;
+                        element.itemKind = exclusion.id;
+                        element.itemKindDesc = exclusion.value;
 //                        element.tmpContNo = risk.tmpContNo;
 //                        element.contNo = risk.contNo;
                         exclusions.push(element);

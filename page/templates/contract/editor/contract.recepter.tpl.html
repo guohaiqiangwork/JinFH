@@ -148,13 +148,13 @@
                 </td>
                 <td>
                     <div ng-if="operation==='view' ||effected">
-                        <div style="width: 70px;" ng-if="receptor.brokerFlag==='true' " >经纪人</div>
+                        <div style="width: 70px;" ng-if="receptor.brokerFlag==='1' ">经纪人</div>
                         <div style="width: 70px;" ng-if="receptor.brokerFlag==='false' ">再保人</div>
                     </div>
                     <div ng-if="operation!='view' && !effected" style="width: 70px;">
                         <div class="input-group">
-                            <input  type="radio" ng-model="receptor.brokerFlag"   value="1">经纪人 23423
-                            <input  type="radio" ng-model="receptor.brokerFlag"  value="0" ng-click="toggleBrokerFlag(receptor)">再保人
+                            <input  type="radio" ng-model="receptor.brokerFlag"  value="1">经纪人 
+                            <input  type="radio" ng-model="receptor.brokerFlag"  value="0" ng-click="toggleBrokerFlag(receptor)">再保人 
                             <span></span>
                         </div>
                     </div>
@@ -178,7 +178,7 @@
                         <a class="btn btn-default" ng-model="addReinsurer"
                            ng-if="operation !='view'" ng-click="removeRecepterProp(contract.fhReinsList,receptor)">-</a>
                         <a class="btn btn-default" ng-model="addReinsurer" ng-show="receptor.brokerFlag"
-                           ng-if="operation !='view'" ng-click="addFinalRecepterProp(receptor)">添加最终再保人</a>
+                           ng-if="operation !='view'" ng-click="addFinalRecepterProp(contract)">添加最终再保人</a>
                     </div>
                 </td>
             </tr>

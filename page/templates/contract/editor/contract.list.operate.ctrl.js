@@ -156,7 +156,7 @@ define(['app',
 	                    	
                     		if(tmpNo.length>1){
 	                            alert("暂存号为: " + tmpNo +"的合约号复制成功!" + 
-	                            	"\n 复制后生成的新合约号分别为： " + tmpContractNo);	                            
+	                            	"\n 复制后生成的新合约号分别为： " + data.msg);	                            
                     		} else {
                     			alert("暂存号为: " + tmpNo +"的合约号复制成功!" + 
 	                            	"\n 复制后生成的新合约号为： " + data.msg);

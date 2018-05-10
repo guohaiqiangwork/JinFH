@@ -8,7 +8,7 @@
     <!-- 查询条件 -->
     <div class="well">
         <form name="searchForm" novalidate>
-            <select ng-model="options.bizType" ng-change="changeReset(keywords)">
+            <select ng-model="options.bizType" ng-change="changeReset(keywords,options.bizType)">
                 <option value="P">分保单账单生成</option>
                 <option value="E">分批单账单生成</option>
                 <option value="C">分赔案账单生成</option>
@@ -16,7 +16,7 @@
 
             <div ng-if="options.bizType==='P'" class="container-fluid">
 
-                <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepolicyQuery.html'"></div>
+                <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepolicyQuery.html'" ></div>
                 <div class="page-header">
                     <h2 style="display:inline-block">查询临分业务</h2>
                 </div>
