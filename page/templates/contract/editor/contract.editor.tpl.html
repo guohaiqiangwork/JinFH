@@ -3,7 +3,7 @@
 
     <div class="pull-right">
         <div class="btn-group">
-            <a ng-if="operation==='edit' || operation==='new'" class="btn btn-primary" ng-click="saveContract()"
+            <a ng-if="operation==='edit' || operation==='new'" style="cursor:pointer" class="btn btn-primary" ng-click="saveContract()"
                ng-disabled="contractForm.$invalid">保存</a>
             <a ng-if="contAttr === 'nprop' && ( contract.stateFlag === '0') &&  operation==='view'" class="btn btn-primary" ng-click="toggleMode('edit')">编辑</a>
             <a ng-if="contAttr === 'prop' && ( contract.stateFlag === '6') && mode==='admin' && operation==='view'" class="btn btn-primary" ng-click="toggleMode('edit')">编辑</a>

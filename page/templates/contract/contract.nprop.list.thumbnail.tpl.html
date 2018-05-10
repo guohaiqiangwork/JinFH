@@ -12,20 +12,21 @@
         <div class="contract-thumbnail" ng-class="{'animated shake':contract.stateFlag==='2'}">
 
 			<div>
-                {{contract.treatyNo}}
+                合同编号：{{contract.treatyNo}}
             </div>
             <div>
-                {{contract.uwYear}}
+             业务年度：   {{contract.uwYear}}
             </div>
-            <div>{{contract.refNo}}</div>
-            <div>{{contract.startDate.time | date : config.display.dateFormat}}</div>
-            <div>{{contract.endDate.time | date : config.display.dateFormat}}</div>
-            <div>{{contract.treatyType | code : 'nprop.treatyType'}}</div>
-            <div>{{contract.stateFlag | code : 'nprop.stateFlag'}}</div>
+            <div>合同简称：{{contract.refNo}}</div>
+            <div>合同起期：{{contract.startDate.time | date : config.display.dateFormat}}</div>
+            <div>合同止期：{{contract.endDate.time | date : config.display.dateFormat}}</div>
+            <div>合同类型：{{contract.treatyType | code : 'nprop.treatyType'}}</div>
+            <div>合同状态：{{contract.stateFlag | code : 'nprop.stateFlag'}}</div>
         </div>
 
         <div class="text-center" style="margin:5px 0 0 0">
             <div>
+            业务类型：
                 <span class="contract-status" ng-class="{'status-temp':contract.stateFlag==='0',
                                                         'status-pendding':contract.stateFlag==='1',
                                                         'status-rejected':contract.stateFlag==='2'}"></span>

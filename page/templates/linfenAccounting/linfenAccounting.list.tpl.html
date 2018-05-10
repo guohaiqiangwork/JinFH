@@ -1,11 +1,4 @@
 <div collapse="hideList">
-
-
-    <!-- 	<div ng-hide="searchTable.flag" class="search-toggle" ng-click="searchTable.flag = ! searchTable.flag">
-            <span class="glyphicon glyphicon-search"></span>
-        </div> -->
-
-    <!-- 查询条件 -->
     <div class="well">
         <form name="searchForm" novalidate>
             <select ng-model="options.bizType" ng-change="changeReset(keywords,options.bizType)">
@@ -18,7 +11,7 @@
 
                 <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepolicyQuery.html'" ></div>
                 <div class="page-header">
-                    <h2 style="display:inline-block">查询临分业务</h2>
+                    <h2 style="display:inline-block">查询临分账务</h2>
                 </div>
                 <!--<div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepolicyQuery.jsp'"></div>-->
                 <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepolicyQuery.list.html'"></div>
@@ -26,7 +19,7 @@
             <div ng-if="options.bizType==='E'" class="container-fluid">
                 <div ng-include="'/reins/page/templates/linfenAccounting/AccFacReendorQuery.html'"></div>
                 <div class="page-header">
-                    <h2 style="display:inline-block">查询临分业务</h2>
+                    <h2 style="display:inline-block">查询临分账务</h2>
                 </div>
                 <div ng-include="'/reins/page/templates/linfenAccounting/AccFacReendorQuery.list.html'"></div>
                 <!--<div ng-include="'/reins/page/templates/linfenAccounting/AccFacReendorQuery.jsp?operateType=Gen'"></div>-->
@@ -34,7 +27,7 @@
             <div ng-if="options.bizType==='C'" class="container-fluid">
                 <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepayQuery.html'"></div>
                 <div class="page-header">
-                    <h2 style="display:inline-block">查询临分业务</h2>
+                    <h2 style="display:inline-block">查询临分账务</h2>
                 </div>
                 <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepayQuery.list.html'"></div>
                 <!--<div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepayQuery.jsp'"></div>-->

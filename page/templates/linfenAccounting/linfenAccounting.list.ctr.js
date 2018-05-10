@@ -4,14 +4,18 @@ define(['app',
     app.registerController('AccountingFromQueryListCtrl', ['$scope', '$stateParams',  '$filter', '$modal', '$location',
         'OutqueryService','CodeService','facultativeService','$q',
          function ($scope, $stateParams, $filter, $modal, $location,outqueryService,codeService,facultativeService,$q) {
+
 			$scope.prompt =constants.prompt;//页面常量配置
-			 console.log($scope.prompt);
+			 //确认是否生成账单
             $scope.QueryAcc = function (rePolicyNo) {
                 var queryAcc ={
                     biztype:"P",
                     flag3:"F",
                     operateType:"Gen",
-                    recertifyNo:rePolicyNo}
+                    recertifyNo:rePolicyNo,
+                    acctype:'reinsOutType',
+                    pagination:$scope.pagination
+                }
                 facultativeService.checkQueryAcc(queryAcc).then(
                     function(data){
                         $scope.plyRiskUnitList = data.data;
@@ -19,7 +23,8 @@ define(['app',
                         throw(code);
                     }
                 );
-            }
+            };
+
             //分保单详情
             $scope.openPlyFromQuery = function (repolicyNo,dangerNo) {
             	console.log("openPlyFromQuery---"+repolicyNo);
@@ -86,17 +91,17 @@ define(['app',
                 });
             };
             
-            //切换账单，重置条件框的内容
+            //切换账单，重置条件框的内容，初始化查询
 	        $scope.changeReset = function(keywords,bizType){
-	            if($scope.options.bizType === "P"){
-	            	$scope.resetSearchBox();
-	            }
+	            // if($scope.options.bizType === "P"){
+	            // 	// $scope.resetSearchBox();
+	            // }
 	            if($scope.options.bizType === "E"){
-	            	$scope.resetEdrSearchBox();
+	            	// $scope.resetEdrSearchBox();
                     $scope.searchPlyInfoList(bizType);
 	            }
 	            if($scope.options.bizType === "C"){
-	            	$scope.resetClmSearchBox();
+	            	// $scope.resetClmSearchBox();
                     $scope.searchPlyInfoList(bizType);
 	            }
 
@@ -109,128 +114,131 @@ define(['app',
 	        }
 	        
 	        //重置查询框中内容---分保单
-	        $scope.resetSearchBox = function(){
-	            $scope.keywords = {
-	            		 //分保
-                      /*'plyNoFlag':'=',
-                        'riskUnitNoFlag':'=',
-                        'plyAppNoFlag':'=',
-                        'insNameFlag':'=',
-                        'insrnCCdeFlag':'=',
-                        'policyNo         ':'',//保单号
-                        'dangerNo':'',//风险单位号
-                        'plyAppNo':'',//投保单号
-                        'insuredName':'',//被保险人
-                        'insrnCCde':'',//险种
-                        'amtCur':"",//保额币别
-                        'prmCur':"",//保费币别
-                        'startDate':"",///保险起期
-                        'startDate1':"",//保险止期
-                        'includeSubDept':"1",//是否包含下级机构
-                        'deptCdeFlag':"",//归属部门标志位
-                        'deptCde':""//归属部门*/                        
-	            		'policyNo'   :'',// 保单号
-                		'dangerNo'   :'',// 风险单位号
-                		'proposalNo' :'', //  投保单号
-                		'insuredName':'',// 被保险人
-                		'riskCode'   :'',// 险种
-                		'currency'   :'',// 保额币别
-                		'startDate'  :'',//起保日期
-                		'comCode'    :'',//业务所属公司代码
-                		'endDate'    :''//终止日期
-                        	
-	            };
-	        }
-
-	        //重置查询框中内容---分批单
-	        $scope.resetEdrSearchBox = function(){
-	            $scope.keywords = {
-	            		 //分批
-                        /*'plyNoFlag':'=',
-                        'edrNoFlag':'=',
-                        'riskUnitNoFlag':'=',
-                        'insNameFlag':'=',
-                        'busiyearFlag':'=',
-                        'keywords.insrnCCdeFlag':'=',
-                        'deptCdeFlag':"",//归属部门标志位
-                        'amtCurFlag':'=',
-                        'prmCurFlag':'=',
-                        'policyNo         ':'',//保单号
-                        'endorNo':'',//批单号
-                        'dangerNo':'',//危险单位号
-                        'insuredName':'',//被保险人
-                        'busiyear':'',//业务年度
-                        'deptCde':"",//归属部门
-                        'startDate':"",///保险起期
-                        'startDate1':"",///保险起期
-                        'insrnCCde':'',//险种
-                        'amtCur':"",//保额币别
-                        'prmCur':"",//保费币别
-                        'includeSubDept':"1",//是否包含下级机构*/	
-	            		'plyNoFlag':'=',
-                        'riskUnitNoFlag':'=',
-                        'plyAppNoFlag':'=',
-                        'insNameFlag':'=',
-                        'insrnCCdeFlag':'=',
-                        'policyNo':'',// 保单号
-                        'endorNo':'',//批单号
-                		'dangerNo':'',// 风险单位号
-                		'proposalNo':'',// 投保单号
-                		'insuredName':'',// 被保险人
-                		'riskCode':'',// 险种
-                		'currency':'',// 保额币别
-                		'startDate':'',/// 保险起期
-                		'endDate' :'',//终止日期
-                		'treatyNo':'',
-	            };
-	        }
-	        //重置查询框中内容---分赔案
-	        $scope.resetClmSearchBox = function(){
-	            $scope.keywords = {
-	            		'policyNo':'',
-	            		'damageStartDate':'',
-                        'payNoFlag':'=',//立案号标志位
-                        'policyNoFlag':'=',//保单号标志位
-                        'dangerNoFlag':'=',//危险单位号标志位
-                        'damageReasonFlag':'=',//出险原因标志位
-                        'currencyFlag':'=',//币别标志位
-                        'insuredNameFlag':'=',//被保险人标志位
-                        'riskCodeFlag':'=',//险种标志位
-                        'comCodeFlag':'=',//险种标志位
-                        'payNo':'',//立案号
-                        'repolicyNo':'',//保单号
-                        'dangerNo':'',//危险单位号
-                        'damageDate':'',//出险起期
-                        'damageEndDate':'',
-                        'startDate':'',//起保日期
-                        'endDate':'',
-                        'damageReason':'',//出险原因
-                        'currency':'',//币别
-                        'insuredName':'',//被保险人
-                        'riskCode':'',//险种
-                        //补全条件 begin
-                        'bizYear':'',
-                        'facPrmCur':'',
-                        //补全条件 end
-                        'comCode':'',
-                        'diffFlag':'',
-                        'claimInfoFlag':'',
-                        'reinsType':'',
-	            };
-	        }
+	        // $scope.resetSearchBox = function(){
+	        //     $scope.keywords = {
+	        //     		 //分保
+             //          /*'plyNoFlag':'=',
+             //            'riskUnitNoFlag':'=',
+             //            'plyAppNoFlag':'=',
+             //            'insNameFlag':'=',
+             //            'insrnCCdeFlag':'=',
+             //            'policyNo         ':'',//保单号
+             //            'dangerNo':'',//风险单位号
+             //            'plyAppNo':'',//投保单号
+             //            'insuredName':'',//被保险人
+             //            'insrnCCde':'',//险种
+             //            'amtCur':"",//保额币别
+             //            'prmCur':"",//保费币别
+             //            'startDate':"",///保险起期
+             //            'startDate1':"",//保险止期
+             //            'includeSubDept':"1",//是否包含下级机构
+             //            'deptCdeFlag':"",//归属部门标志位
+             //            'deptCde':""//归属部门*/
+	        //     		'policyNo'   :'',// 保单号
+             //    		'dangerNo'   :'',// 风险单位号
+             //    		'proposalNo' :'', //  投保单号
+             //    		'insuredName':'',// 被保险人
+             //    		'riskCode'   :'',// 险种
+             //    		'currency'   :'',// 保额币别
+             //    		'startDate'  :'',//起保日期
+             //    		'comCode'    :'',//业务所属公司代码
+             //    		'endDate'    :''//终止日期
+             //
+	        //     };
+	        // }
+            //
+	        // //重置查询框中内容---分批单
+	        // $scope.resetEdrSearchBox = function(){
+	        //     $scope.keywords = {
+	        //     		 //分批
+             //            /*'plyNoFlag':'=',
+             //            'edrNoFlag':'=',
+             //            'riskUnitNoFlag':'=',
+             //            'insNameFlag':'=',
+             //            'busiyearFlag':'=',
+             //            'keywords.insrnCCdeFlag':'=',
+             //            'deptCdeFlag':"",//归属部门标志位
+             //            'amtCurFlag':'=',
+             //            'prmCurFlag':'=',
+             //            'policyNo         ':'',//保单号
+             //            'endorNo':'',//批单号
+             //            'dangerNo':'',//危险单位号
+             //            'insuredName':'',//被保险人
+             //            'busiyear':'',//业务年度
+             //            'deptCde':"",//归属部门
+             //            'startDate':"",///保险起期
+             //            'startDate1':"",///保险起期
+             //            'insrnCCde':'',//险种
+             //            'amtCur':"",//保额币别
+             //            'prmCur':"",//保费币别
+             //            'includeSubDept':"1",//是否包含下级机构*/
+	        //     		'plyNoFlag':'=',
+             //            'riskUnitNoFlag':'=',
+             //            'plyAppNoFlag':'=',
+             //            'insNameFlag':'=',
+             //            'insrnCCdeFlag':'=',
+             //            'policyNo':'',// 保单号
+             //            'endorNo':'',//批单号
+             //    		'dangerNo':'',// 风险单位号
+             //    		'proposalNo':'',// 投保单号
+             //    		'insuredName':'',// 被保险人
+             //    		'riskCode':'',// 险种
+             //    		'currency':'',// 保额币别
+             //    		'startDate':'',/// 保险起期
+             //    		'endDate' :'',//终止日期
+             //    		'treatyNo':'',
+	        //     };
+	        // }
+	        // //重置查询框中内容---分赔案
+	        // $scope.resetClmSearchBox = function(){
+	        //     $scope.keywords = {
+	        //     		'policyNo':'',
+	        //     		'damageStartDate':'',
+             //            'payNoFlag':'=',//立案号标志位
+             //            'policyNoFlag':'=',//保单号标志位
+             //            'dangerNoFlag':'=',//危险单位号标志位
+             //            'damageReasonFlag':'=',//出险原因标志位
+             //            'currencyFlag':'=',//币别标志位
+             //            'insuredNameFlag':'=',//被保险人标志位
+             //            'riskCodeFlag':'=',//险种标志位
+             //            'comCodeFlag':'=',//险种标志位
+             //            'payNo':'',//立案号
+             //            'repolicyNo':'',//保单号
+             //            'dangerNo':'',//危险单位号
+             //            'damageDate':'',//出险起期
+             //            'damageEndDate':'',
+             //            'startDate':'',//起保日期
+             //            'endDate':'',
+             //            'damageReason':'',//出险原因
+             //            'currency':'',//币别
+             //            'insuredName':'',//被保险人
+             //            'riskCode':'',//险种
+             //            //补全条件 begin
+             //            'bizYear':'',
+             //            'facPrmCur':'',
+             //            //补全条件 end
+             //            'comCode':'',
+             //            'diffFlag':'',
+             //            'claimInfoFlag':'',
+             //            'reinsType':'',
+	        //     };
+	        // }
 	        //分出查询-分保单查询-条件查询
 	        // $scope.searchPlyInfo = function(){
 	        // 	$scope.pagination.pageIndex = 1;
 	        //
 	        // 	$scope.searchPlyInfoList($scope.options.bizType, $scope.keywords, $scope.pagination, $scope.global.user, "");
 	        // }
-
 	        //临分询价-查询接口 searchFacPlyInfo
 	        $scope.searchPlyInfoList = function(bizType) {
-                $scope.keywords.bizType=bizType;
+                $scope.keywords.biztype=bizType;
+                $scope.keywords.operateType='Gen';
+                $scope.keywords.opt='facOut';
+                $scope.keywords.reinsOutType='';
                 facultativeService.checkFacultative($scope.operation,$scope.keywords,$scope.pagination,'','').then(
                     function(data){
                         $scope.plyRiskUnitList = data.data;
+                        $scope.pagination.totalItems=data.total;
                     },function(code){
                         throw(code);
                     }
@@ -266,6 +274,11 @@ define(['app',
 	            var _pagination = angular.copy($scope.pagination);
 				$scope.searchPlyInfoList($scope.options.bizType, $scope.keywords, _pagination, $scope.global.user, ""); 
 	        };
+	        if(!$scope.options){
+                $scope.options={
+                    bizType:''
+                };
+            }
 
             var init = function(){
                 $scope.keywords={
@@ -292,10 +305,17 @@ define(['app',
                     insuredNameTag:'=',
                     insuredName:'',
                     accType:'',
-                    biztype:'P',
+                    biztype:'',
                     operateType:'Gen',
                     opt:'facOut',
-                    reinsOutType:''
+                    reinsOutType:'',
+                    endorNoTag:'',
+                    endorNo:'',
+                    proposalNoTag:'',
+                    proposalNo:'',
+                    enquiryNoTag:'',
+                    enquiryNo:''
+
                 };
                 $scope.pagination = {
                         totalItems:0,
@@ -308,15 +328,17 @@ define(['app',
                         firstText: config.pagination.firstText,
                         lastText: config.pagination.lastText
                 };
-
-                $scope.options={
-                    bizType:'P'
+                if(!$scope.options.bizType){
+                    $scope.options.bizType='P';
                 }
+
                 //查询列表信息
                 if($scope.options.bizType!=='E' && $scope.options.bizType!=='C'){
+                    $scope.keywords.biztype='P';
                     facultativeService.checkFacultative($scope.operation,$scope.keywords,$scope.pagination,'','').then(
                         function(data){
                             $scope.plyRiskUnitList = data.data;
+                            $scope.pagination.totalItems=data.total;
                         },function(code){
                             throw(code);
                         }

@@ -69,14 +69,12 @@
                         <input type="radio" ng-model="keywords.accType" value="1">已生成帐单
                         <input type="radio" ng-model="keywords.accType" value="2" checked>未生成帐单
                     </td>
-                    <input type="hidden" ng-model="keywords.approve" value="1">
                     <td class=title>分保方式：</td>
                     <td class=common1 colspan="3">
                         <input type="checkbox" ng-model="keywords.reinsType" value="1" checked="checked">临分
-                        <input type="checkbox" ng-model="keywords.reinsType" value="2" checked="checked">混合
+                        <input type="checkbox" ng-model="keywords.reinsType" value="2">混合
                     </td>
 
-                    <input type="hidden" ng-model="keywords.biztype" value="P">
                 </tr>
                 <tr>
                     <td class=title>分保方式：</td>
@@ -92,7 +90,7 @@
                     <td colspan="6" align="right">
                         <a ng-click="resetSearchBox()" class="btn btn-default">重置</a>
                         <a ng-click="searchTableFlag = ! searchTableFlag" class="btn btn-default">取消</a>
-                        <a ng-click="searchPlyInfoList(option.bizType)" class="btn btn-primary">立即查询</a>
+                        <a ng-click="searchPlyInfoList('P')" class="btn btn-primary">立即查询</a>
 
                     </td>
                 </tr>

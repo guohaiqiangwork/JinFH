@@ -266,10 +266,12 @@ define(['app',
             };
             //根据当前的状态获取可以修改的状态
             $scope. getPropertyStates = function(input){
+    
             	var temp = [];
             	if(input === "3"||input === "4"){
     				$.each($scope.stateFlags, function(index, t){
-    					if(t.id === input || t.id === "1"){
+    				
+    					if(t.id === input || t.id === "1" || t.id === "6"){
     						temp.push(t);
     					}
     				});

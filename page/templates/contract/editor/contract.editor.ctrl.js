@@ -427,7 +427,7 @@ define(['app',
                     	if(angular.isNumber(parseFloat(layer.egnpi+""))&&angular.isNumber(parseFloat(layer.rate+""))){
                     		 var  layerPremium = (parseFloat(layer.egnpi+"")) * (parseFloat(layer.rate+"")) / 100 ;
                              layer.layerPremium = layerPremium.toFixed(2); 
-                             layer.rate = layer.rate.toFixed(6);
+                             layer.rate = parseFloat(layer.rate).toFixed(6);
                     	}
                     };
                     //add by zhx 比例合同新增溢额合约时自动计算合同限额
@@ -2065,8 +2065,8 @@ define(['app',
                         }else{
                         	$scope.contract= {};
                         }
-                        	
-                      
+
+
                         //编辑，查看
                         if( $scope.operation === 'edit' ||  $scope.operation === 'view') {
                         	$scope.showBusy(true);
@@ -2082,6 +2082,8 @@ define(['app',
                                     		$scope.contract = $scope.preDealWith(data);
                                     		for(var i=0;i<$scope.contract.fhxLayerList.length;i++){
                                     			for(var j=0;j<$scope.contract.fhxLayerList[i].fhxPlanList.length;j++){
+                                    				var getdata=new Date($scope.contract.fhxLayerList[i].fhxPlanList[j].planDate);
+                                                    $scope.contract.fhxLayerList[i].fhxPlanList[j].planDate=getdata.getFullYear() + '-'+(getdata.getMonth() + 1) + '-' +getdata.getDate()
                                     				console.log(new Date($scope.contract.fhxLayerList[i].fhxPlanList[j].planDate))
 
 												}

@@ -11,14 +11,14 @@
 
         <div class="contract-thumbnail" ng-class="{'animated shake':contract.contStatus==='2'}">
 
-           	<td>{{contract.treatyNo}}</td>
-            <td>{{contract.uwYear}}</td>
-            <td>{{contract.refNo}}</td>
-            <td>{{contract.startDate.time | date : config.display.dateFormat}}</td>
-            <td>{{contract.endDate.time | date : config.display.dateFormat}}</td>
-            <td>{{contract.treatyType | code : 'prop.treatyType'}}</td>
-            <td>{{contract.stateFlag | code : 'prop.stateFlag'}}</td>
-            <td>{{contract.optType | code : 'prop.optType'}}</td>
+           	<div>合同编号：{{contract.treatyNo}}</div>
+            <div>业务年度：{{contract.uwYear}}</div>
+            <div>合同简称：{{contract.refNo}}</div>
+            <div>合同起期：{{contract.startDate.time | date : config.display.dateFormat}}</div>
+            <div>合同止期：{{contract.endDate.time | date : config.display.dateFormat}}</div>
+            <div>合同类型：{{contract.treatyType | code : 'prop.treatyType'}}</div>
+            <div>合同状态：{{contract.stateFlag | code : 'prop.stateFlag'}}</div>
+            <div>业务类型：{{contract.optType | code : 'prop.optType'}}</div>
         </div>
 
         <div class="text-center" style="margin:5px 0 0 0">
