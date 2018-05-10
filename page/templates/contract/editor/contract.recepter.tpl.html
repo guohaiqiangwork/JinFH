@@ -124,7 +124,10 @@
 	            		<select class="form-control" ng-show="operation !='view'" ng-model="receptor.reinsCode"
                         	
                          ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes"
-                         ng-change="linkageReinsCode(contract.fhReinsList,$index)"></select>	
+                         ng-change="linkageReinsCode(contract.fhReinsList,$index)">
+                            <option value="" ng-selected="{{receptor.reinsCode}}" >{{receptor.reinsCode}}</option>
+                        </select>
+
                         <!-- ng-options="c.value for c in reinsCodes"></select>	 -->
                          <input  ng-model="receptor.reinsCode" ng-if="operation ==='view'" size="30" type="text" ng-model="receptor.reinsCode"
                                ng-readonly="operation ==='view' || effected" placeholder="" typeahead-loading="loading..."  
@@ -145,13 +148,13 @@
                 </td>
                 <td>
                     <div ng-if="operation==='view' ||effected">
-                        <div style="width: 70px;" ng-if="receptor.brokerFlag==='true' ">经纪人</div>
+                        <div style="width: 70px;" ng-if="receptor.brokerFlag==='true' " >经纪人</div>
                         <div style="width: 70px;" ng-if="receptor.brokerFlag==='false' ">再保人</div>
                     </div>
                     <div ng-if="operation!='view' && !effected" style="width: 70px;">
                         <div class="input-group">
-                            <input  type="radio" ng-model="receptor.brokerFlag"  value="true">经纪人 
-                            <input  type="radio" ng-model="receptor.brokerFlag"  value="false" ng-click="toggleBrokerFlag(receptor)">再保人 
+                            <input  type="radio" ng-model="receptor.brokerFlag"   value="1">经纪人 23423
+                            <input  type="radio" ng-model="receptor.brokerFlag"  value="0" ng-click="toggleBrokerFlag(receptor)">再保人
                             <span></span>
                         </div>
                     </div>

@@ -137,7 +137,7 @@
 
                                     <td>
                                     	<div>
-	                                        <input type="text" ng-model="feoReins.amount"  style="border:none;"/>	                                                
+	                                        <input type="text" ng-model="feoReins.amount"  style="border:none"/>	                                                
                                         </div>        
                                     </td>
                                     <td ng-if="dangerUnitFacEnquiry.feoEnquiry.enquiryType === 'E'">
@@ -148,10 +148,7 @@
                                     </td>
                                     <td>
                                     	<div class="input-group">
-	                                    	<input size="10" type="text" ng-model="feoReins.rate" style="border:none"
-	                                        	   ng-init="feoReins.rate=enquiryPropCalculator('getRate',feoReins,dangerUnit, '')" percentage
-	                                               ng-keyup="feoReins.premium=enquiryPropCalculator('fenbaofei',feoReins,dangerUnit, '')" percentage1
-	                                              />
+	                                    	<input size="10" type="text" ng-model="feoReins.rate" style="border:none" percentage/>
                                             <span></span>
                                         </div>
                                     </td>

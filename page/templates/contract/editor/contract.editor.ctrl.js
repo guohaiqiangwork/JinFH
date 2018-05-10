@@ -223,7 +223,8 @@ define(['app',
                         var every = parseFloat((parseFloat(layer.mdp) / payTimes)+"").toFixed(2);
                         var MDP = layer.mdp;
                         var _pay =angular.copy(contractService.getElement("npropPay"));
-                        _pay.payNo = 1;
+                        //_pay.payNo = 1;
+                        _pay.payTimes = 1;
                         _pay.planDate = $scope.contract.startDate;
                         _pay.currency = layer.currency;
                         //slh
@@ -233,7 +234,7 @@ define(['app',
                         }
                         //slh
                         _pay.payValue = (parseFloat(MDP) - every*(parseInt(payTimes) - 1)).toFixed(2) +"";
-                        _pay.payTimes = payTimes;
+                        //_pay.payTimes = payTimes;
                         layer.fhxPlanList.push(_pay);
                         if(payTimes > 1){
                         	 var ele = ( (new Date(end).getTime()) - (new Date(start).getTime()) ) /  parseInt(payTimes);
@@ -241,7 +242,7 @@ define(['app',
                              for(var i = 2; i <= payTimes; i++){
                                  var _pay =angular.copy(contractService.getElement("npropPay"));
                                 // _pay.id.payNo = i;
-                                 _pay.payNo = i;
+                                 _pay.payTimes = i;
                                  var temp = (new Date(start).getTime()) + (ele * (i-1));
                                  var temp = $scope.fomatTimeYNR(temp);
 //                                 var temp = start + ele * i;
@@ -264,7 +265,7 @@ define(['app',
                                  _pay.planDate = temp;
                                  _pay.currency = layer.currency;
                                  _pay.payValue = every + "";
-                                 _pay.payTimes = payTimes;
+                                 //_pay.payTimes = payTimes;
                                  layer.fhxPlanList.push(_pay);
                              }
                         }
@@ -2079,6 +2080,12 @@ define(['app',
                                     		history.back(-1);
                                     	}else{
                                     		$scope.contract = $scope.preDealWith(data);
+                                    		for(var i=0;i<$scope.contract.fhxLayerList.length;i++){
+                                    			for(var j=0;j<$scope.contract.fhxLayerList[i].fhxPlanList.length;j++){
+                                    				console.log(new Date($scope.contract.fhxLayerList[i].fhxPlanList[j].planDate))
+
+												}
+											}
                                             console.log($scope.contract);
                                     	}
                                     	$scope.showBusy(false);

@@ -267,7 +267,8 @@
                         </thead>
                         <tr ng-repeat="plan in layer.fhxPlanList">
 
-                            <td>{{plan.payNo}}</td>
+                            <!-- <td>{{plan.payNo}}</td> -->
+                            <td>{{plan.payTimes}}</td>
                             <td>
                                 <div ng-if="operation!='view' && !(effected)" class="col-sm-4">
                                     <input class="form-control "
@@ -275,7 +276,7 @@
                                            ng-required="true"
                                            type="text"  ng-model="plan.planDate" ng-change="checkPlanDate(layer.fhxPlanList, plan.planDate)">
                                 </div>
-                                <div ng-if="operation==='view' || effected">
+                                <div ng-if="operation==='view'||effected">
                                     {{plan.planDate | date:'yyyy-MM-dd'}}
                                 </div>
                             </td>

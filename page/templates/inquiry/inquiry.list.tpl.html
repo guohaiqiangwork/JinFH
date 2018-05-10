@@ -99,10 +99,14 @@
 	                        <label>确认标志</label>
 	                    </div>	
 	                    <div class="col-lg-4">
-		                    <select ng-model="keywords.verify">
-				      			<option  value="x">全部</option>
+		                    <select ng-model="keywords.verifyFlag">
+				      			<option  value="">全部</option>
+								<option  value="0" >暂存</option>
+								<option  value="1" >待确认</option>
 								<option  value="2" >待通过</option>
 								<option  value="3" >通过</option>
+								<option  value="4" >确认不通过</option>
+								<option  value="9" >注销</option>								
 				    		</select>
 	                    </div>
 	                    <!-- <div class="col-lg-2">

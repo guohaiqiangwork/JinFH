@@ -283,7 +283,8 @@ define(['app',
                     accType:'',
                     biztype:'P',
                     operateType:'Gen',
-                    opt:''
+                    opt:'facOut',
+                    reinsOutType:''
                 };
                 // $scope.type = {
                 // 		flag: ""

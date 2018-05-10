@@ -144,7 +144,8 @@ h1, h2, h3 {
 
 .ui-view-container {
     position: relative;
-    margin-top: 70px;
+    margin-top: 25px;
+    padding-top: 8px;
 }
 
 .search-toggle {
@@ -155,7 +156,7 @@ h1, h2, h3 {
     height: 60px;
     border-radius: 30px;
     background-color: #B7CCE2;
-    top: -110px;
+    top: -55px;
     color:#fff;
     padding-top:34px;
     transition: all 0.2s linear;
@@ -169,7 +170,7 @@ h1, h2, h3 {
     border-radius: 35px;
     background-color: #4584D3;
     cursor:pointer;
-    top: -100px;
+    top: -45px;
     left:-35px;
     padding-top: 43px;
 }
@@ -178,9 +179,9 @@ h1, h2, h3 {
     margin-bottom:0;
 }
 
-.well h1, .well h2, .well h3, .well h4 {
-    color: #fff;
-}
+/*.well h1, .well h2, .well h3, .well h4 {*/
+    /*color: #fff;*/
+/*}*/
 
 .huatai-logo-wrapper {
     width: 58px;
@@ -331,3 +332,8 @@ h1, h2, h3 {
     height: 30px;
 }
 
+.page-header {
+    padding-bottom: 9px;
+    margin: 5px 0 20px;
+    border-bottom: 1px solid #eee;
+}

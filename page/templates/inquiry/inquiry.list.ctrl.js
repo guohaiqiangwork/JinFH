@@ -364,7 +364,7 @@ define(['app',
                     "policyNo":"",
                     "currency":"",
                     "makeCom":"",
-                    "verify":""
+                    "verifyFlag":""
                     	
             }
 
