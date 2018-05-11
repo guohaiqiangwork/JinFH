@@ -3,18 +3,18 @@
         <table class="table table-striped table-hover">
             <thead>
                 <th>序号</th>
-                <th>{{prompt.fcoRepolicy.rePolicyNo}}</th>
-                <th>{{prompt.fcoRepolicy.policyNo}}</th>
+                <th>{{prompt.fcoRepolicy.RepolicyNo}}</th>
+                <th>{{prompt.fcoRepolicy.PolicyNo}}</th>
                 <th>出单公司</th>
-                <th>{{prompt.fcoRepolicy.insuredName}}</th>
+                <th>{{prompt.fcoRepolicy.InsuredName}}</th>
                 <th>临分确认人</th>
-                <th>{{prompt.fcoRepolicy.startDate}}</th>
+                <th>{{prompt.fcoRepolicy.StartDate}}</th>
                 <th>转收付时间</th>
-                <th>{{prompt.fcoRepolicy.currency}}</th>
-                <th>{{prompt.fcoRepolicy.amount}}</th>
+                <th>{{prompt.fcoRepolicy.Currency}}</th>
+                <th>{{prompt.fcoRepolicy.Amount}}</th>
                 <th>总含税保费</th>
                 <th>{{prompt.fcoRepolicy.baseRate}}</th>
-                <th>{{prompt.fcoRepolicy.shareRate}}</th>
+                <th>{{prompt.fcoRepolicy.ShareRate}}</th>
             </thead>
             <tbody>
             <tr ng-repeat="plyRisk in plyRiskUnitList">
@@ -56,7 +56,7 @@
         <table class="table table-striped">
             <tr class=common>
                 <input type="button" class="button" value="生成帐单" onclick="genAcc('FB');return false;">
-                <input type="button" class="button" value="打印分保条" onclick="PrintParticularsButtonAction();">
+                <!--<input type="button" class="button" value="打印分保条" onclick="PrintParticularsButtonAction();">-->
                 <input type="button" class="button" value="删除账单" onclick="delAcc();return false;">
                 <input type="button" class="button" value="账单转收付" onclick="payment();return false;">
             </tr>

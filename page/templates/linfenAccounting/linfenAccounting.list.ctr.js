@@ -6,7 +6,7 @@ define(['app',
          function ($scope, $stateParams, $filter, $modal, $location,outqueryService,codeService,facultativeService,$q) {
 
 
-			$scope.prompt =constants.prompt;//页面常量配置
+
 			 //确认是否生成账单
             $scope.QueryAcc = function (rePolicyNo) {
                 var queryAcc ={
@@ -94,9 +94,10 @@ define(['app',
             
             //切换账单，重置条件框的内容，初始化查询
 	        $scope.changeReset = function(keywords,bizType){
-	            // if($scope.options.bizType === "P"){
-	            // 	// $scope.resetSearchBox();
-	            // }
+	            if($scope.options.bizType === "P"){
+	            	// $scope.resetSearchBox();
+                    $scope.searchPlyInfoList(bizType);
+	            }
 	            if($scope.options.bizType === "E"){
 	            	// $scope.resetEdrSearchBox();
                     $scope.searchPlyInfoList(bizType);
@@ -346,6 +347,7 @@ define(['app',
                         }
                     );
                 }
+                $scope.prompt =constants.prompt;//页面常量配置
             };
 
              $scope.operation = $stateParams.operation;

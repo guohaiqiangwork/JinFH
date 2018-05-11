@@ -8,7 +8,7 @@ define(['app',
 
         //删除选中条目
         $scope.deleteReinsurer = function(){
-        	console.log('批量删除');
+ 
         	var reinsurerList = $filter('filter')($scope.reinsurerList, {checked:true});
         	if(reinsurerList.length == 0){
         		alert("请选择一条记录");
