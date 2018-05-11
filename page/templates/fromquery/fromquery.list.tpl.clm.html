@@ -1,4 +1,17 @@
 	                <div class="row">
+	                <div class="col-lg-2">
+	                        <label>分赔案号</label>
+	                    </div>
+	                    <div class="col-lg-4">
+	                        <div class="input-group">
+	                            <select ng-model="keywords.repayNoFlag">
+	                                <option value="=">=</option>
+	                                <option value="*">*</option>
+	                            </select>
+	                            <input type="text" ng-model="keywords.repayNo">
+	                            <span></span>
+	                        </div>
+	                    </div>
 	                    <div class="col-lg-2">
 	                        <label>立案号</label>
 	                    </div>
@@ -12,19 +25,6 @@
 	                            <span></span>
 	                        </div>
 	                    </div>
-	                    <div class="col-lg-2">
-                   			<label>危险单位号</label>
-                		</div>
-		                <div class="col-lg-4">
-		                    <div class="input-group">
-		                        <select ng-model = "keywords.dangerNoFlag">
-		                            <option value="=">=</option>
-		                            <option value="*">*</option>
-		                        </select>
-		                        <input type="text" ng-model = "keywords.dangerNo">
-		                        <span></span>
-		                    </div>
-		                </div>
 	                </div>
 	                
 	                
@@ -43,7 +43,25 @@
 		                        <span></span>
 		                    </div>
 		                </div>
-						<div class="col-lg-2">
+		                <div class="col-lg-2">
+                   			<label>危险单位号</label>
+                		</div>
+		                <div class="col-lg-4">
+		                    <div class="input-group">
+		                        <select ng-model = "keywords.dangerNoFlag">
+		                            <option value="=">=</option>
+		                            <option value="*">*</option>
+		                        </select>
+		                        <input type="text" ng-model = "keywords.dangerNo">
+		                        <span></span>
+		                    </div>
+		                </div>
+	                </div>
+	                
+	                
+	                
+	                <div class="row">
+	                <div class="col-lg-2">
                     		<label>险种</label>
                 		</div>
 		                <div class="col-lg-4">
@@ -56,26 +74,6 @@
 		                        <span></span>
 		                    </div>
 		                </div>
-	                </div>
-	                
-	                
-	                
-	                <div class="row">
-	                    <div class="col-lg-2">
-	                        <label>起保日期</label>
-	                    </div>
-	                    <div class="col-lg-4">
-	                        <div class="input-group">
-	                            <input type="text"
-										datepicker2
-										ng-model="keywords.startDate">
-	                                   	至
-								<input type="text"
-										datepicker2
-										ng-model="keywords.endDate">
-	                            <span></span>
-	                        </div>
-	                    </div>
 	                    <div class="col-lg-2">
 	                        <label>出险原因</label>
 	                    </div>
@@ -125,6 +123,21 @@
          			
          			
 	                <div class="row">
+	                <div class="col-lg-2">
+	                        <label>起保日期</label>
+	                    </div>
+	                    <div class="col-lg-4">
+	                        <div class="input-group">
+	                            <input type="text"
+										datepicker2
+										ng-model="keywords.startDate">
+	                                   	至
+								<input type="text"
+										datepicker2
+										ng-model="keywords.endDate">
+	                            <span></span>
+	                        </div>
+	                    </div>
 		                <div class="col-lg-2">
 	                        <label>出险日期</label>
 	                    </div>
@@ -136,8 +149,9 @@
 	                            <span></span>
 	                        </div>
 	                    </div>
-	                    
-		                <div class="col-lg-2">
+	                </div>
+	                <div class="row">
+	                 <div class="col-lg-2">
 							<label>归属部门</label>
 						</div>
 						<div class="col-lg-4">

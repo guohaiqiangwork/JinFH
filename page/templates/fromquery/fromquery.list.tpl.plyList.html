@@ -2,29 +2,59 @@
 <table class="table table-striped table-hover">
 	<thead>
 		<tr>
+		<td>分保</td>
+		<td>复核</td>
+		<td>分保方式</td>
+		
 			<td>投保单号</td>
+			<td>保单号</td>
 			<td>分保单号</td>
-			<td>危险单位号</td>
+			<td>出单公司</td>
+			<!-- <td>危险单位号</td> -->
 			<td>被保险人名/运输工具</td>
 			<td>起保日期</td>
 			<td>保额币别</td>
 			<td>总保额</td>
 			<td>保费币别</td>
 			<td>总含税保费</td>
+			<td>我司占比%</td>
+			<td>分出份额%</td>
+			<td>生成日期</td>
 			<td></td>
 		</tr>
 	</thead>
 	<tbody>
 		<tr ng-repeat="riskUnit in plyRiskUnitList">
+			<td>
+				<div ng-if="(riskUnit.reinsureFlag === '0')">N</div>
+                <div ng-if="(riskUnit.reinsureFlag === '1')">Y</div>
+			</td>
+			<td>
+				<div ng-if="(riskUnit.underWriteFlag === '0')">未复核</div>
+                <div ng-if="(riskUnit.underWriteFlag === '1')">已复核</div>
+                <div ng-if="(riskUnit.underWriteFlag === '9')">待复核</div>
+			</td>
+			<td>
+				<div ng-if="(riskUnit.reinsType === '0')">合同</div>
+                <div ng-if="(riskUnit.reinsType === '1')">临分</div>
+                <div ng-if="(riskUnit.reinsType === '2')">混合</div>
+                <div ng-if="(riskUnit.reinsType === '3')">自留</div>
+			</td>
 			<td>{{riskUnit.proposalNo}}</td>
+			<td>{{riskUnit.policyNo}}</td>
 			<td>{{riskUnit.rePolicyNo}}</td>
-			<td>{{riskUnit.dangerNo}}</td>
+			<td>{{riskUnit.comCode}}</td>
+			<!-- <td>{{riskUnit.dangerNo}}</td> -->
 			<td>{{riskUnit.insuredName}}</td>
 			<td>{{riskUnit.startDate.time | date : config.display.dateFormat}}</td>
 			<td>{{riskUnit.currency}}</td>
 			<td>{{riskUnit.amount}}</td>
 			<td>{{riskUnit.currency}}</td>
 			<td>{{riskUnit.premium}}</td>
+			
+			<td>{{riskUnit.baseRate}}</td>
+			<td>{{riskUnit.shareRate}}</td>
+			<td>{{riskUnit.createDate.time | date : config.display.dateFormat}}</td>
 			<td><a class="btn btn-default" ng-click="openPlyFromQuery(riskUnit.rePolicyNo,riskUnit.dangerNo)">详情</a>
 			</td>
 		</tr>

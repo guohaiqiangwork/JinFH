@@ -146,7 +146,7 @@
                         <span></span>
                     </div>
                 </td>
-                <td>
+                 <td>
                     <div ng-if="operation==='view' ||effected">
                         <div style="width: 70px;" ng-if="receptor.brokerFlag==='1' ">经纪人</div>
                         <div style="width: 70px;" ng-if="receptor.brokerFlag==='false' ">再保人</div>
@@ -182,13 +182,14 @@
                         </div>
                     </div>
                 </td> -->
+               
             
                 <td ng-if="operation != 'view'&&!effected">
                     <div class="btn-group" style="width: 165px;">
                         <a class="btn btn-default" ng-model="addReinsurer"
                            ng-if="operation !='view'" ng-click="removeRecepterProp(contract.fhReinsList,receptor)">-</a>
                         <a class="btn btn-default" ng-model="addReinsurer" ng-show="receptor.brokerFlag"
-                           ng-if="operation !='view'" ng-click="addFinalRecepterProp(contract)">添加最终再保人</a>
+                           ng-if="operation !='view'" ng-click="addFinalRecepterProp(receptor)">添加最终再保人</a>
                     </div>
                 </td>
             </tr>

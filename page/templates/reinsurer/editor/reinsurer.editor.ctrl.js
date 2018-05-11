@@ -2,8 +2,9 @@ define(['app',
 	'codes'
 ], function (app,codes) {
 
-    app.registerController('ReinsurerEditorCtrl', ['$scope', 'ReinsurerService', '$stateParams', '$location', '$window'
-        , function ($scope, reinsurerService, $stateParams, $location, $window) {
+    app.registerController('ReinsurerEditorCtrl', ['$scope', 'ReinsurerService', '$stateParams', '$location', '$window',
+    	'$state'
+        , function ($scope, reinsurerService, $stateParams, $location, $window,$state) {
 
             //查询字典
             var searchFlag = true;
@@ -48,10 +49,10 @@ define(['app',
             };
 
             //返回查询再保人
-            $scope.closeReinsurer = function () {
+       /*     $scope.closeReinsurer = function () {
                 var url = '/reinsurers';
                 $location.path(url);
-            };
+            };*/
 
             //保存(新增（new），编辑（update）)
             $scope.saveReinsurer = function(){
@@ -80,8 +81,15 @@ define(['app',
                             function(data){
                                 if(data.result==="success"){
                                 	alert("修改成功！再保人为："+data.msg);
-                                	$window.location.reload();
-                                    $scope.closeReinsurer();
+                              /*  	$ndow.location.reload();
+                                    $scope.closeReinsurer();*/
+                                	$state.go('reinsurer')
+                                	  $scope.$on('$stateChangeStart', function(event, next) {
+                                          if(next.name === 'reinsurer')
+                                              $scope.showSearchList();
+                                          if(next.name === 'reinsuer.operation' ||  next.name === '.reinsurer.new')
+                                              $scope.hideSearchList();
+                                      });
                                 }else{
                                 	alert("修改失败！");
                                 }

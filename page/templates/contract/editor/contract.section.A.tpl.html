@@ -83,7 +83,7 @@
                 <label>分出比例(%)</label>
             </div>
             <div class="col-sm-4">
-                <input class="form-control" type="text" ng-model="section.reinsureRate"
+                <input class="form-control" type="text" ng-model="section.reinsureRate" ng-required="true"
                       percentage   ng-readonly="operation === 'view'||effected" >
                 <span></span>
             </div>
@@ -92,7 +92,7 @@
                 <label>合同限额</label>
             </div>
             <div class="col-sm-4">
-                <input class="form-control" type="text" ng-model="section.limitValue" ng-readonly="operation === 'view'||effected" >
+                <input class="form-control" type="text" ng-model="section.limitValue" ng-readonly="operation === 'view'||effected"  ng-required="true">
                 <span></span>
             </div>
         </div>
@@ -186,7 +186,7 @@
                 <label>业务比例(%) </label>
             </div>
             <div class="col-sm-4">
-                <input class="form-control" type="text" ng-model="section.shareholderRate" 
+                <input class="form-control" type="text" ng-model="section.shareholderRate" ng-required="true"
                     percentage  ng-readonly="operation === 'view'||effected"> 
                 <span></span>
             </div>
@@ -196,7 +196,7 @@
                 <label>主共业务比例(%)</label>
             </div>
             <div class="col-sm-4">
-                <input class="form-control" type="text" ng-model="section.shareholderMainCoinsRate" 
+                <input class="form-control" type="text" ng-model="section.shareholderMainCoinsRate" ng-required="true"
                       percentage
                        ng-readonly="operation === 'view'||effected" >
                 <span></span>
@@ -205,7 +205,7 @@
                 <label>从共业务比例(%)</label>
             </div>
             <div class="col-sm-4">
-                <input class="form-control" type="text" ng-model="section.shareholdersubCoinsRate" 
+                <input class="form-control" type="text" ng-model="section.shareholdersubCoinsRate" ng-required="true"
                     percentage  ng-readonly="operation === 'view'||effected">
                 <span></span>
             </div>
@@ -257,7 +257,7 @@
                 <label>固定手续费(%)</label>
             </div>
              <div class="col-sm-4">
-                <input class="form-control" type="text" ng-model="section.commRate" ng-readonly="operation === 'view'||effected"
+                <input class="form-control" type="text" ng-model="section.commRate" ng-readonly="operation === 'view'||effected" ng-required="true"
                      percentage >
                 <span></span>
             </div>  

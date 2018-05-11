@@ -5,6 +5,7 @@ define(['app',
         'OutqueryService','CodeService','facultativeService','$q',
          function ($scope, $stateParams, $filter, $modal, $location,outqueryService,codeService,facultativeService,$q) {
 
+
 			$scope.prompt =constants.prompt;//页面常量配置
 			 //确认是否生成账单
             $scope.QueryAcc = function (rePolicyNo) {
@@ -18,7 +19,7 @@ define(['app',
                 }
                 facultativeService.checkQueryAcc(queryAcc).then(
                     function(data){
-                        $scope.plyRiskUnitList = data.data;
+                        $scope.QueryAccs = data.data;
                     },function(code){
                         throw(code);
                     }

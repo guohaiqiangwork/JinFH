@@ -107,19 +107,14 @@ define(['app',
     		};
     		 //条件查询
             $scope.searchContracts = function(){
-            	if($scope.keywords.contYear === null){
-            		$scope.keywords.contYear = "";
-            	}
                 $scope.pagination.pageIndex = 1;
-                $scope.searchQueryXTesty($scope.keywords, $scope.pagination, {});
+                $scope.searchPostCodes($scope.keywords, $scope.pagination, {});
             };
 	    	 //重置查询框中内容
 	        $scope.resetSearchBox = function(){
 	            $scope.keywords = {
-	            	"treatyNo":'',
-	            	"refNo":'',
-	            	"uwYear":'',
-	            	"treatyType":''
+	            		"gradeCName":'',
+		            	"validStatus":''
 	            };
 	            
 	        };
@@ -142,8 +137,9 @@ define(['app',
 	        // 搜索条件
 	        $scope.resetSearchBox = function(){
 	            $scope.keywords = {
+	            		"gradeCNameFlag":'',
 	            		"gradeCName":'',
-		            	"saaGrade":''
+		            	"validStatus":''
 	            };
 	        };
 	        

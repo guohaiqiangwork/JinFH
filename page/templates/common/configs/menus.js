@@ -182,7 +182,8 @@ define(
                 	"7.1": {
                 		 "id":"reins.allocation",
      		             "label":"岗位代码",
-                         "url":"/reins/permission.do?actionType=query "
+     		             "url":"#/postCode "
+//                         "url":"/reins/permission.do?actionType=query "
                         },
                     "7.2": {
                     	 "id":"reins.grade",

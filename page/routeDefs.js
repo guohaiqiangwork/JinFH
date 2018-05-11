@@ -428,7 +428,7 @@ define(['app'
                             dummy: $couchPotatoProvider.resolveDependencies(['/reins/page/templates/authoritys/postCodes/postCode.list.addpush.js'])
                         },
                         views: {
-                            main: {
+                        	main: {
                                 templateUrl: '/reins/page/templates/authoritys/postCodes/postCode.list.addpush.html',
                                 controller: 'postCodeAddPush'
                             }

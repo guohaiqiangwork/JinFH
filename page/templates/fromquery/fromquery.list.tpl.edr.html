@@ -30,6 +30,19 @@
 			
 			
          	<div class="row">
+         	<div class="col-lg-2">
+                    <label>分批单号</label>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <select ng-model = "keywords.reendorNoFlag">
+                            <option value="=">=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" ng-model = "keywords.reendorNo">
+                        <span></span>
+                    </div>
+                </div>
                 <div class="col-lg-2">
                     <label>危险单位号</label>
                 </div>
@@ -43,7 +56,11 @@
                         <span></span>
                     </div>
                 </div>
-				<div class="col-lg-2">
+         	</div>
+         	
+         	
+         	<div class="row">
+         	<div class="col-lg-2">
                     <label>被保险人</label>
                 </div>
                 <div class="col-lg-4">
@@ -56,10 +73,6 @@
                         <span></span>
                     </div>
                 </div>
-         	</div>
-         	
-         	
-         	<div class="row">
                 <div class="col-lg-2">
                     <label>起保日期</label>
                 </div>
@@ -67,7 +80,7 @@
                 	<div class="input-group">
                         <input type="text" datepicker2
                                ng-model = "keywords.startDate">至<input type="text"
-                                datepicker2 ng-model = "keywords.startDate">
+                                datepicker2 ng-model = "keywords.endDate">
                         <span></span>
                   	</div>
                 </div>
@@ -76,6 +89,17 @@
          	
          	
          	<div class="row">
+         	<div class="col-lg-2">
+                    <label>保额币别</label>
+                </div>
+                <div class="col-lg-4">
+                     <div class="input-group">
+                         <select  ng-model="keywords.currency1" ng-options="c.id as c.value for c in currencys">
+	            			<option value=''>全部</option>
+       					 </select>
+                         <span></span>
+                     </div>
+	            </div>
          		<div class="col-lg-2">
                     <label>保费币别</label>
                 </div>
@@ -87,8 +111,12 @@
                          <span></span>
                      </div>
 	            </div>
-
-             	<div class="col-lg-2">
+         	</div>
+         	
+         	
+         	<div class="row">
+         		
+         	<div class="col-lg-2">
                     <label>险种</label>
                 </div>
                 <div class="col-lg-4">
@@ -101,22 +129,6 @@
                         <span></span>
                     </div>
                 </div>
-         	</div>
-         	
-         	
-         	<div class="row">
-         		<div class="col-lg-2">
-                    <label>保额币别</label>
-                </div>
-                <div class="col-lg-4">
-                     <div class="input-group">
-                         <select  ng-model="keywords.currency1" ng-options="c.id as c.value for c in currencys">
-	            			<option value=''>全部</option>
-       					 </select>
-                         <span></span>
-                     </div>
-	            </div>
-         	
          	
              	<!-- <div class="col-lg-2">
 					<label>是否包含下级机构</label>

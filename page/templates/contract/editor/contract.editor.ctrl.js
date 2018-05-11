@@ -402,11 +402,14 @@ define(['app',
                     	}
                     };
 
-                    $scope.calTotalQuota = function(layer,reinstRate)
-                    {
-
-                    	if(angular.isNumber(parseFloat(layer.layerquota+""))&&angular.isNumber(parseFloat(reinstRate+""))){
-                   		    layer.totalquota = (parseFloat(layer.layerquota+""))*((parseFloat(reinstRate+"")/100)+1);
+                    $scope.calTotalQuota = function(layer) {
+                    	var sumRein=0;
+                        if (layer.reinstTypeList)
+                            $.each(layer.reinstTypeList, function (index, rein) {
+                                sumRein=sumRein + rein.reinstRate;
+                            })
+                    	if(angular.isNumber(parseFloat(layer.layerquota+""))&&angular.isNumber(parseFloat(sumRein+""))){
+                   		    layer.totalquota = (parseFloat(layer.layerquota+""))*((parseFloat(sumRein+"")/100)+1);
 //                    		layer.totalquota=(parseFloat(layer.layerquota+""))*((parseFloat(layer.reinstType+""))+1);
                     	}
                     };
@@ -1316,11 +1319,11 @@ define(['app',
                     //删除接收人（比例）
                     $scope.removeRecepterProp = function(recepterList,$recepter){
                         if(confirm('删除接收人' + $recepter.reinsCode + "吗？")){
-                        	alert("1");
+                        	
                             $.each(recepterList, function(index, recepter){
-                            	alert("2");
+                       
                                 if($recepter === recepter){
-                                	alert(3);
+                           
                                     recepterList.splice(index, 1);
                                     for(var indexs = 0;index < $scope.contract.fhSectionList.length; indexs++){
             			    			$scope.contract.fhSectionList[indexs].fhSectionReinsList.splice(index, 1);
@@ -1333,7 +1336,13 @@ define(['app',
                     //添加最终接收人 (比例)
                     $scope.addFinalRecepterProp = function(recepter){
                         var _finalrecepter =  angular.copy(contractService.getElement("propFinalRecepter"));
-                        recepter.fhFinalReinsList.push(_finalrecepter);
+                        debugger
+                        if(  !recepter.fhFinalReinsList){
+                            recepter.fhFinalReinsList =[];
+                        	
+                        }
+                        	 recepter.fhFinalReinsList.push(_finalrecepter);
+                    
                         $scope.checkRecepterDetail(recepter);
                     };
 

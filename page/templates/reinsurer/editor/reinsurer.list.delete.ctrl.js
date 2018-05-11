@@ -1,8 +1,8 @@
 define(['app'	
 ], function (app) {
     app.registerController('ReinsurerDeleteCtrl', ['$scope', '$stateParams', 'ReinsurerService', '$location'
-        , '$modalInstance', 'reinsurerList'
-        , function ($scope,$stateParams, reinsurerService, $location, $modalInstance, reinsurerList) {
+        , '$modalInstance', 'reinsurerList','$state'
+        , function ($scope,$stateParams, reinsurerService, $location, $modalInstance, reinsurerList,$state) {
 
             //向后台传递删除列表的关键字
             var deleteReinsurer = function(keywords){
@@ -11,7 +11,8 @@ define(['app'
                     function(data){
                         //console.log(data);
                     	alert("删除成功！");
-                    	$location.path("/reinsurers");
+                    	/*$location.path("/reinsurers");*/
+                   	 $state.go('reinsurer')
                     },
                     function(code){
                         throw(code);

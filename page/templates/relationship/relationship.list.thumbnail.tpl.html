@@ -1,13 +1,15 @@
 <div class="">
-    <div ng-if="mode==='admin'">
+   <!--  <div ng-if="mode==='admin'"> -->
+   <div>
         <input type="checkbox"  ng-model="checkAll" ng-click="checkAllRelationships()">全选
-    </div>
+        </div>
+   <!--  </div> -->
 
     <div ng-repeat="relationship in relationshipList" class="contract-thumbnail-wrapper hover-visible-wrapper">
-        <div ng-if="mode==='admin'">
+     <!--    <div ng-if="mode==='admin'"> -->
             <input type="checkbox" ng-model="relationship.checked">
             {{getIndex($index)}}
-        </div>
+       <!--  </div> -->
 
         <div class="contract-thumbnail">
 			<div>

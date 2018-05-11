@@ -107,9 +107,11 @@ define(['app',
 	            		'proposalNoFlag' :'',
 	            		'dangerNoFlag' :'',
 	            		'policyNoFlag' :'',
+	            		'rePolicyNoFlag' :'',
 	            		'policyNo'   :'',// 保单号
                 		'dangerNo'   :'',// 风险单位号
                 		'proposalNo' :'', //  投保单号
+                		'rePolicyNo' :'',//分保单号
                 		'insuredName':'',// 被保险人
                 		'riskCode'   :'',// 险种
                 		'currency'   :'',// 保额币别
@@ -133,6 +135,7 @@ define(['app',
 	            		'riskUnitNoFlag' :'',
 	            		'endorNoFlag' :'',
 	            		'policyNoFlag' :'',
+	            		'reendorNoFlag' :'',
                         'policyNo':'',// 保单号
                         'endorNo':'',//批单号
                 		'dangerNo':'',// 风险单位号
@@ -144,6 +147,8 @@ define(['app',
                 		'startDate':'',/// 保险起期
                 		'endDate' :'',//终止日期
                 		'treatyNo':'',
+                		'reendorNo':'',//分批单号
+                		
 	            }
 	        }
 	        //add by chaiyuming 20150415 end
@@ -162,6 +167,7 @@ define(['app',
                         'insuredNameFlag':'',//被保险人标志位
                         'riskCodeFlag':'',//险种标志位
                         'comCodeFlag':'',//险种标志位
+                        'repayNoFlag':'',//分赔案号标志位
                         'payNo':'',//立案号
                         'repolicyNo':'',//保单号
                         'dangerNo':'',//危险单位号
@@ -181,6 +187,7 @@ define(['app',
                         'diffFlag':'',
                         'claimInfoFlag':'',
                         'reinsType':'',
+                        'repayNo':'',//分赔案号
 	            }
 	        }
 	        //add by chaiyuming 20150420 end
@@ -256,6 +263,7 @@ define(['app',
 	            		'proposalNoFlag' :'',
 	            		'dangerNoFlag' :'',
 	            		'policyNoFlag' :'',
+	            		'rePolicyNoFlag' :'',
                         //分保、分批
                 		'endorNo':'',//批单号
                 		'policyNo'   :'',// 保单号
@@ -268,6 +276,7 @@ define(['app',
                 		'startDate'  :'',//起保日期
                 		'comCode'    :'',//业务所属公司代码
                 		'endDate'    :'',//终止日期
+                		'rePolicyNo' :'',//分保单号
                 		
                 		
                 };

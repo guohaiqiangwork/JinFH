@@ -10,24 +10,19 @@
             <table class="table">
                     <td>再保岗位管理名称</td>
                     <td>
-                        <select ng-model="keywords.contNoFlag">
+                        <select ng-model="keywords.gradeCNameFlag">
                             <option value="=" selected>=</option>
                             <option value="*">*</option>
                         </select>
                     </td>
                     <td>
-                        <input type="text" ng-model="keywords.treatyNo">
+                        <input type="text" ng-model="keywords.gradeCName">
                     </td>
-                    <td>状态</td>
-                    <td>
-                        <select ng-model="keywords.refNmeFlag">
-                            <option value="=" selected>=</option>
-                            <option value="*">*</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="text" ng-model="keywords.refNo">
-                    </td>
+                    <td class=title>帐单生成状态：</td>
+	                <td class=common1 colspan="3">
+	                    <input type="radio" ng-model="keywords.validStatus" value="0" checked="checked">无效
+	                    <input type="radio" ng-model="keywords.validStatus" value="1">有效
+	                </td>
 
                 </tr>
                 <tr>

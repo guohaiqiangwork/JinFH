@@ -21,9 +21,12 @@
                <input type="checkbox" ng-model="checkAll" ng-click="checkAllContracts()" class="ng-pristine ng-valid">
             </td>
             <td class="ng-binding">{{saaGrade.gradeCName}}</td>
-            <td class="ng-binding">00000000</td>
-            <td class="ng-binding">2018-05-01</td>
-            <td class="ng-binding">	有效</td>
+            <td class="ng-binding">{{saaGrade.comCode}}</td>
+            <td class="ng-binding">{{saaGrade.createTime.time | date : config.display.dateFormat}}</td>
+            <td class="ng-binding">	
+            	<div ng-if="(saaGrade.validStatus === '0')">无效</div>
+		        <div ng-if="(saaGrade.validStatus === '1')">有效</div>
+            </td>
             <td>
                 <div class="btn-group btn-group-sm hover-visible">
                     <!-- ngIf: mode==='admin' -->

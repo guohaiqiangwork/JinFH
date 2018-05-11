@@ -85,12 +85,12 @@
 	                 <div class="col-sm-1">
 	                    <label>再保人属性：</label>
 	                 </div>
-				      <div class="col-sm-1">
+				   <!--    <div class="col-sm-1">
 				      	 <select ng-model="keywords.reinsTypeFlag">
 				      		  <option  value="=">=&nbsp;</option>
 							  <option  value="*">*&nbsp;</option>
 				    	 </select>
-				      </div>
+				      </div> -->
 				      <div class="col-sm-1">
 					      <select ng-model="keywords.reinsType">
 					           <option  value="">全部</option>
@@ -153,7 +153,9 @@
        <!--  <span class="pull-right">共: {{pagination.totalItems}}份</span> -->
    <!--  </div> -->
     <div class="clearfix pull-right" ng-show="reinsurerList.length > 0" style="margin-bottom:3%">
+    <div class="clearfix panel-footer">
      <span class="pull-right">共: {{pagination.totalItems}}份</span>
+     </div>
         <!-- 分页  -->
 	    <pagination total-items="pagination.totalItems"
 	                page="pagination.pageIndex"
