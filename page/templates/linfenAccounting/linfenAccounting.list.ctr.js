@@ -328,12 +328,13 @@ define(['app',
                         firstText: config.pagination.firstText,
                         lastText: config.pagination.lastText
                 };
-                if(!$scope.options.bizType){
-                    $scope.options.bizType='P';
-                }
+                // if(!$scope.options.bizType){
+                //     $scope.options.bizType='P';
+                // }
 
                 //查询列表信息
-                if($scope.options.bizType!=='E' && $scope.options.bizType!=='C'){
+                if($scope.options.bizType!=='E' && $scope.options.bizType!=='C'&& !$scope.options.bizType){
+                    $scope.options.bizType='P';
                     $scope.keywords.biztype='P';
                     facultativeService.checkFacultative($scope.operation,$scope.keywords,$scope.pagination,'','').then(
                         function(data){

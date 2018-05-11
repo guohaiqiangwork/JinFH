@@ -1,6 +1,6 @@
 <div collapse="hideList">
 	<div class="page-header">
-	    <h3 style="display:inline-block">分出查询</h3>
+	    <h3 style="display:inline-block">分保处理</h3>
 	</div>
 	
 	<div ng-hide="searchTable.flag" class="search-toggle" ng-click="searchTable.flag = ! searchTable.flag">
@@ -9,12 +9,13 @@
 	
  <!-- 查询条件 -->
 	<div collapse="!searchTable.flag" class="well">
-	    <h4>查询临分业务</h4>
+	<!-- 因为可查询临分和合约的，多以先注掉 -->
+	    <!-- <h4>查询临分业务</h4> -->
 	    <form name="searchForm" novalidate>
             <select ng-model="options.bizType" ng-change="changeReset(keywords)">
-             	<option  value="1">分保</option>
-             	<option  value="2">分批</option>
-             	<option  value="3">分赔</option>
+             	<option  value="1">分保单查询</option>
+             	<option  value="2">分批单查询</option>
+             	<option  value="3">分赔案查询</option>
       	 	</select>
       	 	
 	        <div ng-if="options.bizType==='1'" class="container-fluid">

@@ -13,7 +13,7 @@ define(
                     },
                     "1.2": {
                         "id" : "reins.reinsout.reinsOutQuery",
-                        "label": "分出查询",
+                        "label": "分保处理",
                         "url": "#/fromquerys/1"
                     },
                     "1.3": {

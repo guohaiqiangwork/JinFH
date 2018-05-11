@@ -185,7 +185,7 @@ define(['app',
 	        }
 	        //add by chaiyuming 20150420 end
 	        
-	        //分出查询-分保单查询-条件查询
+	        //分保处理-分保单查询-条件查询
 	        $scope.searchPlyInfo = function(){
 	        	$scope.pagination.pageIndex = 1;
 	        	
