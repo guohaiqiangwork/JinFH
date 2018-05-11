@@ -21,6 +21,7 @@ define(['angular',
     '../page/templates/service/olive.service.settleAcc',
     '../page/templates/service/olive.service.settleAcc',
     '../page/templates/service/olive.service.excessLoss',
+    // '../page/templates/service/olive.service.postCodes',
     '../page/templates/service/olive.service.facultative'//临分
     
 ], function (angular) {
@@ -47,6 +48,7 @@ define(['angular',
         'olive.service.settleAcc',
         'olive.service.settleAcc',
         'olive.service.excessLoss',
+        // 'olive.service.postCodes',
         'olive.service.facultative'
     ]);
 });

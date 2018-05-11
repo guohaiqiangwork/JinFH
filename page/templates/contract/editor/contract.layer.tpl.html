@@ -210,26 +210,34 @@
                             <td colspan="2" >恢复保费</td>
                         </tr>
                         <tr>
-                          
-                            <td >恢复保费类型</td>
+                            <td> 序号</td>
+                            <td>恢复保费类型</td>
                             <td class=" col-sm-4" align="left">恢复比例</td>
+                            <td></td>
                         </tr>
-                        <tr>
+                        <tr ng-repeat="rein in layer.reinstTypeList">
+                            <td>{{$index+1}}</td>
                             <td>
                                 <div ng-if="operation!='view' && !effected">
-                                    <select ng-model="layer.reinstType"
+                                    <select ng-model="rein.reinstType"
                                             ng-options="a.id as a.value for a in reinstTypes"></select>
                                 </div>
-                                <div ng-if="operation === 'view' || effected">{{layer.reinstType | code:'nprop.reinstTypes'}}</div>
+                                <div ng-if="operation === 'view' || effected">{{rein.reinstType |
+                                    code:'nprop.reinstTypes'}}
+                                </div>
                             </td>
                             <td align="left">
-                                <div class="input-group col-sm-9" >
-                                    <input class="form-control" type="text" ng-model="layer.reinstRate" percentage
-                                       ng-readonly="operation==='view' ||effected" ng-required="true" ng-blur="calTotalQuota(layer);setRol(layer)" >
+                                <div class="input-group col-sm-9">
+                                    <input class="form-control" type="text" ng-model="rein.reinstRate" percentage
+                                           ng-readonly="operation==='view' ||effected" ng-required="true"
+                                           ng-blur="calTotalQuota(layer,rein.reinstRate);setRol(layer)">
                                     <span></span>
                                 </div>
                             </td>
+                            <td ><button ng-click="delReinstTypeList($index)">删除</button></td>
                         </tr>
+
+                        <tr><td><button ng-click="addReinstTypeList()">添加</button></td></tr>
                     </table>
                 </form>
                  <!--最终接受人-->
@@ -242,18 +250,18 @@
                  <h4>保费支付信息</h4>
                 <form name="frmPayment" novalidate>
                     <div class="container-fluid">
-	                    <tr ng-repeat="plan in layer.fhxPlanList">
+	                    <tr >
 	                        <div class="row">
 	                            <div class="col-sm-1">
 	                                <label>期次:</label>
 	                            </div>
 	                            <div class="col-sm-2">
-	                                <input class="form-control" type="text"  ng-model="plan.payTimes"
+	                                <input class="form-control" type="text" ng-init="payTimes=layer.fhxPlanList.length"  ng-model="payTimes"
 	                                       ng-readonly="operation==='view' ||effected" ng-required="true">
 	                                <span></span>
 	                            </div>
 	                            <div class="col-sm-9" ng-if="operation !='view' && !effected">
-	                                <a class="btn btn-default" ng-click="confirmPay(layer,plan.payTimes)">确定</a>
+	                                <a class="btn btn-default" ng-click="confirmPay(layer,payTimes)">确定</a>
 	                            </div>
 	                        </div>
                         </tr>

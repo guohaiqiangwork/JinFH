@@ -11,16 +11,21 @@
 
         <div class="contract-thumbnail">
 			<div>
-                {{relationship.uwYear}}
+               业务年度： {{relationship.uwYear}}
             </div>
             <div>
-                {{relationship.treatyName}}
+            合同编码：{{relationship.treatyNo}}
             </div>
-            <div>{{relationship.priorityNo}}</div>
+            <div>
+           合同全称：    {{relationship.treatyName}}
+            </div>
+            <div>顺序号：{{relationship.priorityNo}}</div>
         </div>
 
         <div class="text-center" style="margin:5px 0 0 0">
 
+<div>
+				<span class="contract-status" ></span>{{relationship.treatyNo}}</div>
             <div class="btn-group btn-group-sm hover-visible">
                 <a ng-href="#/relationships/{{relationship.uwYear}}{{relationship.treatyNo}}/edit"  class="btn btn-default" >编辑</a>
                 <a ng-href="#/relationships/{{relationship.uwYear}}{{relationship.treatyNo}}/view" class="btn btn-default">查看</a>

@@ -11,10 +11,10 @@
 		        </thead> 
 		        <tbody>
 		        <tr ng-repeat="reinsurer in reinsurerList" class="hover-visible-wrapper">
-		            <td><input type="checkbox" ng-model="reinsurer.checked">{{getIndex($index)}}</td>	            
-		            <td>{{reinsurer.validStatus}}</td>
-		            <td><a ng-href="#/reinsurers/{{reinsurer.reinsCode}}/view">{{reinsurer.reinsCode}}</a></td>
-		            <td>{{reinsurer.shortName}}</td>
+		            <td style="width:5%"><input type="checkbox" ng-model="reinsurer.checked">{{getIndex($index)}}</td>	            
+		            <td style="width:15%">{{reinsurer.validStatus}}</td>
+		            <td style="width:15%"><a ng-href="#/reinsurers/{{reinsurer.reinsCode}}/view">{{reinsurer.reinsCode}}</a></td>
+		            <td style="width:20%">{{reinsurer.shortName}}</td>
 		            
 		            <td>
 		            	<div class="btn-group btn-group-sm hover-visible"> 

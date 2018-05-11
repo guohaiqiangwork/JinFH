@@ -1,0 +1,72 @@
+<div class="pull-right">
+    <!-- 修改 by renshuai -->
+    <a class="btn btn-primary" ng-click="saveRelationship(operation)"
+       ng-if="operation != 'view'"
+       ng-disabled="!saveRelationships.$valid">保存</a>
+    <a class="btn btn-default" ng-if="operation === 'view'" ng-click="toggleOperation('edit')">编辑</a>
+    <a class="btn btn-default" ng-click="comeBack()">返回</a>
+</div>
+<div class="container-fluid">
+    <form name="saveRelationships" ng-class="{'readonly':operation==='view'}">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label>业务年度:</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="业务年度"
+                           ng-readonly="operation === 'view'||operation === 'edit'"
+                           ng-model="relationship.uwYear"
+                           ng-minlength="4"
+                           ng-maxlength="4"
+                           ng-required="true">
+                    <span></span>
+                </div>
+                <div class="col-sm-2">
+                    <label>合同编号:</label>
+                </div>
+                <div class="col-sm-4">
+                	<select ng-if="operation === 'new'"  ng-model="relation.treatyNo"
+                			ng-change="searchTreaytNo(relationship,relation.treatyNo)"
+                			 ng-options=" c.id +'-'+c.value for c in treatyNos" >
+	                    	<option value="">---请选择---</option>
+	                    	<!-- <option>{{relationship.treatyNo}}</option> -->	
+	                    	                 	
+	            	</select>  
+                    <input ng-if="operation != 'new'" type="text" class="form-control" placeholder="合同编号"
+                           ng-readonly="operation === 'view'||operation === 'edit'"
+                           ng-model="relationship.treatyNo"
+                           typeahead="state.id +'-'+ state.value as state.id +'-'+ state.value for state in getByReturn('treatyNo',$viewValue) | filter:$viewValue "
+                           ng-required="true" typeahead-wait-ms="500">
+                    <span></span>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-2">
+                    <label>合同全称:</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="合同全称"
+                           ng-readonly="operation === 'view'||operation === 'edit'||operation === 'new'"
+                           ng-model="relationship.treatyName"
+                           ng-required="true">
+                    <span></span>
+                </div>
+
+                <div class="col-sm-2">
+                    <label>顺序号:</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control" placeholder="顺序号"
+                           ng-readonly="operation === 'view'"
+                           ng-model="relationship.priorityNo">
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+</div>

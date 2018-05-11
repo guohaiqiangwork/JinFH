@@ -149,10 +149,11 @@
 	    
 	   
     </div>
-    <div class="clearfix panel-footer">
-        <span class="pull-right">共: {{pagination.totalItems}}份</span>
-    </div>
-    <div class="clearfix pull-right" ng-show="reinsurerList.length > 0">
+<!--     <div class="clearfix panel-footer"> -->
+       <!--  <span class="pull-right">共: {{pagination.totalItems}}份</span> -->
+   <!--  </div> -->
+    <div class="clearfix pull-right" ng-show="reinsurerList.length > 0" style="margin-bottom:3%">
+     <span class="pull-right">共: {{pagination.totalItems}}份</span>
         <!-- 分页  -->
 	    <pagination total-items="pagination.totalItems"
 	                page="pagination.pageIndex"

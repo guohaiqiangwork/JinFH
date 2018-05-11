@@ -12,7 +12,7 @@ define(['app',
     app.registerController('ContractEditorCtrl', ['$scope', '$location', '$filter',
         '$stateParams', '$modal',  'ContractService', 'BillService', '$timeout'
                 ,function ($scope, $location, $filter,$stateParams, $modal, contractService ,billService, $timeout) {
-                
+
 			    	$scope.importExcelDWR = function(){
 			    		var fd = new FormData();
 			            var file = document.querySelector('input[type=file]').files[0];
@@ -30,7 +30,7 @@ define(['app',
 			      	  		alert("请选择Excel文件");
 			      	  		return;
 			      	  	}
-			      	  fd.append('logo', file); 
+			      	  fd.append('logo', file);
 
 			      	  contractService.searchImport(fd,file).then(
 			      			  function(data){
@@ -45,7 +45,7 @@ define(['app',
 			    	};
 			    	$scope.linkageReinsCode = function(receptor,id){
 			    		for(var index = 0;index < $scope.contract.fhSectionList.length; index++){
-			    			var reinsName ; 
+			    			var reinsName ;
 			    			$.each($scope.reinsCodes, function(index, r){
 	                               if(r.id === receptor[id].reinsCode){
 	                            	   reinsName = r.value;
@@ -65,7 +65,7 @@ define(['app',
                     		if(contract.stateFlag==="4"||contract.stateFlag === "6"){ //进入编辑状态时，生效的合同某些项目不能编辑
                     			$scope.effected = true;
                     		}
-                    		
+
                     		//预处理合同状态
                     		 if(angular.isDefined(contract) && angular.isDefined(contract.stateFlag)){
 
@@ -82,7 +82,7 @@ define(['app',
                      					}
                      				});
                      			}
-                     		} 
+                     		}
                     		contract.endDateHold = angular.copy(contract.endDate);//终止日期
                     		contract.startDate   =  $scope.fomatTimeYNR(contract.startDate);
                     		contract.endDate  	 =  $scope.fomatTimeYNR(contract.endDate);
@@ -94,11 +94,11 @@ define(['app',
                 					}else{
                 						rein.brokerFlag = "0";
                 					}
-                					
-                					
+
+
                 				});
                     		});
-                    		
+
                     	}else{
                     		if(contract.stateFlag==="4"){ //进入编辑状态时，生效的合同某些项目不能编辑
                     			$scope.effected = true;
@@ -118,7 +118,7 @@ define(['app',
                      					}
                      				});
                      			}
-                     		} 
+                     		}
                     		$.each(contract.fhReinsList, function(index1, share){/*
                     			if(share.brokerFlag==='1'){
                     				share.brokerFlag = "1";
@@ -135,25 +135,25 @@ define(['app',
                     				}else
                     					FShare.isPrireins = "0";
                     			});
-                    		*/}); 
+                    		*/});
                     		$.each(contract.fhSectionList, function(index3, section){/*
                     			if(section.fhRiskList.length > 0){
                     				section.insrncCde = section.fhRiskList[0].insrncCde;
                     				$scope.searchEarthQuake(section);
                     			}
                     		*/});
-                    		
+
                     		contract.endDateHold = angular.copy(contract.contEndTm);
                     	}
                     //	console.log("\n\n\n   contract pre deal");
                     	return contract;
                     };
-                    
+
                     //日期格式化yyyy-MM-dd
-					$scope.fomatTimeYNR = function(time){ 
-						//var oldTime = (new Date("2011/11/11 20:10:10")).getTime(); //得到毫秒数  
+					$scope.fomatTimeYNR = function(time){
+						//var oldTime = (new Date("2011/11/11 20:10:10")).getTime(); //得到毫秒数
 						console.log("init time is : " + time);
-						var now = new Date(time); //就得到普通的时间了 
+						var now = new Date(time); //就得到普通的时间了
 						//var now = time;
 						var year = now.getFullYear();       //年
 						var month = now.getMonth() + 1;     //月
@@ -165,11 +165,11 @@ define(['app',
 						if(day < 10)
 							clock += "0";
 						clock += day;
-						
+
 						console.log("time is : " + clock);
-						return(clock); 
+						return(clock);
 					}
-		                    
+
 					//是否固定费率分保率
 					$scope.isFixedRate=function(isFixedRate){
 						if(isFixedRate==0){
@@ -178,7 +178,7 @@ define(['app',
 						else
 							$scope.FixedRate=false;
 					}
-					
+
 					//比例成数分出是否车险特殊分保合同
 					$scope.isCarFlag=function(carFlag){//是否高架车标识  0:否1:是
 						if(carFlag===0){//传值刚好相反,进行转换
@@ -201,7 +201,7 @@ define(['app',
 	                    	});
 						}
 					}
-                 
+
 
 					//保费支付
                     $scope.confirmPay = function(layer,payTimes){
@@ -219,7 +219,7 @@ define(['app',
                             alert("合同止期还没有填！！");
                             return false;
                         }
-                        
+
                         var every = parseFloat((parseFloat(layer.mdp) / payTimes)+"").toFixed(2);
                         var MDP = layer.mdp;
                         var _pay =angular.copy(contractService.getElement("npropPay"));
@@ -308,9 +308,9 @@ define(['app',
 	                            }
 	                        }
                     	},100);
-                       
+
                     };
-                  
+
                     //验证保费支付时的支付金额
                     $scope.checkPayValue = function(layer, plan){
                         var alreadyInput = 0.0;
@@ -318,7 +318,7 @@ define(['app',
                             if(p != plan)
                             alreadyInput += parseFloat(p.payValue + "");
                         });
-                      
+
                         $.each($scope.contract.fhxLayerList, function(index2, layer){
                         	if((alreadyInput + parseFloat(plan.payValue + ""))> layer.mdp){
                                 alert("支付总额不可以大于最低预付分保费(MDP)！！");
@@ -366,7 +366,7 @@ define(['app',
                     	var test = /^(((([1-9][0-9]?)|0)(\.[0-9]{1,4})?)|(100(\.[0]{1,4})?))$/;
                     	var test1 = /^(((([1-9][0-9]?)|0)(\.[0-9]{1,10})?)|(100(\.[0]{1,10})?))$/;
                     	var cu = /^\d+(\.\d+)?$/;
-                    	
+
 
                     	var remember = layer.mdp;
                     	if(test.test(layer.rate) && test1.test(layer.mdpRate) && cu.test(layer.egnpi)){
@@ -385,7 +385,7 @@ define(['app',
                     $scope.countMDPRate = function(layer){
                     	var test = /^(((([1-9][0-9]?)|0)(\.[0-9]{1,4})?)|(100(\.[0]{1,4})?))$/;
                     	var cu = /^\d+(\.\d+)?$/;
-                    	
+
 
                     	var remember = layer.mdp;
                     	if(test.test(layer.rate) && cu.test(layer.mdp) && cu.test(layer.egnpi)){
@@ -401,12 +401,12 @@ define(['app',
                     		$scope.countROL(layer);
                     	}
                     };
-                    
-                    $scope.calTotalQuota = function(layer)
+
+                    $scope.calTotalQuota = function(layer,reinstRate)
                     {
 
-                    	if(angular.isNumber(parseFloat(layer.layerquota+""))&&angular.isNumber(parseFloat(layer.reinstRate+""))){
-                   		    layer.totalquota = (parseFloat(layer.layerquota+""))*((parseFloat(layer.reinstRate+"")/100)+1);
+                    	if(angular.isNumber(parseFloat(layer.layerquota+""))&&angular.isNumber(parseFloat(reinstRate+""))){
+                   		    layer.totalquota = (parseFloat(layer.layerquota+""))*((parseFloat(reinstRate+"")/100)+1);
 //                    		layer.totalquota=(parseFloat(layer.layerquota+""))*((parseFloat(layer.reinstType+""))+1);
                     	}
                     };
@@ -419,14 +419,14 @@ define(['app',
                             layer.mdp = fhXLayerMdp.toFixed(2);
                     	}
                     };
-                    
+
                     /**计算层保费以及格式化**/
                     $scope.calLayerPremium = function(layer)
                     {
                     	var number = /^\d*(\.\d*)?$/;
                     	if(angular.isNumber(parseFloat(layer.egnpi+""))&&angular.isNumber(parseFloat(layer.rate+""))){
                     		 var  layerPremium = (parseFloat(layer.egnpi+"")) * (parseFloat(layer.rate+"")) / 100 ;
-                             layer.layerPremium = layerPremium.toFixed(2); 
+                             layer.layerPremium = layerPremium.toFixed(2);
                              layer.rate = parseFloat(layer.rate).toFixed(6);
                     	}
                     };
@@ -437,15 +437,15 @@ define(['app',
                     	var number = /^\d*(\.\d*)?$/;
                     	if(number.test(section.line) && number.test(section.retentionValue)){
                         	if((parseFloat(section.line +"") > 0 ) && (parseFloat(section.retentionValue +"") > 0)){
-                        		temp = (parseFloat(section.line +""))  * (parseFloat(section.retentionValue+""));   	
-                    			
+                        		temp = (parseFloat(section.line +""))  * (parseFloat(section.retentionValue+""));
+
                         		section.limitValue="" + (parseFloat(temp + "")).toFixed(2);
                             }else{
                             	section.limitValue = 0.00;
                             }
                     	}
-                    } 
-                    
+                    }
+
                     $scope.setRol = function(layer)
                     {
                     	var temp = 0.0;
@@ -455,9 +455,9 @@ define(['app',
 //                            	temp = (((parseFloat(layer.egnpi +"")) * (parseFloat(layer.rate +"")) / (parseFloat(layer.layerquota+"")) /100*100000) /100000);
                     	if(number.test(layer.layerquota) && number.test(layer.layerPremium)){
                         	if((parseFloat(layer.layerquota +"") > 0 ) && (parseFloat(layer.layerPremium +"") > 0)){
-                        		temp = (parseFloat(layer.layerPremium +""))  / (parseFloat(layer.layerquota+""))* 100;   	
+                        		temp = (parseFloat(layer.layerPremium +""))  / (parseFloat(layer.layerquota+""))* 100;
                     			if(temp > 100.0){
-                        			//alert("ROL 值过大，系统将强制修改”最低预付分保费(MDP)“！！"); 
+                        			//alert("ROL 值过大，系统将强制修改”最低预付分保费(MDP)“！！");
                         			alert("ROL 值不能大于100！！");
                         		}
                             	layer.rol ="" + (parseFloat(temp + "")).toFixed(6);
@@ -465,18 +465,40 @@ define(['app',
                             	layer.rol = 0.000000;
                             }
                     	}
-                    } 
+                    }
+                    //删除恢复保费类型
+					$scope.delReinstTypeList = function (num) {
+                        $.each($scope.contract.fhxLayerList, function(index, r){
+                        	$.each(r.reinstTypeList,function(index1,list){
+                                if(num===index1){
+                                    r.reinstTypeList.splice(index1,1);
+                                }
+							});
+
+
+                        });
+					}
+					//添加恢复类型
+					$scope.addReinstTypeList = function () {
+                        $.each($scope.contract.fhxLayerList, function(index, r){
+                        	var data={
+                                reinstType:'',
+                                reinstRate:''
+							}
+                            r.reinstTypeList.push(data);
+                        });
+					}
                     //计算非比例层ROL
                     $scope.countROL = function(layer){
                         var number = /^\d*(\.\d*)?$/;
                         var temp = 0.0;
-                        
+
                         if(number.test(layer.layerquota) && number.test(layer.layerPremium)){
                         	if((parseFloat(layer.layerquota +"") > 0 ) && (parseFloat(layer.layerPremium +"") > 0)){
                         		temp = (parseFloat(layer.layerPremium +""))  / (parseFloat(layer.layerquota+""))* 100;
 //                        		var sub = layer.mdp +"";
                         		if(temp >= 100.0){
-                        			//alert("ROL 值过大，系统将强制修改”最低预付分保费(MDP)“！！"); 
+                        			//alert("ROL 值过大，系统将强制修改”最低预付分保费(MDP)“！！");
                         			alert("ROL 值不能大于100！！");
                         		}
                         		//while(temp > 100.0){
@@ -494,7 +516,7 @@ define(['app',
                         }else{
                         	layer.rol = "0.000000";
                         }
-                        
+
                     };
                     //验证mdp与保费支付金额是否相同
                     $scope.equalMDPAndPay = function(layer){
@@ -504,7 +526,7 @@ define(['app',
                     			//all = all + parseFloat(p.payValue);
                     			all = parseFloat(all*1+ p.payValue*1).toFixed(2);
                     		});
-                    		
+
                     		if(layer.mdp*1 > all){
                     			alert(layer.mdp+"--最低预付分保费(MDP) 与保费支付信息中支付金额之和不相等！！"+all);
                     		}
@@ -524,7 +546,7 @@ define(['app',
                     };
                     //比例合同  输入时验证赔付率、手续费率任一不可重复
                     $scope.checkAdjustRate = function(section, checker, aim){
-                    	
+
                     	if(angular.isDefined(checker[aim])){
                     		var pass = true;
                     		$.each(section.contOutprptAdjustcomms, function(index, a){
@@ -616,7 +638,7 @@ define(['app',
                     			} else {
                     				stopFlag = false;
                     			}
-                    		} 
+                    		}
                     	});
                     	if(stopFlag){
 	                    	$.each(section.contOutInssectEqDtls, function(index0, ee){
@@ -630,14 +652,14 @@ define(['app',
                     		alert("该地震险已存在！！");
                     		stopFlagFinal = false;
                     		return false;
-                    	} 
+                    	}
                         var  adjust = angular.copy(contractService.getElement("propAjusts"));
                         adjust.rdrCde = section.riComCde;
                         adjust.deletable = true;
                         $.each(section.riComCdes, function(index, a){
                            if(a.id === section.riComCde){
                         	   adjust.rdrName = a.value;
-                        	  
+
                         	   return false;
                            }
                         });
@@ -755,14 +777,14 @@ define(['app',
                     };
                     //查询适用险种的二级列表
                     $scope.searchRiskCode = function(id){
-                   
+
                       $scope.keywords.id = $scope.classCode;
                         var key = angular.copy($scope.keywords);
                         key.id = "riskCodeByClass";
                         key.value = id;
                         $scope.getCode(key, {}, "riskCodes");
-                       
-                      
+
+
                     };
 
                     $scope.searchVat = function(section){
@@ -780,21 +802,21 @@ define(['app',
                             $scope.risk.riskCode = $scope.riskCodes[0].id;
                         }
                     });
-                  
+
                     //更改地震险种表
                     var changeEarthQuake = function(section){
                     	var searchFlag1 = true;
                     	if(section.fhRiskList.length  === 0){
                     		section.insrncCde = "";
                 			section.riComCdes = [];
-                    		
+
                     	}else{
                     		$.each(section.fhRiskList, function(index, r){
                     			if(r.insrncCde === section.insrncCde){
                     				searchFlag1 = false;
                     			}
                     		});
-                    	
+
 	                    	if(searchFlag1){
 	                			section.insrncCde = section.fhRiskList[0].insrncCde;
 	                    		$scope.searchEarthQuake(section);
@@ -824,7 +846,7 @@ define(['app',
 	                        		watchEarth();
 	                        	}
 	                        });
-                    
+
                     };
                     //增加适用险种
                     $scope.addRiskType = function(section, riskCode){
@@ -866,7 +888,7 @@ define(['app',
 
                         }
                     };
-                    
+
                     //增加适用险种
                     $scope.addfhxRiskType = function(layer, riskCode){
                         if($scope.contAttr === "nprop"){
@@ -910,7 +932,7 @@ define(['app',
                             layer.fhxRiskList.push(risk);
                         }
                     };
-                    
+
                     //切换编辑器模式
                     $scope.toggleMode = function (_mode) {
                         $scope.operation = _mode;
@@ -999,7 +1021,7 @@ define(['app',
 
                         $scope.count = $scope.count + '1';
                         if($scope.contAttr === "prop"){
-                        	
+
                             var _section = angular.copy(contractService.getElement("propSection"));
                             _section.sectionNo = getSectionName();
                             _section.isActive = true;
@@ -1008,7 +1030,7 @@ define(['app',
                             var _fhSectionReinsList = angular.copy($scope.contract.fhSectionList[0].fhSectionReinsList);
                             _section.fhSectionReinsList = _fhSectionReinsList
                             $scope.contract.fhSectionList.push(_section);
-                           
+
                         }
 
                         /*if($scope.contAttr === "nprop"){
@@ -1053,7 +1075,7 @@ define(['app',
 
                     //复制分项
                     $scope.copySection = function(section) {
-                       
+
                         $scope.count = $scope.count + '1';
                         if($scope.contAttr === "nprop"){
                             var _section = angular.copy(section);
@@ -1112,14 +1134,14 @@ define(['app',
                             }
                         }
                     };
-                    
+
                      //增加高价车 ylm 2015/09/22
                     $scope.addExpenCar = function($section){
                         var _adExpenCar = angular.copy(contractService.getElement("propExpenCar"));
                         _adExpenCar.sectNo = $section.sectNo;//分项号自动带出
                         $section.contOutExpensiveCars.push(_adExpenCar);
                     };
-                    
+
                      //删除高价车 ylm 2015/09/22
                     $scope.removeExpenCar = function($section, $expenCar){
                         if(confirm("删除高价车" + $expenCar.sectNo + "吗？")) {
@@ -1150,8 +1172,8 @@ define(['app',
                         }
                     };
 
-                  
-                    
+
+
 
                     //删除层
 
@@ -1169,7 +1191,7 @@ define(['app',
                             });
                         }
                     };
-                    
+
                     //经济人转换
                     $scope.toggleBrokerFlag = function(recepter){
                     	$timeout(function(){
@@ -1181,7 +1203,7 @@ define(['app',
                             		}else{
                             			recepter.brokerFlag = "true" ;
                             		}
-                            	}else if($scope.contAttr === "prop" && ( recepter.brokerFlag === "false" ) 
+                            	}else if($scope.contAttr === "prop" && ( recepter.brokerFlag === "false" )
                             		&& angular.isDefined(recepter.fhFinalReinsList) && recepter.fhFinalReinsList.length >0){
                             		if(confirm("该操作将删除该接受人名下的所有最终接受人！！")){
                             			recepter.fhFinalReinsList = [];
@@ -1209,17 +1231,17 @@ define(['app',
                     //增加接收人(非比例)
                     $scope.addRecepterNprop = function($layer){
                         var _recepter = angular.copy(contractService.getElement("npropRecepter"));
-                       
+
                         $layer.fhxReinsList.push(_recepter);
-                    };  
+                    };
                     //增加机构(非比例)
                     $scope.addCompanyNprop = function($layer){
                         var _recepter = angular.copy(contractService.getElement("npropCompany"));
-                       
+
                         $layer.fhxCompanyList.push(_recepter);
                     };
                     //删除接收人（非比例）
-                   
+
                     $scope.removeRecepterNprop = function($layer,$layer,$rein){
                         if(confirm('删除接收人' + $rein.reinsCode + "吗？")){
                         	$.each($scope.contract.fhxLayerList, function(index, layer){
@@ -1250,14 +1272,14 @@ define(['app',
                     //添加最终接收人 (非比例)
                     $scope.addFinalRecepterNprop = function($rein){
                         var _finalRecepter = angular.copy(contractService.getElement("npropFinalRecepter"));
-                       
+
                         _finalRecepter.layerNo = $rein.layerNo;
                         $rein.fhxFinalReinsList.push(angular.copy(_finalRecepter));
                         $scope.checkRecepterDetail($rein);
                     };
 
                     //删除最终接收人 (非比例)
-                  
+
                     $scope.removeFinalRecepterNprop = function($layer,$layer,$rein,$final){
                         if(confirm('删除最终接收人' + $final.reinsCode + "吗？")){
                                     $.each($layer.fhxReinsList, function(index, rein){
@@ -1272,7 +1294,7 @@ define(['app',
                                 }
 
                     };
-                    
+
                     //增加接收人（比例）
                     $scope.addRecepterProp = function(contract){
                         var _recepter = angular.copy(contractService.getElement("propRecepter"));
@@ -1407,7 +1429,7 @@ define(['app',
                             );
                     	}
                     };
-                   
+
                     //保存(新增，编辑)
                     $scope.saveContract = function(){
                     	if(!checkGroupRisk()){ //检查适用险种
@@ -1416,7 +1438,7 @@ define(['app',
                     	}else if(!checkGroupRcepter()){  //检查接受人
                     		$scope.showBusy(false);
                     		return false;
-                    	
+
                     	}else if(!checkCleanYear()){
                     		$scope.showBusy(false);
                     		return false;
@@ -1458,7 +1480,7 @@ define(['app',
 				                        if( $scope.operation === 'edit' ||  $scope.operation === 'view') {
 				                        	$scope.showBusy(true);
 				                        	//修改 by renshuai
-				                        	
+
 				                            $scope.getContract($scope.contAttr, $scope.contract.treatyNo, {})
 				                                .then(
 				                                    function(data){
@@ -1491,10 +1513,10 @@ define(['app',
                                 }
                             );
                         }
-                       
+
                     };
                   /*  var illeagal ={
-                    		recepter : false	
+                    		recepter : false
                     	};*/
                     //检查增值税，城建税，教育费附加税比例
                     var checkVCERate = function(){
@@ -1543,7 +1565,7 @@ define(['app',
 //                                	}
 //                                }
 //                            })
-                       
+
                         }
                     	return passFlag;
                     }
@@ -1555,13 +1577,13 @@ define(['app',
                              $.each($scope.contract.fhSectionList,function(index, temp){
                                  if(temp.fhRiskList.length === 0){
                                 	 passFlag = false;
-                                 } 
+                                 }
                              });
                          }else {
                              $.each($scope.contract.fhxLayerList, function(index, temp){
                                  if(temp.fhxRiskList.length === 0){
                                 	 passFlag = false;
-                                 } 
+                                 }
                              });
                          }
                          if(!passFlag){
@@ -1581,7 +1603,7 @@ define(['app',
                              $.each($scope.contract.fhSectionList,function(index, temp){
                                  if(temp.cleanYear > 50){
                                 	 passFlag = false;
-                                 } 
+                                 }
                              });
                          }
                          if(!passFlag){
@@ -1593,7 +1615,7 @@ define(['app',
 
 
                     };
-                   
+
                     //检查接受人最终接受人是否合法
                     var checkGroupRcepter = function(){
                     	var passFlag = true;
@@ -1604,9 +1626,9 @@ define(['app',
                     	var rPriFinalRel = true;   //再保人时最终接受人和接受人的关系
                     	var nReinCo = true;   //是否选择再保人
                     	if($scope.contAttr === 'nprop'){
-                    		
+
                     				var countRate = 0.0;
-                    				
+
                     				$.each($scope.contract.fhxLayerList, function(index, temp){
                     					//slh
                     					if(parseFloat(temp.layerNo)>1){
@@ -1619,7 +1641,7 @@ define(['app',
                         					return false;
                         				}else{
     	                    				$.each(temp.fhxReinsList, function(index3, rein){
-    	                    					
+
     	                    					countRate += parseFloat(rein.shareRate);
     	                    					if(rein.brokerFlag==="true" && rein.fhxFinalReinsList.length === 0){
     	                    						existFinal = false;
@@ -1637,7 +1659,7 @@ define(['app',
     	                    						nReinCo=false;
     	                    						passFlag=false;
     	                    					}
-    	                    					
+
     	                    					//slh  再保人时
     	                    					if(rein.brokerFlag==="0"&&rein.reinsCode===rein.freinsCode&&rein.reinsCode!=""&&rein.freinsCode!=""){
     	                    					    rPriFinalRel = true;
@@ -1668,10 +1690,10 @@ define(['app',
     		                    					return false;
     		                    				}
     	                    				});
-    	                    				
+
                         				}
                                     });
-                    				
+
                     	}else{
                     		var count = 0.0;
                     		if($scope.contract.fhReinsList < 1){
@@ -1681,7 +1703,7 @@ define(['app',
                     			$.each($scope.contract.fhReinsList, function(index1, recepter){
                         			count += parseFloat(recepter.shareRate);
                         			if(recepter.brokerFlag==="true" && recepter.fhFinalReinsList.length === 0){
-                        			
+
                 						existFinal = false;
                 						passFlag = false;
                 						return false;
@@ -1690,13 +1712,13 @@ define(['app',
                         				passFlag = false;
                         				return false;
                         			}
-                        			
+
                         		});
                     			//slh start
                     			if(count != 100){
                     				receiveRateFlag = false;
                     				passFlag = false;
-                    				
+
                        		}//slh end
 //                        		if(count != 100){
 //                        			passFlag = false;
@@ -1719,7 +1741,7 @@ define(['app',
                     		alert("请检查最终接受人的分配比例！！");
                     	}
                     	return passFlag;
-                    	
+
                     };
                     //输入时检查接受人/最终接受人是否重复
                     $scope.distinctReceiver = function(repeat, compare, distinct){
@@ -1754,7 +1776,7 @@ define(['app',
                     			});
                     		}else if(distinct === "finalRecepter" && repeat.fhFinalReinsList.length > 1){
                     			$.each(repeat.fhFinalReinsList, function(index, f){
-	                    			if(f != compare &&  f.rifcomCde=== compare.rifcomCde ){ 
+	                    			if(f != compare &&  f.rifcomCde=== compare.rifcomCde ){
 	                					alert("请不要重复添加最终接受人！");
 	                					compare.rifcomCde = "";
 	                				}
@@ -1779,7 +1801,7 @@ define(['app',
                     $scope.checkFReceptor = function(receptor, finalReceptor){
                     	return false; // 若首席必须选择那么删除此行
                     	$timeout(function(){
-                    		
+
                     		if($scope.contAttr ==="prop"){
                     			$.each(receptor.fhFinalReinsList, function(index, r){
                     				r.hideFlag = finalReceptor.isPrireins;
@@ -1814,11 +1836,11 @@ define(['app',
                     //编辑时检查合同止期是否合法
                     $scope.checkEndDate = function(contract){
                     	if(true ){
-                    		
+
                     		$timeout(function(){
-                    		
+
                     			if($scope.contAttr === "prop"){
-                    				
+
                     				var nowTime = Date.parse($scope.contract.contEndTm);
                         			if(angular.isDefined($scope.contract.contEndTm)){
                         				var startTime = Date.parse($scope.contract.contBgnTm);
@@ -1841,7 +1863,7 @@ define(['app',
                         			}
                         			$scope.contract.contEndTm = $scope.contract.endDateHold;
                         		}else{
-                        			
+
                         			var nowTime = Date.parse($scope.contract.endDate);
                         			if(angular.isDefined($scope.contract.endDate)){
                         				var preTime = Date.parse($scope.contract.endDateHold);
@@ -1866,10 +1888,10 @@ define(['app',
                         			$scope.$apply($scope.contract.endDate);
                         		}
                     		},200);
-                    		
+
                     	}
                     };
-                    		
+
                    /* $scope.selectTaxFlagChange = function(section){
 
                     	if(section.vatFlag==="1"){
@@ -1882,7 +1904,7 @@ define(['app',
 //                    		section.cityTaxRate="0.00";
 //                    		section.educationTaxRate="0.00";
                     	}
-                       
+
                     };*/
                     //增加分项时显示的分项标题
                     var getSectionName = function(){
@@ -1896,7 +1918,7 @@ define(['app',
 
                     };
                     //增加层时显示的层标题
-                   
+
                     var getLayerName = function(){
                     	if($scope.contract.fhxLayerList.length === 0){
                     		return 1;
@@ -1914,12 +1936,16 @@ define(['app',
                             return layerName;
                         }
                     };
-                    
+
                     var init = function () {
+                    	$scope.operationNew = $stateParams.operation;
+                    	$scope.operationNew == 'new'  ? $scope.newIf = 'true' : $scope.newIf = 'false'
+                    		$scope.operationNew == 'edit'  ? $scope.editIf = 'true' : $scope.editIf = 'false'
+                 
                         //浮动手续费费率表上传文件
                         $scope.uploads=[];
                         //初始化适用险种/地震险model
-                        
+
                         $scope.risk={
                         		earth : {} //
                         };
@@ -1941,75 +1967,75 @@ define(['app',
                         	 $scope.mayStateFlags = angular.copy($scope.stateFlags );
                         	//非比例的业务类型
                         	$scope.inoutMrks = codes["nprop.inoutMrk"];
-                        	
+
                         	//非比例的合同类型默认初始化
                             $scope.treatyTypes = codes["nprop.treatyType"];
-                            
+
                         	//恢复保费类型(非比例)
                             $scope.reinstTypes = codes['nprop.reinstTypes'];
-                            
+
                             //合同账单期( 比例有，非比例页面没有)
                             $scope.billPeriodCdes = codes["prop.billPeriodCde"];
                         }else{
                         	 //应税免税标识
                             $scope.vatFlags = codes['vatFlag'];
-                            
+
                         	 //分保基础
                             $scope.feeBaseCdes = codes['prop.rePremiumBase'];
-                        	
+
                             //合同结清方式
                             $scope.settleTypCdes = codes["prop.settleTypCde"];
-                            
+
                             //计算基础
                             $scope.calculateBases = codes["prop.calculateBase"];
                             //估损范围
                             $scope.cashLossFlags = codes["prop.cashLossFlag"];
-                        	
+
                             //比例合同状态
                             $scope.contStatuses = codes["prop.stateFlag"];
                             $scope.mayStateFlags = angular.copy($scope.contStatuses);
                             //比例的业务类型
                             $scope.inoutMrks = codes["prop.optType"];
-                         
+
                         	//比例的合同类型默认初始化
                             $scope.contGrpTypCdes = codes["prop.treatyType"];
-                            
+
                             //比例合同账单期
                             $scope.billPeriodCdes = codes["prop.accPeriod"];
-                            
+
                             //应税免税标识
                             $scope.vatFlags = codes["prop.vatFlag"];
                             //纯益手续费方式
                             $scope.pcCleanModes = codes["pcCleanMode"];
-                            
+
                             //比例合同除外责任初始化条件变量
                             $scope.ES = {
                             		collapseName:"折叠",
                             		collapseFlag:false
                             };
                         }
-                        
-                        
+
+
                       //适用于再保人一级下拉菜单 add by zhx begin
                         var key = angular.copy($scope.keywords);
                         key.id="reinsCode";
                         key.value = "";
                         $scope.getCode(key,{},"reinsCodes");
                       //适用于再保人一级下拉菜单 add by zhx end
-                        
+
                       //适用于最终再保人一级下拉菜单 add by zhx begin
                         var key = angular.copy($scope.keywords);
                         key.id="freinsCode";
                         key.value = "";
                         $scope.getCode(key,{},"freinsCodes");
                       //适用于最终再保人 end
-                        
+
                         //适用机构信息一级下拉菜单add by zhx begin
                         var key = angular.copy($scope.keywords);
                         key.id="comCode";
                         key.value = "";
                         $scope.getCode(key,{},"comCodes");
-                        
+
                         //适用险种一级下拉菜单
                         var key = angular.copy($scope.keywords);
                         key.id="classCode";
@@ -2051,14 +2077,15 @@ define(['app',
                                 $scope.contract = angular.copy(contractService.getElement("prop"));
                                 $scope.contract.treatyType = $stateParams.contOutTyp;
                                 $scope.contract.optType = $stateParams.mode;
-                                
+
                             } else if($scope.contAttr === "nprop"){
                                 $scope.contract = angular.copy(contractService.getElement("nprop"));
                                 $scope.contract.inoutMrk = $stateParams.inoutMrk;
-                                
+
                                 $scope.contract.treatyType = $stateParams.treatyType;
                                 $.each($scope.contract.fhxLayerList, function(index, r){
                                         r.layerType=$stateParams.treatyType;
+                                        r.reinstTypeList=[];
                                     });
 
                             }
@@ -2077,14 +2104,14 @@ define(['app',
                                     function(data){
                                     	if(angular.isDefined(data.result) && data.result ==="error"){
                                     		alert(data.msg);
-                                    		history.back(-1);
+                                             history.back(-1);
                                     	}else{
                                     		$scope.contract = $scope.preDealWith(data);
                                     		for(var i=0;i<$scope.contract.fhxLayerList.length;i++){
                                     			for(var j=0;j<$scope.contract.fhxLayerList[i].fhxPlanList.length;j++){
                                     				var getdata=new Date($scope.contract.fhxLayerList[i].fhxPlanList[j].planDate);
-                                                    $scope.contract.fhxLayerList[i].fhxPlanList[j].planDate=getdata.getFullYear() + '-'+(getdata.getMonth() + 1) + '-' +getdata.getDate()
-                                    				console.log(new Date($scope.contract.fhxLayerList[i].fhxPlanList[j].planDate))
+                                                    $scope.contract.fhxLayerList[i].fhxPlanList[j].planDate=getdata.getFullYear() + '-'+(getdata.getMonth() + 1) + '-' +getdata.getDate();
+                                                    $scope.payTimes =$scope.contract.fhxLayerList[i].fhxPlanList[j].length
 
 												}
 											}

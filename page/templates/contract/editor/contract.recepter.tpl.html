@@ -151,10 +151,20 @@
                         <div style="width: 70px;" ng-if="receptor.brokerFlag==='1' ">经纪人</div>
                         <div style="width: 70px;" ng-if="receptor.brokerFlag==='false' ">再保人</div>
                     </div>
-                    <div ng-if="operation!='view' && !effected" style="width: 70px;">
+                    <div ng-if="editIf">
+                     <div ng-if="operation!='view' && !effected" style="width: 70px;">
                         <div class="input-group">
-                            <input  type="radio" ng-model="receptor.brokerFlag"  value="1">经纪人 
+                            <input  type="radio" ng-model="receptor.brokerFlag"  value="1">经纪人
                             <input  type="radio" ng-model="receptor.brokerFlag"  value="0" ng-click="toggleBrokerFlag(receptor)">再保人 
+                            <span></span>
+                        </div>
+                    </div>
+                    </div>
+                 
+                     <div ng-if="newIf" style="width: 70px;">
+                        <div class="input-group">
+                            <input  type="radio" ng-model="receptor.brokerFlag"  value="true">经纪人 
+                            <input  type="radio" ng-model="receptor.brokerFlag"  value="false" ng-click="toggleBrokerFlag(receptor)">再保人 
                             <span></span>
                         </div>
                     </div>

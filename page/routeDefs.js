@@ -408,8 +408,35 @@ define(['app'
                             }
                         }
                     })
+                    //权限管理---岗位代码
+                    .state('postCodes', {
+                        url: '/postCode',
+                        resolve: {
+                            dummy: $couchPotatoProvider.resolveDependencies(['/reins/page/templates/authoritys/postCodes/postCode.list.index.js'])
+                        },
+                        views: {
+                            main: {
+                                templateUrl: '/reins/page/templates/authoritys/postCodes/postCode.list.index.html',
+                                controller: 'postCodeIndex'
+                            }
+                        }
+                    })
+                    //新增岗位代码  新增(new)
+                    .state('postCodesnew', {
+                        url: '/postCode/:operation',
+                        resolve: {
+                            dummy: $couchPotatoProvider.resolveDependencies(['/reins/page/templates/authoritys/postCodes/postCode.list.addpush.js'])
+                        },
+                        views: {
+                            main: {
+                                templateUrl: '/reins/page/templates/authoritys/postCodes/postCode.list.addpush.html',
+                                controller: 'postCodeAddPush'
+                            }
+                        },
+                        onEnter:function(){
+                        }
 
-                ;
+                    }) ;
             }
         ]
     );
