@@ -404,8 +404,8 @@ define(['app',
 
                     $scope.calTotalQuota = function(layer) {
                     	var sumRein=0;
-                        if (layer.reinstTypeList)
-                            $.each(layer.reinstTypeList, function (index, rein) {
+                        if (layer.fhXReinstTimesList)
+                            $.each(layer.fhXReinstTimesList, function (index, rein) {
                                 sumRein=sumRein + rein.reinstRate;
                             })
                     	if(angular.isNumber(parseFloat(layer.layerquota+""))&&angular.isNumber(parseFloat(sumRein+""))){
@@ -472,9 +472,9 @@ define(['app',
                     //删除恢复保费类型
 					$scope.delReinstTypeList = function (num) {
                         $.each($scope.contract.fhxLayerList, function(index, r){
-                        	$.each(r.reinstTypeList,function(index1,list){
+                        	$.each(r.fhXReinstTimesList,function(index1,list){
                                 if(num===index1){
-                                    r.reinstTypeList.splice(index1,1);
+                                    r.fhXReinstTimesList.splice(index1,1);
                                 }
 							});
 
@@ -485,10 +485,49 @@ define(['app',
 					$scope.addReinstTypeList = function () {
                         $.each($scope.contract.fhxLayerList, function(index, r){
                         	var data={
+                                reinstTimes:'',
                                 reinstType:'',
-                                reinstRate:''
-							}
-                            r.reinstTypeList.push(data);
+                                reinstRate:'',
+                                randomNum:angular.copy(Math.random())
+							};
+                            r.fhXReinstTimesList.push(data);
+                        });
+					};
+					//批量添加恢复类型
+					$scope.createNum = function(num){
+                        var TimesList=[];
+                        for(var i=0;i<num;i++){
+                            var data={
+                                reinstTimes:i+1,
+                                reinstType:'',
+                                reinstRate:'',
+                                randomNum:angular.copy(Math.random())
+                            };
+                            TimesList.push(data);
+                        }
+                        $.each($scope.contract.fhxLayerList, function(index, r){
+                            r.fhXReinstTimesList=TimesList;
+                        });
+					};
+					//校验次数是否重复
+					$scope.changeTimes = function(times,randomNum){
+                        $.each($scope.contract.fhxLayerList, function(index, r){
+                            $.each(r.fhXReinstTimesList,function (index,fhXReinstTimes) {
+                            	console.log(randomNum)
+                                console.log(fhXReinstTimes)
+                            	if(fhXReinstTimes.reinstTimes){
+                                    if( fhXReinstTimes.randomNum !==randomNum && fhXReinstTimes.reinstTimes===times){
+                                        $.each(r.fhXReinstTimesList,function (index,fhXReinst) {
+                                            console.log(randomNum)
+                                            console.log(fhXReinst)
+                                        	if(fhXReinst.randomNum ===randomNum){
+                                                fhXReinst.reinstTimes='';
+											}
+										});
+                                        alert('重复了！！');
+                                    }
+								}
+                            });
                         });
 					}
                     //计算非比例层ROL
@@ -2094,7 +2133,7 @@ define(['app',
                                 $scope.contract.treatyType = $stateParams.treatyType;
                                 $.each($scope.contract.fhxLayerList, function(index, r){
                                         r.layerType=$stateParams.treatyType;
-                                        r.reinstTypeList=[];
+                                        r.fhXReinstTimesList=[];
                                     });
 
                             }

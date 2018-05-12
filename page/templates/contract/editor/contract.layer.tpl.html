@@ -208,15 +208,19 @@
                     <table  class="table table-stripped" >
                         <tr>
                             <td colspan="2" >恢复保费</td>
+                            <td colspan="2" >
+                                <span><input type="text" ng-model="allCreateNum" style="width: 50px"/></span>
+                                <span><button class="btn" ng-click="createNum(allCreateNum)">确定</button></span>
+                            </td>
                         </tr>
                         <tr>
-                            <td> 序号</td>
+                            <td>次数</td>
                             <td>恢复保费类型</td>
                             <td class=" col-sm-4" align="left">恢复比例</td>
                             <td></td>
                         </tr>
-                        <tr ng-repeat="rein in layer.reinstTypeList">
-                            <td>{{$index+1}}</td>
+                        <tr ng-repeat="rein in layer.fhXReinstTimesList">
+                            <td><input type="number" ng-model="rein.reinstTimes" ng-blur="changeTimes(rein.reinstTimes,rein.randomNum)" style="width: 50px"/></td>
                             <td>
                                 <div ng-if="operation!='view' && !effected">
                                     <select ng-model="rein.reinstType"
