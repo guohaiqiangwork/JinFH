@@ -4,8 +4,45 @@ define(['app',
 ], function (app, config) {
     app.registerController('SettleAccCtrl', ['$scope', '$filter', '$q', '$modal', '$location', 'SettleAccService',
                         function ($scope, $filter, $q, $modal, $location, settleAccService) {
-
-        //删除选中条目
+    	
+    	//add by zhx 后台查询币种 begin
+    	var searchFlag = true;
+         $scope.searchList = [];
+    	$scope.getCode = function(keywords,user,searcher){
+            var temp = angular.copy({keywords:keywords,searcher:searcher});
+            $scope.searchList.push(temp);
+            if(searchFlag && $scope.searchList.length > 0){
+                ralSearch(user);
+            }
+        };
+        var ralSearch = function(user){
+            if(searchFlag && $scope.searchList.length > 0){
+                searchFlag = false;
+                $scope.getCodes($scope.searchList[0].keywords,user).then(
+                    function(data){
+                        $scope[$scope.searchList[0].searcher] = data;
+                        searchFlag = true;
+                        $scope.searchList.splice(0,1);
+                        ralSearch();
+                    },
+                    function(code){
+                        console.log("error  "+code);
+                        searchFlag = true;
+                        if(angular.equals(code,"bussy")){
+                            $scope.searchList.push($scope.searchList[0]);
+                            $scope.searchList.splice(0,1);
+                        }else{
+                            $scope[$scope.searchList[0].searcher] = [];
+                            $scope.searchList.splice(0,1);
+                        }
+                        ralSearch();
+                    }
+                );
+            }
+        };
+      //add by zhx 后台查询币种 end
+    	
+    	//删除选中条目
         $scope.deleteSettleAcc = function(){
         	console.log('删除');
             $modal.open({
@@ -150,6 +187,18 @@ define(['app',
             $scope.initKeywords();//初始化条件查询页面
           
 
+            //数据字典差寻条件 add by zhx
+            $scope.keywords = {
+                "id":"",
+                "value":"",
+                "other1":""
+            };
+          // add by zhx 查询币种
+            var key = angular.copy($scope.keywords);
+            key.id="currency";
+            key.value="";
+            $scope.getCode(key,{},"currencys");
+            
             //分页初始化
             $scope.pagination = {
                 totalItems:0,

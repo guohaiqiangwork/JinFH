@@ -486,7 +486,7 @@ define(['app',
                         $.each($scope.contract.fhxLayerList, function(index, r){
                         	var data={
                                 reinstTimes:'',
-                                reinstType:'',
+                                reinstType:'0',
                                 reinsRate:'',
                                 randomNum:angular.copy(Math.random())
 							};
@@ -499,7 +499,7 @@ define(['app',
                         for(var i=0;i<num;i++){
                             var data={
                                 reinstTimes:i+1,
-                                reinstType:'',
+                                reinstType:'0',
                                 reinsRate:'',
                                 randomNum:angular.copy(Math.random())
                             };

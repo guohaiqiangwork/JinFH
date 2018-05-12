@@ -93,7 +93,8 @@
 				    	 </select>
 				      </div>
 				       <div class="col-sm-4">
-	                    <input type="text" class="form-control" ng-model="keywords.currency" placeholder="结付币种">
+				       <select class="form-control" ng-model="keywords.currency" ng-options="c.id as c.value for c in currencys" ></select>
+	                    <!-- <input type="text" class="form-control" ng-model="keywords.currency" placeholder="结付币种"> -->
 	                </div>
 							       
 	            </div>	                	                
@@ -111,7 +112,7 @@
 			    		</select>
 	                  </div>
 	                    <div class="col-sm-4">
-	                    <input type="text" class="form-control" ng-model="keywords.operateDate" placeholder="结付日期">
+	                    <input type="date" class="form-control" ng-model="keywords.operateDate" placeholder="结付日期">
 	                </div>
 	            </div>
 	            
