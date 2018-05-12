@@ -748,7 +748,14 @@ define(['app', 'config', 'codes', '/reins/page/templates/bill/bill.create.ctrl.j
 		    		$scope.keywords.sectionNo = "";
 		    	}
 		    	$scope.keywords.treatyNo=  $scope.contract.treatyNo;
-		    	$scope.deleteBill($scope.contAttr, contFacMrk ,inOutMrk, inExMrk, $scope.keywords.billType, $scope.keywords, "", "");
+		    	//add by zhx begin
+		    	var word="";
+		    	for(var i=0;i<section.length;i++){
+		    		word=section[i];
+			    	$scope.deleteBill($scope.contAttr, contFacMrk ,inOutMrk, inExMrk, $scope.keywords.billType, word, "", "");
+		    	}
+		    	//add by zhx end
+//		    	$scope.deleteBill($scope.contAttr, contFacMrk ,inOutMrk, inExMrk, $scope.keywords.billType, $scope.keywords, "", "");
             };
 
             //账单期月份切换查询对应月份账单列表---

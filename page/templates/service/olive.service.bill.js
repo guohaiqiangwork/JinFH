@@ -102,8 +102,9 @@ define(['angular', 'config'], function (angular, config) {
                 	'nprop.contract.2.2.08':config.backend.ip + config.backend.base + 'xolContBill/deleteTBAccList.do',//删除预付账单类型
                     'nprop.contract.2.2.09':config.backend.ip + config.backend.base + 'xolContBill/deleteTBAccList.do',//删除调整账单类型
                     'nprop.contract.2.2.10':config.backend.ip + config.backend.base + 'xolContBill/deleteTBAccList.do',//删除赔付率账单类型
-                    'prop.contract.0.2.06':config.backend.ip + config.backend.base + 'contBill/delTtyTBBill.do', //月度预提账单
-                	'prop.contract.0.2.01':config.backend.ip + config.backend.base + 'contBill/delTtyTRBill.do'  //季度账单
+                    'prop.contract.0.2.06':config.backend.ip + config.backend.base + 'AccTBDetailQuery.do?operateFlag=delete', //月度预提账单
+                	'prop.contract.0.2.01':config.backend.ip + config.backend.base + 'AccTBDetailQuery.do?operateFlag=delete' //季度账单
+                	
                 },
                 searchBill:{ /*张*/
                 	'nprop.contract.2.2.08':config.backend.ip + config.backend.base +  'xolContBill/showTBAccList.do', //预付费对内账单（原）

@@ -406,7 +406,7 @@ define(['app',
                     	var sumRein=0;
                         if (layer.fhXReinstTimesList)
                             $.each(layer.fhXReinstTimesList, function (index, rein) {
-                                sumRein=sumRein + rein.reinstRate;
+                                sumRein=sumRein + rein.reinsRate;
                             })
                     	if(angular.isNumber(parseFloat(layer.layerquota+""))&&angular.isNumber(parseFloat(sumRein+""))){
                    		    layer.totalquota = (parseFloat(layer.layerquota+""))*((parseFloat(sumRein+"")/100)+1);
@@ -487,7 +487,7 @@ define(['app',
                         	var data={
                                 reinstTimes:'',
                                 reinstType:'',
-                                reinstRate:'',
+                                reinsRate:'',
                                 randomNum:angular.copy(Math.random())
 							};
                             r.fhXReinstTimesList.push(data);
@@ -500,7 +500,7 @@ define(['app',
                             var data={
                                 reinstTimes:i+1,
                                 reinstType:'',
-                                reinstRate:'',
+                                reinsRate:'',
                                 randomNum:angular.copy(Math.random())
                             };
                             TimesList.push(data);
@@ -513,13 +513,9 @@ define(['app',
 					$scope.changeTimes = function(times,randomNum){
                         $.each($scope.contract.fhxLayerList, function(index, r){
                             $.each(r.fhXReinstTimesList,function (index,fhXReinstTimes) {
-                            	console.log(randomNum)
-                                console.log(fhXReinstTimes)
                             	if(fhXReinstTimes.reinstTimes){
                                     if( fhXReinstTimes.randomNum !==randomNum && fhXReinstTimes.reinstTimes===times){
                                         $.each(r.fhXReinstTimesList,function (index,fhXReinst) {
-                                            console.log(randomNum)
-                                            console.log(fhXReinst)
                                         	if(fhXReinst.randomNum ===randomNum){
                                                 fhXReinst.reinstTimes='';
 											}
@@ -2156,6 +2152,11 @@ define(['app',
                                     	}else{
                                     		$scope.contract = $scope.preDealWith(data);
                                     		for(var i=0;i<$scope.contract.fhxLayerList.length;i++){
+                                    			if($scope.contract.fhxLayerList[i].fhXReinstTimesList.length>0){
+                                    				$.each($scope.contract.fhxLayerList[i].fhXReinstTimesList,function (index,fhXReinstTimes) {
+                                                        fhXReinstTimes.randomNum=angular.copy(Math.random());
+                                                    })
+												}
                                     			for(var j=0;j<$scope.contract.fhxLayerList[i].fhxPlanList.length;j++){
                                     				var getdata=new Date($scope.contract.fhxLayerList[i].fhxPlanList[j].planDate);
                                                     $scope.contract.fhxLayerList[i].fhxPlanList[j].planDate=getdata.getFullYear() + '-'+(getdata.getMonth() + 1) + '-' +getdata.getDate();

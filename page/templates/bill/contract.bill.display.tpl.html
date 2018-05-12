@@ -6,9 +6,9 @@
         	  ng-click="confirmBillP(keywords.billType)">账单确认</a>
         <a class="btn btn-primary btn-lg" ng-if="!(keywords.billType==='09')" ng-click="toggleCreate()">查看模板数据</a>
         <a class="btn btn-primary btn-lg" ng-if="keywords.billType==='09'" ng-click="toggleCreate()">查看保费数据</a>
-<!--        <a href="" class="btn btn-danger" -->
-<!--        	ng-if="!(contract.stateFlag === '6'  || contract.contStatus === '6') && !viewFlag"-->
-<!--        	 ng-click="deleBillP()">删除</a>-->
+        <!-- <a href="" class="btn btn-danger" 
+        	ng-if="!(contract.stateFlag === '6'  || contract.contStatus === '6') && !viewFlag"
+        	 ng-click="deleBillP()">删除</a> -->
     </div>
 </div>
 <div ng-if="contAttr === 'prop'">
@@ -23,10 +23,10 @@
        <!--  <a target="_blank" class="btn btn-default" ng-if="!(contract.stateFlag === '6' || contract.contStatus === '6') && !viewFlag && keywords.billType==='01' && mode==='1'" 
 	       ng-href='http://{{config.backend.printIp}}/WDDE/pdf2.jsp?zhumobanname=sx-rei-jdzd-pl&paras=1%3d{{keywords.contNo}}&KEY=N'>季度账单打印</a>   --> 	
     </span>    	
-<!--        <a ng-if="(contract.contAttr==='prop' && (keywords.billType ==='06' || keywords.billType ==='01')) &&-->
-<!--        	(!(contract.stateFlag === '6'  || contract.contStatus === '6') && !viewFlag)"-->
-<!--        class="btn btn-danger btn-lg"-->
-<!--          ng-click="delePropBill(billList)">删除</a>-->
+	 <a ng-if="(contract.contAttr==='prop' && (keywords.billType ==='06' || keywords.billType ==='01')) &&
+       	(!(contract.stateFlag === '6'  || contract.contStatus === '6') && !viewFlag)"
+      class="btn btn-danger btn-lg"
+      ng-click="delePropBill(billList)">删除</a> 
     </div>
 </div>
 
@@ -47,7 +47,9 @@
                <th>账单余额</th>
                </thead>
                <tr ng-repeat ="bill in billList" >
-                   <td>{{bill.billStatus}}</td>
+                   <td>
+					    {{bill.billStatus}} 
+                   </td>
                    <td ng-if="contAttr === 'nprop'">{{bill.billTyp}}</td>
                    <td>{{bill.billNo}}</td>
                    <td>{{bill.contNo}}</td>

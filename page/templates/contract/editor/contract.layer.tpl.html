@@ -208,7 +208,7 @@
                     <table  class="table table-stripped" >
                         <tr>
                             <td colspan="2" >恢复保费</td>
-                            <td colspan="2" >
+                            <td colspan="2" ng-if="operation!='view' && !effected">
                                 <span><input type="text" ng-model="allCreateNum" style="width: 50px"/></span>
                                 <span><button class="btn" ng-click="createNum(allCreateNum)">确定</button></span>
                             </td>
@@ -232,7 +232,7 @@
                             </td>
                             <td align="left">
                                 <div class="input-group col-sm-9">
-                                    <input class="form-control" type="text" ng-model="rein.reinstRate" percentage
+                                    <input class="form-control" type="text" ng-model="rein.reinsRate" percentage
                                            ng-readonly="operation==='view' ||effected" ng-required="true"
                                            ng-blur="calTotalQuota(layer);setRol(layer)">
                                     <span></span>

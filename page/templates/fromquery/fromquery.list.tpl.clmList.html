@@ -4,9 +4,9 @@
 		<tr>
 			<td>分摊</td>
 			<td>复核</td>
-			<!-- <td>标识</td> -->
+			<td>标识</td>
 			<td>分保方式</td>
-			<!-- <td>已决/未决</td> -->
+			<td>已决/未决</td>
 			<td>分保赔案号</td>
 			<td>立案号</td>
 			<!-- <td>危险单位号</td> -->
@@ -34,15 +34,23 @@
                 <div ng-if="(riskUnit.underWriteFlag === '1')">已复核</div>
                 <div ng-if="(riskUnit.underWriteFlag === '9')">待复核</div>
 			</td>
-			<!-- <td>{{riskUnit.repayNo}}</td> -->
+			<td>
+				<div ng-if="(riskUnit.claimInfoCode === '0')">已结案</div>
+                <div ng-if="(riskUnit.claimInfoCode === '1')">已立案</div>
+                <div ng-if="(riskUnit.claimInfoCode === '3')">已赔款</div>
+			</td>
 			<td>
 				<div ng-if="(riskUnit.reinsType === '0')">合同</div>
                 <div ng-if="(riskUnit.reinsType === '1')">临分</div>
                 <div ng-if="(riskUnit.reinsType === '2')">混合</div>
                 <div ng-if="(riskUnit.reinsType === '3')">自留</div>
 			</td>
+			<td>
+				<div ng-if="(riskUnit.sumPayValue != 0)">已决</div>
+                <div ng-if="(riskUnit.sumPayValue === 0)">未决</div>
+			</td>
 			<!-- <td>{{riskUnit.repayNo}}</td> -->
-			<!--  -->
+			
 			<td>{{riskUnit.repayNo}}</td>
 			<td>{{riskUnit.payNo}}</td>
 			<!-- <td>{{riskUnit.dangerNo}}</td> -->

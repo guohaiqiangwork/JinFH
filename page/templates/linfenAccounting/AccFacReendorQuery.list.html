@@ -20,19 +20,19 @@
             <tbody>
             <tr ng-repeat="plyRisk in plyRiskUnitList">
                 <td><input type="radio" value="0" name="gender" ng-click="QueryAcc(plyRisk.rePolicyNo)"/></td>
+                <td>{{plyRisk.reendorNo}}</td>
+                <td>{{plyRisk.policyNo}}</td>
                 <td></td>
                 <td></td>
                 <td></td>
+                <td>{{plyRisk.comCode}}</td>
+                <td>{{plyRisk.insuredNam}}</td>
                 <td></td>
+                <td>{{plyRisk.currency}}</td>
+                <td>{{plyRisk.amountChg}}</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{plyRisk.baseRate}}</td>
+                <td>{{plyRisk.shareRate}}</td>
             </tr>
             </tbody>
         </table>
