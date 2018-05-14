@@ -419,6 +419,9 @@ define(['app',
                     	var number = /^\d*(\.\d*)?$/;
                     	if(angular.isNumber(parseFloat(layer.layerPremium+""))&&angular.isNumber(parseFloat(layer.mdpRate+""))){
                     		var  fhXLayerMdp = (parseFloat(layer.layerPremium+"")) * (parseFloat(layer.mdpRate+"")) /100;
+                    		 if(isNaN(fhXLayerMdp)){
+                    			 fhXLayerMdp=0;
+                    		 }
                             layer.mdp = fhXLayerMdp.toFixed(2);
                     	}
                     };
@@ -429,6 +432,9 @@ define(['app',
                     	var number = /^\d*(\.\d*)?$/;
                     	if(angular.isNumber(parseFloat(layer.egnpi+""))&&angular.isNumber(parseFloat(layer.rate+""))){
                     		 var  layerPremium = (parseFloat(layer.egnpi+"")) * (parseFloat(layer.rate+"")) / 100 ;
+                    		 if(isNaN(layerPremium)){
+                    			 layerPremium=0;
+                    		 }
                              layer.layerPremium = layerPremium.toFixed(2);
                              layer.rate = parseFloat(layer.rate).toFixed(6);
                     	}
@@ -1476,14 +1482,66 @@ define(['app',
 
                     //保存(新增，编辑)
                     $scope.saveContract = function(){
-                    	if(!checkGroupRisk()){ //检查适用险种
+                    	if($scope.contAttr === "prop"){
+                    	 var start= Date.parse($scope.contract.stardate);
+                         var end = Date.parse($scope.contract.end);
+                         if( isNaN(start) ){
+                             alert("合同起期还没有填！！");
+                             return false;
+                         }if(start>end){
+                        	 alert("合同止期不能早于合同起期！！");
+                             return false;
+                         }
+                         var year = $scope.contract.uwYear;
+                         if(!year){
+                        	 alert("请填写业务年度！！");
+                        	 return false;
+                         }
+                    	}else{
+                    		 var start= Date.parse($scope.contract.startDate);
+                             var end = Date.parse($scope.contract.endDate);
+                             if( isNaN(start) ){
+                                 alert("合同起期还没有填！！");
+                                 return false;
+                             }
+                             if(isNaN(end) ){
+                                 alert("合同止期还没有填！！");
+                                 return false;
+                             }if(start>end){
+                            	 alert("合同止期不能早于合同起期！！");
+                                 return false;
+                             }
+                    	}if(!checkRefNo()){//检查合同简称
+                    		$scope.showBusy(false);
+                    		return false;
+                    	}else if(!checkGroupRisk()){ //检查适用险种
                     		$scope.showBusy(false);
                     		return false;
                     	}else if(!checkGroupRcepter()){  //检查接受人
                     		$scope.showBusy(false);
                     		return false;
-
-                    	}else if(!checkCleanYear()){
+                    	}else if(!checkCurrency()){//检查币别是否为空
+                    		$scope.showBusy(false);
+                    		return false;
+                    	}else if(!checkCleanYear()){//检查结清年限
+                    		$scope.showBusy(false);
+                    		return false;
+                    	}else if(!checkRate()){//检查非比例的层费率
+                    		$scope.showBusy(false);
+                    		return false;
+                    	}else if(!checkMdpRate()){//检查非比例的预付比例
+                    		$scope.showBusy(false);
+                    		return false;
+                    	}else if(!checkROL()){//检查非比例的ROL
+                    		$scope.showBusy(false);
+                    		return false;
+                    	}else if(!checkCompany()){//检查非比例的机构信息
+                    		$scope.showBusy(false);
+                    		return false;
+                    	}else if(!checkReinsRate()){//检查非比例的恢复比例信息
+                    		$scope.showBusy(false);
+                    		return false;
+                    	}else if(!checkPayTimes()){//检查非比例的期次信息
                     		$scope.showBusy(false);
                     		return false;
                     	}
@@ -1613,6 +1671,29 @@ define(['app',
                         }
                     	return passFlag;
                     }
+                    //全局检查合同简称是否已填
+                    var checkRefNo = function(){
+                    	 var passFlag = true;
+
+                         if($scope.contAttr === "prop"){
+                            if(!$scope.contract.refNo){
+                            	passFlag = false;
+                            }
+                            
+                         }else {
+                        	 if(!$scope.contract.refNo){
+                             	passFlag = false;
+                        	 }
+                         }
+                         if(!passFlag){
+                             alert("请添加合同简称哦！");
+                         }else{
+                         	console.log("合同简称满足条件！！");
+                         }
+                         return passFlag;
+
+
+                    };
                     //全局检查适用险种是否已填
                     var checkGroupRisk = function(){
                     	 var passFlag = true;
@@ -1659,7 +1740,132 @@ define(['app',
 
 
                     };
+                    //全局检查币别是否填加
+                    var checkCurrency = function(){
+                    	 var passFlag = true;
 
+                         if($scope.contAttr === "prop"){
+                             $.each($scope.contract.fhSectionList,function(index, temp){
+                                 if(temp.currency === "01"){
+                                	 passFlag = false;
+                                 }
+                             });
+                         }
+                         if(!passFlag){
+                             alert("币别不能为空！");
+                         }else{
+                         	console.log("币别满足条件！！");
+                         }
+                         return passFlag;
+
+
+                    };
+                    //全局检查非比例层费率是否填加
+                    var checkRate= function(){
+                    	var passFlag = true;
+                         if($scope.contAttr === "nprop"){
+                             $.each($scope.contract.fhxLayerList,function(index, temp){
+                                 if(temp.rate === 0){
+                                	 passFlag = false;
+                                 }
+                             });
+                         }
+                         if(!passFlag){
+                             alert("层费率不能为空！");
+                         }else{
+                         	console.log("层费率满足条件！！");
+                         }
+                         return passFlag;
+                      };
+                      //全局检查非比例预付比例是否填加
+                      var checkMdpRate= function(){
+                      	var passFlag = true;
+                           if($scope.contAttr === "nprop"){
+                               $.each($scope.contract.fhxLayerList,function(index, temp){
+                                   if(temp.mdpRate === 0){
+                                  	 passFlag = false;
+                                   }
+                               });
+                           }
+                           if(!passFlag){
+                               alert("预付比例不能为空！");
+                           }else{
+                           	console.log("预付比例满足条件！！");
+                           }
+                           return passFlag;
+                        };
+                        //全局检查非比例ROL是否填加
+                        var checkROL= function(){
+                        	var passFlag = true;
+                             if($scope.contAttr === "nprop"){
+                                 $.each($scope.contract.fhxLayerList,function(index, temp){
+                                     if(temp.rol === 0){
+                                    	 passFlag = false;
+                                     }
+                                 });
+                             }
+                             if(!passFlag){
+                                 alert("ROL不能为空！");
+                             }else{
+                             	console.log("ROL满足条件！！");
+                             }
+                             return passFlag;
+                          };
+                          //全局检查非比例机构信息是否填加
+                          var checkCompany= function(){
+                          	var passFlag = true;
+                               if($scope.contAttr === "nprop"){
+                                   $.each($scope.contract.fhxLayerList,function(index, temp){
+                                	   $.each(temp.fhxCompanyList,function(index1,temp1){
+                                		   if(!temp1.comCode){
+                                			   passFlag = false;
+                                		   }
+                                			   });
+                                   });
+                               }
+                               if(!passFlag){
+                                   alert("请选择机构信息！");
+                               }else{
+                               	console.log("机构信息满足条件！！");
+                               }
+                               return passFlag;
+                            };
+                            //全局检查非比例责任比例是否已填
+                            var checkReinsRate = function(){
+                            	 var passFlag = true;
+
+                                 if($scope.contAttr === "nprop"){
+                                     $.each($scope.contract.fhxLayerList,function(index, temp){
+                                         if(temp.fhXReinstTimesList.length === 0){
+                                        	 passFlag = false;
+                                         }
+                                     });
+                                 }
+                                 if(!passFlag){
+                                     alert("请添加恢复比例！");
+                                 }else{
+                                 	console.log("恢复比例满足条件！！");
+                                 }
+                                 return passFlag;
+                            };
+                          //全局检查非比例期次是否填加
+                            var checkPayTimes= function(){
+                            	var passFlag = true;
+                                 if($scope.contAttr === "nprop"){
+                                     $.each($scope.contract.fhxLayerList,function(index, temp){
+                                  	  if(temp.fhxPlanList.length===0){
+                                  		passFlag = false;
+                                  	  }
+                                     });
+                                 }
+                                 if(!passFlag){
+                                     alert("请添加期次信息！");
+                                 }else{
+                                 	console.log("期次信息满足条件！！");
+                                 }
+                                 return passFlag;
+                              };
+                          
                     //检查接受人最终接受人是否合法
                     var checkGroupRcepter = function(){
                     	var passFlag = true;
@@ -1755,9 +1961,12 @@ define(['app',
                         			if(recepter.warning === true){
                         				passFlag = false;
                         				return false;
-                        			}
-
-                        		});
+                        			}//slh
+                					if(recepter.brokerFlag==="false"&&recepter.reinsCode===""){
+                						nReinCo=false;
+                						passFlag=false;
+                					}//slh
+                					});
                     			//slh start
                     			if(count != 100){
                     				receiveRateFlag = false;
@@ -1776,7 +1985,12 @@ define(['app',
                     	}else if (!nReinCo){
                     		alert("请选择再保人！！");
                     	}else if(!receiveRateFlag){
+                    		if($scope.contAttr === 'prop'){
                     		alert("请确认所有接收人的份额之和为100！！");
+                    		}else{
+                    		alert("请确认分出份额为100！！" +
+                    			  "所有接收人的再保份额之和为100！！");	
+                    		}
                     	}else if(!rPriFinalRel){
                     		alert("接收人和最终接受人不相等!!!");
                     	}else if(!bPriFinalRel){
@@ -1878,7 +2092,7 @@ define(['app',
                     	}
                     };
                     //编辑时检查合同止期是否合法
-                    $scope.checkEndDate = function(contract){
+                   /* $scope.checkEndDate = function(contract){
                     	if(true ){
 
                     		$timeout(function(){
@@ -1935,7 +2149,7 @@ define(['app',
 
                     	}
                     };
-
+*/
                    /* $scope.selectTaxFlagChange = function(section){
 
                     	if(section.vatFlag==="1"){

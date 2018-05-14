@@ -16,7 +16,7 @@ define(['angular', 'config'], function (angular, config) {
             },
             urls:{
             	searchSettleAcc: config.backend.ip + config.backend.base + 'accSettle.do?operateType=show',
-            	deleteSettleAcc: config.backend.ip + config.backend.base + 'accSettle.do?operateType=detele', 
+            	deleteSettleAcc: config.backend.ip + config.backend.base + 'accSettle.do?operateType=delete', 
             	querySettleAcc:  config.backend.ip + config.backend.base + 'accSettle.do?operateType=query',                
             	queryPlanMain:   config.backend.ip + config.backend.base + 'accSettle.do?operateType=plan',
             	queryAcc:        config.backend.ip + config.backend.base + 'accSettle.do?operateType=view',
@@ -165,42 +165,16 @@ define(['angular', 'config'], function (angular, config) {
                     return deffered.promise;
                 },
 
-                /**
-                 * 编辑再保人
-                 * @param reinsurer   再保人数据
-                 * @param user
-                 * @returns {Function|promise|promise|promise}
-                 */
-//                updateReinsurer: function (reinsurer, user) {
-//                    var deffered = $q.defer();
-//                    $http({
-//                        method:config.data.method==='files'? 'GET':'POST',
-//                        url: reinsurerServiceConfig[config.data.method].updateReinsurer,
-//                        headers: {
-//                            //PICC__RequestVerificationToken: user.verificationToken
-//                        },
-//                        data:{
-//                            reinsurer:reinsurer,
-//                            user:user
-//                        },
-//                        timeout:  config.backend.timeout
-//                    })
-//                        .success(function(data){
-//                            deffered.resolve(data);
-//                        })
-//                        .error(function(e, code){
-//                            deffered.reject(code);
-//                        });
-//                    return deffered.promise;
-//                },
+                
+
 
                 /**
-                 * 删除再保人
-                 * @param reinsurerNo 主键
+                 * 删除
+                 * @param settleNo 主键
                  * @param user
                  * @returns {Function|promise|promise|promise}
                  */
-                deleteSettleAcc: function (settleNo,user) {
+                deleteSettleAcc: function (settleNo) {
                     var deffered = $q.defer();
                     console.log("bbb******");
                     console.log("settleNo:"+settleNo);
@@ -211,8 +185,8 @@ define(['angular', 'config'], function (angular, config) {
                             //PICC__RequestVerificationToken: user.verificationToken
                         },
                         data:{
-                        	settleNo:settleNo,
-                            user:user
+                        	settleNo:settleNo
+                            
                         },
                         timeout:  config.backend.timeout
                     })

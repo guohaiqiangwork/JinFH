@@ -4,8 +4,9 @@ define(['app',
     '/reins/page/templates/relationship/editor/relationship.delete.ctrl.js'
 //    '/reins/page/templates/relationship/editor/relationship.editor.ctrl.js',
 ], function (app,config) {
-    app.registerController('RelationshipListCtrl', ['$scope', '$filter', '$modal', '$location', 'RelationshipService',
-        function ($scope, $filter, $modal, $location, relationshipService) {
+    app.registerController('RelationshipListCtrl', ['$scope', '$filter', '$modal', '$location', 'RelationshipService'
+        , function ($scope, $filter, $modal, $location, relationshipService) {
+
         //显示查询列表框
         $scope.showSearchList = function(){
             $scope.hideList = false;

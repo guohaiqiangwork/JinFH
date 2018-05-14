@@ -97,7 +97,7 @@ define(['app',
         };
      
 
-        //根据页号查询再保人列表
+        //根据页号查询列表
         $scope.onSelectPage = function(pageIndex){
             $scope.pagination.pageIndex = pageIndex;
             var _pagination = angular.copy($scope.pagination);
@@ -115,14 +115,34 @@ define(['app',
 
             $scope.searchSettleAcc($scope.keywords, $scope.pagination, $scope.global.user);
         };
+        
+        
+        
+        
+        //add by renshuai
+        $scope.getIndex = function (_index){
+            return _index + 1 + ($scope.pagination.pageIndex-1) * $scope.pagination.pageSize;
+        };
+        //根据页号查询合同列表 add by renshuai
+        $scope.onSelectPage = function(pageIndex){   
+            $scope.pagination.pageIndex = pageIndex;
+            var _pagination = angular.copy($scope.pagination);
+            $scope.searchSettleAcc($scope.keywords, _pagination, {});
+        };
+        
+        
+        
+        
+        
+        
         //查询账单
         $scope.searchSettleAcc= function(keywords, pagination, user){
             settleAccService.searchSettleAcc(keywords, pagination, user).then(
                 function(data){
-                    console.log("返回数据"+data.data);
+                
                     $scope.settleAccList = data.data;
                     pagination.totalItems = data.total;
-                    console.log("settleAccList's value is : " + $scope.settleAccList);
+                    
                 },
                 function(message){
                     //alert(message);
@@ -232,7 +252,7 @@ define(['app',
                 lastText: config.pagination.lastText
             };
             
-            //查询再保人
+            
             $scope.searchSettleAcc($scope.keywords, $scope.pagination, {});
 
         };

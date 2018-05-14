@@ -1,0 +1,36 @@
+<div class="">
+    <div>
+        <input type="checkbox" ng-model="checkAll" ng-click="checkAllSettleAcc()">全选
+    </div>
+
+    <div ng-repeat="settleAcc in settleAccList" class="contract-thumbnail-wrapper hover-visible-wrapper">
+        <div>
+            <input type="checkbox" ng-model="settleAcc.checked">
+            {{$index+1}}
+        </div>
+
+        <div class="contract-thumbnail" ng-class="{'animated shake':contract.contStatus==='2'}">
+
+           	<div>结算单编号：<a ng-href="#/settleAccs/{{settleAcc.settleNo}}/view">{{settleAcc.settleNo}}</a></div>
+            <div>结算人编号：{{settleAcc.payCode}}</div>
+            <div>结算人名称：{{settleAcc.payName}}</div>
+            <div>结付币种：{{settleAcc.currency}}</div>
+            <div>结付金额：{{settleAcc.settleValue}}</div>
+            <div>经办人：{{settleAcc.operatorCode}}</div>
+            <div>结算单生成日期：{{settleAcc.operateDate.time | date : config.display.dateFormat}}</div>
+            <div>结算单转收付日期：{{settleAcc.sendDate.time | date : config.display.dateFormat}}</div>
+            <div>实际付款日期：{{settleAcc.sendFlag}}</div>
+        </div>
+
+        <div class="text-center" style="margin:5px 0 0 0">
+            <div>
+                <span class="contract-status"></span>
+                {{settleAcc.settleNo}}
+            </div>
+
+            <div class="btn-group btn-group-sm hover-visible">
+                <a class="btn btn-default"  ng-click="deleteSettleAcc()">打印结付清单</a>
+            </div>
+        </div>
+    </div>
+</div>

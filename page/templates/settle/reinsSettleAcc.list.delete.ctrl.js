@@ -9,9 +9,8 @@ define(['app'
             var deleteSettleAcc = function(settleNo){
                 
                 settleAccService.deleteSettleAcc(settleNo).then(
-                    function(data){
-                        //console.log(data);
-                    	alert("删除成功！");
+                    function(data){                   
+                    	alert(data);
                     	$location.path("/settleAccs");
                     },
                     function(code){

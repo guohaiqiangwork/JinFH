@@ -15,9 +15,13 @@ define(['app',
             $scope.hideList = false;
         };
         
-        
+        //全选按钮设置为未选中状态（不初始化为false）
+        $scope.checkAll = false;
+      //被选中的按钮个数 add by renshuai
+        $scope.selectedCount = 0;
         //点击全部选中时设置控制的单选按钮状态
-        $scope.checkAllRelationships = function (){
+        //修改 by renshuai
+        $scope.checkAllContracts = function (){
             $scope.checkAll = !$scope.checkAll;
             $.each($scope.settleList, function(index, accSettle){
             	accSettle.checked = $scope.checkAll;
@@ -63,7 +67,7 @@ define(['app',
 	                    $scope[$scope.searchList[0].searcher] = data;
 	                    searchFlag = true;
 	                    $scope.searchList.splice(0,1);
-//	                    ralSearch();
+	                    ralSearch();
 	                },
 	                function(code){
 	                    console.log("error  "+code);
@@ -75,7 +79,7 @@ define(['app',
 	                        $scope[$scope.searchList[0].searcher] = [];
 	                        $scope.searchList.splice(0,1);
 	                    }
-//	                    ralSearch();
+	                    ralSearch();
 	                }
 	            )
 	        }
@@ -99,10 +103,8 @@ define(['app',
         
 			//add by wl 20180313 增加查询账单 begin
           
-	        $scope.searchSettle = function(searchWords, pagination, user) {
-	        	
-	        	$scope.showBusy(true);
-	        	
+	        $scope.searchSettle = function(searchWords, pagination, user) {	        	
+	        	$scope.showBusy(true);	        	
 	            settleService.searchSettle(searchWords, pagination, user).then(
 	                function(data){	                	
 	                	if(data.data.length > 0){
@@ -133,7 +135,7 @@ define(['app',
 	        	if(settleList.length == 0){
 	        		alert("请选择一条记录");
 	        		return;
-	        	}
+	        	}                  
 	        	$scope.accSettleList = settleList ;
 	        	$scope.settleMain = {};
 	        	$scope.settleMain.payCode=$scope.accSettleList[0].payCode;
@@ -315,11 +317,14 @@ define(['app',
 		        };
 	         };
 	      
-			
+			//add by renshuai
+	         $scope.back=function(){
+	        	 window.location.reload("/reins/page/templates/settle/reinsSettleResult.list.tpl.html"); 
+	         }
+	         
             var init = function () {
             	$scope.searchTableFlag = false;
-                //全选按钮设置为未选中状态（不初始化为false）
-                $scope.checkAll = false;
+               
                 $scope.resetSearchBox();
                 
                 $scope.showExtra = "no" ;

@@ -15,7 +15,8 @@ define(['app',
     	
    			 
    			 $location.path("/relationships");
-   			 //初始化关系列表
+           location.reload()
+           //初始化关系列表
    			 $scope.searchRelationship($scope.keywords, $scope.pagination, {});
    		
   		   
@@ -33,9 +34,11 @@ define(['app',
 //                		var uwYear = ((msg[1].split(":"))[1]).substring(0, ((msg[1].split(":"))[1]).length -1);
         							var treatyNo = data.msg.treatyNo;
         							var uwYear = data.msg.uwYear;
-        							alert("保存成功！业务年度为："+uwYear+" 合同编号为："+treatyNo);
+        							alert("保存成功！");
+//        							alert("保存成功！业务年度为："+uwYear+" 合同编号为："+treatyNo);
         							var url="/relationships";
         							$location.path(url);
+                                    location.reload();
 //                        $location.path("/relationships/" + uwYear + treatyNo +"/view");
         						}else{
         							alert("保存失败！"+data.msg);
@@ -73,7 +76,8 @@ define(['app',
                     	if(data.result === "success"){
                     		var treatyNo = data.msg.treatyNo;
                     		var uwYear = data.msg.uwYear;
-                    		alert("保存成功！业务年度为："+uwYear+" 合同编号为："+treatyNo);
+                    		alert("保存成功！");
+//                    		alert("保存成功！业务年度为："+uwYear+" 合同编号为："+treatyNo);
                     	    $location.path("/relationships");                  		
 //                       $location.path("/relationships/" + uwYear + treatyNo +"/view");
                     		

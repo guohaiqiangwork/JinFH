@@ -260,7 +260,7 @@ define(['angular', 'config'], function (angular, config) {
                     "stateFlag":"0",//合同状态
 //                    "carFlag":"0",//是否为车险合同 -- （国泰不用）
 //                    "carServAmoutFlag":"0",//车险合同属性 --（国泰不行）
-//                    "optType":"00",
+                    "optType":"00",
                     "fhSectionList":[
 //                    "contOutInssects":[
                         {

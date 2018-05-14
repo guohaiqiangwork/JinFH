@@ -124,6 +124,17 @@ define(['app',
 			    	  }   
 		    	  }
 	    	  //add by zhx end
+	    	  //add by slh 
+	    	  if(temp==='setState'){
+		    	   
+		    	   if(contract[0].stateFlag == "4"){
+		    		   contract[0].stateFlag = "6"
+		    	  }   
+		    	   if(contract[0].stateFlag == "0"){
+		    		   contract[0].stateFlag = "4"
+		    	  } 
+	    	  }
+	    	//add by slh end
             var url = changeUrl(temp);
             $modal.open({
                     templateUrl: url,
