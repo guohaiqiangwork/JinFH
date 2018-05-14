@@ -32,6 +32,59 @@
                 <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepayQuery.list.html'"></div>
                 <!--<div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepayQuery.jsp'"></div>-->
             </div>
+
+            <h5>临分对内账单{{fzBAccList123}}</h5>
+            <table class="table table-striped table-hover">
+                <thead>
+                <th>账单类型</th>
+                <th>账单状态</th>
+                <th>账单编号</th>
+                <th>出单公司</th>
+                <th>接受人编码</th>
+                <th>接受人名称</th>
+                <th>分保业务单证号</th>
+                <th>账单币种</th>
+                <th>账单余额</th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="fzBAc in fzBAccList123">
+                    <td></td>
+                    <td></td>
+                    <td>{{fzBAc.accNo}}</td>
+                    <td>{{fzBAc.comCode}}</td>
+                    <td>{{fzBAc.reinsCode}}</td>
+                    <td>{{fzBAc.reinsName}}</td>
+                    <td>{{fzBAc.recertifyNo}}</td>
+                    <td>{{fzBAc.currency}}</td>
+                    <td>{{fzBAc.balance}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <h5>临分对外账单</h5>
+            <table class="table table-striped table-hover">
+                <thead>
+                <th>账单类型</th>
+                <th>账单编号</th>
+                <th>出单公司</th>
+                <th>接受人编码</th>
+                <th>接受人名称</th>
+                <th>分保业务单证号</th>
+                <th>账单币种</th>
+                <th>账单余额</th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="fzRAcc in fzRAccList123">
+                    <td></td>
+                    <td>{{fzRAcc.accNo}}</td>
+                    <td>{{fzRAcc.comCode}}</td>
+                    <td>{{fzRAcc.reinsCode}}</td>
+                    <td>{{fzRAcc.reinsName}}</td>
+                    <td>{{fzRAcc.recertifyNo}}</td>
+                    <td>{{fzRAcc.currency}}</td>
+                    <td>{{fzRAcc.balance}}</td>
+                </tr>
+                </tbody>
+            </table>
         </form>
     </div>
 

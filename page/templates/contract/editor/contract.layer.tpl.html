@@ -205,15 +205,18 @@
                 <!--恢复保费-->
                 <br/>
                 <form name="frmSearchContract" novalidate>
+
+
+                    <span class="col-xs-2">恢复保费</span>
+                    <span class="col-xs-1">恢复次数:</span>
+                    <span class="col-xs-1"><input type="text" ng-disabled="operation==='view'"
+                                                  ng-init="allCreateNum=layer.fhXReinstTimesList.length"
+                                                  ng-model="allCreateNum" style="width: 88px;background-color: white"/></span>
+                    <span class="col-xs-1" ng-if="operation!=='view'"><button class="btn btn-default"
+                                                                              ng-click="createNum(allCreateNum)">确定</button></span>
+
+
                     <table  class="table table-stripped" >
-                        <tr>
-                            <td colspan="2" >恢复保费</td>
-                            <td colspan="2">
-                                <span>恢复次数:</span>
-                                <span><input type="text" ng-disabled="operation==='view'" ng-init="allCreateNum=layer.fhXReinstTimesList.length" ng-model="allCreateNum" style="width: 50px;background-color: white"/></span>
-                                <span><button class="btn" ng-disabled="operation==='view'" ng-click="createNum(allCreateNum)">确定</button></span>
-                            </td>
-                        </tr>
                         <tr>
                             <td>次数</td>
                             <td>恢复保费类型</td>
@@ -244,10 +247,10 @@
                                     <span></span>
                                 </div>
                             </td>
-                            <td ><button ng-disabled="operation==='view'" ng-click="delReinstTypeList($index)">删除</button></td>
+                            <td ><button ng-if="operation!=='view'" ng-click="delReinstTypeList($index)">删除</button></td>
                         </tr>
 
-                        <tr><td><button ng-disabled="operation==='view'" ng-click="addReinstTypeList()">添加</button></td></tr>
+                        <tr><td><button ng-if="operation!=='view'" ng-click="addReinstTypeList()">添加</button></td></tr>
                     </table>
                 </form>
                  <!--最终接受人-->

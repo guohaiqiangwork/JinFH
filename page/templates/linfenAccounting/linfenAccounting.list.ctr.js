@@ -19,7 +19,9 @@ define(['app',
                 }
                 facultativeService.checkQueryAcc(queryAcc).then(
                     function(data){
-                        $scope.QueryAccs = data.data;
+                        $scope.fzBAccList123 = data.fzBAccList;
+                        console.log($scope.fzBAccList123)
+                        $scope.fzRAccList123 = data.fzRAccList;
                     },function(code){
                         throw(code);
                     }
