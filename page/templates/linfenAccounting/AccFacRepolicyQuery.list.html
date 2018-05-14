@@ -18,7 +18,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="plyRisk in plyRiskUnitList">
-                <td><input type="radio" value="0" name="gender" ng-click="QueryAcc(plyRisk.rePolicyNo)"/> </td>
+                <td><input type="radio" ng-value=true ng-model="plyRisk.checkedBill" name="selectState" ng-click="QueryAcc(plyRisk.rePolicyNo)"/></td>
                 <td>{{plyRisk.rePolicyNo}}</td>
                 <td>{{plyRisk.policyNo}}</td>
                 <td></td>
@@ -55,11 +55,64 @@
         </div>
         <table class="table table-striped">
             <tr class=common>
-                <input type="button" class="button" value="生成帐单" onclick="genAcc('FB');return false;">
+                <button  class="btn btn-default" ng-click="genAcc('FB','P')">生成帐单</button>
                 <!--<input type="button" class="button" value="打印分保条" onclick="PrintParticularsButtonAction();">-->
-                <input type="button" class="button" value="删除账单" onclick="delAcc();return false;">
-                <input type="button" class="button" value="账单转收付" onclick="payment();return false;">
+                <button  class="btn btn-default" ng-click="delAcc()">删除账单</button>
+                <button  class="btn btn-default" ng-click="payment()">账单转收付</button>
             </tr>
+        </table>
+
+        <h5>临分对内账单</h5>
+        <table class="table table-striped table-hover">
+            <thead>
+            <th>账单类型</th>
+            <th>账单状态</th>
+            <th>账单编号</th>
+            <th>出单公司</th>
+            <th>接受人编码</th>
+            <th>接受人名称</th>
+            <th>分保业务单证号</th>
+            <th>账单币种</th>
+            <th>账单余额</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="fzBAc in fzBAccList">
+                <td></td>
+                <td></td>
+                <td>{{fzBAc.accNo}}</td>
+                <td>{{fzBAc.comCode}}</td>
+                <td>{{fzBAc.reinsCode}}</td>
+                <td>{{fzBAc.reinsName}}</td>
+                <td>{{fzBAc.recertifyNo}}</td>
+                <td>{{fzBAc.currency}}</td>
+                <td>{{fzBAc.balance}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <h5>临分对外账单</h5>
+        <table class="table table-striped table-hover">
+            <thead>
+            <th>账单类型</th>
+            <th>账单编号</th>
+            <th>出单公司</th>
+            <th>接受人编码</th>
+            <th>接受人名称</th>
+            <th>分保业务单证号</th>
+            <th>账单币种</th>
+            <th>账单余额</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="fzRAcc in fzRAccList">
+                <td></td>
+                <td>{{fzRAcc.accNo}}</td>
+                <td>{{fzRAcc.comCode}}</td>
+                <td>{{fzRAcc.reinsCode}}</td>
+                <td>{{fzRAcc.reinsName}}</td>
+                <td>{{fzRAcc.recertifyNo}}</td>
+                <td>{{fzRAcc.currency}}</td>
+                <td>{{fzRAcc.balance}}</td>
+            </tr>
+            </tbody>
         </table>
 
     </div>

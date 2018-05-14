@@ -6,7 +6,6 @@ define(['app',
          function ($scope, $stateParams, $filter, $modal, $location,outqueryService,codeService,facultativeService,$q) {
 
 
-
 			 //确认是否生成账单
             $scope.QueryAcc = function (rePolicyNo) {
                 var queryAcc ={
@@ -16,17 +15,30 @@ define(['app',
                     recertifyNo:rePolicyNo,
                     acctype:'reinsOutType',
                     pagination:$scope.pagination
-                }
+                };
                 facultativeService.checkQueryAcc(queryAcc).then(
                     function(data){
-                        $scope.fzBAccList123 = data.fzBAccList;
-                        console.log($scope.fzBAccList123)
-                        $scope.fzRAccList123 = data.fzRAccList;
+                        $scope.fzBAccList = data.fzBAccList;
+                        $scope.fzRAccList = data.fzRAccList;
                     },function(code){
                         throw(code);
                     }
                 );
             };
+            //生成账单
+            $scope.genAcc = function(accType,biztype){
+                var keywords={
+                    accType:accType,
+                    biztype:biztype
+                };
+                facultativeService.generatingBill(keywords).then(
+                    function(data){
+                     console.log(data);
+                    },function(code){
+                        throw(code);
+                    }
+                );
+            }
 
             //分保单详情
             $scope.openPlyFromQuery = function (repolicyNo,dangerNo) {
