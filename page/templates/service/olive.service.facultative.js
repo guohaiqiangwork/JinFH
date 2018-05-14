@@ -8,7 +8,8 @@ define(['angular', 'config'], function (angular, config) {
             urls:{
                 searchFacultative: config.backend.ip + config.backend.base + 'recertifyQuery.do?querytype=query',
                 checkQueryAcc: config.backend.ip + config.backend.base + 'fzAccQuery.do?queryType=query',
-                generatingBill: config.backend.ip + config.backend.base + 'genAcc.do?queryType=doBill'
+                generatingBill: config.backend.ip + config.backend.base + 'genAcc.do?queryType=doBill',
+                deleBill:config.backend.ip + config.backend.base + 'getAcc.do?type1=Delete'
             }
         })
         .factory('facultativeService',['$http', '$q', '$filter', 'facultativeServiceConfig', function ($http, $q, $filter, facultativeServiceConfig) {
@@ -80,6 +81,32 @@ define(['angular', 'config'], function (angular, config) {
                     var deffered = $q.defer();
 
                     var _url = config.data.method==='files'? facultativeServiceConfig.files.generatingBill : facultativeServiceConfig.urls.generatingBill;
+                    $http({
+                        method: config.data.method==='files'? 'GET':'POST',
+                        url: _url,
+                        headers: {
+                        },
+                        data:keywords,
+                        timeout:  config.backend.timeout
+                    })
+                        .success(function(data){
+                            deffered.resolve(data);
+                        })
+                        .error(function(e, code){
+                            deffered.reject(code);
+                        });
+
+                    return deffered.promise;
+                },
+                /**
+                 * 删除账单
+                 * @param keywords
+                 */
+                deleBill: function (keywords) {
+
+                    var deffered = $q.defer();
+
+                    var _url = config.data.method==='files'? facultativeServiceConfig.files.deleBill : facultativeServiceConfig.urls.deleBill;
                     $http({
                         method: config.data.method==='files'? 'GET':'POST',
                         url: _url,

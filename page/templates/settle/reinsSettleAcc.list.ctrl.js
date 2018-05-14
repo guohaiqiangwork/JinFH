@@ -41,6 +41,8 @@ define(['app',
             }
         };
       //add by zhx 后台查询币种 end
+        
+       
     	
     	//删除选中条目
         $scope.deleteSettleAcc = function(){
@@ -104,7 +106,13 @@ define(['app',
 
 		//查询事件
         $scope.search = function(){
-        	
+        	//add by zhx
+         	if($scope.keywords.settleConfFlag === null){
+         		$scope.keywords.settleConfFlag = "";
+         	}
+    	
+             $scope.pagination.pageIndex = 1;
+
             $scope.searchSettleAcc($scope.keywords, $scope.pagination, $scope.global.user);
         };
         //查询账单
@@ -165,17 +173,18 @@ define(['app',
         $scope.initKeywords = function (){
             $scope.keywords = {
                 "settleNo":'',
-                "settleNoFlag":'=',
+                "settleNoFlag":'',
                 "payCode":'',
-                "payCodeFlag":'=',
+                "payCodeFlag":'',
                 'currency':'',
-                "currencyFlag":'=',
+                "currencyFlag":'',
                 "settleConf":"",
-                "settleConfFlag":"全部",
+                "settleConfFlag":"",
                 "operateDate":"",
-                "operateDateFlag":"="
+                "operateDateFlag":""
                
             };
+            return $scope.keywords;
         };
         //重置查询条件
         $scope.resetSearchTable = function(){
@@ -191,7 +200,18 @@ define(['app',
             $scope.keywords = {
                 "id":"",
                 "value":"",
-                "other1":""
+                "other1":"",
+                "settleNo":'',
+                
+                "settleNoFlag":'',
+                "payCode":'',
+                "payCodeFlag":'',
+                'currency':'',
+                "currencyFlag":'',
+                "settleConf":"",
+                "settleConfFlag":"",
+                "operateDate":"",
+                "operateDateFlag":""
             };
           // add by zhx 查询币种
             var key = angular.copy($scope.keywords);

@@ -35,7 +35,7 @@
 	                </div>
 	                <div class="col-sm-1">
 	                    <select ng-model="keywords.settleNoFlag">
-	                        <option value="=">=&nbsp;</option>
+	                        <option value="=" selected>=&nbsp;</option>
                             <option value="*">*&nbsp;</option>
 	                    </select>
 	                </div>
@@ -47,9 +47,9 @@
 	                </div>
 	                <div class="col-sm-1">
 	                    <select ng-model="keywords.settleConfFlag">
-	                        <option value="全部">全部&nbsp;</option>
-                            <option value="已确认">已确认&nbsp;</option>
-                            <option value="未确认">未确认&nbsp;</option>
+	                        <option value="" selected>全部&nbsp;</option>
+                            <option value="1">已确认&nbsp;</option>
+                            <option value="0">未确认&nbsp;</option>
 	                    </select>
 	                </div>
 	                
@@ -73,7 +73,7 @@
 	                 </div>
 	                 <div class="col-sm-1">
 	                    <select ng-model="keywords.payCodeFlag">
-			      			<option  value="=">=&nbsp;</option>
+			      			<option  value="=" selected>=&nbsp;</option>
 							<option  value="*">*&nbsp;</option>
 			    		</select>
 	                  </div>
@@ -84,16 +84,17 @@
 	                 <div class="col-sm-1">
 	                    <label>结付币种：</label>
 	                 </div>
-				      <div class="col-sm-1">
+				      <!-- <div class="col-sm-1">
 				      	 <select ng-model="keywords.currencyFlag">
 				      		  <option  value="=">=&nbsp;</option>
 							  <option  value="*">*&nbsp;</option>
 							  
 							  
 				    	 </select>
-				      </div>
+				      </div> -->
 				       <div class="col-sm-4">
-				       <select class="form-control" ng-model="keywords.currency" ng-options="c.id as c.value for c in currencys" ></select>
+				       <select class="form-control" ng-model="keywords.currency" ng-options="c.id as c.value for c in currencys" >
+				       </select>
 	                    <!-- <input type="text" class="form-control" ng-model="keywords.currency" placeholder="结付币种"> -->
 	                </div>
 							       
@@ -104,11 +105,11 @@
 	                 </div>
 	                 <div class="col-sm-1">
 	                    <select ng-model="keywords.operateDateFlag">
-				      		  <option  value="=">=&nbsp;</option>
-							  <option  value=">">*&nbsp;</option>
-							  <option  value="<">=&nbsp;</option>
+				      		  <option  value="=" selected>=&nbsp;</option>
+							  <option  value=">">>&nbsp;</option>
+							  <option  value="<">&lt;&nbsp;</option>
 							  <option  value=">=">>=&nbsp;</option>
-							  <option  value="<="><=&nbsp;</option>							  
+							  <option  value="<=">&lt;=&nbsp;</option>							  
 			    		</select>
 	                  </div>
 	                    <div class="col-sm-4">
@@ -118,9 +119,9 @@
 	            
 	            <div class="row">
 		            <div class="btn-group pull-right" style="padding-top:10px">
-                        <a ng-click="resetSearchTable()" class="btn btn-default" ng-show="frmSearchReinsurer.$dirty">重置</a>
+                        <a ng-click="resetSearchTable()" class="btn btn-default" ng-show="frmSearchSettleAcc.$dirty">重置</a>
 	                    <a ng-click="searchTable.flag = ! searchTable.flag" class="btn btn-default">取消</a>
-	                    <a ng-click="search()" class="btn btn-primary" ng-disabled="!frmSearchReinsurer.$valid">立即查询</a>
+	                    <a ng-click="search()" class="btn btn-primary" ng-disabled="!frmSearchSettleAcc.$valid">立即查询</a>
 		            </div>
 	            </div>
 	        </div>

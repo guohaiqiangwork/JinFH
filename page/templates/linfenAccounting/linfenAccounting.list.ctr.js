@@ -5,9 +5,17 @@ define(['app',
         'OutqueryService','CodeService','facultativeService','$q',
          function ($scope, $stateParams, $filter, $modal, $location,outqueryService,codeService,facultativeService,$q) {
 
-
+             $scope.isSelect=false;
 			 //确认是否生成账单
             $scope.QueryAcc = function (rePolicyNo) {
+                $scope.isSelect=true;
+                $scope.fzBAccList = '';
+                $scope.fzRAccList = '';
+                $.each($scope.plyRiskUnitList,function (index,plyRiskUnit) {
+                    if(plyRiskUnit.rePolicyNo!==rePolicyNo){
+                        plyRiskUnit.checkedBill = false;
+                    }
+                });
                 var queryAcc ={
                     biztype:"P",
                     flag3:"F",
@@ -27,9 +35,25 @@ define(['app',
             };
             //生成账单
             $scope.genAcc = function(accType,biztype){
+                if(!$scope.isSelect){
+                   alert('请选择单号');
+                    return false;
+                }
+                if($scope.fzBAccList.length>0 || $scope.fzRAccList.length>0){
+                    alert('此单号已生成账单');
+                    return false;
+                }
+                var plyRiskUnit='';
+                for(var i=0;i<$scope.plyRiskUnitList.length;i++){
+                    if($scope.plyRiskUnitList[i].checkedBill){
+                        plyRiskUnit=$scope.plyRiskUnitList[i];
+                       break;
+                    }}
+
                 var keywords={
                     accType:accType,
-                    biztype:biztype
+                    biztype:biztype,
+                    plyRiskUnit:plyRiskUnit
                 };
                 facultativeService.generatingBill(keywords).then(
                     function(data){
@@ -38,8 +62,31 @@ define(['app',
                         throw(code);
                     }
                 );
-            }
-
+            };
+            //删除账单
+            $scope.delAcc =function(){
+                if(!$scope.isSelect){
+                    alert('请选择单号');
+                    return false;
+                }
+                if($scope.fzBAccList.length===0 || $scope.fzRAccList.length===0){
+                    alert('此单号未生成账单');
+                    return false;
+                }
+                var plyRiskUnit='';
+                for(var i=0;i<$scope.plyRiskUnitList.length;i++){
+                    if($scope.plyRiskUnitList[i].checkedBill){
+                        plyRiskUnit=$scope.plyRiskUnitList[i];
+                        break;
+                    }}
+                facultativeService.deleBill(plyRiskUnit).then(
+                    function(data){
+                        console.log(data);
+                    },function(code){
+                        throw(code);
+                    }
+                );
+            };
             //分保单详情
             $scope.openPlyFromQuery = function (repolicyNo,dangerNo) {
             	console.log("openPlyFromQuery---"+repolicyNo);
@@ -254,6 +301,9 @@ define(['app',
                 facultativeService.checkFacultative($scope.operation,$scope.keywords,$scope.pagination,'','').then(
                     function(data){
                         $scope.plyRiskUnitList = data.data;
+                        $.each( $scope.plyRiskUnitList,function (index,plyRiskUnit) {
+                            plyRiskUnit.checkedBill = false;
+                        });
                         $scope.pagination.totalItems=data.total;
                     },function(code){
                         throw(code);
@@ -355,6 +405,9 @@ define(['app',
                     facultativeService.checkFacultative($scope.operation,$scope.keywords,$scope.pagination,'','').then(
                         function(data){
                             $scope.plyRiskUnitList = data.data;
+                            $.each( $scope.plyRiskUnitList,function (index,plyRiskUnit) {
+                                plyRiskUnit.checkedBill = false;
+                            });
                             $scope.pagination.totalItems=data.total;
                         },function(code){
                             throw(code);

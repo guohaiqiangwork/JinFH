@@ -18,7 +18,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="plyRisk in plyRiskUnitList">
-                <td><input type="radio" ng-value=true ng-model="plyRisk.checkedBill" name="selectState" ng-click="QueryAcc(plyRisk.rePolicyNo)"/></td>
+                <td><input type="radio" value="true" ng-model="plyRisk.checkedBill" name="selectState" ng-change="QueryAcc(plyRisk.rePolicyNo)"/></td>
                 <td>{{plyRisk.rePolicyNo}}</td>
                 <td>{{plyRisk.policyNo}}</td>
                 <td></td>
