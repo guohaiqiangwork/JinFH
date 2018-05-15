@@ -1377,7 +1377,7 @@ define(['app',
                     //添加最终接收人 (比例)
                     $scope.addFinalRecepterProp = function(recepter){
                         var _finalrecepter =  angular.copy(contractService.getElement("propFinalRecepter"));
-                        debugger
+                       
                         if(  !recepter.fhFinalReinsList){
                             recepter.fhFinalReinsList =[];
                         	
@@ -2365,6 +2365,8 @@ define(['app',
                                              history.back(-1);
                                     	}else{
                                     		$scope.contract = $scope.preDealWith(data);
+                                            
+                                            console.log($scope.contract)
                                     		for(var i=0;i<$scope.contract.fhxLayerList.length;i++){
                                     			if($scope.contract.fhxLayerList[i].fhXReinstTimesList.length>0){
                                     				$.each($scope.contract.fhxLayerList[i].fhXReinstTimesList,function (index,fhXReinstTimes) {

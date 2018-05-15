@@ -25,6 +25,9 @@ define(['app'], function (app) {
 	        	var url = "/prepareSettles/"+ $scope.settleMain.payCode +"/"+ $scope.settleMain.accNo +"/prepareSettle";
 	            $location.path(url);
             };
+            $scope.prepareddSettle=function(){
+            	 $scope.showExtra = "no" ;
+            }
             $scope.searchSettleS = function(reinsCode, accNo) {
 	        	$scope.showBusy(true);
 	            settleService.searchSettleS(reinsCode, accNo).then(

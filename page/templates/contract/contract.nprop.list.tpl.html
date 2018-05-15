@@ -111,11 +111,10 @@
 	    <div ng-if="global.viewType==='thumbnail'" ng-include="'page/templates/contract/contract.nprop.list.thumbnail.tpl.html'"></div>
 
         <div ng-if="global.viewType==='table'" ng-include="'/reins/page/templates/contract/contract.nprop.list.table.tpl.html'"></div>
-        
+	    <div class="clearfix pull-right" ng-show="contractList.length > 0" style="margin-bottom:3%">
 	    <div class="clearfix panel-footer">
 	        <span class="pull-right">共找到{{pagination.totalItems}}份合同</span>
 	    </div>
-	    <div class="clearfix pull-right" ng-show="contractList.length > 0">
 		    <!-- 分页  -->
 	        <pagination total-items="pagination.totalItems"
 	                    page="pagination.pageIndex"

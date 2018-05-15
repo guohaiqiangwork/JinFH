@@ -49,9 +49,34 @@
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
-                        <input type="text" name="recertifyNo" class="condition" maxlength="22"></td>
-
-
+                        <input type="text" ng-model="keywords.recertifyNo" class="condition" maxlength="22"></td>
+                    <td class=title>出单公司：</td>
+                    <td class=input>
+                        <select ng-model="keywords.comCodeTag" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" ng-model="keywords.comCode" class="condition" maxlength="22"></td>
+                </tr>
+                <tr>
+                    <td class=title>险类：</td>
+                    <td class=input>
+                        <select ng-model="keywords.classCodeclassName" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" ng-model="keywords.classCodeclassName" class="condition" maxlength="4">
+                    </td>
+                    <td class=title>险种：</td>
+                    <td class=input>
+                        <select ng-model="keywords.riskCoderiskName" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" ng-model="keywords.riskCoderiskName" class="condition" maxlength="4">
+                    </td>
+                </tr>
+                <tr>
                     <td class=title>业务年度：</td>
                     <td class=input>
                         <select ng-model="keywords.uwYearTag" class="tag">
@@ -60,8 +85,33 @@
                         </select>
                         <input type="text" ng-model="keywords.uwYear" class="condition" maxlength="4">
                     </td>
+                    <td class=title>币种：</td>
+                    <td class=input>
+                        <select ng-model="keywords.currencyTag" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" ng-model="keywords.currency" class="condition" maxlength="4">
+                    </td>
                 </tr>
-
+                <tr>
+                    <td class=title>起保日期：</td>
+                    <td class=input>
+                        <select ng-model="keywords.startDateTag" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" ng-model="keywords.startDate" class="condition" maxlength="4">
+                    </td>
+                    <td class=title>被保险人：</td>
+                    <td class=input>
+                        <select ng-model="keywords.insuredNameTag" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" ng-model="keywords.insuredName" class="condition" maxlength="4">
+                    </td>
+                </tr>
                 <tr>
                     <td class=title>帐单生成状态：</td>
                     <td class=input>
@@ -69,22 +119,12 @@
                         <input type="radio" ng-model="keywords.accType" value="1">已生成帐单
                         <input type="radio" ng-model="keywords.accType" value="2" checked>未生成帐单
                     </td>
-                    <td class=title>分保方式：</td>
-                    <!--<td>-->
-                        <!--<input type="checkbox" ng-model="keywords.reinsType" value="3">自留-->
-                        <!--<input type="checkbox" ng-model="keywords.reinsType" value="0">合约-->
-                        <!--<input type="checkbox" ng-model="keywords.reinsType" value="1">临分-->
-                        <!--<input type="checkbox" ng-model="keywords.reinsType" value="2">混合-->
-                        <!--<input type="checkbox" ng-model="keywords.reinsType" value="" checked>全部-->
-                    <!--</td>-->
+
                     <td class=title>分保方式：</td>
                     <td class=common1 colspan="3">
                         <input type="checkbox" ng-model="keywords.reinsType" value="1" checked="checked">临分
                         <input type="checkbox" ng-model="keywords.reinsType" value="2">混合
                     </td>
-
-                </tr>
-                <tr>
 
                 </tr>
                 <tr>

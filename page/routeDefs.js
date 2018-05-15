@@ -245,7 +245,6 @@ define(['app'
                         }
 
                     })
-                    
                     //合同关系 新增(new)
                     .state('relationship.new', {
                         url: '/:operation',

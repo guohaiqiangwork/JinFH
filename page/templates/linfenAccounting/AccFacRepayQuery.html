@@ -14,7 +14,7 @@
                             <option value="*">*</option>
                         </select>
                         <input type="text"  ng-model="keywords.recertifyNo" class="condition" maxlength="40"></td>
-                    <td class=title>{{prompt.floRepay.PolicyNo}}:</td>
+                    <td class=title>保单号:</td>
                     <td class=input>
                         <select ng-model="keywords.policyNoTag" class="tag">
                             <option value="=" >=</option>
@@ -40,55 +40,93 @@
                 </tr>
 
                 <tr>
-                    <td class=title>{{prompt.fcoRepolicy.UwYear}}:</td>
+                    <td class=title>出险原因:</td>
                     <td class=input>
-                        <select ng-model="keywords.uwYearTag" class="tag">
+                        <select ng-model="keywords.damageReasonTag" class="tag">
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
-                        <input type="text" ng-model="keywords.uwYear" class="condition" maxlength="4">
+                        <input type="text" ng-model="keywords.damageCodedamageReason" class="condition" maxlength="4">
                     </td>
-                    <td class=title>出险日期：</td>
-                    <td class=input>
-                        <select ng-model="keywords.damageDateTag" class="tag">
-                            <option value="=" >=</option>
-                            <option value="*">*</option>
-                        </select>
-                        <input type="text" ng-model="keywords.damageDate" class="date" maxlength="10" onClick="return Calendar('damageDate');"> 至 <input type="text" name="damageDate2" class="date" maxlength="10" onClick="return Calendar('damageDate2');"></td>
-                </tr>
-                <tr>
-                    <td class=title>{{prompt.fcoRepolicy.StartDate}}:</td>
-                    <td class=input>
-                        <select ng-model="keywords.startDateTag" class="tag">
-                            <option value="=" >=</option>
-                            <option value="*">*</option>
-                        </select>
-                        <input type="text" ng-model="keywords.startDate" class="date" maxlength="10" onClick="return Calendar('startDate');"> 至 <input type="text" name="startDate2" class="date" maxlength="10" onClick="return Calendar('startDate2');"></td>
                     <td class=title>理算书号：</td>
                     <td class=input>
                         <select ng-model="keywords.compensateNoTag" class="tag">
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
-                        <input type="text"  ng-model="keywords.compensateNo" class="condition" maxlength="22"></td>
+                        <input type="text" ng-model="keywords.compensateNo  " class="date" maxlength="10" onClick="return Calendar('damageDate');"> 至 <input type="text" name="damageDate2" class="date" maxlength="10" onClick="return Calendar('damageDate2');"></td>
                 </tr>
-
                 <tr>
-                    <td class=title>分保单号：</td>
+                    <td class=title>险类:</td>
+                    <td class=input>
+                        <select ng-model="keywords.classCodeTag" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" ng-model="keywords.classCodeclassName" class="date" maxlength="10" onClick="return Calendar('startDate');"> 至 <input type="text" name="startDate2" class="date" maxlength="10" onClick="return Calendar('startDate2');"></td>
+                    <td class=title>出单公司：</td>
+                    <td class=input>
+                        <select ng-model="keywords.comCodeTag" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text"  ng-model="keywords.comCode" class="condition" maxlength="22"></td>
+                </tr>
+                <tr>
+                    <td class=title>业务年度:</td>
+                    <td class=input>
+                        <select ng-model="keywords.uwYearTag" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" ng-model="keywords.uwYear" class="date" maxlength="10" onClick="return Calendar('startDate');"> 至 <input type="text" name="startDate2" class="date" maxlength="10" onClick="return Calendar('startDate2');"></td>
+                    <td class=title>出险日期：</td>
+                    <td class=input>
+                        <select ng-model="keywords.damageDateTag" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text"  ng-model="keywords.damageDate" class="condition" maxlength="22"></td>
+                </tr>
+                <tr>
+                    <td class=title>起保日期:</td>
+                    <td class=input>
+                        <select ng-model="keywords.startDateTag" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" ng-model="keywords.startDate" class="date" maxlength="10" onClick="return Calendar('startDate');"> 至 <input type="text" name="startDate2" class="date" maxlength="10" onClick="return Calendar('startDate2');"></td>
+                    <td class=title>险种：</td>
+                    <td class=input>
+                        <select ng-model="keywords.riskCodeTag" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text"  ng-model="keywords.riskCoderiskName" class="condition" maxlength="22"></td>
+                </tr>
+                <tr>
+                    <td class=title>分保单号:</td>
                     <td class=input>
                         <select ng-model="keywords.repolicyNoTag" class="tag">
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
-                        <input type="text"  ng-model="keywords.repolicyNo" class="condition" maxlength="22"></td>
-                    <input type="hidden" ng-model="keywords.approve" value="1">
+                        <input type="text" ng-model="keywords.repolicyNo" class="date" maxlength="10" onClick="return Calendar('startDate');"> 至 <input type="text" name="startDate2" class="date" maxlength="10" onClick="return Calendar('startDate2');"></td>
+                    <td class=title>币种：</td>
+                    <td class=input>
+                        <select ng-model="keywords.currencyTag" class="tag">
+                            <option value="=" >=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text"  ng-model="keywords.currency" class="condition" maxlength="22"></td>
                 </tr>
+
                 <tr>
                     <td class=title>分保方式：</td>
                     <td class=common1>
                         <input type="checkbox" ng-model="keywords.reinsType" value="1" checked="checked">临分
                         <input type="checkbox" ng-model="keywords.reinsType" value="2" checked="checked">混合</td>
-                    <td class=title>{{prompt.fcoRepolicy.InsuredName}}：</td>
+                    <td class=title>被保险人：</td>
                     <td class=input>
                         <select ng-model="keywords.insuredNameTag" class="tag">
                             <option value="=" >=</option>
@@ -104,8 +142,6 @@
                         <input type="radio" ng-model="keywords.accType" value="1" >已生成帐单
                         <input type="radio" ng-model="keywords.accType" value="2" checked="checked">未生成帐单
                     </td>
-
-                    <input type="hidden" ng-model="keywords.biztype" value="C">
                 </tr>
                 <tr>
                     <td colspan="6" align="right">
@@ -116,9 +152,6 @@
                     </td>
                 </tr>
             </table>
-
-            <!--<script src="showpage.js"> </script>-->
-            <!--<script src="Common.js"> </script>-->
         </form>
     </div>
 

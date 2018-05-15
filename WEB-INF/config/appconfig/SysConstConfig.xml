@@ -117,5 +117,10 @@
   	 <!-- add by wl 根据安城合并过来 目前先赋个控制 -->
 	<RISK_AOAPML_NOTIN_REINS></RISK_AOAPML_NOTIN_REINS>
 	
-  
+	<!-- MQ的配置文件 -->
+	<MQ_HOST>10.110.1.92</MQ_HOST>
+	<MQ_PORT>5672</MQ_PORT>
+	<MQ_VIRTUALHOST>admintest</MQ_VIRTUALHOST>
+	<MQ_USERNAME>admin</MQ_USERNAME>
+	<MQ_PASSWORD>admin</MQ_PASSWORD>
 </sysconst>

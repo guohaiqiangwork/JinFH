@@ -724,9 +724,13 @@ define(['angular', 'config'], function (angular, config) {
              		$.each(contract.fhReinsList, function(index, share){
              			delete share.priHideFlag;
              			delete share.warning;
-             			$.each(share.fhFinalReinsList, function(index2, f){
-             				delete f.hideFlag;
-             			});
+             			if(share.fhFinalReinsList){
+             				if(share.fhFinalReinsList.length>0){
+                 				$.each(share.fhFinalReinsList, function(index2, f){
+                     				delete f.hideFlag;
+                     			});
+                 			}
+             			}
              		});
             		$.each(contract.fhSectionList, function(index1, section){
             			delete section.isActive;

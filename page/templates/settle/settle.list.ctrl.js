@@ -28,6 +28,24 @@ define(['app',
             });
         };
         
+        
+        
+      //添加全选 add by renshuai
+        $scope.selectAll = false;
+        $scope.checkAlls=function(m){
+		   for(var i=0;i<$scope.accSettleList.length;i++){  
+		          if(m===true){  
+		              $scope.accSettleList[i].state=true;  
+		          }else {  
+		              $scope.accSettleList[i].state=false;  
+		          } 
+		          
+		        }  
+        };
+        
+        
+              
+        
       //监视settleList中是否有元素被改变状态
        $scope.$watch('settleList', function(){
             if(angular.isUndefined($scope.settleList))
@@ -97,10 +115,8 @@ define(['app',
         key.id="reinsCode";
         key.value="";
         $scope.getCode(key,{},"reinsCodes");	
-	   
-	    
 	  
-        
+       
 			//add by wl 20180313 增加查询账单 begin
           
 	        $scope.searchSettle = function(searchWords, pagination, user) {	        	
@@ -240,10 +256,9 @@ define(['app',
             
             
             //---------------------------------------------联动修改--------------------------------------------
-	        $scope.genSettle = function() {
+	        $scope.genSettle = function(m) {
                 var accSettleList1 = $filter('filter')($scope.accSettleList, {checked:true});
-
-	        	if(accSettleList1.length == 0){
+	        	if(accSettleList1.length == 0 ){
 	        		alert("请选择一条记录");
 	        		return;
 	        	}
@@ -266,9 +281,11 @@ define(['app',
 	        	settleService.genSettleAcc(keywords).then(
 		                function(data){
 		                	alert("结算单生成成功！");
+		                	window.location.reload("/reins/page/templates/settle/reinsSettleResult.list.tpl.html");
 		                },
 		                function(code){
 	                    	alert("结算单生成失败！");
+	                    	window.location.reload("/reins/page/templates/settle/reinsSettleResult.list.tpl.html");
 	                    }
 	        	);
 	        };

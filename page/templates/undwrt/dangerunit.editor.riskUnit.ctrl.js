@@ -32,7 +32,6 @@ define(['app',
             			console.log("reFresh---------"+response);
             			var reFresh = response;
             			console.log("wo shi ce shi :" + reFresh);
-            			alert("wo shi ce shi :" + reFresh);
             			if(reFresh == "1"){
                         	$window.location.reload();
                         }else{

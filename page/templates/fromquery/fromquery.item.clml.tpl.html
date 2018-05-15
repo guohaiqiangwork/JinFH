@@ -1,0 +1,345 @@
+<div>
+	 <div class="modal-header">
+        <h3>分赔案详情</h3>
+    </div>
+    <div class="modal-body">
+    	 <div>
+    	 	<tabset>
+    	 		 <tab heading="分赔案主信息">
+    	 		 	<form name="searchForm">
+	    	 		 	<div class="row">
+				            <div class="col-lg-2">
+	                  			<label>分保赔案号</label>
+			                </div>
+			                <div class="col-lg-4">
+			                    <div class="input-group"> {{plyRiskUnit.repayNo}}
+			                        <span></span>
+			                    </div>
+			                </div>
+			                
+			                <div class="col-lg-2">
+			                    <label>立案号</label>
+			                </div>
+			                <div class="col-lg-4">
+			                    <div class="input-group"> {{plyRiskUnit.payNo}}
+			                        <span></span>
+			                    </div>
+			                </div>
+				        </div>
+						<div class="row">
+							<div class="col-lg-2">
+								<label>赔案号</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group"> {{plyRiskUnit.claimNo}}
+									<span></span>
+								</div>
+							</div>
+
+							<div class="col-lg-2">
+								<label>保单号</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group"> {{plyRiskUnit.policyNo}}
+									<span></span>
+								</div>
+							</div>
+						</div>
+
+				        <div class="row">
+							<div class="col-lg-2">
+								<label>分保单号</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group"> {{plyRiskUnit.repolicyNo}}
+									<span></span>
+								</div>
+							</div>
+			                
+			                <div class="col-lg-2">
+			                    <label>出险日期</label>
+			                </div>
+			                <div class="col-lg-4">
+			                    <div class="input-group"> {{plyRiskUnit.damageDate}}
+			                        <span></span>
+			                    </div>
+			                </div>
+				        </div>
+						<div class="row">
+							<div class="col-lg-2">
+								<label>险类</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group"> {{plyRiskUnit.classCode}}-{{plyRiskUnit.className}}
+									<span></span>
+								</div>
+							</div>
+
+							<div class="col-lg-2">
+								<label>险种</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group"> {{plyRiskUnit.riskCode}}-{{plyRiskUnit.className}}
+									<span></span>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-2">
+								<label>起保日期</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group"> {{plyRiskUnit.startDate}}
+									<span></span>
+								</div>
+							</div>
+
+							<div class="col-lg-2">
+								<label>终止日期</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group"> {{plyRiskUnit.endDate}}
+									<span></span>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-2">
+								<label>被保险人</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group"> {{plyRiskUnit.insuredName}}
+									<span></span>
+								</div>
+							</div>
+							<div class="col-lg-2">
+								<label>统计日期</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group"> {{plyRiskUnit.reportDate}}
+									<span></span>
+								</div>
+							</div>
+						</div>
+
+				        <div class="row">
+							<div class="col-lg-2">
+								<label>出单公司</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group"> {{plyRiskUnit.comCode}}-{{plyRiskUnit.comName}}
+									<span></span>
+								</div>
+							</div>
+				            <div class="col-lg-2">
+	                  				<label>出险原因</label>
+			                </div>
+			                <div class="col-lg-4">
+			                    <div class="input-group"> {{plyRiskUnit.damageReason}}
+			                        <span></span>
+			                    </div>
+			                </div>
+
+				        </div>
+				        <div class="row">
+							<div class="col-lg-2">
+								<label>业务年度</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group"> {{plyRiskUnit.uwYear}}
+									<span></span>
+								</div>
+							</div>
+							<div class="col-lg-2">
+								<label>结案否标志</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group">
+									<div ng-if="plyRiskUnit.endCaseFlag=='0'">
+										<input name="" type="checkbox" ng-model="plyRiskUnit.endCaseFlag"/>
+									</div>
+									<div ng-if="plyRiskUnit.endCaseFlag=='1'">
+										<input name="" type="checkbox" ng-model="plyRiskUnit.endCaseFlag"/>
+									</div>
+								</div>
+							</div>
+
+				        </div>
+
+
+				        <div class="row">
+							<div class="col-lg-2">
+								<label>币别</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group"> {{plyRiskUnit.currency}}
+									<span></span>
+								</div>
+							</div>
+							<div class="col-lg-2">
+	                  				<label>总保额</label>
+			                </div>
+			                <div class="col-lg-4">
+			                    <div class="input-group"> {{plyRiskUnit.amount}}
+			                        <span></span>
+			                    </div>
+			                </div>
+
+				        </div>
+						<div class="row">
+							<div class="col-lg-2">
+								<label>费用合计</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group"> {{plyRiskUnit.sumFee}}
+									<span></span>
+								</div>
+							</div>
+							<div class="col-lg-2">
+								<label>物质损失赔款金额</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group"> {{plyRiskUnit.sumPay}}
+									<span></span>
+								</div>
+							</div>
+
+						</div>
+						<div class="row">
+							<div class="col-lg-2">
+								<label>未决金额</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group"> {{plyRiskUnit.outStanding}}
+									<span></span>
+								</div>
+							</div>
+							<div class="col-lg-2">
+								<label>本次赔款合计</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group"> {{plyRiskUnit.sumTotal}}
+									<span></span>
+								</div>
+							</div>
+
+						</div>
+						<div class="row">
+							<div class="col-lg-2">
+								<label>说明</label>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group"> {{plyRiskUnit.remarks}}
+
+								</div>
+							</div>
+
+
+						</div>
+			        </form>
+				</tab>
+    	 		 
+    	 		 
+    	 		 
+				<tab heading="赔款项目合计">
+    	 		 	<div style="overflow: auto;height: auto;">
+						<table class="table table-bordered">
+					        <thead >
+					        	<tr>
+						            <td nowrap>赔款类型</td>
+						            <td nowrap>项目代码</td>
+						            <td nowrap>标的名称</td>
+						            <td nowrap>币别</td>
+						            <td nowrap>赔款金额</td>
+								</tr>
+					        </thead>
+					        <tbody>
+				                <tr ng-repeat="floReItem in plyRiskUnit.floReItemList">
+				                    <td> {{floReItem.payTypeDesc}} </td>
+						            <td> {{floReItem.itemCodeDesc}} </td>
+						            <td> {{floReItem.itemName}} </td>
+						            <td> {{floReItem.currency}} </td>
+						            <td> {{floReItem.payValue}} </td>				                 </tr>
+					        </tbody>
+					    </table>
+					</div>
+    	 		 </tab>
+
+    	 		 <tab heading="分摊明细（已决赔款）">
+    	 		 	<div style="overflow: auto;height: auto;">
+					    <table class="table table-bordered">
+					    	<thead>
+					    		<tr>
+						        	<td nowrap>项目代码</td>
+						        	<td nowrap>分保方式</td>
+						            <td nowrap>分摊比例%</td>
+						            <td nowrap>币种</td>
+						            <td nowrap>分摊赔款</td>
+						            <td nowrap>接收人类型</td>
+						            <td nowrap>编码</td>
+						            <td nowrap>分保接收人简称</td>
+									<td nowrap>编码</td>
+									<td nowrap>最终接收人简称</td>
+						        </tr>
+					    	</thead>
+					        <tbody>
+						        <tr ng-repeat="floSharePay in plyRiskUnit.floSharePayList">
+						            <td>{{floSharePay.payTypeDesc}}</td>
+						            <td>{{floSharePay.reinsModeDesc}}</td>
+						            <td>{{floSharePay.shareRate}}</td>
+						            <td>{{floSharePay.SCurrency}}</td>
+						            <td>{{floSharePay.payValue}}</td>
+						            <td>{{floSharePay.reinsTypeDesc}}</td>
+						            <td>{{floSharePay.reinsCode}}</td>
+						            <td>{{floSharePay.reinsName}}</td>
+									<td>{{floSharePay.FReinsCode}}</td>
+									<td>{{floSharePay.FReinsName}}</td>
+						        </tr>
+					        </tbody>
+					    </table>
+				    </div>
+    	 		 </tab>
+
+				<tab heading="分摊明细（未决赔款）">
+					<div style="overflow: auto;height: auto;">
+						<table class="table table-bordered">
+							<thead>
+							<tr>
+								<td nowrap>项目代码</td>
+								<td nowrap>分保方式</td>
+								<td nowrap>分摊比例%</td>
+								<td nowrap>币种</td>
+								<td nowrap>分摊赔款</td>
+								<td nowrap>接收人类型</td>
+								<td nowrap>编码</td>
+								<td nowrap>分保接收人简称</td>
+								<td nowrap>编码</td>
+								<td nowrap>最终接收人简称</td>
+							</tr>
+							</thead>
+							<tbody>
+							<tr ng-repeat="floSharePay in plyRiskUnit.floSharePayList">
+								<td>{{floSharePay.itemCodeDesc}}</td>
+								<td>{{floSharePay.reinsModeDesc}}</td>
+								<td>{{floSharePay.shareRate}}</td>
+								<td>{{floSharePay.SCurrency}}</td>
+								<td>{{floSharePay.payValue}}</td>
+								<td>{{floSharePay.reinsTypeDesc}}</td>
+								<td>{{floSharePay.reinsCode}}</td>
+								<td>{{floSharePay.reinsName}}</td>
+								<td>{{floSharePay.FReinsCode}}</td>
+								<td>{{floSharePay.FReinsName}}</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</tab>
+    	 	</tabset>
+    	 </div>
+    	 <div>
+            <button class="btn btn-default" ng-click="close()">关闭</button>
+        </div>
+    </div>
+</div>
+
+    

@@ -123,6 +123,32 @@ define(['angular', 'config'], function (angular, config) {
                         });
 
                     return deffered.promise;
+                },
+                /**
+                 * 查看分赔详情
+                 * @param keywords
+                 */
+                checkDetails: function (keywords) {
+
+                    var deffered = $q.defer();
+
+                    var _url = config.data.method==='files'? facultativeServiceConfig.files.deleBill : facultativeServiceConfig.urls.deleBill;
+                    $http({
+                        method: config.data.method==='files'? 'GET':'POST',
+                        url: _url,
+                        headers: {
+                        },
+                        data:keywords,
+                        timeout:  config.backend.timeout
+                    })
+                        .success(function(data){
+                            deffered.resolve(data);
+                        })
+                        .error(function(e, code){
+                            deffered.reject(code);
+                        });
+
+                    return deffered.promise;
                 }
 
             };

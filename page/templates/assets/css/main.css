@@ -282,13 +282,13 @@ h1, h2, h3 {
 
 .contract-thumbnail {
     width: 150px;
-    height: 180px;
     background: #4ea5ff;
     background-image: -webkit-radial-gradient(top center, circle, #96bef7, #588fc7);
     border: solid 1px #3674b0;
     border-left: solid 7px #50638D;
     padding: 5px;
     box-shadow: 1px 1px 4px  rgba(0, 0, 0, 0.6);
+    min-height: 160px;
 }
 
 .contract-status {

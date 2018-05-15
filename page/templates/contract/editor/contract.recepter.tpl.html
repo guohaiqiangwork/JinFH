@@ -127,7 +127,7 @@
                          ng-change="linkageReinsCode(contract.fhReinsList,$index)">
                             <option value="" ng-selected="{{receptor.reinsCode}}" >{{receptor.reinsCode}}</option>
                         </select>
-
+						
                         <!-- ng-options="c.value for c in reinsCodes"></select>	 -->
                          <input  ng-model="receptor.reinsCode" ng-if="operation ==='view'" size="30" type="text" ng-model="receptor.reinsCode"
                                ng-readonly="operation ==='view' || effected" placeholder="" typeahead-loading="loading..."  
@@ -212,7 +212,8 @@
                                     			name="freins" 
                                     			ng-model="final.freinsCode"
                                     			ng-options="c.id as c.id +'-'+ c.value for c in freinsCodes">
-					                    	<option value="">--请选择--</option>
+					                    	
+					                    	<option value="" ng-selected="{{final.freinsCode}}" >{{final.freinsCode}}</option>
 					                    	<!-- <option ng-repeat=" c in freinsCodes" value="{{c.id}}">{{c.value}}</option> -->                  	
 					            		</select> 	
                                         <input ng-if="operation ==='view'" size="30" type="text" ng-model="final.freinsCode"

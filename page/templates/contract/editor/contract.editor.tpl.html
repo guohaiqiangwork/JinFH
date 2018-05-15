@@ -3,9 +3,8 @@
 
     <div class="pull-right">
         <div class="btn-group">
-        <!-- {{contractForm.$invalid}} -->
             <a ng-if="operation==='edit' || operation==='new'" style="cursor:pointer" class="btn btn-primary" ng-click="saveContract()"
-               ng-disabled="false">保存</a>
+               ng-disabled="contractForm.$invalid">保存</a>
             <a ng-if="contAttr === 'nprop' && ( contract.stateFlag === '0') &&  operation==='view'" class="btn btn-primary" ng-click="toggleMode('edit')">编辑</a>
             <a ng-if="contAttr === 'prop' && ( contract.stateFlag === '6') && mode==='admin' && operation==='view'" class="btn btn-primary" ng-click="toggleMode('edit')">编辑</a>
             <a ng-if="operation==='view'" ng-click="copyContract()" class="btn btn-default">复制</a>
