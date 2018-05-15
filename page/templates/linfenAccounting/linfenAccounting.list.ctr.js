@@ -268,11 +268,14 @@ define(['app',
                     reinsOutType:'',
                     endorNoTag:'',
                     endorNo:'',
-                    proposalNoTag:'',
+                    proposalNoTag:'=',
                     proposalNo:'',
-                    enquiryNoTag:'',
-                    enquiryNo:''
-
+                    enquiryNoTag:'=',
+                    enquiryNo:'',
+                    comCodeTag:'=',
+                    classCodeTag:'=',
+                    riskCodTag:'=',
+                    currencyTag:'='
                 };
 
                 //查询列表信息

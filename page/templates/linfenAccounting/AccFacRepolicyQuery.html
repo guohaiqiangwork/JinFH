@@ -54,24 +54,21 @@
                     <td class=input>
                         <select ng-model="keywords.comCodeTag" class="tag">
                             <option value="=" >=</option>
-                            <option value="*">*</option>
                         </select>
                         <input type="text" ng-model="keywords.comCode" class="condition" maxlength="22"></td>
                 </tr>
                 <tr>
                     <td class=title>险类：</td>
                     <td class=input>
-                        <select ng-model="keywords.classCodeclassName" class="tag">
+                        <select ng-model="keywords.classCodeTag" class="tag">
                             <option value="=" >=</option>
-                            <option value="*">*</option>
                         </select>
                         <input type="text" ng-model="keywords.classCodeclassName" class="condition" maxlength="4">
                     </td>
                     <td class=title>险种：</td>
                     <td class=input>
-                        <select ng-model="keywords.riskCoderiskName" class="tag">
+                        <select ng-model="keywords.riskCodTag" class="tag">
                             <option value="=" >=</option>
-                            <option value="*">*</option>
                         </select>
                         <input type="text" ng-model="keywords.riskCoderiskName" class="condition" maxlength="4">
                     </td>
@@ -89,7 +86,6 @@
                     <td class=input>
                         <select ng-model="keywords.currencyTag" class="tag">
                             <option value="=" >=</option>
-                            <option value="*">*</option>
                         </select>
                         <input type="text" ng-model="keywords.currency" class="condition" maxlength="4">
                     </td>
@@ -122,8 +118,8 @@
 
                     <td class=title>分保方式：</td>
                     <td class=common1 colspan="3">
-                        <input type="checkbox" ng-model="keywords.reinsType" value="1" checked="checked">临分
-                        <input type="checkbox" ng-model="keywords.reinsType" value="2">混合
+                        <input type="checkbox" ng-model="keywords.reinsType1" value="1" checked="checked">临分
+                        <input type="checkbox" ng-model="keywords.reinsType2" value="2">混合
                     </td>
 
                 </tr>

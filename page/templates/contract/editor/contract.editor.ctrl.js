@@ -750,11 +750,13 @@ define(['app',
                     };
                    //单条删除除外责任
                     $scope.delExclusion = function(e){
-                    	if(confirm("要删除  \""+ e.objTypeCdeName + "\" 吗？"))
-                    	$.each($scope.contract.fhExItemKindList, function(index, ex){
-                    		if(ex === e){
-                    			$scope.contract.fhExItemKindList.splice(index,1);
-                    		}
+                    	if(confirm("要删除  \""+ e.itemKindDesc + "\" 吗？"))
+                    	$.each($scope.contract.fhSectionList,function(index, section){
+                    		$.each(section.fhExItemKindList, function(index, ex){
+                        		if(ex === e){
+                        			section.fhExItemKindList.splice(index,1);
+                        		}
+                        	});
                     	});
                     };
                     //修改除外责任
