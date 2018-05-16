@@ -1,36 +1,58 @@
 <div collapse="hideList">
+    <div ng-show="!searchTable.flag" class="search-toggle" ng-click="openSearchTableFlag()">
+        <span class="glyphicon glyphicon-search"></span>
+    </div>
     <div class="well">
         <form name="searchForm" novalidate>
-            <select ng-model="options.bizType" ng-change="changeReset(keywords,options.bizType)">
-                <option value="P">分保单账单生成</option>
-                <option value="E">分批单账单生成</option>
-                <option value="C">分赔案账单生成</option>
-            </select>
+            <div ng-if="searchTable.flag">
+                <select ng-model="options.bizType" ng-change="changeReset(keywords,options.bizType)">
+                    <option value="P">分保单账单生成</option>
+                    <option value="E">分批单账单生成</option>
+                    <option value="C">分赔案账单生成</option>
+                </select>
+                <div ng-if="options.bizType==='P'" class="container-fluid">
 
-            <div ng-if="options.bizType==='P'" class="container-fluid">
+                    <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepolicyQuery.html'"></div>
+                    <div>
+                        <a style="float: right; margin-top: -82px;margin-right: 172px;"
+                           ng-click="closeSearchTableFlag()" class="btn btn-default">取消</a>
+                    </div>
 
-                <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepolicyQuery.html'" ></div>
-                <div class="page-header">
-                    <h2 style="display:inline-block">查询临分账务</h2>
+                    <div class="page-header">
+                        <h2 style="display:inline-block">查询分保账单</h2>
+                    </div>
                 </div>
-                <!--<div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepolicyQuery.jsp'"></div>-->
-                <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepolicyQuery.list.html'"></div>
+                <div ng-if="options.bizType==='E'" class="container-fluid">
+                    <div ng-include="'/reins/page/templates/linfenAccounting/AccFacReendorQuery.html'"></div>
+                    <div>
+                        <a style="float: right; margin-top: -82px;margin-right: 172px;"
+                           ng-click="closeSearchTableFlag()" class="btn btn-default">取消</a>
+                    </div>
+                    <div class="page-header">
+                        <h2 style="display:inline-block">查询分批账单</h2>
+                    </div>
+                </div>
+                <div ng-if="options.bizType==='C'" class="container-fluid">
+                    <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepayQuery.html'"></div>
+                    <div>
+                        <a style="float: right; margin-top: -82px;margin-right: 172px;"
+                           ng-click="closeSearchTableFlag()" class="btn btn-default">取消</a>
+                    </div>
+                    <div class="page-header">
+                        <h2 style="display:inline-block">查询分赔账单</h2>
+                    </div>
+                </div>
             </div>
-            <div ng-if="options.bizType==='E'" class="container-fluid">
-                <div ng-include="'/reins/page/templates/linfenAccounting/AccFacReendorQuery.html'"></div>
-                <div class="page-header">
-                    <h2 style="display:inline-block">查询临分账务</h2>
+            <div>
+                <div ng-if="options.bizType==='P'" class="container-fluid">
+                    <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepolicyQuery.list.html'"></div>
                 </div>
-                <div ng-include="'/reins/page/templates/linfenAccounting/AccFacReendorQuery.list.html'"></div>
-                <!--<div ng-include="'/reins/page/templates/linfenAccounting/AccFacReendorQuery.jsp?operateType=Gen'"></div>-->
-            </div>
-            <div ng-if="options.bizType==='C'" class="container-fluid">
-                <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepayQuery.html'"></div>
-                <div class="page-header">
-                    <h2 style="display:inline-block">查询临分账务</h2>
+                <div ng-if="options.bizType==='E'" class="container-fluid">
+                    <div ng-include="'/reins/page/templates/linfenAccounting/AccFacReendorQuery.list.html'"></div>
                 </div>
-                <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepayQuery.list.html'"></div>
-                <!--<div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepayQuery.jsp'"></div>-->
+                <div ng-if="options.bizType==='C'" class="container-fluid">
+                    <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepayQuery.list.html'"></div>
+                </div>
             </div>
         </form>
     </div>

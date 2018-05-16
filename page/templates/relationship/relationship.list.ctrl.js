@@ -1,8 +1,7 @@
-
 define(['app',
     'config',
-    '/reins/page/templates/relationship/editor/relationship.delete.ctrl.js'
-//    '/reins/page/templates/relationship/editor/relationship.editor.ctrl.js',
+    '/reins/page/templates/relationship/editor/relationship.delete.ctrl.js',
+//    '/reins/page/templates/relationship/editor/relationship.editor.ctrl.js'
 ], function (app,config) {
     app.registerController('RelationshipListCtrl', ['$scope', '$filter', '$modal', '$location', 'RelationshipService'
         , function ($scope, $filter, $modal, $location, relationshipService) {
@@ -116,6 +115,7 @@ define(['app',
         },true);
         
         var init = function () {
+        	
         	console.log("relationship--init----");
 
             $scope.$on('$stateChangeStart', function(event, next) {
@@ -150,7 +150,6 @@ define(['app',
             //初始化关系列表
             $scope.searchRelationship($scope.keywords, $scope.pagination, {});
         };
-
         init();
     }]);
 });

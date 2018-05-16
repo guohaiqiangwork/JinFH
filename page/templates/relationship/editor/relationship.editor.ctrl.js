@@ -55,12 +55,15 @@ define(['app',
         };
 		 //add by renshuai 校验
 		        
-				var check =function(treatyNo,priorityNo){                   
-					  relationshipService.checked(treatyNo,priorityNo).then(
+				var check =function(treatyNo/*,priorityNo*/){               
+					  relationshipService.checked(treatyNo/*,priorityNo*/).then(
 				                function(data){				               
 				                if(data.result === "success"){				                	
-				                	alert("该合同已存在！");
-				                	$location.path("/relationships");			                		
+				                	alert("该合同已添加优先级!请不要重复添加!!");
+				                	 $location.path("/relationships");
+				                     location.reload()
+				                     //初始化关系列表
+				             			 $scope.searchRelationship($scope.keywords, $scope.pagination, {});			                		
 				                }else{				                	
 				                	createRelationship();
 				                }
@@ -150,7 +153,7 @@ define(['app',
         $scope.saveRelationship = function(operation){
             if($scope.operation === "new"){   
             	console.log("$scope.relationship.treatyNo:**"+$scope.relationship.treatyNo);
-            	check($scope.relationship.treatyNo,$scope.relationship.priorityNo);           	
+            	check($scope.relationship.treatyNo/*,$scope.relationship.priorityNo*/);           	
             }else if($scope.operation === "edit"){
                 updateRelationship();
             }

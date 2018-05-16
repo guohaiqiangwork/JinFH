@@ -74,7 +74,7 @@ define(['app',
             
             //切换账单，重置条件框的内容
 	        $scope.changeReset = function(keywords){
-	            console.log("changeReset's is coming...");
+	            console.log($scope.options.bizType);
 	            if($scope.options.bizType == "1"){
 	            	$scope.resetSearchBox();
 	            }
@@ -84,9 +84,10 @@ define(['app',
 	            if($scope.options.bizType == "3"){
 	            	$scope.resetClmSearchBox();
 	            }
-	            $location.path("/fromquerys/" +keywords);
+	            consloe.log(keywords)
+	            $location.path("/fromquerys/" +$scope.options.bizType);
 	            //切换分保、分陪、分批时，重新查询一遍列表数据
-	            $scope.searchFacPlyInfo_(keywords); 
+	            $scope.searchFacPlyInfo_($scope.options.bizType); 
 	           // $scope.searchFacPlyInfo($scope.keywords, $scope.pagination, $scope.global.user, ""); 
 	        };
 	        

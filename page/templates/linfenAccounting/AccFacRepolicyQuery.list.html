@@ -18,7 +18,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="plyRisk in plyRiskUnitList">
-                <td><input type="radio" value="true" ng-model="plyRisk.checkedBill" name="selectState" ng-change="QueryAcc(plyRisk.rePolicyNo)"/></td>
+                <td><input type="radio" value="true" ng-model="plyRisk.checkedBill" name="selectState" ng-change="QueryAcc(plyRisk.rePolicyNo,'P')"/></td>
                 <td>{{plyRisk.rePolicyNo}}</td>
                 <td>{{plyRisk.policyNo}}</td>
                 <td></td>
@@ -58,7 +58,7 @@
                 <button  class="btn btn-default" ng-click="genAcc('FB','P')">生成帐单</button>
                 <!--<input type="button" class="button" value="打印分保条" onclick="PrintParticularsButtonAction();">-->
                 <button  class="btn btn-default" ng-click="delAcc()">删除账单</button>
-                <button  class="btn btn-default" ng-click="payment()">账单转收付</button>
+                <button  class="btn btn-default" ng-click="payment()" disabled>账单转收付</button>
             </tr>
         </table>
         <div ng-if="fzBAccList.length>0 || fzBAccList.length>0">

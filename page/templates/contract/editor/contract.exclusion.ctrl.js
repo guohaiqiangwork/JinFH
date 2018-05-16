@@ -118,7 +118,7 @@ define(['app',
             };
 
             //保存右侧的列表
-            $scope.saveExclusion = function(){
+            $scope.saveExclusion = function(sectionNo){
                 var exclusions =[];
                 var element ={};
                 $.each($scope.rightExclusions, function(index, exclusion){
@@ -136,8 +136,23 @@ define(['app',
                     }
                 });
                 if($scope.contAttr === 'prop'){
-                    risk.fhSectionList[0].fhExItemKindList.splice( 0, risk.fhSectionList[0].fhExItemKindList.length);
-                    risk.fhSectionList[0].fhExItemKindList = angular.copy(exclusions);
+                	console.log(risk.fhSectionList.length);
+                	for(var i= 0;i<risk.fhSectionList.length;i++){
+                		if(risk.fhSectionList[i].sectionNo==sectionNo){
+                			console.log(i+":"+risk.fhSectionList[i]);
+                			risk.fhSectionList[i].fhExItemKindList = angular.copy(exclusions);
+                			/*if(!risk.fhSectionList[i].fhExItemKindList){
+                				risk.fhSectionList[i].fhExItemKindList = angular.copy(exclusions);
+                			}else{
+                				risk.fhSectionList[i].fhExItemKindList.splice( 0, risk.fhSectionList[i].fhExItemKindList.length);
+                				
+                			}*/
+                			
+                            
+                		}
+                	}
+                	
+                   
                 }else{
                     risk.fhxExItemKindList.splice( 0, risk.fhxExItemKindList.length);
                     risk.fhxExItemKindList = angular.copy(exclusions);

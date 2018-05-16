@@ -5,13 +5,10 @@ define(['app',
     app.registerController('postCodeIndex', ['$scope', '$filter','$location','$stateParams', 'excessLossService', 'PostCodesService', '$q',
     	'$modal','$state',
         function ($scope,$filter,$location,$stateParams, excessLossService, postCodesService, $q, $modal,$state ) {
-    		//打印对内（外）账单
-    		/*$scope.preparePrintAcc = function(accType,contractListr,accPeriod){
-    			var treatyNo = contractListr.treatyNo;
-    			var url = "/XYufuFeiAccss_print/"+treatyNo +"/"+accType+"/"+accPeriod;
-                $location.path(url);
-    			
-    		};*/
+    		//跳转到查看页面
+            $scope.checkPostDetails = function (id) {
+                $state.go('postCodesCheck',{id:id});
+            };
 	    	//新增合同类型选择框
 	        $scope.preparePrintAcc = function (accType,contractListr,accPeriod) {
 	        	
@@ -145,7 +142,6 @@ define(['app',
 	        
 	        //跳转新增页面
 	        $scope.localhref = function(){
-	        	debugger
 	        	$state.go('postCodesnew',{operation:'new'});
 //	        	  var url = "/postCodek/new";
 //	        	  alert("ooo");

@@ -1,9 +1,7 @@
 <div ng-controller="AccountingFromQueryListCtrl" >
-    <div ng-hide="searchTableFlag" class="search-toggle" ng-click="searchTableFlag = ! searchTableFlag">
-        <span class="glyphicon glyphicon-search"></span>
-    </div>
-    <div collapse="!searchTableFlag" class="well">
-        <form name="fcoReendorForm" action="/reins/recertifyQuery.do?rows=10&opt=facOut" method="post">
+
+    <div class="well">
+        <form name="fcoReendorForm">
 
         <table class="table">
             <tr>
@@ -17,7 +15,7 @@
                 <td class=title>保单号：</td>
                 <td class=input>
                     <select ng-model="keywords.policyNoTag" class="tag">
-                        <option value="=" >=</option>
+                        <option value="=">=</option>
                         <option value="*">*</option>
                     </select>
                     <input type="text" ng-model="keywords.policyNo" class="condition" maxlength="44"></td>
@@ -38,40 +36,42 @@
                     </select>
                     <input type="text" ng-model="keywords.comCode" class="condition" maxlength="4">
             </tr>
-
             <tr>
                 <td class=title>批改方式:</td>
                 <td class=input>
                     <select ng-model="keywords.endorTypeTag" class="tag">
                         <option value="=">=</option>
-                        <option value="*">*</option>
                     </select>
-                    <input type="text" ng-model="keywords.endorType" class="condition" maxlength="100">
+                    <select class="condition" ng-model="keywords.endorType" ng-options="c.id as c.value for c in endorType"></select>
+
                 </td>
                 <td class=title>生效日期：</td>
                 <td class=input>
-                    <select ng-model="keywords.endorDateTag" class="tag">
+                    <select ng-model="keywords.endorDateTag" class="tag" ng-change="changeTerm1(keywords.endorDateTag)">
+                        <option value=":">:</option>
                         <option value="=">=</option>
-                        <option value="*">*</option>
+                        <option value=">">></option>
+                        <option value="<"><</option>
+                        <option value=">=">>=</option>
+                        <option value="<="><=</option>
                     </select>
-                    <input type="text" ng-model="keywords.endorDate" class="condition" maxlength="22"></td>
+                    <input type="text" ng-model="keywords.endorDate" class="date" maxlength="4"> <span ng-if="showTwoInput1">-</span> <input type="text" ng-if="showTwoInput1" ng-model="keywords.endorDate2" class="date" maxlength="4">
             </tr>
             <tr>
                 <td class=title>险类:</td>
                 <td class=input>
                     <select ng-model="keywords.classCodeTag" class="tag">
                         <option value="=">=</option>
-                        <option value="*">*</option>
                     </select>
-                    <input type="text" ng-model="keywords.classCodeclassName" class="condition" maxlength="100">
+                    <select class="condition" ng-model="keywords.classCode" ng-options="c.id as c.value for c in classCode"></select>
+
                 </td>
                 <td class=title>险种：</td>
                 <td class=input>
                     <select ng-model="keywords.riskCodeTag" class="tag">
                         <option value="=">=</option>
-                        <option value="*">*</option>
                     </select>
-                    <input type="text" ng-model="keywords.riskCoderiskName" class="condition" maxlength="22"></td>
+                    <select class="condition" ng-model="keywords.riskCode" ng-options="c.id as c.value for c in riskCode"></select>
             </tr>
             <tr>
                 <td class=title>业务年度:</td>
@@ -86,18 +86,22 @@
                 <td class=input>
                     <select ng-model="keywords.currencyTag" class="tag">
                         <option value="=">=</option>
-                        <option value="*">*</option>
                     </select>
-                    <input type="text" ng-model="keywords.currency" class="condition" maxlength="22"></td>
+                    <select class="condition" ng-model="keywords.currency" ng-options="c.id as c.value for c in currency"></select>
+
             </tr>
             <tr>
                 <td class=title>起保日期:</td>
                 <td class=input>
-                    <select ng-model="keywords.startDateTag" class="tag">
+                    <select ng-model="keywords.startDateTag" class="tag" ng-change="changeTerm(keywords.startDateTag)">
+                        <option value=":">:</option>
                         <option value="=">=</option>
-                        <option value="*">*</option>
+                        <option value=">">></option>
+                        <option value="<"><</option>
+                        <option value=">=">>=</option>
+                        <option value="<="><=</option>
                     </select>
-                    <input type="text" ng-model="keywords.startDate" class="condition" maxlength="100">
+                    <input type="text" ng-model="keywords.startDate" class="date" maxlength="4"> <span ng-if="showTwoInput">-</span> <input type="text" ng-if="showTwoInput" ng-model="keywords.startDate2" class="date" maxlength="4">
                 </td>
                 <td class=title>被保险人：</td>
                 <td class=input>
@@ -118,23 +122,25 @@
                 </td>
                 <td class=title>分保方式：</td>
                 <td>
-                    <input type="checkbox" ng-model="keywords.reinsType" value="1" checked="checked">临分
-                    <input type="checkbox" ng-model="keywords.reinsType" value="2" checked="checked">混合
+                    <input type="radio" ng-model="keywords.reinsType" value="0">全部
+                    <input type="radio" ng-model="keywords.reinsType" value="1">临分
+                    <input type="radio" ng-model="keywords.reinsType" value="2">混合
                 </td>
             </tr>
             <tr>
                 <td class=title>帐单生成状态：</td>
                 <td class=common1 colspan="3">
-                    <input type="radio" ng-model="keywords.accType" value="0" checked="checked">全部
+                    <input type="radio" ng-model="keywords.accType" value="0">全部
                     <input type="radio" ng-model="keywords.accType" value="1">已生成帐单
                     <input type="radio" ng-model="keywords.accType" value="2">未生成帐单
                 </td>
             </tr>
+
             <tr>
                 <td colspan="6" align="right">
                     <a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
-                    <a ng-click="searchTableFlag = ! searchTableFlag" class="btn btn-default">取消</a>
-                    <a ng-click="searchPlyInfoList('C')" class="btn btn-primary">立即查询</a>
+                    <!--<a ng-click="closeSearchTableFlag()" class="btn btn-default">取消</a>-->
+                    <a ng-click="searchPlyInfoList('C',pagination)" class="btn btn-primary">立即查询</a>
 
                 </td>
             </tr>

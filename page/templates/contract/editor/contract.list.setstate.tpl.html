@@ -33,8 +33,8 @@
                 <td>{{contract.refNo}}</td>
                 <td>
                     <select ng-options="c.id as c.value for c in getPropertyStates(contract.stateFlag)"
-                    		ng-model="contract.propStateFlag" 
-                            ng-init="contract.propStateFlag = contract.stateFlag">                    		
+                    		ng-model="contract.propStateFlag"
+                            ng-init="contract.propStateFlag = contract.stateFlag">
                     </select>
                 </td>
             </tr>

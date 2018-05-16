@@ -9,10 +9,11 @@ define(['app'
                 console.log(keywords);
                 reinsurerService.deleteReinsurers(keywords,{}).then(
                     function(data){
+                    	$state.go('reinsurer');
                         //console.log(data);
                     	alert("删除成功！");
                     	/*$location.path("/reinsurers");*/
-                   	 $state.go('reinsurer')
+                   	    
                     },
                     function(code){
                         throw(code);

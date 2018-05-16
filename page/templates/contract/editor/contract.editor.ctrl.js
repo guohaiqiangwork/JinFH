@@ -760,7 +760,11 @@ define(['app',
                     	});
                     };
                     //修改除外责任
-                    $scope.openExclusion = function (risk) {
+                    $scope.openExclusion = function (risk,selmol) {
+                    	console.log(risk,selmol)
+                    	var arrOperation = {};
+                    	arrOperation.oper = $scope.operation;
+                    	arrOperation.selmol = selmol;
                         $modal.open({
                             templateUrl: '/reins/page/templates/contract/editor/contract.exclusion.tpl.html',
                             controller: 'exclusionCtrl',
@@ -773,7 +777,7 @@ define(['app',
                                     return risk;
                                 },
                                 operation:function(){
-                                	return $scope.operation;
+                                	return arrOperation;
                                 },
                                 effected:function(){
                                 	return $scope.effected;
@@ -982,13 +986,13 @@ define(['app',
                     //切换编辑器模式
                     $scope.toggleMode = function (_mode) {
                         $scope.operation = _mode;
-                        $scope.treatyNo = $stateParams.mode;
+                        $scope.treatyNo = $stateParams.num;
                         $location.path("/contracts/"+ $scope.contAttr +"/"+ $scope.treatyNo +"/" + _mode);
                     };
 
                     //关闭窗口提示信息修改
                     $scope.closeContract = function (contAttr, mode,operation, formIsDirty) {
-                    //    console.log(operation);
+                        console.log($stateParams.mode);
                         if(formIsDirty){
                             if (confirm('页面有些项未保存，确定要关闭吗？')) {
                                 var url = "";
@@ -1001,6 +1005,8 @@ define(['app',
                                         (mode === '2' &&
                                             (operation === 'new'))){
                                         url = "contracts/prop/admin";
+                                    }else if($stateParams.kindof==='admin'){
+                                    	url = "contracts/prop/admin";
                                     } else {
                                         console.log("!prop,admin,0,1,2");
                                         url = "contracts/prop/" + mode;
@@ -1012,7 +1018,9 @@ define(['app',
                                             (operation === 'new')) ||
                                         (mode === '1' &&
                                             (operation === 'new'))){
-                                        url = "contracts/nprop";
+                                        url = "contracts/nprop/admin";
+                                    }else if($stateParams.kindof==='admin'){
+                                    	url = "contracts/nprop/admin";
                                     } else {
                                         console.log("!nprop,admin,0,1");
                                         url = "contracts/nprop/admin"; //+ mode;
@@ -1033,9 +1041,12 @@ define(['app',
                                     (mode === '2' &&
                                         (operation === 'new'))){
                                     url = "contracts/prop/admin";
+                                }else if($stateParams.kindof==='admin'){
+                                	url = "contracts/prop/admin";
                                 } else {
                                     console.log("!prop,admin,0,1,2");
-                                    url = "contracts/prop/admin";// + mode;
+                                     url = "contracts/prop/1";//合同分出账务写死路径
+                                   // url = "contracts/prop/admin";// + mode;
                                 }
                             }
                             if(contAttr === 'nprop'){
@@ -1044,13 +1055,16 @@ define(['app',
                                         (operation === 'new')) ||
                                     (mode === '1' &&
                                         (operation === 'new'))){
-                                    url = "contracts/nprop";
+                                    url = "contracts/nprop/admin";
+                                }else if($stateParams.kindof==='admin'){
+                                	url = "contracts/nprop/admin";
                                 } else {
                                     console.log("!nprop,admin,0,1");
-                                    url = "contracts/nprop/admin"; //+ mode;
+                                    url = "contracts/prop/1";
+                                    //url = "contracts/nprop/admin"; //+ mode;
                                 }
                             }
-                            //$scope.showSearchList();
+                           // $scope.showSearchList();
                             $location.path(url);
                         }
                         /*if(formIsDirty)
@@ -1063,21 +1077,21 @@ define(['app',
                     };
 
                     //增加分项
+                    //增加分项
                     $scope.addSection = function() {
-
                         $scope.count = $scope.count + '1';
                         if($scope.contAttr === "prop"){
 
                             var _section = angular.copy(contractService.getElement("propSection"));
                             _section.sectionNo = getSectionName();
                             _section.isActive = true;
-//                            _section.tmpContNo = $scope.contract.tmpContNo;
                             _section.treatyNo = $scope.contract.treatyNo;
-                            var _fhSectionReinsList = angular.copy($scope.contract.fhSectionList[0].fhSectionReinsList);
-                            _section.fhSectionReinsList = _fhSectionReinsList
+                            var _fhSectionReinsList = angular.copy(_section);
+//                             _section.fhSectionReinsList = _fhSectionReinsList
                             $scope.contract.fhSectionList.push(_section);
 
                         }
+
 
                         /*if($scope.contAttr === "nprop"){
                             var _section =angular.copy(contractService.getElement("npropSection"));
@@ -1104,7 +1118,9 @@ define(['app',
                         _layer.layerNo = getLayerName();
                         _layer.isActive = true;
                         _layer.currency = $scope.contract.currency;
+                        console.log($scope.contract.fhxLayerList[0])
                         $scope.contract.fhxLayerList[0].currency = _layer.currency;
+//                        $scope.contract.fhxLayerList[0].currency = _layer.currency;
                         _layer.treatyNo = $scope.contract.treatyNo;
                         $scope.contract.fhxLayerList.push(_layer);
                     };
@@ -1157,7 +1173,11 @@ define(['app',
 
                     //删除分项
                     $scope.removeSection = function ($section) {
-
+                    	if($section.sectionNo ==="a"){
+                    		alert("不予许删除分项a");
+                    		return
+                    	}
+                    	
                         if($scope.contAttr === "prop"){
                             if (confirm('删除分项' + $section.sectionNo + "吗？")) {
                                 $.each($scope.contract.fhSectionList, function (index, section) {
@@ -1285,6 +1305,11 @@ define(['app',
                         var _recepter = angular.copy(contractService.getElement("npropCompany"));
 
                         $layer.fhxCompanyList.push(_recepter);
+                    };
+                    //增加机构(比例)
+                    $scope.addCompanyprop = function($contract){
+                        var _recepter = angular.copy(contractService.getElement("npropCompany"));
+                          $contract.fhReinsList.push(_recepter);
                     };
                     //删除接收人（非比例）
 
@@ -1495,10 +1520,79 @@ define(['app',
                              return false;
                          }
                          var year = $scope.contract.uwYear;
-                         if(!year){
-                        	 alert("请填写业务年度！！");
-                        	 return false;
+                         var reg=/^\d{4}$/;
+                         if(!reg.test(year)){
+                                 alert("业务年度输入有误！！");
+                                 return false;
                          }
+                            $scope.showBusy(true);
+                         console.log($scope.operation)
+                            if($scope.operation === 'new'){
+                                contractService.createContract($scope.contAttr, $scope.contract, {}).then(
+                                    function(data){
+                                        $scope.showBusy(false);
+                                        console.log($scope.contract);
+                                        if(data.result==="success"){
+                                            alert("保存成功！编号为："+data.msg);
+                                            $scope.operation="view";
+
+//                                        $location.path("/contracts/"+ $scope.contAttr +"/"+ data.msg +"/view");
+                                            $location.path("/contracts/"+ $scope.contAttr +"/admin");
+                                        }else{
+                                            alert("保存失败！");
+                                        }
+                                    },
+                                    function(code){
+                                        $scope.showBusy(false);
+                                        throw(code);
+                                        alert("保存失败！");
+                                    }
+                                );
+                            } else {
+                                contractService.updateContract($scope.contAttr, $scope.contract, {}).then(
+                                    function(data){
+                                        $scope.showBusy(false);
+                                        console.log($scope.contract);
+                                        if(data.result==="success"){
+                                            alert("编辑成功！");
+                                            $scope.operation="view";
+                                            //编辑，查看
+                                            if( $scope.operation === 'edit' ||  $scope.operation === 'view') {
+                                                $scope.showBusy(true);
+                                                //修改 by renshuai
+
+                                                $scope.getContract($scope.contAttr, $scope.contract.treatyNo, {})
+                                                    .then(
+                                                        function(data){
+                                                            if(angular.isDefined(data.result) && data.result ==="error"){
+                                                                alert(data.msg);
+                                                                history.back(-1);
+                                                            }else{
+                                                                $scope.contract = $scope.preDealWith(data);
+                                                                console.log($scope.contract);
+                                                            }
+                                                            $scope.showBusy(false);
+                                                        },
+                                                        function(){
+                                                            $scope.showBusy(false);
+                                                            alert("链接错误！");
+                                                            history.back(-1);
+                                                        }
+                                                    );
+                                            };
+
+                                            $location.path("/contracts/"+ $scope.contAttr +"/"+ data.msg +"/view");
+                                        }else{
+                                            alert("编辑失败！");
+                                        }
+                                    },
+                                    function(code){
+                                        $scope.showBusy(false);
+                                        throw(code);
+                                        alert("编辑失败！");
+                                    }
+                                );
+                            }
                     	}else{
                     		 var start= Date.parse($scope.contract.startDate);
                              var end = Date.parse($scope.contract.endDate);
@@ -1512,6 +1606,12 @@ define(['app',
                              }if(start>end){
                             	 alert("合同止期不能早于合同起期！！");
                                  return false;
+                             }
+                             var year = $scope.contract.uwYear;
+                             var reg=/^\d{4}$/;
+                             if(!reg.test(year)){
+                            	 alert("业务年度输入有误！！");
+                            	 return false;
                              }
                     	}if(!checkRefNo()){//检查合同简称
                     		$scope.showBusy(false);
@@ -1604,8 +1704,8 @@ define(['app',
 				                                    }
 				                                );
 				                        };
-
-                                    	$location.path("/contracts/"+ $scope.contAttr +"/"+ data.msg +"/view");
+				                        $location.path("/contracts/"+ $scope.contAttr +"/admin");
+                                    	//$location.path("/contracts/"+ $scope.contAttr +"/"+ data.msg +"/view");
                                     }else{
                                     	alert("编辑失败！");
                                     }
@@ -1988,8 +2088,10 @@ define(['app',
                     		alert("请选择再保人！！");
                     	}else if(!receiveRateFlag){
                     		if($scope.contAttr === 'prop'){
-                    		alert("请确认所有接收人的份额之和为100！！");
-                    		}else{
+                    			if($scope.contract.optType != '01'){
+                                    alert("请确认所有接收人的份额之和为100！！");
+								}
+                    	}else{
                     		alert("请确认分出份额为100！！" +
                     			  "所有接收人的再保份额之和为100！！");	
                     		}
@@ -2198,6 +2300,7 @@ define(['app',
                     };
 
                     var init = function () {
+                       console.log($stateParams.contOutTyp);
                     	$scope.operationNew = $stateParams.operation;
                     	$scope.operationNew == 'new'  ? $scope.newIf = 'true' : $scope.newIf = 'false'
                     		$scope.operationNew == 'edit'  ? $scope.editIf = 'true' : $scope.editIf = 'false'
@@ -2332,6 +2435,7 @@ define(['app',
                         $scope.getCode(key,{},"currencys");
                         $scope.operation = angular.isUndefined($stateParams.operation)? 'new': $stateParams.operation;
                         //新增合同时默认主项设置
+                    	console.log($stateParams)
                         if($scope.operation === 'new'){
                         	if($scope.contAttr === "prop"){
                                 $scope.contract = angular.copy(contractService.getElement("prop"));

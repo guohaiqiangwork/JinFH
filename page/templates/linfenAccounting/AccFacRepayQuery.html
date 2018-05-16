@@ -1,9 +1,9 @@
 <div ng-controller="AccountingFromQueryListCtrl">
-    <div ng-hide="searchTableFlag" class="search-toggle" ng-click="searchTableFlag = ! searchTableFlag">
-        <span class="glyphicon glyphicon-search"></span>
-    </div>
-    <div collapse="!searchTableFlag" class="well">
-        <form name="fcoRepayForm" action="/reins/recertifyQuery.do?rows=10&opt=facOut" method="post" >
+    <!--<div ng-hide="searchTableFlag" class="search-toggle" ng-click="searchTableFlag = ! searchTableFlag">-->
+        <!--<span class="glyphicon glyphicon-search"></span>-->
+    <!--</div>-->
+    <div class="well">
+        <form name="fcoRepayForm">
             <table  class="table">
                 <input type="hidden" name="operateType" value="Gen">
                 <tr>
@@ -42,11 +42,11 @@
                 <tr>
                     <td class=title>出险原因:</td>
                     <td class=input>
-                        <select ng-model="keywords.damageReasonTag" class="tag">
+                        <select ng-model="keywords.damageCodeTag" class="tag">
                             <option value="=" >=</option>
-                            <option value="*">*</option>
                         </select>
-                        <input type="text" ng-model="keywords.damageCodedamageReason" class="condition" maxlength="4">
+                        <select class="condition" ng-model="keywords.damageCode" ng-options="c.id as c.value for c in damageCode"></select>
+
                     </td>
                     <td class=title>理算书号：</td>
                     <td class=input>
@@ -54,23 +54,22 @@
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
-                        <input type="text" ng-model="keywords.compensateNo  " class="date" maxlength="10" onClick="return Calendar('damageDate');"> 至 <input type="text" name="damageDate2" class="date" maxlength="10" onClick="return Calendar('damageDate2');"></td>
+                        <input type="text" ng-model="keywords.compensateNo"></td>
                 </tr>
                 <tr>
                     <td class=title>险类:</td>
                     <td class=input>
                         <select ng-model="keywords.classCodeTag" class="tag">
                             <option value="=" >=</option>
-                            <option value="*">*</option>
                         </select>
-                        <input type="text" ng-model="keywords.classCodeclassName" class="date" maxlength="10" onClick="return Calendar('startDate');"> 至 <input type="text" name="startDate2" class="date" maxlength="10" onClick="return Calendar('startDate2');"></td>
+                        <select class="condition" ng-model="keywords.classCode" ng-options="c.id as c.value for c in classCode"></select>
+
                     <td class=title>出单公司：</td>
                     <td class=input>
                         <select ng-model="keywords.comCodeTag" class="tag">
                             <option value="=" >=</option>
-                            <option value="*">*</option>
                         </select>
-                        <input type="text"  ng-model="keywords.comCode" class="condition" maxlength="22"></td>
+                        <select class="condition" ng-model="keywords.comCode" ng-options="c.id as c.value for c in comCode"></select>
                 </tr>
                 <tr>
                     <td class=title>业务年度:</td>
@@ -79,30 +78,37 @@
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
-                        <input type="text" ng-model="keywords.uwYear" class="date" maxlength="10" onClick="return Calendar('startDate');"> 至 <input type="text" name="startDate2" class="date" maxlength="10" onClick="return Calendar('startDate2');"></td>
+                        <input type="text"  ng-model="keywords.uwYear" class="condition" maxlength="22"></td>
                     <td class=title>出险日期：</td>
                     <td class=input>
-                        <select ng-model="keywords.damageDateTag" class="tag">
-                            <option value="=" >=</option>
-                            <option value="*">*</option>
+                        <select ng-model="keywords.damageDateTag" class="tag" ng-change="changeTerm1(keywords.damageDateTag)">
+                            <option value=":">:</option>
+                            <option value="=">=</option>
+                            <option value=">">></option>
+                            <option value="<"><</option>
+                            <option value=">=">>=</option>
+                            <option value="<="><=</option>
                         </select>
-                        <input type="text"  ng-model="keywords.damageDate" class="condition" maxlength="22"></td>
+                        <input type="text" ng-model="keywords.damageDate" class="date" maxlength="4"> <span ng-if="showTwoInput1">-</span> <input type="text" ng-if="showTwoInput1" ng-model="keywords.damageDate2" class="date" maxlength="4">
                 </tr>
                 <tr>
                     <td class=title>起保日期:</td>
                     <td class=input>
-                        <select ng-model="keywords.startDateTag" class="tag">
-                            <option value="=" >=</option>
-                            <option value="*">*</option>
+                        <select ng-model="keywords.startDateTag" class="tag" ng-change="changeTerm(keywords.startDateTag)">
+                            <option value=":">:</option>
+                            <option value="=">=</option>
+                            <option value=">">></option>
+                            <option value="<"><</option>
+                            <option value=">=">>=</option>
+                            <option value="<="><=</option>
                         </select>
-                        <input type="text" ng-model="keywords.startDate" class="date" maxlength="10" onClick="return Calendar('startDate');"> 至 <input type="text" name="startDate2" class="date" maxlength="10" onClick="return Calendar('startDate2');"></td>
+                        <input type="text" ng-model="keywords.startDate" class="date" maxlength="4"> <span ng-if="showTwoInput">-</span> <input type="text" ng-if="showTwoInput" ng-model="keywords.startDate2" class="date" maxlength="4">
                     <td class=title>险种：</td>
                     <td class=input>
                         <select ng-model="keywords.riskCodeTag" class="tag">
                             <option value="=" >=</option>
-                            <option value="*">*</option>
                         </select>
-                        <input type="text"  ng-model="keywords.riskCoderiskName" class="condition" maxlength="22"></td>
+                        <select class="condition" ng-model="keywords.riskCode" ng-options="c.id as c.value for c in riskCode"></select>
                 </tr>
                 <tr>
                     <td class=title>分保单号:</td>
@@ -111,21 +117,21 @@
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
-                        <input type="text" ng-model="keywords.repolicyNo" class="date" maxlength="10" onClick="return Calendar('startDate');"> 至 <input type="text" name="startDate2" class="date" maxlength="10" onClick="return Calendar('startDate2');"></td>
+                        <input type="text" ng-model="keywords.repolicyNo" class="condition" maxlength="10"></td>
                     <td class=title>币种：</td>
                     <td class=input>
                         <select ng-model="keywords.currencyTag" class="tag">
                             <option value="=" >=</option>
-                            <option value="*">*</option>
                         </select>
-                        <input type="text"  ng-model="keywords.currency" class="condition" maxlength="22"></td>
+                        <select class="condition" ng-model="keywords.currency" ng-options="c.id as c.value for c in currency"></select>
                 </tr>
 
                 <tr>
                     <td class=title>分保方式：</td>
                     <td class=common1>
-                        <input type="checkbox" ng-model="keywords.reinsType" value="1" checked="checked">临分
-                        <input type="checkbox" ng-model="keywords.reinsType" value="2" checked="checked">混合</td>
+                        <input type="checkbox" ng-model="keywords.reinsType" value="0">全部
+                        <input type="checkbox" ng-model="keywords.reinsType" value="1">临分
+                        <input type="checkbox" ng-model="keywords.reinsType" value="2">混合</td>
                     <td class=title>被保险人：</td>
                     <td class=input>
                         <select ng-model="keywords.insuredNameTag" class="tag">
@@ -138,16 +144,16 @@
                 <tr>
                     <td class=title>帐单生成状态：</td>
                     <td class=common1>
-                        <input type="radio" ng-model="keywords.accType" value="0" >全部
-                        <input type="radio" ng-model="keywords.accType" value="1" >已生成帐单
-                        <input type="radio" ng-model="keywords.accType" value="2" checked="checked">未生成帐单
+                        <input type="radio" ng-model="keywords.accType" value="0">全部
+                        <input type="radio" ng-model="keywords.accType" value="1">已生成帐单
+                        <input type="radio" ng-model="keywords.accType" value="2">未生成帐单
                     </td>
                 </tr>
                 <tr>
                     <td colspan="6" align="right">
                         <a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
-                        <a ng-click="searchTableFlag = ! searchTableFlag" class="btn btn-default">取消</a>
-                        <a ng-click="searchPlyInfoList('E')" class="btn btn-primary">立即查询</a>
+                        <!--<a ng-click="closeSearchTableFlag()" class="btn btn-default">取消</a>-->
+                        <a ng-click="searchPlyInfoList('E',pagination)" class="btn btn-primary">立即查询</a>
 
                     </td>
                 </tr>

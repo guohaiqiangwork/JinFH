@@ -6,6 +6,7 @@ define(['app',
     '/reins/page/templates/contract/editor/contract.list.operate.ctrl.js',
     '/reins/page/templates/contract/contract.new.modal.ctrl.js',
     '/reins/page/templates/bill/contract.bill.ctrl.js',
+    '/reins/page/codes.js',
     '/reins/page/templates/contract/editor/contract.final.recepter.ctrl.js'
 ], function (app, config) {
     app.registerController('ContractListCtrl', ['$scope', '$q', '$location', '$stateParams', '$filter', 'CodeService','$cookies' , 'ContractService',
@@ -123,17 +124,15 @@ define(['app',
 			    		  return;
 			    	  }   
 		    	  }
-	    	  //add by zhx end
-	    	  //add by slh 
-	    	  if(temp==='setState'){
-		    	   
-		    	   if(contract[0].stateFlag == "4"){
-		    		   contract[0].stateFlag = "6"
-		    	  }   
-		    	   if(contract[0].stateFlag == "0"){
-		    		   contract[0].stateFlag = "4"
-		    	  } 
-	    	  }
+	    	  // if(temp==='setState'){
+		    	//
+		    	//    if(contract[0].stateFlag == "4"){
+		    	// 	   contract[0].stateFlag = "6"
+		    	//   }
+		    	//    if(contract[0].stateFlag == "0"){
+		    	// 	   contract[0].stateFlag = "4"
+		    	//   }
+	    	  // }
 	    	//add by slh end
             var url = changeUrl(temp);
             $modal.open({
@@ -206,7 +205,7 @@ define(['app',
                 function(data){
                 	if(data.data.length > 0){
                 		 $scope.contractList = data.data;
-                		 console.log(data);
+                		// console.log($scope.contractList)
                          pagination.totalItems = data.total;
                          $scope.showBusy(false);
                 	}else{

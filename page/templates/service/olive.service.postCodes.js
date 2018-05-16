@@ -52,7 +52,7 @@ define(['angular', 'config'], function (angular, config) {
                     })
                         .success(function(data){
                             deffered.resolve(data);
-                            console.log(data)
+                          
                         })
                         .error(function(e, code){
                             deffered.reject(code);

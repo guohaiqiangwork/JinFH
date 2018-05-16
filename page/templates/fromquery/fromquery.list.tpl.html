@@ -49,11 +49,12 @@
 		</div>
 	</div>
    	
-   	<div class="clearfix panel-footer">
-        <span class="pull-right">共: {{pagination.totalItems}}份</span>
-    </div>
+   	
 
-    <div class="clearfix pull-right" ng-show="plyRiskUnitList.length > 0">
+    <div class="clearfix pull-right" ng-show="plyRiskUnitList.length > 0" style="margin-bottom:3%">
+	    <div class="clearfix panel-footer">
+	        <span class="pull-right">共: {{pagination.totalItems}}份</span>
+	    </div>
     <!-- 分页  -->
         <pagination total-items="pagination.totalItems"
                     page="pagination.pageIndex"

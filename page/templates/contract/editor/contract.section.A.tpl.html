@@ -430,7 +430,7 @@
 <!--         <div ng-include="'/reins/page/templates/contract/editor/contract.earthQuake.tpl.html'"></div>
  -->
         <!-- 接受人成份信息 -->
-        <div ng-include="'/reins/page/templates/contract/editor/contract.recepter.A.tpl.html'"></div>
+        <div  ng-if="contract.optType == '00'" ng-include="'/reins/page/templates/contract/editor/contract.recepter.A.tpl.html'"></div>
         <!--浮动手续费-->
         <div ng-include="'/reins/page/templates/contract/editor/contract.adjustrate.tpl.html'"></div>
         
@@ -438,7 +438,7 @@
         <div ng-include="'/reins/page/templates/contract/editor/contract.profitrate.tpl.html'"></div>
         <div >
         	<h4>除外责任</h4> &nbsp;&nbsp;&nbsp;&nbsp;
-        	<a class="btn btn-default" ng-click="openExclusion(contract)" ng-show="operation != 'view' && !effected">修改除外责任</a>
+        	<a class="btn btn-default" ng-click="openExclusion(contract,section.sectionNo)" ng-show="operation != 'view' && !effected">修改除外责任</a>
         	&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
         	<a class="btn btn-default" ng-click="collapseExclusion()">{{ES.collapseName}}</a>
         	<br>

@@ -6,9 +6,11 @@ define(['app', 'codes'], function (app, codes) {
         $scope.ok = function () {
             var url = "";
             if($scope.options.contAttr === 'prop'){
-                url = "/contracts/" + $scope.options.contAttr + "/" + $scope.options.optType + "/" + $scope.options.treatyType + "/new";
+            	debugger
+            	console.log($stateParams)
+                url = "/contracts/" + $scope.options.contAttr + "/" + $scope.options.optType + "/" + $scope.options.treatyType + "/new/admin";
             } else {
-                url = "/contracts/" + $scope.options.contAttr + "/" + $scope.options.inoutMrk + "/" + $scope.options.treatyType + "/new";
+                url = "/contracts/" + $scope.options.contAttr + "/" + $scope.options.inoutMrk + "/" + $scope.options.treatyType + "/new/admin";
             }
             $modalInstance.close(url);
         };

@@ -227,13 +227,7 @@ h1 > a,h2 > a,h3 > a,h4 > a,h5 > a,h6 > a{
 }
 /*首页导航css样式修改 start*/
 .navbar {
-    border-bottom-color: #df5f4a;
-    border-bottom-style: solid;
-    border-bottom-width: 5px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-left: none;
-    border-right: none;
+    box-shadow: 0 4px 14px 0 rgba(11, 64, 112, 0.5);
     margin-bottom: 0px;
     z-index: 1;
 }

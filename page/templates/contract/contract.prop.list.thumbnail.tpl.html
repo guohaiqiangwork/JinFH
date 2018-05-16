@@ -28,9 +28,9 @@
             </div>
 
             <div class="btn-group btn-group-sm hover-visible">
-                <a class="btn btn-default" ng-if="mode==='admin'" ng-href="#/contracts/prop/{{contract.treatyNo}}/view">查看</a>
-                <a class="btn btn-default" ng-if="!(mode==='admin')" ng-href="#/contracts/prop/{{contract.treatyNo}}/view">查看</a>
-                <a class="btn btn-default" ng-if="mode==='admin' && contract.contStatus !='6'" ng-href="#/contracts/prop/{{contract.treatyNo}}/edit">编辑</a>
+                <a class="btn btn-default" ng-if="mode==='admin'" ng-href="#/contracts/prop/{{contract.treatyNo}}/{{mode}}/view">查看</a>
+                <a class="btn btn-default" ng-if="!(mode==='admin')" ng-href="#/contracts/prop/{{contract.treatyNo}}/{{mode}}/view">查看</a>
+                <a class="btn btn-default" ng-if="mode==='admin' && contract.contStatus !='6'" ng-href="#/contracts/prop/{{contract.treatyNo}}/{{mode}}/edit">编辑</a>
                 <button ng-if="mode==='bill' || mode==='1' || mode==='2'" ng-click="openContractBill(contract)" class="btn btn-default"><i class="glyphicon glyphicon-list-alt"></i>&nbsp;账单</button>
             </div>
         </div>

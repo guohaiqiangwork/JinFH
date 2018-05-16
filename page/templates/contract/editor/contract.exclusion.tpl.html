@@ -1,11 +1,11 @@
 <div>
     <table style="overflow: auto;" class="table table-stripped">
         <tr>
-            <td ng-if="operation != 'view' && !effected" align="center">除外责任</td>
-            <td ng-if="operation != 'view' && !effected"></td>
+            <td ng-if="operation.oper != 'view' && !effected" align="center">除外责任</td>
+            <td ng-if="operation.oper != 'view' && !effected"></td>
             <td align="center">已选除外责任</td>
         </tr>
-        <tr ng-if="operation != 'view' && !effected">
+        <tr ng-if="operation.oper != 'view' && !effected">
         	<td align="center"><input type="checkbox" ng-model="check.leftCheckAll" ng-click="checkAllLeft()">全选 </td>
         	  <td ></td>
         	<td align="center"><input type="checkbox" ng-model="check.rightCheckAll" ng-click="checkAllRight()">全选 </td>
@@ -22,7 +22,7 @@
                 </table>
             	</div>
             </td>
-            <td ng-if="operation != 'view' && !effected">
+            <td ng-if="operation.oper != 'view' && !effected">
 	                <a class="btn btn-default" ng-click="addExclusion()">></a><br>
 	                <a class="btn btn-default" ng-click="delExclusion()"><</a>
             </td>
@@ -34,7 +34,7 @@
                 <table align="left" style="margin-left:20px;" ng-show="rightExclusions.length > 0">
                     <tr  ng-repeat="r in rightExclusions">
                         <td align="left">
-                            <input type="checkbox"  ng-model="r.check" ng-click="checkRight(r)" ng-show="operation != 'view' && !effected">{{r.id}}-{{r.value}}
+                            <input type="checkbox"  ng-model="r.check" ng-click="checkRight(r)" ng-show="operation.oper != 'view' && !effected">{{r.id}}-{{r.value}}
                         </td>
                     </tr>
                     <tr>
@@ -46,10 +46,11 @@
                 </div>
             </td>
         </tr>
-        <tr ng-if="operation != 'view' && !effected">
+        <tr ng-if="operation.oper != 'view' && !effected">
+        	
             <td align="center"><a class="btn btn-default" ng-click="cancel()">取消</a>
             <td></td>
-            <td align="center"><a class="btn btn-default" ng-disable="readyToSave" ng-click="saveExclusion(section)">确定</a>
+            <td align="center"><a class="btn btn-default" ng-disable="readyToSave" ng-click="saveExclusion(operation.selmol)">确定</a>
         </tr>
     </table>
 

@@ -633,31 +633,18 @@ define(['app', 'config', 'codes', '/reins/page/templates/bill/bill.create.ctrl.j
                 else
                     $scope.checkAll = false;
             },true);
-
+            
+            
             //批量确认
             $scope.confirmBillP = function(billType){
                 $scope.checkbillList = $filter('filter')($scope.billList, {checked:true});
                 if($scope.contAttr === "nprop"){
-                	$scope.noDate.treatyNo = $scope.contract.tmpTreatyNo;
+                	$scope.noDate.contNo = $scope.contract.tmpTreatyNo;
 	                $scope.noDate.billDate = $scope.keywords.billDate;
 	                $scope.noDate.sectionNos = $scope.keywords.sectionNos;
 	                var inExMrk = 2 // 无对内对外属性 【2】
-//                	if(angular.isDefined($scope.options.optTypes) && $scope.options.optTypes.length > 0 ){
-//                		if($scope.keywords.optType==="in"){
-//		            		inExMrk = "0";//对内【0】/对外【1】	
-//		            	}
-//		            	if($scope.keywords.optType==="out"){
-//		            		inExMrk = "1";
-//		            	}
-//			    	}  
-	                //if($scope.noDate.sectionNos != ""){
-	                	
 	                    $scope.confirmBill($scope.contAttr, "contract" ,"2", inExMrk, $scope.keywords.billType, $scope.noDate, $scope.global.user, "");
-	                //} else {
-	                	//alert("请先选择分项！");
-	                //}
                 }else{
-                	$scope.keywords.accPeriodQ = $scope.keywords.accperiod;
                 	var contFacMrk , inOutMrk, inExMrk;
 			    	if($scope.mode === "bill"){
 			    		contFacMrk = "bill";    //合同【0】/临分【1】
@@ -673,19 +660,7 @@ define(['app', 'config', 'codes', '/reins/page/templates/bill/bill.create.ctrl.j
 			    	}else{
 			    		inExMrk = "2";  //对内【0】/对外【1】
 			    	}
-			    	//yuqiucheng 
-			    	$scope.keywords.treatyNo=  $scope.contract.treatyNo;
-			    
-	                // confirmBill:function(contAttr, contFacMrk, inOutMrk, inExMrk, billType, keywords, user, lan)
-			    	/*if( $scope.billList[0].billStatus === "已审核"){
-			    		alert("该账单已确认无需再次确认!");
-			    	}else{
-			    		$scope.confirmBill($scope.contAttr, contFacMrk , inOutMrk, inExMrk, $scope.keywords.billType, 
-				    			$scope.keywords, $scope.global.user, "");
-			    	}*/
-		    		$scope.confirmBill($scope.contAttr, contFacMrk , inOutMrk, inExMrk, $scope.keywords.billType, 
-			    			$scope.keywords, $scope.global.user, "");
-			    	
+		    		$scope.confirmBill($scope.contAttr, contFacMrk, inOutMrk, inExMrk, $scope.keywords.billType, $scope.billList, $scope.global.user);			    	
                 }
             };
 
@@ -1042,25 +1017,21 @@ define(['app', 'config', 'codes', '/reins/page/templates/bill/bill.create.ctrl.j
             	}
             };
 
-            //账单确认
-            $scope.confirmBill = function(contAttr, contFacMrk, inOutMrk, inExMrk, billType, keywords, user, lan) {
+            //账单确认\
+            $scope.confirmBill = function(contAttr, contFacMrk, inOutMrk, inExMrk, billType, billList, user) {
             	$scope.showBusy(true);
-                billService.confirmBill(contAttr, contFacMrk, inOutMrk, inExMrk, billType, keywords, user, lan).then(
+                billService.confirmBill(contAttr, contFacMrk, inOutMrk, inExMrk, billType, billList, user).then(
                     function(data){
                         $scope.showBusy(false);
-                        if(data.result ==="error"){
-	                		alert("确认失败！"+data.msg);
-	                	} else{
-	                        //确认成功之后查询对应账单期数据
-	                        alert("确认成功！");
+                        if(data.result ==="success"){
+	                		//确认成功之后查询对应账单期数据
+	                        alert("确认成功！"+data.msg);
 	                		$scope.changeDate($scope.keywords);
+	                	} else{
+	                		alert("确认失败！");
                 		}
                     },
                     function(code){
-                        //throw(code);
-                        //alert(message);
-                        //alert(code);
-                        //$scope.showBusy(false);
                     }
                 );
             };

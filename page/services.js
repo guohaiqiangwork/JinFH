@@ -1,4 +1,4 @@
-define(['angular',
+    define(['angular',
     '../page/templates/service/olive.service.code',
     '../page/templates/service/olive.service.security',
     '../page/templates/service/olive.service.contract',

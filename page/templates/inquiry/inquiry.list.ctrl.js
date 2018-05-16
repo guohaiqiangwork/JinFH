@@ -313,12 +313,50 @@ define(['app',
                  "currency":"",
                  "makeComTag":"",
                  "makeCom":"",
-                 "verify":""	
+                 "verifyFlag":""	
             		
             }
         }
-        //查询字典
-        $scope.getCode = function(keywords, user ,searcher){
+
+      //查询字典  add by zhx begin
+        var searchFlag = true;
+        $scope.searchList = [];
+        $scope.getCode = function(keywords,user,searcher){
+            var temp = angular.copy({keywords:keywords,searcher:searcher});
+            $scope.searchList.push(temp);
+            if(searchFlag && $scope.searchList.length > 0){
+                ralSearch();
+            }
+        };
+        var ralSearch = function(user){
+            if(searchFlag && $scope.searchList.length > 0){
+                searchFlag = false;
+                $scope.getCodes($scope.searchList[0].keywords,user).then(
+                    function(data){
+                        $scope[$scope.searchList[0].searcher] = data;
+                        searchFlag = true;
+                        $scope.searchList.splice(0,1);
+                        ralSearch();
+                    },
+                    function(code){
+                        console.log("error  "+code);
+                        searchFlag = true;
+                        if(angular.equals(code,"bussy")){
+                            $scope.searchList.push($scope.searchList[0]);
+                            $scope.searchList.splice(0,1);
+                        }else{
+                            $scope[$scope.searchList[0].searcher] = [];
+                            $scope.searchList.splice(0,1);
+                        }
+                        ralSearch();
+                    }
+                );
+            }
+        };
+      // add by zhx end
+        
+        /*        //查询字典
+         * $scope.getCode = function(keywords, user ,searcher){
         	
             codeService.getCodes(keywords, user).then(
                 function(data){
@@ -330,7 +368,7 @@ define(['app',
                 	$scope[searcher] = [];
                 }
             );
-        };
+        };*/
 
         var init = function () {
         
@@ -347,10 +385,10 @@ define(['app',
             key.value="";
             $scope.getCode(key,{},"currencys");
             
-            /*var keys = angular.copy($scope.keywords);
+            var keys = angular.copy($scope.keywords);
             keys.id="makeCom";
             keys.value="";
-            $scope.getCode(keys,{},"makeComCode");*/
+            $scope.getCode(keys,{},"makeComCode");
            
             //初始化条件查询对应的绑定字段
             $scope.keywords = {

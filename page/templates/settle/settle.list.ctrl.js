@@ -120,9 +120,9 @@ define(['app',
 			//add by wl 20180313 增加查询账单 begin
           
 	        $scope.searchSettle = function(searchWords, pagination, user) {	        	
-	        	$scope.showBusy(true);	        	
+	        	$scope.showBusy(true);	
 	            settleService.searchSettle(searchWords, pagination, user).then(
-	                function(data){	                	
+	                function(data){	    
 	                	if(data.data.length > 0){
 	                		 $scope.settleList = data.data;
 	                         $scope.showBusy(false);

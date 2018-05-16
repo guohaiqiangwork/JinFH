@@ -29,10 +29,9 @@
             </td>
             <td>
                 <div class="btn-group btn-group-sm hover-visible">
-                    <!-- ngIf: mode==='admin' -->
-                    <!-- ngIf: !(mode==='admin') --><a class="btn btn-default ng-scope" ng-if="!(mode==='admin')" ng-href="#/contracts/prop/OP2018214/view" href="#/contracts/prop/OP2018214/view">查看</a><!-- end ngIf: !(mode==='admin') -->
-                    <!-- ngIf: mode==='admin' && contract.contStatus !='6'&& contract.stateFlag ==='0' -->
-                    <!-- ngIf: mode==='bill' || mode==='1' || mode==='2' --><button ng-if="mode==='bill' || mode==='1' || mode==='2'" ng-click="openContractBill(contract)" class="btn btn-default ng-scope"><i class="glyphicon glyphicon-list-alt"></i>&nbsp;账单</button><!-- end ngIf: mode==='bill' || mode==='1' || mode==='2' -->
+
+                    <a class="btn btn-default" ng-click="checkPostDetails(saaGrade.comCode)">查看</a>
+                    <a class="btn btn-default">编辑</a>
                 </div>
 
             </td>

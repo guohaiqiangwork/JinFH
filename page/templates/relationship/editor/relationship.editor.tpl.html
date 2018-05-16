@@ -1,10 +1,13 @@
-<div class="pull-right">
-    <!-- 修改 by renshuai -->
-    <a class="btn btn-primary" ng-click="saveRelationship(operation)"
-       ng-if="operation != 'view'"
-       ng-disabled="!saveRelationships.$valid">保存</a>
-    <a class="btn btn-default" ng-if="operation === 'view'" ng-click="toggleOperation('edit')">编辑</a>
-    <a class="btn btn-default" ng-click="comeBack()">返回</a>
+<div style="overflow:hidden;margin-bottom:20px;">
+	<div class="pull-right">
+	    <!-- 修改 by renshuai -->
+	    <a class="btn btn-primary" ng-click="saveRelationship(operation)"
+	       ng-if="operation != 'view'"
+	       ng-disabled="!saveRelationships.$valid">保存</a>
+	    <a class="btn btn-default" ng-if="operation === 'view'" ng-click="toggleOperation('edit')">编辑</a>
+	    <a class="btn btn-default" ng-click="comeBack()">返回</a>
+	</div>
+
 </div>
 <div class="container-fluid">
     <form name="saveRelationships" ng-class="{'readonly':operation==='view'}">
@@ -29,11 +32,12 @@
                 <div class="col-sm-4">
                 	<select ng-if="operation === 'new'"  ng-model="relation.treatyNo"
                 			ng-change="searchTreaytNo(relationship,relation.treatyNo)"
-                			 ng-options=" c.id +'-'+c.value for c in treatyNos" >
+                			 ng-options=" c.id +'-'+c.value for c in treatyNos" class="form-control ng-pristine ng-valid">
 	                    	<option value="">---请选择---</option>
 	                    	<!-- <option>{{relationship.treatyNo}}</option> -->	
 	                    	                 	
-	            	</select>  
+	            	</select> 
+	            	 
                     <input ng-if="operation != 'new'" type="text" class="form-control" placeholder="合同编号"
                            ng-readonly="operation === 'view'||operation === 'edit'"
                            ng-model="relationship.treatyNo"

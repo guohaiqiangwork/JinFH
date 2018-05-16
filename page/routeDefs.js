@@ -189,7 +189,7 @@ define(['app'
 
                      //新增(new)
                     .state('contract.new', {
-                        url: '/:contOutTyp/:operation',
+                        url: '/:contOutTyp/:operation/:kindof',
                         resolve: {
                             dummy: $couchPotatoProvider.resolveDependencies(['/reins/page/templates/contract/editor/contract.editor.ctrl.js'])
                         },
@@ -202,7 +202,7 @@ define(['app'
                     })
                     //查看(view)，编辑(edit)，复制(copy)，续转(transfer)，删除合同(delete)
                     .state('contract.operation', {
-                        url: '/:operation',
+                        url: '/:contOutTyp/:operation',
                         resolve: {
                             dummy: $couchPotatoProvider.resolveDependencies(['/reins/page/templates/contract/editor/contract.editor.ctrl.js'])
                         },
@@ -240,10 +240,7 @@ define(['app'
                                 templateUrl: '/reins/page/templates/relationship/editor/relationship.editor.tpl.html',
                                 controller: 'RelationshipEditorCtrl'
                             }
-                        },
-                        onEnter:function(){
                         }
-
                     })
                     //合同关系 新增(new)
                     .state('relationship.new', {
@@ -256,10 +253,7 @@ define(['app'
                                 templateUrl: '/reins/page/templates/relationship/editor/relationship.editor.tpl.html',
                                 controller: 'RelationshipEditorCtrl'
                             }
-                        },
-                        onEnter:function(){
                         }
-
                     })                   
                     
                     //再保人查询
@@ -288,7 +282,7 @@ define(['app'
                             }
                         }
                     })
-                    
+                    //再保人 修改记录
                      .state('reinsEditRecord', {
                         url: '/reinsEditRecords/:reinsurerNo',
                         resolve: {
@@ -301,7 +295,7 @@ define(['app'
                             }
                         }
                     })
-                    
+                    //再保人 修改记录详细信息
                      .state('reinsEditMessage', {
                         url: '/reinsEditMessages/:reinsCode/:changeTimes',
                         resolve: {
@@ -429,13 +423,23 @@ define(['app'
                         views: {
                         	main: {
                                 templateUrl: '/reins/page/templates/authoritys/postCodes/postCode.list.addpush.html',
-                                controller: 'postCodeAddPush'
+                                controller: 'postCodeAddPushCtrl'
                             }
-                        },
-                        onEnter:function(){
                         }
-
-                    }) ;
+                    })
+                    //查看岗位代码
+                    .state('postCodesCheck', {
+                    url: '/postCodesCheck/:id',
+                    resolve: {
+                        dummy: $couchPotatoProvider.resolveDependencies(['/reins/page/templates/authoritys/postCodes/postCode.list.details.js'])
+                    },
+                    views: {
+                        main: {
+                            templateUrl: '/reins/page/templates/authoritys/postCodes/postCode.list.details.html',
+                            controller: 'postCodeDetailsCtrl'
+                        }
+                    }
+                });
             }
         ]
     );

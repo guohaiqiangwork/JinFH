@@ -25,7 +25,7 @@
 	        <td>{{record.sumAmount}}</td>
 	        <td>{{record.sumPremium}}</td>	
 	        <td>
-	            <div class="btn-group btn-group-sm" ng-if="(record.verifyFlag ==='1') || (record.verifyFlag ==='2')">
+	            <div class="btn-group btn-group-sm" ng-if="(record.verifyFlag ==='1') || (record.verifyFlag ==='2') || (record.verifyFlag ==='0')">
 	                <a class="btn btn-default" ng-if="record.enquiryType === 'T'" ng-click="editorFacPlyInfo(record.enquiryType,record.proposalNo,record.dangerNo,editor)">编辑</a>
 	                <a class="btn btn-default" ng-if="record.enquiryType === 'P'" ng-click="editorFacPlyInfo(record.enquiryType,record.policyNo,record.dangerNo,editor)">编辑</a>
 	                <a class="btn btn-default" ng-if="record.enquiryType === 'E'" ng-click="editorFacPlyInfo(record.enquiryType,record.endorseNo,record.dangerNo,editor)">编辑</a></td> 

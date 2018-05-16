@@ -9,21 +9,21 @@
         <form name="searchForm" novalidate>
             <table class="table">
                 <tr>
-                    <td>合同类型</td>
-                    <td>
+                    <td >合同类型</td>
+                    <td >
                         <!-- <select ng-model="keywords.contGrpTypCdeFlag">
                             <option value="=" selected>=</option>
                             <option value="*">*</option>
                         </select> -->
                     </td>
-                    <td>
+                    <td >
                         <select ng-model="keywords.treatyType" ng-options="cd.id  as cd.value for cd in contGrpTypCdes">
                             <option value="">全部</option>
                         </select>
                     </td>
                     
-                     <td><span ng-if="mode==='admin'">合同状态</span></td>
-                    <td>
+                     <td ><span ng-if="mode==='admin'">合同状态</span></td>
+                    <td >
                         <span ng-if="mode==='admin'">
                             <!-- <select ng-model="keywords.contStatusFlag">
                                 <option value="=" selected>=</option>
@@ -31,7 +31,7 @@
                             </select> -->
                         </span>
                     </td> 
-                    <td >
+                    <td>
                          <span ng-if="mode==='admin'">
                               <select ng-model="keywords.stateFlag" ng-options="cc.id as  cc.value for cc in contStatus">
                                   <option value="">全部</option>

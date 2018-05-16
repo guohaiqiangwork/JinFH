@@ -4,20 +4,38 @@ define(['app',
     app.registerController('AccountingFromQueryListCtrl', ['$scope', '$stateParams',  '$filter', '$modal', '$location',
         'OutqueryService','CodeService','facultativeService','$q',
          function ($scope, $stateParams, $filter, $modal, $location,outqueryService,codeService,facultativeService,$q) {
-
+             $scope.searchTable={
+                 flag: false//查询条件是否展示判断
+             };
+             //关闭查询条件
+             $scope.closeSearchTableFlag = function () {
+                 $scope.searchTable.flag = false;
+             };
+             $scope.openSearchTableFlag = function () {
+                 $scope.searchTable.flag = true;
+             };
              $scope.isSelect=false;
 			 //确认是否生成账单
-            $scope.QueryAcc = function (rePolicyNo) {
+            $scope.QueryAcc = function (rePolicyNo,biztype) {
                 $scope.isSelect=true;
-                $scope.fzBAccList = '';
-                $scope.fzRAccList = '';
+                $scope.fzBAccList = [];
+                $scope.fzRAccList = [];
                 $.each($scope.plyRiskUnitList,function (index,plyRiskUnit) {
-                    if(plyRiskUnit.rePolicyNo!==rePolicyNo){
-                        plyRiskUnit.checkedBill = false;
-                    }
+                    if (biztype === 'P')
+                        if (plyRiskUnit.rePolicyNo !== rePolicyNo) {
+                            plyRiskUnit.checkedBill = false;
+                        }
+                    if (biztype === 'E')
+                        if (plyRiskUnit.reendorNo !== rePolicyNo) {
+                            plyRiskUnit.checkedBill = false;
+                        }
+                    if (biztype === 'C')
+                        if (plyRiskUnit.repayNo !== rePolicyNo) {
+                            plyRiskUnit.checkedBill = false;
+                        }
                 });
                 var queryAcc ={
-                    biztype:"P",
+                    biztype:biztype,
                     flag3:"F",
                     operateType:"Gen",
                     recertifyNo:rePolicyNo,
@@ -39,10 +57,13 @@ define(['app',
                    alert('请选择单号');
                     return false;
                 }
-                if($scope.fzBAccList.length>0 || $scope.fzRAccList.length>0){
-                    alert('此单号已生成账单');
-                    return false;
+                if($scope.fzBAccList && $scope.fzRAccList){
+                    if($scope.fzBAccList.length>0 || $scope.fzRAccList.length>0){
+                        alert('此单号已生成账单');
+                        return false;
+                    }
                 }
+
                 var plyRiskUnit='';
                 for(var i=0;i<$scope.plyRiskUnitList.length;i++){
                     if($scope.plyRiskUnitList[i].checkedBill){
@@ -59,7 +80,7 @@ define(['app',
                     function(data){
                      console.log(data);
                         var queryAcc ={
-                            biztype:"P",
+                            biztype:biztype,
                             flag3:"F",
                             operateType:"Gen",
                             recertifyNo:plyRiskUnit.rePolicyNo,
@@ -86,9 +107,15 @@ define(['app',
                     alert('请选择单号');
                     return false;
                 }
-                if($scope.fzBAccList.length===0 || $scope.fzRAccList.length===0){
+                if(!$scope.fzBAccList && !$scope.fzRAccList){
                     alert('此单号未生成账单');
                     return false;
+                }
+                if($scope.fzBAccList && $scope.fzRAccList){
+                    if($scope.fzBAccList.length===0 || $scope.fzRAccList.length===0){
+                        alert('此单号未生成账单');
+                        return false;
+                    }
                 }
                 var plyRiskUnit='';
                 for(var i=0;i<$scope.plyRiskUnitList.length;i++){
@@ -99,6 +126,8 @@ define(['app',
                 facultativeService.deleBill(plyRiskUnit).then(
                     function(data){
                         if(data.result==='success'){
+                            $scope.fzBAccList = [];
+                            $scope.fzRAccList = [];
                             alert('删除成功！！');
                         }
                         console.log(data);
@@ -107,7 +136,22 @@ define(['app',
                     }
                 );
             };
-
+             $scope.showTwoInput = false;
+             $scope.showTwoInput1 = false;
+            $scope.changeTerm = function (term) {
+                if(term===':'){
+                    $scope.showTwoInput = true;
+                }else{
+                    $scope.showTwoInput = false;
+                }
+            }
+             $scope.changeTerm1 = function (term) {
+                 if(term===':'){
+                     $scope.showTwoInput1 = true;
+                 }else{
+                     $scope.showTwoInput1 = false;
+                 }
+             }
 
             //分保单详情
             $scope.openPlyFromQuery = function (repolicyNo,dangerNo) {
@@ -195,14 +239,16 @@ define(['app',
             
             //切换账单,初始化查询
 	        $scope.changeReset = function(keywords,bizType){
-	            if($scope.options.bizType === "P"){
-                    $scope.searchPlyInfoList(bizType,$scope.pagination);
-	            }
+	            if($scope.options.bizType === "P") {
+                    $scope.searchPlyInfoList(bizType, $scope.pagination);
+                }
 	            if($scope.options.bizType === "E"){
                     $scope.searchPlyInfoList(bizType,$scope.pagination);
+
 	            }
 	            if($scope.options.bizType === "C"){
                     $scope.searchPlyInfoList(bizType,$scope.pagination);
+
 	            }
 
 	        };
@@ -217,7 +263,7 @@ define(['app',
                 facultativeService.checkFacultative($scope.operation,$scope.keywords,pagination,'','').then(
                     function(data){
                         $scope.plyRiskUnitList = data.data;
-                        $.each( $scope.plyRiskUnitList,function (index,plyRiskUnit) {
+                        $.each($scope.plyRiskUnitList,function (index,plyRiskUnit) {
                             plyRiskUnit.checkedBill = false;
                         });
                         $scope.pagination.totalItems=data.total;
@@ -237,6 +283,54 @@ define(['app',
                     bizType:''
                 };
             }
+
+             $scope.searchRiskCode = function(id){
+                 $scope.keys = {
+                     "id":"",
+                     "value":"",
+                     "other1":""
+                 };
+                 $scope.keywords.id = $scope.classCode;
+                 var key = angular.copy($scope.keys);
+                 key.id = id;
+                 key.value = '';
+                 $scope.getCode(key, {}, id);
+             };
+             //查询字典
+             var searchFlag = true;
+             $scope.searchList = [];
+             $scope.getCode = function(key,user,searcher){
+                 var temp = angular.copy({keywords:key,searcher:searcher});
+                 $scope.searchList.push(temp);
+                 if(searchFlag && $scope.searchList.length > 0){
+                     ralSearch(user);
+                 }
+             };
+             var ralSearch = function(user){
+                 if(searchFlag && $scope.searchList.length > 0){
+                     searchFlag = false;
+                     $scope.getCodes($scope.searchList[0].keywords,user).then(
+                         function(data){
+                             $scope[$scope.searchList[0].searcher] = data;
+                             searchFlag = true;
+                             $scope.searchList.splice(0,1);
+                             ralSearch();
+                         },
+                         function(code){
+                             console.log("error  "+code);
+                             searchFlag = true;
+                             if(angular.equals(code,"bussy")){
+                                 $scope.searchList.push($scope.searchList[0]);
+                                 $scope.searchList.splice(0,1);
+                             }else{
+                                 $scope[$scope.searchList[0].searcher] = [];
+                                 $scope.searchList.splice(0,1);
+                             }
+                             ralSearch();
+                         }
+                     );
+                 }
+             };
             var init = function(){
                 $scope.keywords={
                     recertifyNoTag:'=',
@@ -258,24 +352,36 @@ define(['app',
                     repolicyNoTag:'=',
                     repolicyNo:'',
                     approve:'1',
-                    reinsType:'',
+                    reinsType:'0',
                     insuredNameTag:'=',
                     insuredName:'',
-                    accType:'',
+                    accType:'0',
                     biztype:'',
                     operateType:'Gen',
                     opt:'facOut',
                     reinsOutType:'',
-                    endorNoTag:'',
+                    endorNoTag:'=',
                     endorNo:'',
                     proposalNoTag:'=',
                     proposalNo:'',
                     enquiryNoTag:'=',
                     enquiryNo:'',
                     comCodeTag:'=',
+                    comCode:'',
                     classCodeTag:'=',
-                    riskCodTag:'=',
-                    currencyTag:'='
+                    classCode:'',
+                    currencyTag:'=',
+                    currency:'',
+                    endorTypeTag:'=',
+                    endorType:'',
+                    endorDateTag:'=',
+                    endorDate:'',
+                    riskCodeTag:'=',
+                    riskCode:'',
+                    damageReasonTag:'=',
+                    damageReason:'',
+                    damageCode:'',
+                    damageCodeTag:'='
                 };
 
                 //查询列表信息
@@ -305,11 +411,19 @@ define(['app',
                             throw(code);
                         }
                     );
+                    $scope.searchRiskCode('comCode');//出单公司
+                    $scope.searchRiskCode('classCode');//险类
+                    $scope.searchRiskCode('riskCode');//险种
+                    $scope.searchRiskCode('currency');//币种
+                    $scope.searchRiskCode('endorType');//批改方式
+                    $scope.searchRiskCode('damageCode');//出险原因
                 }
                 $scope.prompt =constants.prompt;//页面常量配置
+
             };
 
              $scope.operation = $stateParams.operation;
             init();
+
         }]);
 });

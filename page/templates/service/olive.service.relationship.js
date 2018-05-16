@@ -191,7 +191,7 @@ define(['angular', 'config'], function (angular, config) {
                     return deffered.promise;
                 },
                 //add by renshuai 增加校验方法
-                checked: function (treatyNo,priorityNo) {
+                checked: function (treatyNo/*,priorityNo*/) {
                 	
                     var deffered = $q.defer();
                     console.log("_____ url is coming..");
@@ -202,7 +202,7 @@ define(['angular', 'config'], function (angular, config) {
                         },
                         data:{
                         	treatyNo:treatyNo,
-                        	priorityNo:priorityNo
+                        	/*priorityNo:priorityNo*/
                         },
                         timeout:  config.backend.timeout
                     })

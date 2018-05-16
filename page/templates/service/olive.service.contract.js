@@ -5,7 +5,7 @@ define(['angular', 'config'], function (angular, config) {
     angular.module('olive.service.contract', [])
 
         .constant('ContractServiceConfig', {
-            files:{
+            files: {
                 searchContract: {
                     'P': 'data/contract/contract.prop.list.json',
                     'PS': 'data/contract/contract.nprop.list.json'
@@ -21,161 +21,159 @@ define(['angular', 'config'], function (angular, config) {
                 deleteContracts: '',
                 copyContracts: '',
                 transferContracts: ''
-                
+
 
             },
-            urls:{
+            urls: {
                 searchContract: config.backend.ip + config.backend.base + 'processFhTreaty.do?actionType=accQuery',
 
                 getContract: config.backend.ip + config.backend.base + 'processFhTreaty.do?actionType=queryContract',
 
 //                createContract: config.backend.ip + config.backend.base + 'treatyManage/createContract.do',
-                createContract: config.backend.ip + config.backend.base + 'processFhTreaty.do?actionType=insert',              
+                createContract: config.backend.ip + config.backend.base + 'processFhTreaty.do?actionType=insert',
                 updateContract: config.backend.ip + config.backend.base + 'processFhTreaty.do?actionType=updateContract',
                 updateContractsState: config.backend.ip + config.backend.base + 'processFhTreaty.do?actionType=updateContractsState',
                 deleteContracts: config.backend.ip + config.backend.base + 'processFhTreaty.do?actionType=deleteContracts',
                 copyContracts: config.backend.ip + config.backend.base + 'processFhTreaty.do?actionType=copyContracts',
-                transferContracts:config.backend.ip + config.backend.base + 'processFhTreaty.do?actionType=transferContracts',
+                transferContracts: config.backend.ip + config.backend.base + 'processFhTreaty.do?actionType=transferContracts',
                 searchImport: config.backend.ip + config.backend.base + 'importmodeFhCommRate.do?'
-                
+
             }
         })
-        .factory('ContractService',['$http', '$q', '$filter', 'ContractServiceConfig', function ($http, $q, $filter, contractServiceConfig) {
+        .factory('ContractService', ['$http', '$q', '$filter', 'ContractServiceConfig', function ($http, $q, $filter, contractServiceConfig) {
             var localElements = {
 
                 //层信息
-                "intention" : {
-				            "plyAppNo": "",
-				            "plyNo": "",
-				            "edrAppNo": "",
-				            "edrNo": "",
-				            "facNo": "",
-				            "layerNo": "1",
-				            "dangerNo": 0,
-				            "currency": "01",
-				            "excessLoss": "",
-				            "layerquota": "",
-				            "totalquota": 0,
-				            "layerPremium": 0,
-				            "layerchgPremium": 0,
-				            "shareRate": "",
-				            "layerrePreium": 0,
-				            "layerReChgPrem": 0,
-				            "reinstTimes": 0,
-				            "reinsTrate": 0,
-				            "residualReinstsum": 0,
-				            "reinstType": "",
-				            "startDate": "",
-				            "endDate": "",
-				            "remarks": "",
-				            "flag": "",
-				            "endorTimes": 0,
-				            "absExcessLoss": "",
-				            "absLayerQuota": "",
-				            "abShareRate": "",
-				            "feoXReinsVos": [
-				            	{
-				                    "facNo": "",
-				                    "layerNo": 0,
-				                    "facRiComCde": "",
-				                    "freinsCode": "",
-				                    "reinsName": "",
-				                    "brokerFlag": "0",
-				                    "freinsName": "",
-				                    "payCode": 0,
-				                    "payName": 0,
-				                    "shareRate": "",
-				                    "premium": 0,
-				                    "chgPreium": 0,
-				                    "remarks": "",
-				                    "memo": 0,
-				                    "flag": "",
-				                    "associateFlag": "",
-				                    "clntNme": "",
-				                    "tel": "",
-				                    "fax": "",
-				                    "mail": "",
-				                    "addr": "",
-				                    "zip": "",
-				                    "ppwDate":0,
-				                    "feoXFReinsVos": [
-				                    ],
-				                    "feoXPlanVos":[]
-				                }
-				            
-				            ]
-				        },
+                "intention": {
+                    "plyAppNo": "",
+                    "plyNo": "",
+                    "edrAppNo": "",
+                    "edrNo": "",
+                    "facNo": "",
+                    "layerNo": "1",
+                    "dangerNo": 0,
+                    "currency": "01",
+                    "excessLoss": "",
+                    "layerquota": "",
+                    "totalquota": 0,
+                    "layerPremium": 0,
+                    "layerchgPremium": 0,
+                    "shareRate": "",
+                    "layerrePreium": 0,
+                    "layerReChgPrem": 0,
+                    "reinstTimes": 0,
+                    "reinsTrate": 0,
+                    "residualReinstsum": 0,
+                    "reinstType": "",
+                    "startDate": "",
+                    "endDate": "",
+                    "remarks": "",
+                    "flag": "",
+                    "endorTimes": 0,
+                    "absExcessLoss": "",
+                    "absLayerQuota": "",
+                    "abShareRate": "",
+                    "feoXReinsVos": [
+                        {
+                            "facNo": "",
+                            "layerNo": 0,
+                            "facRiComCde": "",
+                            "freinsCode": "",
+                            "reinsName": "",
+                            "brokerFlag": "0",
+                            "freinsName": "",
+                            "payCode": 0,
+                            "payName": 0,
+                            "shareRate": "",
+                            "premium": 0,
+                            "chgPreium": 0,
+                            "remarks": "",
+                            "memo": 0,
+                            "flag": "",
+                            "associateFlag": "",
+                            "clntNme": "",
+                            "tel": "",
+                            "fax": "",
+                            "mail": "",
+                            "addr": "",
+                            "zip": "",
+                            "ppwDate": 0,
+                            "feoXFReinsVos": [],
+                            "feoXPlanVos": []
+                        }
+
+                    ]
+                },
 
                 //添加接收人（风险单位- 比例- 临分意向）
-                "intentionRecepterProp" : {
-                	 				"facNo": "",
-						            "facRiComCde": "",
-						            "plyAppNo": "",
-						            "plyNo": "",
-						            "edrappNo": "",
-						            "edrNo": "",
-						            "facComAmt": 0,
-						            "facComPrm": 0,
-						            "deductible": "",
-						            "deductibleRate": "",
-						            "specialEngage": "",
-						            "facComComm": 0,
-						            "facComTax": 0,
-						            "facComVat": 0,
-						            "facComCityTax": 0,
-						            "facComEducationTax": 0,
-						            "facComBroke": 0,
-						            "facComExt": 0,
-						            "facComDisc": 0,
-						            "facComOther": 0,
-						            "facComBalance": 0,
-						            "facComIns": "",
-						            "linkPlyNo": 0,
-						            "linkEdrNo": 0,
-						            "modeMrk": "0",
-						            "clntNme": "",
-						            "tel": "",
-						            "fax": "",
-						            "mail": "",
-						            "addr": "",
-						            "zip": "",
-						            "brokerFlag": "0",
-						            "isRateDiff": "0",
-						            "facComProp": "",
-						            "rate": 0.00,
-						            "insGrntAmt": 0.0000,
-						            "ppwDate": 0,
-						            "difReins": 0,
-						            "freinsName": "",
-						            "signedLine": "",
-						            "faccomOriAmt": 0,
-						            "faccomOriPrm": 0,
-						            "faccomOriComm": 0,
-						            "faccomOriTax": 0,
-						            "faccomOriBroke": 0,
-						            "faccomOriExt": 0,
-						            "faccomOriDisc": 0,
-						            "faccomOriOther": 0,
-						            "faccomOriBalance":0,
-						            "faccomChgAmt": 0,
-						            "faccomChgPrm": 0,
-						            "faccomChgComm": 0,
-						            "faccomChgTax": 0,
-						            "faccomChgBroke": 0,
-						            "faccomChgExt": 0,
-						            "faccomChgDisc": 0,
-						            "faccomChgOther": 0,
-						            "faccomChgBalance": 0,
-						            "facAbsComShare": 0,
-						            "facPlyPays": [],
-						            "facPlyFComShareVos": [],
-            						"nfaccomOriDisc": 0
-                	},
+                "intentionRecepterProp": {
+                    "facNo": "",
+                    "facRiComCde": "",
+                    "plyAppNo": "",
+                    "plyNo": "",
+                    "edrappNo": "",
+                    "edrNo": "",
+                    "facComAmt": 0,
+                    "facComPrm": 0,
+                    "deductible": "",
+                    "deductibleRate": "",
+                    "specialEngage": "",
+                    "facComComm": 0,
+                    "facComTax": 0,
+                    "facComVat": 0,
+                    "facComCityTax": 0,
+                    "facComEducationTax": 0,
+                    "facComBroke": 0,
+                    "facComExt": 0,
+                    "facComDisc": 0,
+                    "facComOther": 0,
+                    "facComBalance": 0,
+                    "facComIns": "",
+                    "linkPlyNo": 0,
+                    "linkEdrNo": 0,
+                    "modeMrk": "0",
+                    "clntNme": "",
+                    "tel": "",
+                    "fax": "",
+                    "mail": "",
+                    "addr": "",
+                    "zip": "",
+                    "brokerFlag": "0",
+                    "isRateDiff": "0",
+                    "facComProp": "",
+                    "rate": 0.00,
+                    "insGrntAmt": 0.0000,
+                    "ppwDate": 0,
+                    "difReins": 0,
+                    "freinsName": "",
+                    "signedLine": "",
+                    "faccomOriAmt": 0,
+                    "faccomOriPrm": 0,
+                    "faccomOriComm": 0,
+                    "faccomOriTax": 0,
+                    "faccomOriBroke": 0,
+                    "faccomOriExt": 0,
+                    "faccomOriDisc": 0,
+                    "faccomOriOther": 0,
+                    "faccomOriBalance": 0,
+                    "faccomChgAmt": 0,
+                    "faccomChgPrm": 0,
+                    "faccomChgComm": 0,
+                    "faccomChgTax": 0,
+                    "faccomChgBroke": 0,
+                    "faccomChgExt": 0,
+                    "faccomChgDisc": 0,
+                    "faccomChgOther": 0,
+                    "faccomChgBalance": 0,
+                    "facAbsComShare": 0,
+                    "facPlyPays": [],
+                    "facPlyFComShareVos": [],
+                    "nfaccomOriDisc": 0
+                },
 
-               
 
                 //添加接收人（风险单位- 非比例- 临分意向）
-                "intentionRecepterNprop" : {
+                "intentionRecepterNprop": {
                     "facNo": "",
                     "layerNo": 0,
                     "facRiComCde": "",
@@ -198,13 +196,12 @@ define(['angular', 'config'], function (angular, config) {
                     "mail": "",
                     "addr": "",
                     "zip": "",
-                    "ppwDate":0,
-                    "feoXFReinsVos": [
-                    ]
+                    "ppwDate": 0,
+                    "feoXFReinsVos": []
                 },
 
                 //添加分期信息（风险单位- 非比例- 临分意向）
-                "intentionPlanNprop" : {
+                "intentionPlanNprop": {
                     "facNo": "001210025042004000034",
                     "layerNo": 1,
                     "payTimes": 1,
@@ -215,10 +212,10 @@ define(['angular', 'config'], function (angular, config) {
                 },
 
                 //添加期次
-                "npropPay" : {
-                     "treatyNo": "",
-                     "layerNo": "",
-                     "payNo": "",
+                "npropPay": {
+                    "treatyNo": "",
+                    "layerNo": "",
+                    "payNo": "",
                     "payTimes": "",
                     "planDate": "",
                     "currency": "01",
@@ -226,28 +223,33 @@ define(['angular', 'config'], function (angular, config) {
                     "flag": ""
                 },
 
-               //比例合同初始化元素集
-                "prop" : {
-                   /* "tmpContNo":"",*/
-                    "treatyNo":"",
-                    "refNo":"",
+                //比例合同初始化元素集
+                "prop": {
+
+                    "brokerCode": '',//经济人代码
+                    "brokerName": '',//经济人名称
+                    "inReinsCode": '',//分出人代码
+                    "inReinsName": '',//分出人名称
+                    /* "tmpContNo":"",*/
+                    "treatyNo": "",
+                    "refNo": "",
 //                    "bsnsTyp":"",
-                    "treatyType":"",//合同类型
-                    "treatyName":"",//合同名称
-                    "treatyEName":"",//合同英文全称
-                    "exTreatyNo":"",//合约续转代码
-                    "calculateBase":"0",//计算基础
-                    "closeDate":"",//关闭日期
-                    "uwYear":"",//业务年度
-                    "startDate":"",//合同起期
-                    "endDate":"",//合同止期
-                    "extendDate":"",//续转日期
-                    "rePremiumBase":"00",//分保基础
-                    "accDate":"",//出账天数
-                    "dueDate":"",//计算天数
+                    "treatyType": "",//合同类型
+                    "treatyName": "",//合同名称
+                    "treatyEName": "",//合同英文全称
+                    "exTreatyNo": "",//合约续转代码
+                    "calculateBase": "0",//计算基础
+                    "closeDate": "",//关闭日期
+                    "uwYear": "",//业务年度
+                    "startDate": "",//合同起期
+                    "endDate": "",//合同止期
+                    "extendDate": "",//续转日期
+                    "rePremiumBase": "00",//分保基础
+                    "accDate": "",//出账天数
+                    "dueDate": "",//计算天数
 //                    "isFixedRate":"",//是否固定费率分保
 //                    "fixedRate":"",//固定费率分保费率%
-                    "accPeriod":"0",//账单周期
+                    "accPeriod": "0",//账单周期
 //                    "expenseRate":"",//管理费率
 //                    "cleanMode":"1",//合同结清方式
 //                    "cleanYear":"",//未知字段
@@ -257,86 +259,86 @@ define(['angular', 'config'], function (angular, config) {
 //                    "pendOutRate":"",//未决赔款转出比例% --（国泰不用）
 //                    "deductible":"",//合同免赔 --（国泰不用）
 //                    "lossSharing":"",//损失分担 -- （国泰不用）
-                    "stateFlag":"0",//合同状态
+                    "stateFlag": "0",//合同状态
 //                    "carFlag":"0",//是否为车险合同 -- （国泰不用）
 //                    "carServAmoutFlag":"0",//车险合同属性 --（国泰不行）
-                    "optType":"00",
-                    "fhSectionList":[
+                    "optType": "00",
+                    "fhSectionList": [
 //                    "contOutInssects":[
                         {
 //                            "tmpContNo":"",
-                            "treatyNo":"",
-                            "sectionNo":"a",//合约分项编码
-                            "sectionCDesc":"",//合约分项中文描述
-                            "sectionEDesc":"",//合约分项英文描述
-                            "currency":"01",//币种
+                            "treatyNo": "",
+                            "sectionNo": "a",//合约分项编码
+                            "sectionCDesc": "",//合约分项中文描述
+                            "sectionEDesc": "",//合约分项英文描述
+                            "currency": "01",//币种
 //                            "currencyName":"",
-                            "reinsureRate":"",//分出比例（成数合约）
-                            "limitValue":"",//合同限额
+                            "reinsureRate": "",//分出比例（成数合约）
+                            "limitValue": "",//合同限额
 //                            "hurricaneLimit":"",//台风赔偿限额
 //                            "floodLimit":"",//洪水赔偿限额
 //                            "earthquakeLimit":"",//地震赔偿限额
-                            "retentionValue":"",//最大自留额（溢额合约）
-                            "taxRate":"6.00",
-                            "commRate":"",//固定手续费（含营业税不含增值税）比例（%）
+                            "retentionValue": "",//最大自留额（溢额合约）
+                            "taxRate": "6.00",
+                            "commRate": "",//固定手续费（含营业税不含增值税）比例（%）
 //                            "surplusLines":"",
-                            "line":"",
-                            "largeLossValue":"",//重大赔案通知额(立案时的估损，每次调整估损后都需判断是否达到重大赔案通知额)
-                            "cashLossValue":"",//现金赔款通知额
+                            "line": "",
+                            "largeLossValue": "",//重大赔案通知额(立案时的估损，每次调整估损后都需判断是否达到重大赔案通知额)
+                            "cashLossValue": "",//现金赔款通知额
 //                            "othRate":"",
-                            "brokerRate":'',//经纪人费比例
+                            "brokerRate": '',//经纪人费比例
 //                            "eqsectNo":"",//地震险子分项号
-                            "commRate":"",//手续费(含税)比例(%)
+                            "commRate": "",//手续费(含税)比例(%)
 //                            "sectionCarFlag":"",//高价车
 //                            "freeTaxFlag":"1",
-                            "vatRate":"6.00",
-                            "cleanMode":"0",//合同结清方式
-                             "cleanYear":"",//结清年限
-                             "cashLossFlag":"0",//估损范围
-                             "shareholderRate":"",//业务比例(%)
-                             "shareholderMainCoinsRate":"",//主共业务比例
-                             "shareholdersubCoinsRate":"",//从共业务比例
+                            "vatRate": "6.00",
+                            "cleanMode": "0",//合同结清方式
+                            "cleanYear": "",//结清年限
+                            "cashLossFlag": "0",//估损范围
+                            "shareholderRate": "",//业务比例(%)
+                            "shareholderMainCoinsRate": "",//主共业务比例
+                            "shareholdersubCoinsRate": "",//从共业务比例
 //                             "otherFee":"",//其他费用
-                             "baseRate":"",//我司承担份额(%)
-                             "lowOs":"",//损失共担条款下限(%)
-                             "uperOs":"",//损失共担条款下限(%)
-                             "accidentType":"",//事故类别
-                             "accidentTypeValue":"",//事故类别限额
-                             "liabilityLimitValue":"",//每次事故责任限额
-                             "liabilityLimitValues":"",//累积事故责任限额
-                             "shareholderLimRate":"",//股东业务限制比例(%)
-                             "unShareholderLimRate":"",//非股东业务限制比例(%)
-                             "lossShareRate":"",//损失共担比例(%)
-                             "vatFlag":"1",//应税免税标识
-                             "addVatRate":"12.00",//附加税比例(%)
-                             "pcCleanMode":"0",//纯益手续费方式
-                             "pcMinRate":"",//纯益手续费比例(%)
-                             "expenseRate":"",//接受人管理费用比例(%)
-                             "pcStartMths":"",//起算日期(月)
-                             "carriedYrs":"",//亏损滚转周期(月)
-                             "fhRiskList":[],
-                            "fhSectionReinsList":[{
-                            	"reinsCode":"",//接受人编码
-    						    "shareRate":"",//所占份额
-    						    "commRate" :""//手续费比例
+                            "baseRate": "",//我司承担份额(%)
+                            "lowOs": "",//损失共担条款下限(%)
+                            "uperOs": "",//损失共担条款下限(%)
+                            "accidentType": "",//事故类别
+                            "accidentTypeValue": "",//事故类别限额
+                            "liabilityLimitValue": "",//每次事故责任限额
+                            "liabilityLimitValues": "",//累积事故责任限额
+                            "shareholderLimRate": "",//股东业务限制比例(%)
+                            "unShareholderLimRate": "",//非股东业务限制比例(%)
+                            "lossShareRate": "",//损失共担比例(%)
+                            "vatFlag": "1",//应税免税标识
+                            "addVatRate": "12.00",//附加税比例(%)
+                            "pcCleanMode": "0",//纯益手续费方式
+                            "pcMinRate": "",//纯益手续费比例(%)
+                            "expenseRate": "",//接受人管理费用比例(%)
+                            "pcStartMths": "",//起算日期(月)
+                            "carriedYrs": "",//亏损滚转周期(月)
+                            "fhRiskList": [],
+                            "fhSectionReinsList": [{
+                                "reinsCode": "",//接受人编码
+                                "shareRate": "",//所占份额
+                                "commRate": ""//手续费比例
                             }
                             ],
-                             "fhCommRateList":[],
+                            "fhCommRateList": [],
 //                            "fhCommRateList":[]
 //                            "contOutExpensiveCars":[]
-                             "fhExItemKindList":[]
+                            "fhExItemKindList": []
                         }
 
                     ],
-                    "fhReinsList":[
+                    "fhReinsList": [
 //                    "contOutComShares":[//合约接收人信息
-						{
+                        {
 //						    "tmpContNo":"",
-						    "treatyNo":"",//合约号
-						    "reinsCode":"",//接受人编码
-						    "shareRate":"",//所占份额
-						    "brokerFlag":"false",//经纪人标识：0-接受人,1-经纪人
-//						    "isPrireins":"false",
+                            "treatyNo": "",//合约号
+                            "reinsCode": "",//接受人编码
+                            "shareRate": "",//所占份额
+                            "brokerFlag": "false",//经纪人标识：0-接受人,1-经纪人
+                           // "isPrireins": "false",
 //						    "ttyLinker":"",
 //						    "ttyMobile":"",
 //						    "ttyPhone":"",
@@ -344,72 +346,72 @@ define(['angular', 'config'], function (angular, config) {
 //						    "ttyEmail":"",
 //						    "ttyAddress":"",
 //						    "ttyPost":"",
-						    "fhFinalReinsList":[]
+                            "fhFinalReinsList": []
 //						    "fhFinalReinsList":[]
-						}
-                    ]
-                }
+                        }
+                    ],
+              }
                 ,
 
                 //比例合同分项初始化元素集
-                "propSection" : {
+                "propSection": {
 //                    "tmpContNo":"",
-                    "treatyNo":"",//合约分享
-                    "sectionNo":"",//合约分项
-                    "sectionCDesc":"",//分项中文描述
-                    "sectionEDesc":"",//分项英文描述
-                    "currency":"01",
+                    "treatyNo": "",//合约分享
+                    "sectionNo": "",//合约分项
+                    "sectionCDesc": "",//分项中文描述
+                    "sectionEDesc": "",//分项英文描述
+                    "currency": "01",
 //                    "currencyName":"0", //币种名称
-                    "reinsureRate":"",//分出比例(%)
-                    "limitValue":"",//合同限额
-                 //   "hurricaneLimit":"",//台风赔偿限额
+                    "reinsureRate": "",//分出比例(%)
+                    "limitValue": "",//合同限额
+                    //   "hurricaneLimit":"",//台风赔偿限额
 //                    "floodLimit":"",//洪水赔偿限额
-                //    "earthquakeLimit":"",//地震赔偿限额
-                    "retentionValue":"",//合同最大自留额
-                    "taxRate":"6.00",//营业税比例（%）
-                    "commRate":"",//固定手续费（含营业税不含增值税）比例（%）
+                    //    "earthquakeLimit":"",//地震赔偿限额
+                    "retentionValue": "",//合同最大自留额
+                    "taxRate": "6.00",//营业税比例（%）
+                    "commRate": "",//固定手续费（含营业税不含增值税）比例（%）
 //                    "surplusLines":"",//
-                    "largeLossValue":"",//重大赔案通知额
-                    "cashLossValue":"",//现金赔款通知额
-                  /*  "othRate":"",*/
+                    "largeLossValue": "",//重大赔案通知额
+                    "cashLossValue": "",//现金赔款通知额
+                    /*  "othRate":"",*/
 //                    "brokeRate":"",//经纪人费比例
-                   // "eqsectNo":"",//地震险子分项号
-                    "commRate":"",//手续费(含税)比例(%)
+                    // "eqsectNo":"",//地震险子分项号
+                    "commRate": "",//手续费(含税)比例(%)
 //                    "freeTaxFlag":"1",
-                    "line":"",
-                    "vatRate":"6.00",                   
-                    "cleanMode":"0",//合同结清方式
-                    "cleanYear":"",//结清年限
-                    "cashLossFlag":"0",//估损范围
-                    "shareholderRate":"",//业务比例(%)
-                    "shareholderMainCoinsRate":"",//主共业务比例
-                    "shareholdersubCoinsRate":"",//从共业务比例
+                    "line": "",
+                    "vatRate": "6.00",
+                    "cleanMode": "0",//合同结清方式
+                    "cleanYear": "",//结清年限
+                    "cashLossFlag": "0",//估损范围
+                    "shareholderRate": "",//业务比例(%)
+                    "shareholderMainCoinsRate": "",//主共业务比例
+                    "shareholdersubCoinsRate": "",//从共业务比例
 //                    "otherFee":"",//其他费用
-                    "baseRate":"",//我司承担份额(%)
-                    "lowOs":"",//损失共担条款下限(%)
-                    "uperOs":"",//损失共担条款下限(%)
-                    "accidentType":"",//事故类别
-                    "accidentTypeValue":"",//事故类别限额
-                    "liabilityLimitValue":"",//每次事故责任限额
-                    "liabilityLimitValues":"",//累积事故责任限额
-                    "shareholderLimRate":"",//股东业务限制比例(%)
-                    "unShareholderLimRate":"",//非股东业务限制比例(%)
-                    "lossShareRate":"",//损失共担比例(%)
-                    "vatFlag":"1",//应税免税标识
-                    "addVatRate":"12",//附加税比例(%)
-                    "pcCleanMode":"0",//纯益手续费方式
-                    "pcMinRate":"",//纯益手续费比例(%)
-                    "expenseRate":"",//接受人管理费用比例(%)
-                    "pcStartMths":"",//起算日期(月)
-                    "carriedYrs":"",//亏损滚转周期(月)
-                    "fhRiskList":[],
-                    "fhSectionReinsList":[{
-	                	"reinsCode":"",//接受人编码
-					    "shareRate":"",//所占份额
-					    "commRate" :""//手续费比例
-	                	}
-	                ],
-                    "fhCommRateList":[],
+                    "baseRate": "",//我司承担份额(%)
+                    "lowOs": "",//损失共担条款下限(%)
+                    "uperOs": "",//损失共担条款下限(%)
+                    "accidentType": "",//事故类别
+                    "accidentTypeValue": "",//事故类别限额
+                    "liabilityLimitValue": "",//每次事故责任限额
+                    "liabilityLimitValues": "",//累积事故责任限额
+                    "shareholderLimRate": "",//股东业务限制比例(%)
+                    "unShareholderLimRate": "",//非股东业务限制比例(%)
+                    "lossShareRate": "",//损失共担比例(%)
+                    "vatFlag": "1",//应税免税标识
+                    "addVatRate": "12",//附加税比例(%)
+                    "pcCleanMode": "0",//纯益手续费方式
+                    "pcMinRate": "",//纯益手续费比例(%)
+                    "expenseRate": "",//接受人管理费用比例(%)
+                    "pcStartMths": "",//起算日期(月)
+                    "carriedYrs": "",//亏损滚转周期(月)
+                    "fhRiskList": [],
+                    "fhSectionReinsList": [{
+                        "reinsCode": "",//接受人编码
+                        "shareRate": "",//所占份额
+                        "commRate": ""//手续费比例
+                    }
+                    ],
+                    "fhCommRateList": [],
 //                    "comMission":""//固定手续费
 //                    "contOutExpensiveCars":[]
 
@@ -427,23 +429,23 @@ define(['angular', 'config'], function (angular, config) {
 //                },
 
                 //添加最终接收人 (比例)
-                "propFinalRecepter" :  {
+                "propFinalRecepter": {
 //                    "tmpContNo":"",
-                    "treatyNo":"",
-                    "reinsCode":"",
-                    "freinsCode":"",
-                    "shareRate":""
+                    "treatyNo": "",
+                    "reinsCode": "",
+                    "freinsCode": "",
+                    "shareRate": ""
 //                    "isPrireins":"false",
 //                    "remark":0
                 },
 
                 //增加接收人（比例）
-                "propRecepter" :  {//接受人
+                "propRecepter": {//接受人
 //                    "tmpContNo":"",
-                    "treatyNo":"",
-                    "reinsCode":"",
+                    "treatyNo": "",
+                    "reinsCode": "",
 //                    "share":"",
-                    "brokerFlag":"false",
+                    "brokerFlag": "false",
 
 //                    "isPrireins":"false",
 //                    "ttyLinker":"",
@@ -453,43 +455,43 @@ define(['angular', 'config'], function (angular, config) {
 //                    "ttyEmail":"",
 //                    "ttyAddress":"",
 //                    "ttyPost":"",
-                    "fhFinalReinsList":[]
+                    "fhFinalReinsList": []
 
-   
+
                 },
-             
+
                 //比例适用险种
-                "propRisk" :   {
-                    "treatyNo":"",
-                    "sectionNo":"",
-                    "riskCode":"",//险种代码
-                    "riskName":"",
-                    "flag":""
+                "propRisk": {
+                    "treatyNo": "",
+                    "sectionNo": "",
+                    "riskCode": "",//险种代码
+                    "riskName": "",
+                    "flag": ""
 //                    "insrncCde":"",
 //                    "rdrCde":"**",
 //                    "insrncName":"",
 //                    "rdrName":"",
 //                    "contNo":"",
 //                    "contOutprptPropexps":[]
-                } ,
+                },
 
                 //比例除外责任
-                "propExclusion":{
-                	 "treatyNo":"",//合约号
-                     "sectionNo":"",//合约分项号
-                     "itemKind":"",//险种,PK
+                "propExclusion": {
+                    "treatyNo": "",//合约号
+                    "sectionNo": "",//合约分项号
+                    "itemKind": "",//险种,PK
 //                     "objTypeCdeName":""
-                     "itemKindDesc":""
+                    "itemKindDesc": ""
                 },
 
                 //浮动手续费费率
-                "propAdjustrate" :  {
+                "propAdjustrate": {
 //                    "tmpContNo":"",
-                    "treatyNo":"",
-                    "sectionNo":"",
-                    "lowPaidRate":'',
-                    "upperPaidRate":'',
-                    "commRate":''
+                    "treatyNo": "",
+                    "sectionNo": "",
+                    "lowPaidRate": '',
+                    "upperPaidRate": '',
+                    "commRate": ''
                 },
 //                //高价车
 //                "propExpenCar" :  {
@@ -501,7 +503,7 @@ define(['angular', 'config'], function (angular, config) {
 //                    "outRate":''
 //                },
                 //非比例合同初始化元素集
-                "nprop" : {
+                "nprop": {
                     "treatyNo": "",
                     "exTreatyNo": "",
                     "refNo": "",
@@ -523,41 +525,41 @@ define(['angular', 'config'], function (angular, config) {
                     "fhxLayerList":
                         [
                             {
-                                
+
                                 "treatyNo": "",
                                 "layerNo": "1",
                                 "layerType": "",
                                 "layerCDesc": "",
                                 "layerEDesc": "",
                                 "currency": "01",
-//                                "excessLoss": 0,
-//                                "layerquota": 0,
-//                                "totalquota": 0,
+                                "excessLoss": "",
+                                "layerquota": "",
+                                "totalquota": "",
                                 "rate": 0.0000,
                                 "rol": 0.0000,
                                 "mdpRate": 0.0000,
-//                                "mdp": 0,
-//								"egnpi":0,
-								"gnpi":0,
-//                                "layerPremium": 0,
+                                "mdp": "",
+                                "egnpi": "",
+                                "gnpi": 0,
+                                "layerPremium": "",
                                 "shareRate": "",
-//                                "reinstTimes": 0,
+                                "reinstTimes": "",
                                 "reinstRate": 0.0000,
                                 "residualReinstSum": "",
                                 "reinstType": "1",
                                 "remarks": "",
                                 "flag": "",
                                 "rwp": "",
-                                "fhxPlanList":  [],
+                                "fhxPlanList": [],
                                 "fhxRiskList": [],
-                                "fhxCompanyList" :[
-                               	 {
+                                "fhxCompanyList": [
+                                    {
                                         "treatyNo": "",
                                         "layerNo": "",
                                         "comCode": "",
                                         "comName": ""
-                                }
-                               	 ],
+                                    }
+                                ],
                                 "fhxReinsList":
                                     [
                                         {
@@ -575,138 +577,145 @@ define(['angular', 'config'], function (angular, config) {
                                     ]
                             }
                         ]
-                   
+
                 },
 
 
                 //非比例层
-                 "npropLayer" : {
-                     "treatyNo": "",
-                     "layerNo": "",
-                     "layerType": "",
-                     "layerCDesc": "",
-                     "layerEDesc": "",
-                     "currency": "01",
-//                     "excessLoss": 0,
-//                     "layerquota": 0,
-//                     "totalquota": 0,
-                     "rate": 0.0000,
-                     "rol": 0.0000,
-//                     "egnpi": 0,
-                     "gnpi": 0,
-                     "mdpRate": 0.0000,
-//                     "mdp": 0,
-//                     "layerPremium": 0,
-                     "shareRate": "",
-//                     "reinstTimes": 0,
-                     "reinstRate": "",
-                     "residualReinstSum": 0,
-                     "reinstType": "1",
-                     "remarks": "",
-                     "flag": "",
-                     "rwp": "",
-                     "fhxRiskList": [],
-                     "fhxCompanyList" :[
-                    	 {
-                             "treatyNo": "",
-                             "layerNo": "",
-                             "comCode": "",
-                             "comName": ""
-                     }
-                     ], 
-                     "fhxReinsList":
-                             [
-                                 {
-                                     "layerNo": "",
-                                     "reinsCode": "",
-                                     "treatyNo": "",
-                                     "reinsName": "",
-                                     "freinsCode": "",
-                                     "freinsName": "",
-                                     "brokerFlag": "0",
-                                     "payCode": "",
-                                     "payName": "",
-                                     "shareRate": ""
-                                 }
-                             ],
-                     "fhxPlanList":
-                             [
-                                 {
-                                     "treatyNo": "",
-                                     "layerNo": "",
-                                     "payNo": "",
-                                     "payTimes": 0,
-                                     "planDate": "",
-                                     "currency": "01",
-                                     "payValue": 0,
-                                     "flag": ""
-                                 }
-                             ]
-                 },
-/*
-                //非比例最终接收人
-                "npropFinalRecepter" : {
-                        "treatyNo": "",
-                        "layerNo": "",
-                        "reinsCode": "",
-                        "freinsCode": "",
-                        "reinsName": "",
-                        "freinsName": "",
-                        "payCode": "",
-                        "payName": "",
-                        "shareRate": ""
-                },*/
+                "npropLayer": {
+                    "treatyNo": "",
+                    "layerNo": "",
+                    "layerType": "",
+                    "layerCDesc": "",
+                    "layerEDesc": "",
+                    "currency": "01",
+                    "excessLoss": "",
+                    "layerquota": "",
+                    "totalquota": "",
+                    "rate": 0.0000,
+                    "rol": 0.0000,
+                    "egnpi": "",
+                    "gnpi": 0,
+                    "mdpRate": 0.0000,
+                    "mdp": "",
+                    "layerPremium": "",
+                    "shareRate": "",
+                    "reinstTimes": "",
+                    "reinstRate": "",
+                    "residualReinstSum": 0,
+                    "reinstType": "1",
+                    "remarks": "",
+                    "flag": "",
+                    "rwp": "",
+                    "fhxRiskList": [],
+                    "fhxCompanyList": [
+                        {
+                            "treatyNo": "",
+                            "layerNo": "",
+                            "comCode": "",
+                            "comName": ""
+                        }
+                    ],
+                    "fhxReinsList":
+                        [
+                            {
+                                "layerNo": "",
+                                "reinsCode": "",
+                                "treatyNo": "",
+                                "reinsName": "",
+                                "freinsCode": "",
+                                "freinsName": "",
+                                "brokerFlag": "0",
+                                "payCode": "",
+                                "payName": "",
+                                "shareRate": ""
+                            }
+                        ],
+                    "fhxPlanList":
+                        [
+                            {
+                                "treatyNo": "",
+                                "layerNo": "",
+                                "payNo": "",
+                                "payTimes": 0,
+                                "planDate": "",
+                                "currency": "01",
+                                "payValue": 0,
+                                "flag": ""
+                            }
+                        ]
+                },
+                /*
+                                //非比例最终接收人
+                                "npropFinalRecepter" : {
+                                        "treatyNo": "",
+                                        "layerNo": "",
+                                        "reinsCode": "",
+                                        "freinsCode": "",
+                                        "reinsName": "",
+                                        "freinsName": "",
+                                        "payCode": "",
+                                        "payName": "",
+                                        "shareRate": ""
+                                },*/
 
                 //非比例接受人
-                "npropRecepter" : {
-                        "treatyNo": "",
-                        "layerNo": "",
-                        "reinsCode": "",
-                        "reinsName": "",
-                        "freinsCode": "",
-                        "freinsName": "",
-                        "brokerFlag": "0",
-                        "payCode": "",
-                        "payName": "",
-                        "shareRate": ""
+                "npropRecepter": {
+                    "treatyNo": "",
+                    "layerNo": "",
+                    "reinsCode": "",
+                    "reinsName": "",
+                    "freinsCode": "",
+                    "freinsName": "",
+                    "brokerFlag": "0",
+                    "payCode": "",
+                    "payName": "",
+                    "shareRate": ""
                 },
                 //非比例机构
-                "npropCompany" : {
-                        "treatyNo": "",
-                        "layerNo": "",
-                        "comCode": "",
-                        "comName": ""
+                "npropCompany": {
+                    "treatyNo": "",
+                    "layerNo": "",
+                    "comCode": "",
+                    "comName": ""
+                },
+                //比例机构
+                "propCompany": {
+                    "treatyNo": "",
+                    "layerNo": "",
+                    "comCode": "",
+                    "comName": ""
                 },
                 //非比例适用险种
-                "npropRisk" :    {
+                "npropRisk": {
                     "treatyNo": "",
                     "layerNo": "",
                     "riskCode": "",
                     "riskName": "",
-                "fhxExItemKindList": []
-                 },
-                
+                    "fhxExItemKindList": []
+                },
+
 
                 //非比例除外责任
-                "npropExclusion":{
-                    
-                        "treatyNo": "",
-                        "riskCode": "",
-                        "itemKind": "",
-                        "itemKindDesc": "",
-                        "flag": ""
+                "npropExclusion": {
+
+                    "treatyNo": "",
+                    "riskCode": "",
+                    "itemKind": "",
+                    "itemKindDesc": "",
+                    "flag": ""
                 }
             };
 
             var cleanContractData = function (contAttr, data) {
-                switch(contAttr){
+                switch (contAttr) {
                     case('P'):
                         data.cancelTm = $filter('date')(data.cancelTm, config.display.dateFormat);
-                        
+
                         data.contBgnTm = $filter('date')(data.contBgnTm, config.display.dateFormat);
-                       
+
                         data.contEndTm = $filter('date')(data.contEndTm, config.display.dateFormat);
-                     
+
                         break;
                     case('PS'):
                         break;
@@ -715,67 +724,69 @@ define(['angular', 'config'], function (angular, config) {
                 return data;
             };
             //清除合同的多余字段
-            var cleanContractBackData = function(contAttr, contract){
-            	contract = angular.copy(contract);
-            	console.log(contract);
-            	if(angular.isDefined(contract.endDateHold))
-            		delete contract.endDateHold;
-            	if(contAttr ==="prop"){
-             		$.each(contract.fhReinsList, function(index, share){
-             			delete share.priHideFlag;
-             			delete share.warning;
-             			if(share.fhFinalReinsList){
-             				if(share.fhFinalReinsList.length>0){
-                 				$.each(share.fhFinalReinsList, function(index2, f){
-                     				delete f.hideFlag;
-                     			});
-                 			}
-             			}
-             		});
-            		$.each(contract.fhSectionList, function(index1, section){
-            			delete section.isActive;
-            			delete section.insrncCde;
-            			delete section.riComCdes ;
-            			delete section.riComCde;
-            			/*$.each(section.contOutInssectDtls, function(index2, risk){
-            					delete risk.deletable;
-            			});*/
+            var cleanContractBackData = function (contAttr, contract) {
+                contract = angular.copy(contract);
+                console.log(contract);
+                if (angular.isDefined(contract.endDateHold))
+                    delete contract.endDateHold;
+                if (contAttr === "prop") {
+                    $.each(contract.fhReinsList, function (index, share) {
+                        delete share.priHideFlag;
+                        delete share.warning;
+                        if (share.fhFinalReinsList) {
+                            if (share.fhFinalReinsList.length > 0) {
+                                $.each(share.fhFinalReinsList, function (index2, f) {
+                                    delete f.hideFlag;
+                                });
+                            }
+                        }
+                    });
+                    $.each(contract.fhSectionList, function (index1, section) {
+                        delete section.isActive;
+                        delete section.insrncCde;
+                        delete section.riComCdes;
+                        delete section.riComCde;
+                        /*$.each(section.contOutInssectDtls, function(index2, risk){
+                                delete risk.deletable;
+                        });*/
 //            			$.each(section.contOutInssectEqDtls, function(index3, earth){
 //            					delete earth.deletable;
 //            			});
-            		});
-            	}else{
-            		$.each(contract.fhxLayerList, function(index, layer){
-            			delete layer.isActive;
-            			$.each(layer.fhxReinsList, function(index2, re){ 
-        					delete re.warning;
-        					delete re.priHideFlag;
-        					
-        				});
-                		$.each(layer.fhxRiskList, function(index3, risk){
-                			delete risk.deletable;
-                		});
-                		$.each(layer.fhxCompanyList, function(index3, company){
-                			delete company.deletable;
-                		});
-            		});
-            		
-            	}
-				
-            	return contract;
+
+                    });
+                } else {
+                    $.each(contract.fhxLayerList, function (index, layer) {
+                        delete layer.isActive;
+                        $.each(layer.fhxReinsList, function (index2, re) {
+                            delete re.warning;
+                            delete re.priHideFlag;
+
+                        });
+                        $.each(layer.fhxRiskList, function (index3, risk) {
+                            delete risk.deletable;
+                        });
+                        $.each(layer.fhxCompanyList, function (index3, company) {
+                            delete company.deletable;
+                        });
+
+                    });
+
+                }
+
+                return contract;
             };
             return {
                 //修改向后台传值时合同类型参数
-                exchangeAttr : function(contAttr){
-                    if(contAttr === "prop"){
+                exchangeAttr: function (contAttr) {
+                    if (contAttr === "prop") {
                         return "P";
-                    }else{
+                    } else {
                         return "PS";
                     }
                 },
 
                 //获取初始化合同时的元素
-                getElement : function(keyword){
+                getElement: function (keyword) {
                     return localElements[keyword];
                 },
                 /**
@@ -789,24 +800,23 @@ define(['angular', 'config'], function (angular, config) {
                     contAttr = this.exchangeAttr(contAttr);
                     var deffered = $q.defer();
 
-                    var _url = config.data.method==='files'? contractServiceConfig.files.searchContract[contAttr] : contractServiceConfig.urls.searchContract;
+                    var _url = config.data.method === 'files' ? contractServiceConfig.files.searchContract[contAttr] : contractServiceConfig.urls.searchContract;
                     $http({
-                        method: config.data.method==='files'? 'GET':'POST',
+                        method: config.data.method === 'files' ? 'GET' : 'POST',
                         url: _url,
-                        headers: {
+                        headers: {},
+                        data: {
+                            contAttr: contAttr,
+                            keywords: keywords,
+                            pagination: pagination,
+                            user: user
                         },
-                        data:{
-                            contAttr:contAttr,
-                            keywords:keywords,
-                            pagination:pagination,
-                            user:user
-                        },
-                        timeout:  config.backend.timeout
+                        timeout: config.backend.timeout
                     })
-                        .success(function(data){
+                        .success(function (data) {
                             deffered.resolve(data);
                         })
-                        .error(function(e, code){
+                        .error(function (e, code) {
                             deffered.reject(code);
                         });
 
@@ -815,25 +825,24 @@ define(['angular', 'config'], function (angular, config) {
                 /**
                  * 导入浮动手续费率表
                  */
-                searchImport: function (fd,file) {
+                searchImport: function (fd, file) {
                     var deffered = $q.defer();
 
-                    var _url = config.data.method==='files'? contractServiceConfig.files.searchImport : contractServiceConfig.urls.searchImport;
+                    var _url = config.data.method === 'files' ? contractServiceConfig.files.searchImport : contractServiceConfig.urls.searchImport;
                     $http({
-                        method: config.data.method==='files'? 'GET':'POST',
+                        method: config.data.method === 'files' ? 'GET' : 'POST',
                         url: _url,
-                        headers: {
+                        headers: {},
+                        data: {
+                            fd: fd,
+                            file: file
                         },
-                        data:{
-                            fd:fd,
-                            file:file
-                        },
-                        timeout:  config.backend.timeout
+                        timeout: config.backend.timeout
                     })
-                        .success(function(data){
+                        .success(function (data) {
                             deffered.resolve(data);
                         })
-                        .error(function(e, code){
+                        .error(function (e, code) {
                             deffered.reject(code);
                         });
 
@@ -846,28 +855,27 @@ define(['angular', 'config'], function (angular, config) {
                  * @param user  操作用户信息
                  */
                 getContract: function (contAttr, contractNo, user) {
-                   contAttr = this.exchangeAttr(contAttr);
+                    contAttr = this.exchangeAttr(contAttr);
                     var deffered = $q.defer();
 
-                    var _url = config.data.method==='files'? contractServiceConfig.files.getContract[contAttr] : contractServiceConfig.urls.getContract;
+                    var _url = config.data.method === 'files' ? contractServiceConfig.files.getContract[contAttr] : contractServiceConfig.urls.getContract;
 
                     $http({
-                        method: config.data.method==='files'? 'GET':'POST',
+                        method: config.data.method === 'files' ? 'GET' : 'POST',
                         url: _url,
-                        headers: {
+                        headers: {},
+                        data: {
+                            contAttr: contAttr,
+                            contractNo: contractNo,
+                            user: user
                         },
-                        data:{
-                            contAttr:contAttr,
-                            contractNo:contractNo,
-                            user:user
-                        },
-                        timeout:  config.backend.timeout
+                        timeout: config.backend.timeout
                     })
-                        .success(function(data){
-                        	deffered.resolve(data);
-                      //      deffered.resolve(cleanContractData(contAttr, data));
+                        .success(function (data) {
+                            deffered.resolve(data);
+                            //      deffered.resolve(cleanContractData(contAttr, data));
                         })
-                        .error(function(e, code){
+                        .error(function (e, code) {
                             deffered.reject(code);
                         });
                     return deffered.promise;
@@ -879,40 +887,40 @@ define(['angular', 'config'], function (angular, config) {
                  * @param user  操作用户信息
                  */
                 createContract: function (contAttr, contract, user) {
-                	contract = cleanContractBackData(contAttr, contract);
+                    contract = cleanContractBackData(contAttr, contract);
                     contAttr = this.exchangeAttr(contAttr);
                     var deffered = $q.defer();
                     console.log("即将新建合同：=======");
                     console.log(contract);
-                    var _url = config.data.method==='files'? contractServiceConfig.files.createContract : contractServiceConfig.urls.createContract;
+                    var _url = config.data.method === 'files' ? contractServiceConfig.files.createContract : contractServiceConfig.urls.createContract;
                     $http({
-                        method: config.data.method==='files'? 'GET':'POST',
+                        method: config.data.method === 'files' ? 'GET' : 'POST',
                         url: _url,
                         //url: contractServiceConfig[config.data.method].createContract,
                         headers: {
                             //PICC__RequestVerificationToken: user.verificationToken
                         },
-                        data:{
-                            contAttr:contAttr,
-                            contract:contract,
-                            user:user
+                        data: {
+                            contAttr: contAttr,
+                            contract: contract,
+                            user: user
                         },
-                        timeout:  config.backend.timeout
+                        timeout: config.backend.timeout
                     })
-                        .success(function(data){
+                        .success(function (data) {
                             //data = eval('('+data+')');
                             //data = JSON.parse(data);
                             deffered.resolve(data);
                         })
-                        .error(function(e, code){
+                        .error(function (e, code) {
                             deffered.reject(code);
                             //deffered.resolve([{contractNo:'00001',
                             //contractName:'abc'}]);
                         });
                     return deffered.promise;
                 },
-               
-                
+
+
                 /**
                  * 编辑合同
                  * @param contAttr   区别比例非比例合同
@@ -920,32 +928,32 @@ define(['angular', 'config'], function (angular, config) {
                  * @param user   操作用户信息
                  */
                 updateContract: function (contAttr, contract, user) {
-                	contract = cleanContractBackData(contAttr, contract);
+                    contract = cleanContractBackData(contAttr, contract);
                     contAttr = this.exchangeAttr(contAttr);
                     var deffered = $q.defer();
                     console.log("即将更新合同：=======");
                     console.log(contract);
-                    var _url = config.data.method==='files'? contractServiceConfig.files.updateContract : contractServiceConfig.urls.updateContract;
+                    var _url = config.data.method === 'files' ? contractServiceConfig.files.updateContract : contractServiceConfig.urls.updateContract;
                     $http({
-                        method:config.data.method==='files'? 'GET':'POST',
+                        method: config.data.method === 'files' ? 'GET' : 'POST',
                         url: _url,
                         //url: contractServiceConfig[config.data.method].updateContract,
                         headers: {
                             //PICC__RequestVerificationToken: user.verificationToken
                         },
-                        data:{
-                            contAttr:contAttr,
-                            contract:contract,
-                            user:user
+                        data: {
+                            contAttr: contAttr,
+                            contract: contract,
+                            user: user
                         },
-                        timeout:  config.backend.timeout
+                        timeout: config.backend.timeout
                     })
-                        .success(function(data){
+                        .success(function (data) {
                             //data = eval('('+data+')');
                             //data = JSON.parse(data);
                             deffered.resolve(data);
                         })
-                        .error(function(e, code){
+                        .error(function (e, code) {
                             deffered.reject(code);
                             //deffered.resolve([{contractNo:'00001',
                             //contractName:'abc'}]);
@@ -959,31 +967,30 @@ define(['angular', 'config'], function (angular, config) {
                  * @param user  操作用户信息
                  */
                 updateContractsState: function (contAttr, contracts, user) {
-                    console.log("setState : "+contAttr);
+                    console.log("setState : " + contAttr);
                     console.log(contracts);
                     contAttr = this.exchangeAttr(contAttr);
                     var deffered = $q.defer();
 
-                    var _url = config.data.method==='files'? contractServiceConfig.files.updateContractsState : contractServiceConfig.urls.updateContractsState;
+                    var _url = config.data.method === 'files' ? contractServiceConfig.files.updateContractsState : contractServiceConfig.urls.updateContractsState;
                     $http({
-                        method:config.data.method==='files'? 'GET':'POST',
-                        url:_url,
-                       // url: contractServiceConfig[config.data.method].updateContractsState,
-                        headers: {
+                        method: config.data.method === 'files' ? 'GET' : 'POST',
+                        url: _url,
+                        // url: contractServiceConfig[config.data.method].updateContractsState,
+                        headers: {},
+                        data: {
+                            contAttr: contAttr,
+                            contracts: contracts,
+                            user: user
                         },
-                        data:{
-                            contAttr:contAttr,
-                            contracts:contracts,
-                            user:user
-                        },
-                        timeout:  config.backend.timeout
+                        timeout: config.backend.timeout
                     })
-                        .success(function(data){
+                        .success(function (data) {
                             //data = eval('('+data+')');
                             //data = JSON.parse(data);
                             deffered.resolve(data);
                         })
-                        .error(function(e, code){
+                        .error(function (e, code) {
                             deffered.reject(code);
                             //deffered.resolve([{contractNo:'00001',
                             //contractName:'abc'}]);
@@ -999,27 +1006,27 @@ define(['angular', 'config'], function (angular, config) {
                 deleteContracts: function (contAttr, contracts, user) {
                     contAttr = this.exchangeAttr(contAttr);
                     var deffered = $q.defer();
-                    var _url = config.data.method==='files'? contractServiceConfig.files.deleteContracts : contractServiceConfig.urls.deleteContracts;
+                    var _url = config.data.method === 'files' ? contractServiceConfig.files.deleteContracts : contractServiceConfig.urls.deleteContracts;
                     $http({
-                        method:config.data.method==='files'? 'GET':'POST',
+                        method: config.data.method === 'files' ? 'GET' : 'POST',
                         url: _url,
                         // url: contractServiceConfig[config.data.method].deleteContracts,
                         headers: {
                             //PICC__RequestVerificationToken: user.verificationToken
                         },
-                        data:{
-                            contAttr:contAttr,
-                            contracts:contracts,
-                            user:user
+                        data: {
+                            contAttr: contAttr,
+                            contracts: contracts,
+                            user: user
                         },
-                        timeout:  config.backend.timeout
+                        timeout: config.backend.timeout
                     })
-                        .success(function(data){
+                        .success(function (data) {
                             //data = eval('('+data+')');
                             //data = JSON.parse(data);
                             deffered.resolve(data);
                         })
-                        .error(function(e, code){
+                        .error(function (e, code) {
                             deffered.reject(code);
                             //deffered.resolve([{contractNo:'00001',
                             //contractName:'abc'}]);
@@ -1036,27 +1043,27 @@ define(['angular', 'config'], function (angular, config) {
                     contAttr = this.exchangeAttr(contAttr);
                     var deffered = $q.defer();
 
-                    var _url = config.data.method==='files'? contractServiceConfig.files.copyContracts : contractServiceConfig.urls.copyContracts;
+                    var _url = config.data.method === 'files' ? contractServiceConfig.files.copyContracts : contractServiceConfig.urls.copyContracts;
                     $http({
-                        method:config.data.method==='files'? 'GET':'POST',
+                        method: config.data.method === 'files' ? 'GET' : 'POST',
                         url: _url,
                         //  url: contractServiceConfig[config.data.method].copyContracts,
                         headers: {
                             //PICC__RequestVerificationToken: user.verificationToken
                         },
-                        data:{
-                            contAttr:contAttr,
-                            contracts:contracts,
-                            user:user
+                        data: {
+                            contAttr: contAttr,
+                            contracts: contracts,
+                            user: user
                         },
-                        timeout:  config.backend.timeout
+                        timeout: config.backend.timeout
                     })
-                        .success(function(data){
+                        .success(function (data) {
                             //data = eval('('+data+')');
                             //data = JSON.parse(data);
                             deffered.resolve(data);
                         })
-                        .error(function(e, code){
+                        .error(function (e, code) {
                             deffered.reject(code);
                             //deffered.resolve([{contractNo:'00001',
                             //contractName:'abc'}]);
@@ -1070,28 +1077,28 @@ define(['angular', 'config'], function (angular, config) {
                  * @param user   操作用户信息
                  */
                 transferContracts: function (contAttr, contracts, user) {
-                   contAttr = this.exchangeAttr(contAttr);
+                    contAttr = this.exchangeAttr(contAttr);
                     var deffered = $q.defer();
 
-                    var _url = config.data.method==='files'? contractServiceConfig.files.transferContracts : contractServiceConfig.urls.transferContracts;
+                    var _url = config.data.method === 'files' ? contractServiceConfig.files.transferContracts : contractServiceConfig.urls.transferContracts;
                     $http({
-                        method:config.data.method==='files'? 'GET':'POST',
+                        method: config.data.method === 'files' ? 'GET' : 'POST',
                         url: _url,
                         //  url: contractServiceConfig[config.data.method].transferContracts,
                         headers: {
                             //PICC__RequestVerificationToken: user.verificationToken
                         },
-                        data:{
-                            contAttr:contAttr,
-                            contracts:contracts,
-                            user:user
+                        data: {
+                            contAttr: contAttr,
+                            contracts: contracts,
+                            user: user
                         },
-                        timeout:  config.backend.timeout
+                        timeout: config.backend.timeout
                     })
-                        .success(function(data){
+                        .success(function (data) {
                             deffered.resolve(data);
                         })
-                        .error(function(e, code){
+                        .error(function (e, code) {
                             deffered.reject(code);
                             //deffered.resolve([{contractNo:'00001',
                             //contractName:'abc'}]);
@@ -1099,7 +1106,7 @@ define(['angular', 'config'], function (angular, config) {
                     return deffered.promise;
                 }
                 //非比例分出账务处理------------------------------start-------------------------------
-                
+
             };
         }]);
 

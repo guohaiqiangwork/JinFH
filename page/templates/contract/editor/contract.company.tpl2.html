@@ -1,0 +1,44 @@
+
+<hr>
+<h4>机构信息</h4>
+
+<a class="btn btn-default" ng-if="operation !='view' && !(effected||effected)"
+   ng-show="contAttr==='prop'" ng-click="addCompanyprop(contract)"><span class="glyphicon glyphicon-plus"></span></a>
+
+<form name="frmCompany" ng-class="{'readonly': operation==='view'}">
+
+    <div>
+        <!--比例-->
+        <table class="table table-bordered" ng-if="contAttr ==='prop'" ng-show="contract.fhReinsList.length > 0">
+            <thead>
+            <th nowrap>业务所属公司</th>
+            <th ng-if="operation != 'view'">&nbsp;</th>
+            </thead>
+
+            <tr ng-repeat-start=" receptor in contract.fhReinsList  track by $index">
+                <td>
+                    <div class="input-group">
+                        <select ng-if="operation === 'new'" ng-model="receptor.reinsCode"
+                                ng-options="c.id as c.id +'-'+ c.value for c in comCodes">
+                            <option value="">--请选择--</option>
+                        </select>
+                        <select ng-if="operation === 'edit'" ng-model="receptor.reinsCode"
+                                ng-options="c.id as c.id +'-'+ c.value for c in comCodes">
+                            <option value="" ng-selected="{{company.comCode}}">{{company.comCode}}</option>
+                        </select>
+
+                        <input ng-if="operation === 'view'" class="form-control" type="text" ng-model="company.comCode"
+                               ng-required="true" placeholder="必填"
+                               ng-readonly="operation ==='view' || effected " placeholder=""
+                               typeahead-loading="loading...">
+                        <span></span>
+                    </div>
+                </td>
+            </tr>
+            <tr ng-repeat-end class="well">
+            </tr>
+        </table>
+
+
+    </div>
+</form>

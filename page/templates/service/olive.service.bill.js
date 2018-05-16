@@ -128,7 +128,7 @@ define(['angular', 'config'], function (angular, config) {
                 	'prop.acc.0.2.3':config.backend.ip + config.backend.base + 'facBill/showFacAccIn.do'  //临分分入分赔账单查看
                 },
                 confirmBill: {
-                	'prop.contract.0.2.06':config.backend.ip + config.backend.base + 'contBill/confirmTtyTBBill.do', //月度预提账单
+                	'prop.contract.0.2.06':config.backend.ip + config.backend.base + 'getAcc.do?settleType=T&type=Settle', //
                 	'prop.contract.0.2.01':config.backend.ip + config.backend.base + 'contBill/confirmTtyTRBill.do',  //季度账单
                 	'prop.contract.0.2.02':config.backend.ip + config.backend.base + 'contBill/confirmProOutFCXBill.do', //分出现金赔款账单确认 yanliming 2015/06/23
                 	'prop.contract.0.2.03':config.backend.ip + config.backend.base + 'contBill/confirmProOutFCXBill.do', //分出浮动手续费账单确认 yanliming 2015/06/23
@@ -148,7 +148,7 @@ define(['angular', 'config'], function (angular, config) {
                 createContInBill : config.backend.ip + config.backend.base + 'contInBill/createContInBill.do',//合同分入生成账单。
                 getSectNos:config.backend.ip + config.backend.base + 'contInBill/getSectNos.do',//合约分项
                 getReins:config.backend.ip + config.backend.base + 'contInBill/getReins.do',//合约分出人
-                getInBillTime:config.backend.ip + config.backend.base + 'getAccPeriod1.do',//获取账单起期和账单止期
+//                getInBillTime:config.backend.ip + config.backend.base + 'getAccPeriod1.do',//获取账单起期和账单止期
                 getFeeSign:config.backend.ip + config.backend.base + 'contInBill/getFeeSign.do',//判断账单项目分项
                 searchRecertiBill:'',
                 importFhxBill: config.backend.ip + config.backend.base + 'xolContBill/saveFhxComShareList.do',
@@ -690,7 +690,7 @@ define(['angular', 'config'], function (angular, config) {
                  * @param lan       语言
                  * @returns {Function|promise|promise|promise}
                  */
-                confirmBill:function(contAttr, contFacMrk, inOutMrk, inExMrk, billType, keywords, user, lan){
+                confirmBill:function(contAttr, contFacMrk, inOutMrk, inExMrk, billType, billList, user){
                     var deffered = $q.defer();
                     var _url = config.data.method==='files'?billServiceConfig.files.confirmBill[contAttr + "." + contFacMrk + "." + inOutMrk + "." + inExMrk + "." + billType]:
                     	billServiceConfig.urls.confirmBill[contAttr + "." + contFacMrk + "." + inOutMrk + "." + inExMrk + "." + billType];
@@ -703,15 +703,14 @@ define(['angular', 'config'], function (angular, config) {
 	                        url:_url,
 	                        headers:{
 	                        },
-	                        data:{
+	                        data:{ 
 	                            contAttr:contAttr,
 	                            contFacMrk:contFacMrk,
 	                            inOutMrk:inOutMrk,
 	                            inExMrk:inExMrk,
 	                            billType:billType,
-	                            keywords:keywords,
+	                            billList:billList,
 	                            user:user,
-	                            lan:lan
 	                        },
 	                        timeout:config.backend.timeout
 	                    })
