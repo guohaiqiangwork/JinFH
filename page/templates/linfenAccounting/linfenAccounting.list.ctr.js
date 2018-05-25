@@ -4,6 +4,7 @@ define(['app',
     app.registerController('AccountingFromQueryListCtrl', ['$scope', '$stateParams',  '$filter', '$modal', '$location',
         'OutqueryService','CodeService','facultativeService','$q',
          function ($scope, $stateParams, $filter, $modal, $location,outqueryService,codeService,facultativeService,$q) {
+
              $scope.searchTable={
                  flag: false//查询条件是否展示判断
              };
@@ -78,12 +79,11 @@ define(['app',
                 };
                 facultativeService.generatingBill(keywords).then(
                     function(data){
-                     console.log(data);
                         var queryAcc ={
                             biztype:biztype,
                             flag3:"F",
                             operateType:"Gen",
-                            recertifyNo:plyRiskUnit.rePolicyNo,
+                            recertifyNo:data.msg,
                             acctype:'reinsOutType',
                             pagination:$scope.pagination
                         };
@@ -102,7 +102,7 @@ define(['app',
                 );
             };
             //删除账单
-            $scope.delAcc =function(){
+            $scope.delAcc =function(biztype){
                 if(!$scope.isSelect){
                     alert('请选择单号');
                     return false;
@@ -123,14 +123,13 @@ define(['app',
                         plyRiskUnit=$scope.plyRiskUnitList[i];
                         break;
                     }}
-                facultativeService.deleBill(plyRiskUnit).then(
+                facultativeService.deleBill(plyRiskUnit,biztype).then(
                     function(data){
                         if(data.result==='success'){
                             $scope.fzBAccList = [];
                             $scope.fzRAccList = [];
                             alert('删除成功！！');
                         }
-                        console.log(data);
                     },function(code){
                         throw(code);
                     }
@@ -155,8 +154,6 @@ define(['app',
 
             //分保单详情
             $scope.openPlyFromQuery = function (repolicyNo,dangerNo) {
-            	console.log("openPlyFromQuery---"+repolicyNo);
-               	console.log("openPlyFromQuery---"+dangerNo);
                 $modal.open({
                     templateUrl: '/reins/page/templates/fromquery/fromquery.item.ply.tpl.html',
                     controller: 'FromQueryItemCtrl',
@@ -176,8 +173,6 @@ define(['app',
             };
             //分批单详情
             $scope.openEdrFromQuery = function (endorNo,dangerNo) {
-            	console.log("openEdrFromQuery---"+endorNo);
-               	console.log("openEdrFromQuery---"+dangerNo);
                 $modal.open({
                     templateUrl: '/reins/page/templates/fromquery/fromquery.item.edr.tpl.html',
                     controller: 'FromQueryItemEdrCtrl',
@@ -196,35 +191,22 @@ define(['app',
                 });
             };
             //分赔案详情
-            $scope.openClmFromQuery = function (repayNo,dangerNo) {
+            $scope.openClmFromQuery = function (plyRisk) {
                 $modal.open({
-                    backdrop: 'static',
+                    backdrop: 'true',
                     animation: true,
                     windowClass: 'modal-big',
-                    templateUrl:'/reins/page/templates/fromquery/fromquery.item.clml.tpl.html',
+                    templateUrl:'/reins/page/templates/linfenAccounting/AccFacRepayQuery.modal.tpl.html',
                     resolve: {
-                        repayNo : function(){
-                            return repayNo;
-                        },
-                        dangerNo : function(){
-                            return dangerNo;
-                        },
-                        user : function(){
-                            return $scope.global.user;
-                        }
                     },
                     controller: function ($scope, $modalInstance) {
                         var queryAcc ={
-                            biztype:"P",
-                            flag3:"F",
-                            operateType:"Gen",
-                            recertifyNo:'',
-                            acctype:'reinsOutType',
-                            pagination:$scope.pagination
+                            biztype:"C",
+                            plyRisk:plyRisk
                         };
                         facultativeService.checkDetails(queryAcc).then(
                             function(data){
-                                console.log('000000');
+                                $scope.plyRiskUnit=data;
                             },function(code){
                                 throw(code);
                             }
@@ -239,12 +221,12 @@ define(['app',
             
             //切换账单,初始化查询
 	        $scope.changeReset = function(keywords,bizType){
+                $scope.resetSearchBox();
 	            if($scope.options.bizType === "P") {
                     $scope.searchPlyInfoList(bizType, $scope.pagination);
                 }
 	            if($scope.options.bizType === "E"){
                     $scope.searchPlyInfoList(bizType,$scope.pagination);
-
 	            }
 	            if($scope.options.bizType === "C"){
                     $scope.searchPlyInfoList(bizType,$scope.pagination);
@@ -252,26 +234,118 @@ define(['app',
 	            }
 
 	        };
-
+            // 重置
+             $scope.resetSearchBox = function () {
+                 $scope.keywords={
+                     recertifyNoTag:'=',
+                     recertifyNo:'',
+                     policyNoTag:'=',
+                     policyNo:'',
+                     dangerNoTag:'=',
+                     dangerNo:'',
+                     payNoTag:'=',
+                     payNo:'',
+                     uwYearTag:'=',
+                     uwYear:'',
+                     damageDateTag:'=',
+                     damageDate:'',
+                     startDateTag:'=',
+                     startDate:'',
+                     compensateNoTag:'=',
+                     compensateNo:'',
+                     repolicyNoTag:'=',
+                     repolicyNo:'',
+                     approve:'1',
+                     reinsType:'0',
+                     insuredNameTag:'=',
+                     insuredName:'',
+                     accType:'0',
+                     biztype:'',
+                     operateType:'Gen',
+                     opt:'facOut',
+                     reinsOutType:'',
+                     endorNoTag:'=',
+                     endorNo:'',
+                     proposalNoTag:'=',
+                     proposalNo:'',
+                     enquiryNoTag:'=',
+                     enquiryNo:'',
+                     comCodeTag:'=',
+                     comCode:'',
+                     classCodeTag:'=',
+                     classCode:'',
+                     currencyTag:'=',
+                     currency:'',
+                     endorTypeTag:'=',
+                     endorType:'',
+                     endorDateTag:'=',
+                     endorDate:'',
+                     riskCodeTag:'=',
+                     riskCode:'',
+                     damageReasonTag:'=',
+                     damageReason:'',
+                     damageCode:'',
+                     damageCodeTag:'='
+                 };
+             }
 
 	        $scope.searchPlyInfoList = function(bizType,pagination) {
+	        	$scope.searchTable.flag = false;
                 $scope.keywords.biztype=bizType;
                 $scope.keywords.operateType='Gen';
                 $scope.keywords.opt='facOut';
                 $scope.keywords.reinsOutType='';
-                $scope.plyRiskUnitList='';
+                $scope.plyRiskUnitList=[];
                 facultativeService.checkFacultative($scope.operation,$scope.keywords,pagination,'','').then(
                     function(data){
                         $scope.plyRiskUnitList = data.data;
-                        $.each($scope.plyRiskUnitList,function (index,plyRiskUnit) {
-                            plyRiskUnit.checkedBill = false;
-                        });
+                        if ($scope.plyRiskUnitList.length > 0)
+                            $.each($scope.plyRiskUnitList, function (index, plyRiskUnit) {
+                                plyRiskUnit.checkedBill = false;
+                            });
                         $scope.pagination.totalItems=data.total;
                     },function(code){
                         throw(code);
                     }
                 );
 	        };
+             //账单转收付
+             $scope.payment = function (biztype) {
+                 if(!$scope.isSelect){
+                     alert('请选择单号');
+                     return false;
+                 }
+                 if(!$scope.fzBAccList && !$scope.fzRAccList){
+                     alert('此单号未生成账单');
+                     return false;
+                 }
+                 if($scope.fzBAccList && $scope.fzRAccList){
+                     if($scope.fzBAccList.length===0 || $scope.fzRAccList.length===0){
+                         alert('此单号未生成账单');
+                         return false;
+                     }
+                 }
+
+                 var keywords = {
+                     recertifyNo:$scope.fzBAccList[0].rePolicyNo,
+                     accPeriod: $scope.fzBAccList[0].accPeriod,
+                     accKind: biztype,
+                     optType: $scope.fzBAccList[0].optType
+                 }
+                 facultativeService.billTernPayment(keywords).then(
+                     function(data){
+                         if(data.data==='0'){
+                             alert('账单转收付成功！！');
+                         }else
+                         if(data.data==='-1'){
+                             alert('账单转收付失败！！');
+                         }
+                        console.log(data);
+                     },function(code){
+                         throw(code);
+                     }
+                 );
+             }
 	        //根据页号查询合同列表
 	        $scope.onSelectPage = function(pageIndex){
 	            $scope.pagination.pageIndex = pageIndex;
@@ -317,7 +391,6 @@ define(['app',
                              ralSearch();
                          },
                          function(code){
-                             console.log("error  "+code);
                              searchFlag = true;
                              if(angular.equals(code,"bussy")){
                                  $scope.searchList.push($scope.searchList[0]);
@@ -331,6 +404,62 @@ define(['app',
                      );
                  }
              };
+             
+             
+         	//重置查询框中内容(prop)
+             $scope.resetSearchBox = function(){
+                 $scope.keywords = {
+                 		 recertifyNoTag:'=',
+                          recertifyNo:'',
+                          policyNoTag:'=',
+                          policyNo:'',
+                          dangerNoTag:'=',
+                          dangerNo:'',
+                          payNoTag:'=',
+                          payNo:'',
+                          uwYearTag:'=',
+                          uwYear:'',
+                          damageDateTag:'=',
+                          damageDate:'',
+                          startDateTag:'=',
+                          startDate:'',
+                          compensateNoTag:'=',
+                          compensateNo:'',
+                          repolicyNoTag:'=',
+                          repolicyNo:'',
+                          approve:'1',
+                          reinsType:'0',
+                          insuredNameTag:'=',
+                          insuredName:'',
+                          accType:'0',
+                          biztype:'',
+                          operateType:'Gen',
+                          opt:'facOut',
+                          reinsOutType:'',
+                          endorNoTag:'=',
+                          endorNo:'',
+                          proposalNoTag:'=',
+                          proposalNo:'',
+                          enquiryNoTag:'=',
+                          enquiryNo:'',
+                          comCodeTag:'=',
+                          comCode:'',
+                          classCodeTag:'=',
+                          classCode:'',
+                          currencyTag:'=',
+                          currency:'',
+                          endorTypeTag:'=',
+                          endorType:'',
+                          endorDateTag:'=',
+                          endorDate:'',
+                          riskCodeTag:'=',
+                          riskCode:'',
+                          damageReasonTag:'=',
+                          damageReason:'',
+                          damageCode:'',
+                          damageCodeTag:'='
+                 };
+             }
             var init = function(){
                 $scope.keywords={
                     recertifyNoTag:'=',

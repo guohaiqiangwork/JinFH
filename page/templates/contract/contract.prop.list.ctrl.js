@@ -18,6 +18,7 @@ define(['app', 'config','codes'], function (app, config, codes) {
             };
             //条件查询
             $scope.searchContracts = function(){
+            	 $scope.searchTableFlag = ! $scope.searchTableFlag
             	if($scope.keywords.contYear === null){
             		$scope.keywords.contYear = "";
             	}
@@ -71,10 +72,10 @@ define(['app', 'config','codes'], function (app, config, codes) {
             		 "stateFlag":'',
             		 "treatyName":'',
             		 "optType":"",
-            		 "contNoFlag":"",
-            		 "refNmeFlag":"",
-            		 "contNmeFlag":"",
-            		 "contYearFlag":""
+            		 "contNoFlag":"=",
+            		 "refNmeFlag":"=",
+            		 "contNmeFlag":"=",
+            		 "contYearFlag":"="
                 };
                 if(formFlag)
                 searchForm.reset();

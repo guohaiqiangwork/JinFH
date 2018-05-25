@@ -8,6 +8,7 @@ define(
         function ($scope, $stateParams ,$filter,$location,settleInvoiceService,$modal) {
     	//发票查询
          $scope.searchInvoiceEntry = function() {
+        	 $scope.searchTableFlag = ! $scope.searchTableFlag
         	/*$scope.pagination.pageIndex = 1;*/
         	settleInvoiceService.searchInvoiceEntry($scope.operation,$scope.pagination,$scope.keywords ,'', '').then(
                   function(data){

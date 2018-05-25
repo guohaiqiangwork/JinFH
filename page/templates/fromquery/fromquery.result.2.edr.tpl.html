@@ -1,7 +1,7 @@
 <div style="overflow: auto;height: auto;">
 	<div>
 		<table class="table table-bordered">
-	        <thead >
+	        <thead>
 		        <tr>
 		            <td nowrap>分保方式</td>
 		            <td nowrap>分出比例%</td>
@@ -18,28 +18,29 @@
 					<td nowrap>每次事故赔偿限额</td>
 				<tr>
 	        </thead>
-	        <tbody ng-repeat="row in reinsShare.groupped">
-                <tr ng-repeat="share in row.PlyEdrComShares">
-		            <td>{{share.reinsType}}</td>
-		            <td>{{share.shareRate}}%</td>
-		            <td>{{share.amount}}-{{share.chgAmount}}</td>
-		            <<td>{{share.premium}}-{{share.chgPremium}}</td>
-		            <td>{{share.chgAmount}}</td>
-		            <td>{{share.chgPremium}}</td>
-		             <td>{{share.noTaxPremium}}</td>
-		             <td>{{share.chgTaxFee}}</td>
-		            <td>{{share.reamount}}</td>
-		            <td>{{share.premium}}</td>
-		            <td>{{share.noTaxPremium}}</td>
-		            <td>{{share.taxFee}}</td>
-		            <td>{{share.amount}}</td>
+                <tr ng-ng-repeat="reinsShare in reinsShare">
+		            <td ng-if="reinsShare.reinsMode==181">自留</td>
+		            <td ng-if="reinsShare.reinsMode==182">附加自留</td>
+		            <td ng-if="reinsShare.reinsMode==391">临分</td>
+		            <td ng-if="reinsShare.reinsMode==392">特约临分</td>
+		            <td ng-if="reinsShare.reinsMode==221">溢额</td>
+		            <td ng-if="reinsShare.reinsMode==231">成数</td>
+		            <td>{{reinsShare.shareRate}}%</td>
+		            <td>{{reinsShare.amount}}-{{reinsShare.chgAmount}}</td>
+		            <td>{{reinsShare.premium}}-{{reinsShare.chgPremium}}</td>
+		            <td>{{reinsShare.chgAmount}}</td>
+		            <td>{{reinsShare.chgPremium}}</td>
+		             <td>{{reinsShare.noTaxPremium}}</td>
+		             <td>{{reinsShare.chgTaxFee}}</td>
+		            <td>{{reinsShare.reamount}}</td>
+		            <td>{{reinsShare.premium}}</td>
+		            <td>{{reinsShare.noTaxPremium}}</td>
+		            <td>{{reinsShare.taxFee}}</td>
+		            <td>{{reinsShare.amount}}</td>
 				</tr>
-	        </tbody>
 	        <tr>
 	            <td>合计</td>
 	            <td>{{reinsShare.shareRateCount | formatPercent}}</td>
-	            <td></td>
-	            <td></td>
 	            <td>{{reinsShare.oriAmountCount}}</td>
 	            <td>{{reinsShare.oriPremiumCount}}</td>
 	            <td>{{reinsShare.chgAmountCount}}</td>
@@ -55,7 +56,6 @@
 	        </tr>
 	    </table>
 	</div>
-	
 	<div>
 	    非比例临分
 	</div>

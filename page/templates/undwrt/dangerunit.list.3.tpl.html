@@ -8,6 +8,7 @@
 </div>
 <div class="desktop">
 	<div style="height:45px">
+		<div class="pull-right">
 		<!-- 取消批单危险手工拆分按钮 modify by lyt 20180502 start -->
 	   <!--  <div class="pull-right" >
 	        <div class="btn-group">
@@ -22,19 +23,19 @@
                     <button type="button" class="btn btn-default" ng-init="splitItemInit(splitMode.flag)" ng-model="splitMode.flag" btn-radio="'2'"
                              ng-disabled="!(splitMode.flag==='2')"
                             >按占比</button>
-                    <button type="button" class="btn btn-default" 
-                    	ng-click="splitItemRiskUnit(true)" 
-                    	ng-init="splitItemInit(splitMode.flag)" 
-                    	ng-model="splitMode.flag" 
+                    <button type="button" class="btn btn-default"
+                    	ng-click="splitItemRiskUnit(true)"
+                    	ng-init="splitItemInit(splitMode.flag)"
+                    	ng-model="splitMode.flag"
                     	btn-radio="'1'"
                     	ng-disabled="!(splitMode.flag==='1')">按标的</button>
                 </div>
             </div> -->
             <!-- 取消批单危险手工拆分按钮 modify by lyt 20180502 end -->
 	        <div class="btn-group">
-	            <a class="btn btn-primary" ng-click="showAllReinsShares()" ng-disabled="editType === '0' || calReinsShareFlag" 
-	            	ng-show="!RU.dangerUnitList[0].editing && !splitFlag">分保试算</a>
-	            <a class="btn btn-primary" ng-click="hideOption = ! hideOption"  
+	            <a class="btn btn-primary" ng-click="showAllReinsShares()" ng-disabled="editType === '0' || calReinsShareFlag"
+	            	ng-show="!RU.dangerUnitList[0].editing && !splitFlag">分批试算</a>
+	            <a class="btn btn-primary" ng-click="hideOption = ! hideOption"
 	            	ng-show="!RU.dangerUnitList[0].editing && !splitFlag"
 	            	ng-disabled="editType === '0'">
 	                <span class="glyphicon glyphicon-cog"></span>
@@ -55,7 +56,9 @@
                     ng-disabled="!RU.dangerUnitList[0].editing || !RU.dangerUnitList[0].editSplit || RiskunitForm.$invalid || RU.editButton || !RU.changeFlag && editType === '0'"
                     ng-click="updateRiskUnits( RU.dangerUnitList)">保存</a>
             </div>
+		</div>
 	    </div>
+
     </div>
     <div ng-if = "reinsShareList.length > 0" class="panel panel-default">
     	<div class="panel-heading">
@@ -78,11 +81,15 @@
 	                    <td nowrap>增值税</td>
 	                    <td nowrap>占比</td>
                         <td nowrap>自留</td>
+						<td nowrap>pml币别</td>
+						<td nowrap>分保试算基础</td>
+						<td nowrap>除外责任</td>
 	                    <td nowrap>进合同</td>
 	                    <td></td>
 	                    </thead>
-	                    <tr ng-repeat-start = "dangerUnit in RU.dangerUnitList" >
-	                    <td><a href="" title="点击可查看该风险单位的分保试算信息" ng-click="showReinsShares(dangerUnit.dangerNo)">{{dangerUnit.dangerNo}}</a></td>
+	                    <tr ng-repeat-start = "dangerUnit in RU.dangerUnitList"  ng-if="trialListShareTrueTable">
+	                    <td>
+							<a href="" title="点击可查看该风险单位的分保试算信息" ng-click="showReinsShares(dangerUnit.dangerNo)">{{dangerUnit.dangerNo}}</a></td>
 	                        <td>
 	                        	描述：
 		                        <div class="input-group">
@@ -100,58 +107,68 @@
 	                        </div>
 	                    </td>
 	                    <td>
-	                                                           风险等级：
+							风险等级：
 	                      <div class="input-group" style="width: 100px">
 	                           <span ng-if="dangerUnit.editing || dangerUnit.editSplit || splitFlag">
-	                                <select class="form-control" style="width: 100px" ng-model="dangerUnit.riskLevel" ng-options="r.riskLvl as r.riskLvl for r in riskLvls"
-	                                        ng-change="selectChange(riskunit);updateRiskUnit(riskunit, 'riskKeepAmt');retentionPropCheck( RU.dangerUnitList, riskunit)">
-	                                </select>
+	                                <!--<select class="form-control" style="width: 100px" ng-model="dangerUnit.riskLevel" ng-options="r.riskLvl as r.riskLvl for r in riskLvls"-->
+	                                        <!--ng-change="selectChange(riskunit);updateRiskUnit(riskunit, 'riskKeepAmt');retentionPropCheck( RU.dangerUnitList, riskunit)">-->
+	                                <!--</select>-->
+                                     <select class="form-control" style="width: 100px"
+                                             ng-model="dangerUnit.riskClass"
+                                             ng-options="r.riskClass as r.riskClass for r in riskLvls"
+                                             ng-change="cascadeConcatenation(dangerUnit.riskClass,dangerUnit)"
+                                     ></select>
 	                            </span>
+
 		                        <span ng-if="!(dangerUnit.editing || dangerUnit.editSplit || splitFlag)" style="width: 100px">{{dangerUnit.riskLevel}}</span>
                            <div/>
-                                                                     风险描述：
+							  风险等级描述	：
                             <div class="input-group" style="width: 100px">
-                                <input class="form-control" ng-model="dangerUnit.riskLevelDesc" 
-	                        		ng-readonly="!(dangerUnit.editing || dangerUnit.editSplit)" 
+                                <input class="form-control" ng-model="dangerUnit.riskLevelDesc"
+	                        		ng-readonly="!(dangerUnit.editing || dangerUnit.editSplit)"
 	                        	 >
                             </div>
 	                     </td>
-	                    
+
 	                    <td>
                             <span>保额：</span>
                             <div class="input-group">
-                                <span class="view">{{dangerUnit.amount | currency}}|{{dangerUnit.currency | code:'currency'}}</span>
+                                <span class="view">{{dangerUnit.amount}}|{{dangerUnit.currency | code:'currency'}}</span>
                             </div>
                             <span>保额变化量：</span>
                             <div class="input-group">
-                                <span class="view">{{dangerUnit.chgAmount | currency}}|{{dangerUnit.currency | code:'currency'}}</span>
+                                <span class="view">{{dangerUnit.chgAmount}}|{{dangerUnit.currency | code:'currency'}}</span>
                             </div>
                         </td>
-                            
+
 	                    <td ng-class="{'warning':dangerUnit._temp.warning}">
 	                    	含税保费：<br>
 	                        <span class="view">{{dangerUnit.currency}}</span><br>
-	                        <span class="view">{{dangerUnit.premium|currency}}</span><br>
+	                        <span class="view">{{dangerUnit.premium}}</span><br>
 	                        <span>含税保费变化量：</span>
                             <div class="input-group">
-                                <span class="view">{{riskunit.chgPremium | currency}}</span>
+                                <span class="view">{{riskunit.chgPremium}}{{dangerUnit.chgAmount}}</span>
                             </div>
                         	不含税保费：<br>
+							<!--|currency-->
+                        	<span class="view">{{dangerUnit.chgPremium}}</span><br>
                         	<span class="view">{{dangerUnit.currency}}</span><br>
-	                        <span class="view">{{dangerUnit.noTaxPremium|currency}}</span>
+	                        <span class="view">{{dangerUnit.noTaxPremium}}</span>
 	                        <span>不含税保费变化量：</span>
                             <div class="input-group">
-                                <span class="view">{{riskunit.chgNoTaxPremium | currency}}</span>
+                                <span class="view">{{riskunit.chgNoTaxPremium}}
+								{{dangerUnit.chgNoTaxPremium}}
+								</span>
                             </div>
 	                    </td>
 	                    <td ng-class="{'warning':dangerUnit._temp.warning}">
 	                    	增值税：<br>
 	                        <span class="view">{{dangerUnit.currency}}</span>
-	                        <span class="view">{{dangerUnit.taxFee|currency}}</span>
+	                        <span class="view">{{dangerUnit.taxFee}}</span>
 	                        <span>增值税变化量：</span>
                                <div class="input-group">
-                                   <span class="view">{{dangerUnit.chgTaxFee | currency}}</span>
-                               </div>                        
+                                   <span class="view">{{dangerUnit.chgTaxFee}}</span>
+                               </div>
 	                    </td>
 	                    <td>
 	                        <div class="input-group" ng-if="dangerUnit.editing || dangerUnit.editSplit || splitFlag">
@@ -174,34 +191,56 @@
 	                    </td>
 	                    <td>
 	                    	<div class="input-group">
-	                                                                         毛自留额:
+								<!--currency -->
+	                                                                        自留额:
                                 <input size="10" name="retention" ng-model="dangerUnit.retentionValue"
                                        type="text"
                                        style="width: 170px"
                                        class="form-control"
                                        ng-readonly="!(dangerUnit.editing || dangerUnit.editSplit || splitFlag)"
-                                       currency
+
                                        ng-keyup="updateRiskUnit(riskunit, 'retentionValue');" />
-	                            {{dangerUnit.retCurrency | code:'currency'}}
+								自留额币别: {{dangerUnit.retCurrency }}
+								<!--| code:'currency'-->
 	                        </div>
 	                    </td>
-	                    <td><input type="checkbox" ng-model="dangerUnit.flag" ng-readonly="!(dangerUnit.editing || dangerUnit.editSplit || splitFlag)" disabled></td>
-	                    
+							<td>
+								<!--<input type="text" ng-model="dangerUnit.speCurrency">-->
+								<select  ng-if="(operation != 'view' && !effected)"
+										 ng-model="dangerUnit.speCurrency"
+										 ng-disabled="!(dangerUnit.editing || dangerUnit.editSplit || splitFlag)"
+										 ng-options="c.id as c.value for c in currencys"></select>
+							</td>
+							<td>
+								<span ng-if="!(dangerUnit.editing || dangerUnit.editSplit || splitFlag)">{{dangerUnit.speValue}}</span>
+								<input type="text" ng-model="dangerUnit.speValue" ng-if="(dangerUnit.editing || dangerUnit.editSplit || splitFlag)">
+							</td>
+							<td>
+								<select ng-model="dangerUnit.exItemKind"
+										class="ng-pristine ng-valid"
+										ng-click="selectExclusion(riskunit)"
+										ng-disabled="!(dangerUnit.editing || dangerUnit.editSplit || splitFlag)"
+										ng-options="x.itemKindDesc for x in exItemKindList"></select>
+							</td>
+	                    <td>
+							<input type="checkbox" ng-model="dangerUnit.flag" ng-readonly="!(dangerUnit.editing || dangerUnit.editSplit || splitFlag)" ></td>
+							<!--disabled-->
+
 	                    <td>
 	                        <div class="btn-group btn-group-sm" style="width:25">
 	                            <a  class="btn btn-default" ng-hide="splitMode.flag==='2'"
 	                                ng-click="toggleExtra(dangerUnit, 'items')">标的信息</a>
-	                            <a  class="btn btn-default"
-	                            	ng-if="!dangerUnit.editSplitSaveFlag || dangerUnit.editSaveFlag"
-	                                ng-click="toggleExtra(dangerUnit, 'accumulations')">风险累积</a>
-		                            <a  class="btn btn-default"
-		                            	ng-if="!dangerUnit.editSplitSaveFlag || dangerUnit.editSaveFlag"
-	                                ng-click="toggleExtra(dangerUnit, 'exItemKind')">除外责任</a>
+	                            <!--<a  class="btn btn-default"-->
+	                            	<!--ng-if="!dangerUnit.editSplitSaveFlag || dangerUnit.editSaveFlag"-->
+	                                <!--ng-click="toggleExtra(dangerUnit, 'accumulations')">风险累积</a>-->
+		                            <!--<a  class="btn btn-default"-->
+		                            	<!--ng-if="!dangerUnit.editSplitSaveFlag || dangerUnit.editSaveFlag"-->
+	                                <!--ng-click="toggleExtra(dangerUnit, 'exItemKind')">除外责任</a>-->
 		                            <a  class="btn btn-default"
 		                            	ng-if="!dangerUnit.editSplitSaveFlag"
 	                                ng-click="toggleExtra(dangerUnit, 'enquiryFac')">临分分出</a>
 	                                <a ng-if="((RU.dangerUnitList[0].editSplit && splitEditFlag) || splitFlag) && (RU.dangerUnitList.length >1) && (dangerUnit.deleFlag || dangerUnit.unitFlag==='1')"
-		                               ng-click="deleteRiskUnit(dangerUnit)" 
+		                               ng-click="deleteRiskUnit(dangerUnit)"
 		                               class="slide btn btn-danger">删除</a>
 <!--	                                <a ng-if="dangerUnit.editing" class="btn btn-danger" ng-click="deleteRiskUnit(dangerUnit)" ng-disabled="RU.dangerUnitList.length <= EdrDataLength">删除</a>-->
 	                            </div>

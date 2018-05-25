@@ -12,7 +12,7 @@
             <a ng-if="operation==='view'&&($stateParams.contOutTyp==='admin')" ng-click="renContract()" class="btn btn-default">续转</a>
             <a ng-if="operation==='view'&&($stateParams.contOutTyp==='admin')"  ng-click="deleteContract()" class="btn btn-danger">删除</a>
             <a ng-if="((operation==='edit' || operation==='new')&& contAttr==='prop') " class="btn btn-default"
-               ng-click="addSection()">增加分项</a>
+               ng-click="addSection(section)">增加分项</a>
 			 <a ng-if="(operation==='edit'&& contAttr==='nprop') || (operation==='new' && contAttr==='nprop' )" class="btn btn-default"
                ng-click="addLayer()">增加层项</a>   
 
@@ -63,7 +63,7 @@
                         <li><a class="btn btn-link" ng-if="section.sectionNo!='a'" ng-click="removeSection(section)">删除分项</a></li>
                          <li><a class="btn btn-link" ng-click="copySection(section)">复制分项</a></li>
                          <li><a ng-if="((operation==='edit' || operation==='new')&& contAttr==='prop') " class="btn btn-link"
-               ng-click="addSection()">增加分项</a></li>
+               ng-click="addSection(section)">增加分项</a></li>
                     </ul>
                 </tab-heading><!--
                 <div ng-if="(contract.inoutMrk==='0' || contract.inoutMrk==='2') && (

@@ -839,11 +839,37 @@ define(['app',
             
         }
         
+        //数字格式不能输入e
+        $scope.keypressfun = function(e){
+       	 console.log(e)
+       	 if (!String.fromCharCode(e.keyCode).match(/[0-9\.]/)) {
+       		 e.preventDefault();
+            }
+        }
+        
         //修改 保存
         $scope.saveEnquiry = function(){
         	if(checkoutRequired()){
-                    console.log("要修改的数据：");
-                    console.log($scope.dangerUnitFacEnquiry);
+                var specialFacShareNumberList=[0]
+                var facShareNumbeList =[0]
+                for(var i = 0;i<$scope.dangerUnitFacEnquiry.feoReinsReceiveList.length;i++) {
+                    if ($scope.dangerUnitFacEnquiry.feoReinsReceiveList[i].facFlag == '1') {
+                        specialFacShareNumberList.push($scope.dangerUnitFacEnquiry.feoReinsReceiveList[i].signedLine)
+                    }
+                    if ($scope.dangerUnitFacEnquiry.feoReinsReceiveList[i].facFlag != '1') {
+                        facShareNumbeList.push($scope.dangerUnitFacEnquiry.feoReinsReceiveList[i].signedLine)
+                    }
+                }
+                    var specialFacShareNumber =  eval(specialFacShareNumberList.join('+'))
+                    var facShareNumber  = eval(facShareNumbeList.join('+'))
+                    if(specialFacShareNumber != $scope.dangerUnitFacEnquiry.feoEnquiry.specialFacShare){
+                        alert('特约临分比例不相等')
+                        return
+                    }
+                    if(facShareNumber != $scope.dangerUnitFacEnquiry.feoEnquiry.facShare){
+                        alert('普通临分比例不相等')
+                        return
+                    }
                     riskunitService.updateEnquiry($scope.dangerUnitFacEnquiry,$scope.global.user).then(
                         function(data){                       	
                             $scope.$emit('notification', {message:'修改成功', delay:3000, type:'success'});
@@ -867,8 +893,15 @@ define(['app',
         var checkoutRequired = function(){
         	var flag = true;
               if($scope.dangerUnitFacEnquiry.feoReinsReceiveList !== null ){ 
-            	$.each($scope.dangerUnitFacEnquiry.feoReinsReceiveList,function(index,temp){            		
-                    if(temp.reinsType === "0"){
+            	$.each($scope.dangerUnitFacEnquiry.feoReinsReceiveList,function(index,temp){
+            		var reg = "^([1-9][0-9]*)+(.[0-9]{1,5})?$";
+            		var strAmount = new String(temp.amount);
+            		var strChgAmount = new String(temp.chgAmount);
+            		var strPremium = new String(temp.premium);
+            		var strChgPremium = new String(temp.chgPremium);
+            		var strDeductible = new String(temp.deductible);
+            		
+            		if(temp.reinsType === "0"){
                     	if(temp.reinsCode === temp.finalReinsCode){
                     		alert("是经纪人，接受人和最终接受人不能相同");
                     		flag = false;
@@ -884,9 +917,39 @@ define(['app',
                     	alert("请录入接收人信息！");
                     	flag = false;
                         return ;
-                    }                                         
-                });
-	            }
+                    }/*else if(temp.amount != null || temp.amount != "0" || temp.amount != ""){
+	            		if(strAmount.match(reg) === null){
+	                    	alert("分出保额必须是以不是0开头的数字");
+	                		flag = false;
+	                        return ; 
+	            		}
+                    }else if(temp.chgAmount != null || temp.chgAmount != "0" || temp.chgAmount != ""){
+                    	if(strChgAmount.match(reg) === null){
+	                    	alert("分保额变化量必须是以不是0开头的数字");
+	                		flag = false;
+	                        return ;
+                    	}
+                    }else if(temp.premium != null || temp.premium != "0" || temp.premium != ""){
+                    	if(strPremium.match(reg) === null){
+	                    	alert("分出不含税保费必须是以不是0开头的数字");
+	                		flag = false;
+	                        return ;
+                    	}
+                    }else if(temp.chgPremium != null || temp.chgPremium != "0" || temp.chgPremium != ""){
+                    	if(strChgPremium.match(reg) === null){
+	                    	alert("分出不含税保费变化量必须是以不是0开头的数字");
+	                		flag = false;
+	                        return ;
+                    	}
+                    }else if(temp.deductible != null || temp.deductible != "0" || temp.deductible != ""){
+                    	if(strDeductible.match(reg) === null){
+	                    	alert("免赔额必须是以不是0开头的数字");
+	                		flag = false;
+	                        return ;
+                    	}
+                    } */                 
+                  });
+	           }
             	return flag;
             }
 

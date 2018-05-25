@@ -1,36 +1,38 @@
 <div class="">
-    <div ng-if="mode==='admin'">
-        <input type="checkbox" ng-model="checkAll" ng-click="checkAllContracts()">全选
-    </div>
-
-    <div ng-repeat="contract in contractList " class="contract-thumbnail-wrapper hover-visible-wrapper">
-        <div ng-if="mode==='admin'">
-            <input type="checkbox" ng-model="contract.checked">
-            {{getListIndex($index, pagination)}}
+   <!--  <div ng-if="mode==='admin'"> -->
+   <div>
+        <input type="checkbox"  ng-model="checkAll" ng-click="checkAllRelationships()">全选
         </div>
+   <!--  </div> -->
 
-        <div class="contract-thumbnail" ng-class="{'animated shake':contract.contStatus==='2'}">
+    <div ng-repeat="contract in contractList" class="contract-thumbnail-wrapper hover-visible-wrapper">
+     <!--    <div ng-if="mode==='admin'"> -->
+            <input type="checkbox" ng-model="relationship.checked">
+            {{getListIndex($index, pagination)}}
+       <!--  </div> -->
 
-           	<td>{{contract.treatyNo}}</td>
-            <td>{{contract.uwYear}}</td>
-            <td>{{contract.refNo}}</td>
-            <td>{{contract.startDate.time | date : config.display.dateFormat}}</td>
-            <td>{{contract.endDate.time | date : config.display.dateFormat}}</td>
-            
+        <div class="contract-thumbnail">
+			<div>
+              合同编号： {{contract.treatyNo}}
+            </div>
+            <div>
+           合同编号：{{contract.uwYear}}
+            </div>
+            <div>
+           合同简称：   {{contract.refNo}}
+            </div>
+            <div>合同起期：{{contract.startDate.time | date : config.display.dateFormat}}</div>
+             <div>合同止期：{{contract.endDate.time | date : config.display.dateFormat}}</div>
         </div>
 
         <div class="text-center" style="margin:5px 0 0 0">
-            <div>
-                <span class="contract-status" ng-class="{'status-temp':contract.contStatus==='0',
-                                                        'status-pendding':contract.contStatus==='1',
-                                                        'status-verified':contract.contStatus==='3',
-                                                        'status-rejected':contract.contStatus==='2',
-                                                        'status-closed':contract.contStatus==='6'}"></span>
-                {{contract.contNo}}
-            </div>
 
+<div>
+				<span class="contract-status" ></span>{{contract.treatyNo}}</div>
             <div class="btn-group btn-group-sm hover-visible">
-                 <button ng-if="mode==='bill' || mode==='1' || mode==='2'" ng-click="openContractBill(contract)" class="btn btn-default"><i class="glyphicon glyphicon-list-alt"></i>&nbsp;单证打印</button>
+                <a ng-click="openContractReports(contract)"  class="btn btn-default" >分保清单</a>
+                <a ng-click="openContractBill1(contract)" class="btn btn-default">已决赔款清单</a>
+                <a ng-click="openContractBill2(contract)" class="btn btn-default">未决赔款清单</a>
             </div>
         </div>
     </div>

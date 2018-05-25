@@ -43,7 +43,7 @@
 			                    <label>出险日期</label>
 			                </div>
 			                <div class="col-lg-4">
-			                    <div class="input-group"> {{plyRiskUnit.damageDate}}
+			                    <div class="input-group"> {{plyRiskUnit.damageDate|date:'yyyy-MM-dd'}}
 			                        <span></span>
 			                    </div>
 			                </div>
@@ -86,7 +86,7 @@
 			                    <label>险种</label>
 			                </div>
 			                <div class="col-lg-4">
-			                    <div class="input-group"> {{plyRiskUnit.riskCode}}
+			                    <div class="input-group"> {{plyRiskUnit.riskName}}
 			                        <span></span>
 			                    </div>
 			                </div>
@@ -107,7 +107,7 @@
 	                  				<label>起保日期</label>
 			                </div>
 			                <div class="col-lg-4">
-			                    <div class="input-group"> {{plyRiskUnit.startDate}}
+			                    <div class="input-group"> {{plyRiskUnit.startDate|date:'yyyy-MM-dd'}}
 			                        <span></span>
 			                    </div>
 			                </div>
@@ -116,7 +116,7 @@
 			                    <label>终止日期</label>
 			                </div>
 			                <div class="col-lg-4">
-			                    <div class="input-group"> {{plyRiskUnit.endDate}}
+			                    <div class="input-group"> {{plyRiskUnit.endDate|date:'yyyy-MM-dd'}}
 			                        <span></span>
 			                    </div>
 			                </div>
@@ -160,7 +160,7 @@
 			                    <label>赔付币别</label>
 			                </div>
 			                <div class="col-lg-4">
-			                    <div class="input-group"> {{plyRiskUnit.sCurrency}}
+			                    <div class="input-group"> {{plyRiskUnit.scurrency}}
 			                    </div>
 			                </div>
 				        </div>
@@ -185,12 +185,22 @@
 								</tr>
 					        </thead>
 					        <tbody>
-				                <tr>
-				                    <td> {{plyRiskUnit.floReItemList.payType}} </td>
-						            <td> {{plyRiskUnit.floReItemList.itemCode}} </td>
-						            <td> {{plyRiskUnit.itemName }} </td>
-						            <td> {{plyRiskUnit.sCurrency}} </td>
-						            <td> {{plyRiskUnit.totClmAmout}} </td>				                 </tr>
+				                <tr ng-repeat="item in plyRiskUnit .floReItemList">
+				                   <!--  <td ng-repeat="item in plyRiskUnit .floReItemList"> {{item.payType}} </td> -->
+						            <!-- <td ng-repeat="item in plyRiskUnit .floReItemList"> {{item.itemCode}} </td> -->
+						            <td>
+						            		<div ng-if="item.payType==='0'">物质损失赔款</div>
+						            		<div ng-if="item.payType==='1'">费用</div> 
+						            		<div ng-if="item.payType==='2'">未决</div>  
+						            </td>
+						            <td> 
+						            		<div ng-if="item.itemCode==='00'">物质损失赔款</div>
+						            		<div ng-if="item.itemCode==='99'">未决</div> 
+						            		<div ng-if="item.itemCode!='00'&&item.itemCode!='99'">费用</div>  
+						            </td>
+						            <td>{{item.itemName}} </td>
+						            <td>{{item.currency}} </td>
+						            <td>{{item.payValue}} </td>				                 </tr>
 					        </tbody>
 					    </table>
 					</div>

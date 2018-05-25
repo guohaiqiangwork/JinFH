@@ -23,7 +23,7 @@ define(['angular', 'config'], function (angular, config) {
                 },
                 queryRetentMax:{
                     '1':config.backend.ip + config.backend.base +'undwrtReins.do?actionType=reinsCalculate',
-                    '3':config.backend.ip + config.backend.base +'riskunit/queryRetentMax.do',
+                    '3':config.backend.ip + config.backend.base +'undwrtReins.do?actionType=reinsCalculate',
                     '2':config.backend.ip + config.backend.base +'riskunit/queryRetentMax.do',
                     '4':config.backend.ip + config.backend.base +'riskunit/queryRetentMax.do'
                 },
@@ -33,12 +33,12 @@ define(['angular', 'config'], function (angular, config) {
                     '1': {
 						'1':config.backend.ip + config.backend.base +'riskunit/splitPlyAppRiskByObject.do',
 						'2':config.backend.ip + config.backend.base +'riskunit/splitPlyAppRiskByShare.do',
-						'3':config.backend.ip + config.backend.base +'riskunit/modifyPlyAppRiskUnit.do'
+						'3':config.backend.ip + config.backend.base +'undwrtReins.do?actionType=modifyRiskUnit',
 					},
                     '3':{
                         '1':config.backend.ip + config.backend.base +'riskunit/splitEdrRiskUnitByObject.do',
                         '2':config.backend.ip + config.backend.base +'riskunit/splitEdrRiskUnitByShare.do',
-                        '3':config.backend.ip + config.backend.base +'riskunit/modifyEdrAppRiskUnit.do'
+                        '3':config.backend.ip + config.backend.base +'undwrtReins.do?actionType=modifyRiskUnit',
                     },
                     '2': {
 						'1':config.backend.ip + config.backend.base +'riskunit/splitPlyAppRiskByObject.do',
@@ -63,6 +63,7 @@ define(['angular', 'config'], function (angular, config) {
                 showReinsShare:config.backend.ip + config.backend.base +'undwrtReins.do?actionType=queryReinsShare',
                 getFacEnquiryInfo: config.backend.ip + config.backend.base +  'facEnquiry.do?actionType=showEnquiryDetail', //临分意向
                 saveFacEnquiry:config.backend.ip + config.backend.base + 'facEnquiry.do?actionType=saveFacEnquiry',
+                saveFacEnquiryReinsurance:config.backend.ip + config.backend.base + 'undwrtReins.do?actionType=verifyEnquiry',
                 updateEnquiry:config.backend.ip + config.backend.base + 'facEnquiry.do?actionType=updateEnquiry',
                 getFacPayment: {
                 	'prop': config.backend.ip + config.backend.base + 'fac/getEnquiryPayment.do',
@@ -339,9 +340,13 @@ define(['angular', 'config'], function (angular, config) {
                     $.each(riskUnit,function(index,temp){
                         delete temp._temp;
                         delete temp.editing;
-                    });
-                    console.log("保存时传递的参数：");
-                    console.log(riskUnit);
+
+                   });
+                    // temp.itemKind =  temp.exItemKind.itemKind
+                    // temp.itemKindDesc =  temp.exItemKind.itemKindDesc
+                    // delete temp.itemKindDesc;
+                    // console.log("保存时传递的参数：");
+                    // console.log(riskUnit);
                     var deffered = $q.defer();
                     var _url = config.data.method==='files'? riskunitServiceConfig.files.modifyRiskUnit[certiType][splitType] : riskunitServiceConfig.urls.modifyRiskUnit[certiType][splitType];
                     $http({
@@ -599,6 +604,40 @@ define(['angular', 'config'], function (angular, config) {
                     var deffered = $q.defer();
                     console.log("service 临分意向保存");
                     var _url = config.data.method==='files'? riskunitServiceConfig.files.saveFacEnquiry : riskunitServiceConfig.urls.saveFacEnquiry;
+                    $http({
+                        method: config.data.method==='files'? 'GET':'POST',
+                        dataType: "json",
+                        contentType:'application/json; charset=UTF-8',
+                        url: _url,
+                        headers: {
+                        },
+                        data:{
+                            keywords:keywords,
+                            facEnquiry:facEnquiry,
+                            user:user,
+                            lan:lan,
+                        },
+                        timeout:  config.backend.timeout
+                    })
+                        .success(function(data){
+                            deffered.resolve(data);
+                        })
+                        .error(function(e, code){
+                            deffered.reject(code);
+                        });
+                    return deffered.promise;
+                },
+                /**
+                 *   临分意向--提交
+                 * @param keywords (certiType,certiNo）
+                 * @param facPlyInfo :传的是比例，非比例全部信息
+                 * @param user
+                 * @param lan
+                 * @returns {Function|promise|promise|promise}
+                 */
+                saveFacEnquiryReinsurance : function(keywords, facEnquiry, user, lan){
+                    var deffered = $q.defer();
+                    var _url = config.data.method==='files'? riskunitServiceConfig.files.saveFacEnquiryReinsurance : riskunitServiceConfig.urls.saveFacEnquiryReinsurance;
                     $http({
                         method: config.data.method==='files'? 'GET':'POST',
                         dataType: "json",

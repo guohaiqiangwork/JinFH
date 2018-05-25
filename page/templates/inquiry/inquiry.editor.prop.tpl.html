@@ -80,31 +80,31 @@
                                                                  
                                     <td>
                                     	<div class="input-group" ng-class="{'warning':feoReins.warning}">
-					                        <input size="10" type="text" percentage ng-model="feoReins.signedLine"  ng-required="true" style="border:none" placeholder="必填"/>
+					                        <input size="10" type="number" style="width:75px;height:35px" percentage ng-model="feoReins.signedLine"  ng-required="true" style="border:none" placeholder="必填"/>
 					                        <span></span>
 					                    </div>
                                     </td>
                                     <td>
                                     	<div class="input-group">
-                                        	<input size="10" type="text" percentage ng-model="feoReins.signedComm" style="border:none" />
+                                        	<input size="10" type="number" style="width:75px;height:35px" percentage ng-model="feoReins.signedComm" style="border:none" />
                                         	<span></span>
 										</div>
                                     </td>
                                      <td>
                                     	<div class="input-group">
-                                        	<input size="10" type="text" percentage ng-model="feoReins.vatRate" ng-required="true" style="border:none"/>
+                                        	<input size="10" type="number" style="width:75px;height:35px" percentage ng-model="feoReins.vatRate" ng-required="true" style="border:none"/>
                                         		<span></span>
 										</div>
                                     </td>
                                     <td>
                                     	<div class="input-group">
-                                        	<input size="10" type="text" percentage ng-model="feoReins.othRate" style="border:none"/>
+                                        	<input size="10" type="number" style="width:75px;height:35px" percentage ng-model="feoReins.othRate" style="border:none"/>
                                         	<span></span>
 										</div>
                                     </td>
                                     <td>
                                     	<div class="input-group">
-                                        	<input size="10" type="text" percentage ng-model="feoReins.addVatRate" ng-required="true" style="border:none"/>
+                                        	<input size="10" type="number" style="width:75px;height:35px" percentage ng-model="feoReins.addVatRate" ng-required="true" style="border:none"/>
                                         		<span></span>
 										</div>
                                     </td>
@@ -137,46 +137,54 @@
 
                                     <td>
                                     	<div>
-	                                        <input type="text" ng-model="feoReins.amount"  style="border:none"/>	                                                
+	                                        <input type="number" ng-model="feoReins.amount"  style="border:none"/>	                                                
                                         </div>        
                                     </td>
+                                   <!--  <td ng-if="dangerUnitFacEnquiry.feoEnquiry.enquiryType === 'E'">
+                                    	<div class="input-group">
+	                                        <input type="number" ng-model="feoReins.chgAmount" style="border:none;"/>	                                                
+                                        </div>        
+                                    </td> -->
                                     <td ng-if="dangerUnitFacEnquiry.feoEnquiry.enquiryType === 'E'">
-                                    	<div>
-	                                        <input type="text" ng-model="feoReins.chgAmount" 
-	                                               ng-readonly="true" style="border:none;"/>	                                                
+                                    	<div class="input-group" >
+	                                        <input type="number" ng-keypress="keypressfun($event)" ng-model="feoReins.chgAmount" style="border:none;"/>	                                                
                                         </div>        
                                     </td>
                                     <td>
                                     	<div class="input-group">
-	                                    	<input size="10" type="text" ng-model="feoReins.rate" style="border:none" percentage/>
+	                                    	<input size="10" type="number"  ng-model="feoReins.rate" style="border:none" percentage/>
                                             <span></span>
                                         </div>
                                     </td>
                                      <td>
                                     	<div>
-	                                        <input size="10" type="text" ng-model="feoReins.premium" style="border:none"
+	                                        <input size="10" type="number" ng-model="feoReins.premium" style="border:none"
 	                                               ng-keyup="feoReins.rate=enquiryPropCalculator('getChangedRate',feoReins,dangerUnit, '')"
 	                                               />
                                             <span></span>
 										</div>
                                     </td>
-                                    <td ng-if="dangerUnitFacEnquiry.feoEnquiry.enquiryType === 'E'">
+                                   <!--  <td ng-if="dangerUnitFacEnquiry.feoEnquiry.enquiryType === 'E'">
                                     	<div class="input-group" >
-	                                        <input size="10" type="text" 
-	                                        	ng-model="feoReins.chgPremium" 
-	                                              ng-readonly="true" style="border:none;"  />
+	                                        <input size="10" type="number" ng-model="feoReins.chgPremium"  style="border:none;"  />
+                                            <span></span>
+										</div>
+                                    </td> -->
+                                     <td ng-if="dangerUnitFacEnquiry.feoEnquiry.enquiryType === 'E'">
+                                    	<div class="input-group" >
+	                                        <input size="10" type="number" ng-keypress="keypressfun($event)" ng-model="feoReins.chgPremium"  style="border:none;"  />
                                             <span></span>
 										</div>
                                     </td>
                                      <td>
 										<div class="input-group" >
-							                <input size="10" type="text" ng-model="feoReins.deductible" style="border:none;"/>
+							                <input size="10" type="number" ng-model="feoReins.deductible" style="border:none;"/>
 							                <span></span>
 								        </div>
                                     </td>
                                     <td>
                                         <div class="input-group">
-							                <input size="10" type="text" ng-model="feoReins.deductibleRate" percentage style="border:none;"/>
+							                <input size="10" type="number" ng-model="feoReins.deductibleRate" percentage style="border:none;"/>
 							                <span></span>
 								        </div>
                                     </td>  
@@ -190,7 +198,7 @@
 								        <textarea name="" cols="30" rows="2"
 								        		ng-model="feoReins.specialProvisions" style="border:none;">
 								        </textarea>
-                                        </div>
+
                                     </td>
                                     
                                     <td>

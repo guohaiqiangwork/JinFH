@@ -13,7 +13,7 @@
 			</div>
 			<div class="col-sm-4">
 				<input type="text" class="form-control"
-					ng-model="Accs.fzAcc.accKindName" 
+					ng-model="Accs.fzAcc.accType" 
 					ng-required="true"> <span></span>
 			</div>
 		</div>
@@ -23,7 +23,7 @@
 			</div>
 			<div class="col-sm-4" >
 				<input type="text" class="form-control"
-					ng-model="Accs.fzAcc.className"   
+					ng-model="Accs.fzAcc.classCode"   
 					ng-required="true" > <span></span>
 			</div>
 			<div class="col-sm-2">
@@ -31,9 +31,9 @@
 			</div>
 			<div class="col-sm-4">
 				<div>
-					<select class="form-control" style="width: 100%"
+					<input class="form-control" style="width: 100%"
 						ng-model="Accs.fzAcc.insuredName"
-						></select>
+						>
 				</div>
 			</div>
 		</div>
@@ -119,10 +119,15 @@
 		<tr>
 			
 			<td>{{planMain.serialNo}}</td>
-			<td>{{planMain.settleStatus}}</td>
+			<!-- <td>{{planMain.settleStatus}}</td> -->
+			<td>
+				<div ng-if="planMain.settleStatus==='0'">未结</div>
+				<div ng-if="planMain.settleStatus==='1'">部分结</div>
+				<div ng-if="planMain.settleStatus==='2'">全结付</div>
+			</td>
 			<td>{{planMain.payTimes}}</td>
-			<td>{{planMain.fReinsCode}}</td>
-			<td>{{planMain.fReinsName}}</td>
+			<td>{{planMain.freinsCode}}</td>
+			<td>{{planMain.freinsName}}</td>
 			<td>{{planMain.currency}}</td>
 			<td>{{planMain.balance}}</td>
 			<td>{{planMain.paidValue}}</td>

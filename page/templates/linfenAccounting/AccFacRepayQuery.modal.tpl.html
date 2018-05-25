@@ -12,7 +12,7 @@
 	                  			<label>分保赔案号</label>
 			                </div>
 			                <div class="col-lg-4">
-			                    <div class="input-group"> {{plyRiskUnit.repayNo}}
+			                    <div class="input-group"> {{plyRiskUnit.floRepay.repayNo}}
 			                        <span></span>
 			                    </div>
 			                </div>
@@ -21,7 +21,7 @@
 			                    <label>立案号</label>
 			                </div>
 			                <div class="col-lg-4">
-			                    <div class="input-group"> {{plyRiskUnit.payNo}}
+			                    <div class="input-group"> {{plyRiskUnit.floRepay.payNo}}
 			                        <span></span>
 			                    </div>
 			                </div>
@@ -31,7 +31,7 @@
 								<label>赔案号</label>
 							</div>
 							<div class="col-lg-4">
-								<div class="input-group"> {{plyRiskUnit.claimNo}}
+								<div class="input-group"> {{plyRiskUnit.floRepay.claimNo}}
 									<span></span>
 								</div>
 							</div>
@@ -40,7 +40,7 @@
 								<label>保单号</label>
 							</div>
 							<div class="col-lg-4">
-								<div class="input-group"> {{plyRiskUnit.policyNo}}
+								<div class="input-group"> {{plyRiskUnit.floRepay.policyNo}}
 									<span></span>
 								</div>
 							</div>
@@ -51,7 +51,7 @@
 								<label>分保单号</label>
 							</div>
 							<div class="col-lg-4">
-								<div class="input-group"> {{plyRiskUnit.repolicyNo}}
+								<div class="input-group"> {{plyRiskUnit.floRepay.rePolicyNo}}
 									<span></span>
 								</div>
 							</div>
@@ -60,7 +60,7 @@
 			                    <label>出险日期</label>
 			                </div>
 			                <div class="col-lg-4">
-			                    <div class="input-group"> {{plyRiskUnit.damageDate}}
+			                    <div class="input-group"> {{plyRiskUnit.floRepay.damageDate | date : 'yyyy-MM-dd'}}
 			                        <span></span>
 			                    </div>
 			                </div>
@@ -70,7 +70,7 @@
 								<label>险类</label>
 							</div>
 							<div class="col-lg-4">
-								<div class="input-group"> {{plyRiskUnit.classCode}}-{{plyRiskUnit.className}}
+								<div class="input-group"> {{plyRiskUnit.floRepay.classCode}}-{{plyRiskUnit.floRepay.className}}
 									<span></span>
 								</div>
 							</div>
@@ -79,7 +79,7 @@
 								<label>险种</label>
 							</div>
 							<div class="col-lg-4">
-								<div class="input-group"> {{plyRiskUnit.riskCode}}-{{plyRiskUnit.className}}
+								<div class="input-group"> {{plyRiskUnit.floRepay.riskCode}}-{{plyRiskUnit.floRepay.className}}
 									<span></span>
 								</div>
 							</div>
@@ -89,7 +89,7 @@
 								<label>起保日期</label>
 							</div>
 							<div class="col-lg-4">
-								<div class="input-group"> {{plyRiskUnit.startDate}}
+								<div class="input-group"> {{plyRiskUnit.floRepay.startDate | date :'yyyy-MM-dd'}}
 									<span></span>
 								</div>
 							</div>
@@ -98,7 +98,7 @@
 								<label>终止日期</label>
 							</div>
 							<div class="col-lg-4">
-								<div class="input-group"> {{plyRiskUnit.endDate}}
+								<div class="input-group"> {{plyRiskUnit.floRepay.endDate | date :'yyyy-MM-dd'}}
 									<span></span>
 								</div>
 							</div>
@@ -108,7 +108,7 @@
 								<label>被保险人</label>
 							</div>
 							<div class="col-lg-4">
-								<div class="input-group"> {{plyRiskUnit.insuredName}}
+								<div class="input-group"> {{plyRiskUnit.floRepay.insuredName}}
 									<span></span>
 								</div>
 							</div>
@@ -116,7 +116,7 @@
 								<label>统计日期</label>
 							</div>
 							<div class="col-lg-4">
-								<div class="input-group"> {{plyRiskUnit.reportDate}}
+								<div class="input-group"> {{plyRiskUnit.floRepay.reportDate | date :'yyyy-MM-dd'}}
 									<span></span>
 								</div>
 							</div>
@@ -127,7 +127,7 @@
 								<label>出单公司</label>
 							</div>
 							<div class="col-lg-4">
-								<div class="input-group"> {{plyRiskUnit.comCode}}-{{plyRiskUnit.comName}}
+								<div class="input-group"> {{plyRiskUnit.floRepay.comCode}}-{{plyRiskUnit.floRepay.comName}}
 									<span></span>
 								</div>
 							</div>
@@ -135,7 +135,7 @@
 	                  				<label>出险原因</label>
 			                </div>
 			                <div class="col-lg-4">
-			                    <div class="input-group"> {{plyRiskUnit.damageReason}}
+			                    <div class="input-group"> {{plyRiskUnit.floRepay.damageReason}}
 			                        <span></span>
 			                    </div>
 			                </div>
@@ -146,7 +146,7 @@
 								<label>业务年度</label>
 							</div>
 							<div class="col-lg-4">
-								<div class="input-group"> {{plyRiskUnit.uwYear}}
+								<div class="input-group"> {{plyRiskUnit.floRepay.uwYear}}
 									<span></span>
 								</div>
 							</div>
@@ -155,11 +155,11 @@
 							</div>
 							<div class="col-lg-4">
 								<div class="input-group">
-									<div ng-if="plyRiskUnit.endCaseFlag=='0'">
-										<input name="" type="checkbox" ng-model="plyRiskUnit.endCaseFlag"/>
+									<div ng-if="plyRiskUnit.floRepay.endCaseFlag=='0'">
+										<input name="" type="checkbox" ng-model="plyRiskUnit.floRepay.endCaseFlag"/>
 									</div>
-									<div ng-if="plyRiskUnit.endCaseFlag=='1'">
-										<input name="" type="checkbox" ng-model="plyRiskUnit.endCaseFlag"/>
+									<div ng-if="plyRiskUnit.floRepay.endCaseFlag=='1'">
+										<input name="" type="checkbox" ng-checked="true" ng-model="plyRiskUnit.floRepay.endCaseFlag"/>
 									</div>
 								</div>
 							</div>
@@ -172,7 +172,7 @@
 								<label>币别</label>
 							</div>
 							<div class="col-lg-4">
-								<div class="input-group"> {{plyRiskUnit.currency}}
+								<div class="input-group"> {{plyRiskUnit.floRepay.currency}}
 									<span></span>
 								</div>
 							</div>
@@ -180,7 +180,7 @@
 	                  				<label>总保额</label>
 			                </div>
 			                <div class="col-lg-4">
-			                    <div class="input-group"> {{plyRiskUnit.amount}}
+			                    <div class="input-group"> {{plyRiskUnit.floRepay.amount}}
 			                        <span></span>
 			                    </div>
 			                </div>
@@ -191,7 +191,7 @@
 								<label>费用合计</label>
 							</div>
 							<div class="col-lg-4">
-								<div class="input-group"> {{plyRiskUnit.sumFee}}
+								<div class="input-group"> {{plyRiskUnit.floRepay.sumFee}}
 									<span></span>
 								</div>
 							</div>
@@ -199,7 +199,7 @@
 								<label>物质损失赔款金额</label>
 							</div>
 							<div class="col-lg-4">
-								<div class="input-group"> {{plyRiskUnit.sumPay}}
+								<div class="input-group"> {{plyRiskUnit.floRepay.sumPay}}
 									<span></span>
 								</div>
 							</div>
@@ -210,7 +210,7 @@
 								<label>未决金额</label>
 							</div>
 							<div class="col-lg-4">
-								<div class="input-group"> {{plyRiskUnit.outStanding}}
+								<div class="input-group"> {{plyRiskUnit.floRepay.outStanding}}
 									<span></span>
 								</div>
 							</div>
@@ -218,7 +218,7 @@
 								<label>本次赔款合计</label>
 							</div>
 							<div class="col-lg-4">
-								<div class="input-group"> {{plyRiskUnit.sumTotal}}
+								<div class="input-group"> {{plyRiskUnit.floRepay.sumTotal}}
 									<span></span>
 								</div>
 							</div>
@@ -229,7 +229,7 @@
 								<label>说明</label>
 							</div>
 							<div class="col-lg-4">
-								<div class="input-group"> {{plyRiskUnit.remarks}}
+								<div class="input-group"> {{plyRiskUnit.floRepay.remarks}}
 
 								</div>
 							</div>
@@ -254,9 +254,18 @@
 								</tr>
 					        </thead>
 					        <tbody>
-				                <tr ng-repeat="floReItem in plyRiskUnit.floReItemList">
-				                    <td> {{floReItem.payTypeDesc}} </td>
-						            <td> {{floReItem.itemCodeDesc}} </td>
+				                <tr ng-repeat="floReItem in plyRiskUnit.floReItemDtoList
+">
+				                    <td>
+					                    <div ng-if="(floReItem.payType === '0')">物质损失赔款</div>
+	                					<div ng-if="(floReItem.payType === '1')">费用</div>
+				                   		<div ng-if="(floReItem.payType === '2')">未决赔款</div>
+				                    </td>
+						            <td>
+						          		<div ng-if="(floReItem.itemCode === '00')">物质损失赔款</div>
+	                					<div ng-if="(floReItem.itemCode === '99')">未决</div>
+						            	<div >费用</div>
+						            </td>
 						            <td> {{floReItem.itemName}} </td>
 						            <td> {{floReItem.currency}} </td>
 						            <td> {{floReItem.payValue}} </td>				                 </tr>
@@ -284,16 +293,23 @@
 					    	</thead>
 					        <tbody>
 						        <tr ng-repeat="floSharePay in plyRiskUnit.floSharePayList">
-						            <td>{{floSharePay.payTypeDesc}}</td>
-						            <td>{{floSharePay.reinsModeDesc}}</td>
+						            <td>
+						             	<div ng-if="(floSharePay.payType === '0')">物质损失赔款</div>
+	                					<div ng-if="(floSharePay.payType === '1')">费用</div>
+				                   		<div ng-if="(floSharePay.payType === '2')">未决赔款</div>
+						            </td>
+						            <td>{{floSharePay.reinsMode}}</td>
 						            <td>{{floSharePay.shareRate}}</td>
-						            <td>{{floSharePay.SCurrency}}</td>
+						            <td>{{floSharePay.scurrency}}</td>
 						            <td>{{floSharePay.payValue}}</td>
-						            <td>{{floSharePay.reinsTypeDesc}}</td>
+						            <td>
+						            	<div ng-if="(floSharePay.reinsType === '0')">经纪人</div>
+	                					<div ng-if="(floSharePay.reinsType === '1')">接受人</div>
+						            </td>
 						            <td>{{floSharePay.reinsCode}}</td>
 						            <td>{{floSharePay.reinsName}}</td>
-									<td>{{floSharePay.FReinsCode}}</td>
-									<td>{{floSharePay.FReinsName}}</td>
+									<td>{{floSharePay.freinsCode}}</td>
+									<td>{{floSharePay.freinsName}}</td>
 						        </tr>
 					        </tbody>
 					    </table>
@@ -318,17 +334,24 @@
 							</tr>
 							</thead>
 							<tbody>
-							<tr ng-repeat="floSharePay in plyRiskUnit.floSharePayList">
-								<td>{{floSharePay.itemCodeDesc}}</td>
-								<td>{{floSharePay.reinsModeDesc}}</td>
+							<tr ng-repeat="floSharePay in plyRiskUnit.floShareOutList">
+								<td>
+									<div ng-if="(floSharePay.payType === '0')">物质损失赔款</div>
+	                				<div ng-if="(floSharePay.payType === '1')">费用</div>
+				                   	<div ng-if="(floSharePay.payType === '2')">未决赔款</div>
+								</td>
+								<td>{{floSharePay.reinsMode}}</td>
 								<td>{{floSharePay.shareRate}}</td>
-								<td>{{floSharePay.SCurrency}}</td>
+								<td>{{floSharePay.scurrency}}</td>
 								<td>{{floSharePay.payValue}}</td>
-								<td>{{floSharePay.reinsTypeDesc}}</td>
+								<td>
+									<div ng-if="(floSharePay.reinsType === '0')">经纪人</div>
+	                				<div ng-if="(floSharePay.reinsType === '1')">接受人</div>
+	                			</td>
 								<td>{{floSharePay.reinsCode}}</td>
 								<td>{{floSharePay.reinsName}}</td>
-								<td>{{floSharePay.FReinsCode}}</td>
-								<td>{{floSharePay.FReinsName}}</td>
+								<td>{{floSharePay.freinsCode}}</td>
+								<td>{{floSharePay.freinsName}}</td>
 							</tr>
 							</tbody>
 						</table>

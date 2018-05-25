@@ -69,7 +69,7 @@
                         <select ng-model="keywords.comCodeTag" class="tag">
                             <option value="=" >=</option>
                         </select>
-                        <select class="condition" ng-model="keywords.comCode" ng-options="c.id as c.value for c in comCode"></select>
+                        <select class="condition" ng-model="keywords.comCode" ng-options="c.id as c.id +'-'+ c.value for c in comCode"></select>
                 </tr>
                 <tr>
                     <td class=title>业务年度:</td>
@@ -129,9 +129,9 @@
                 <tr>
                     <td class=title>分保方式：</td>
                     <td class=common1>
-                        <input type="checkbox" ng-model="keywords.reinsType" value="0">全部
-                        <input type="checkbox" ng-model="keywords.reinsType" value="1">临分
-                        <input type="checkbox" ng-model="keywords.reinsType" value="2">混合</td>
+                        <input type="radio" ng-model="keywords.reinsType" value="0">全部
+                        <input type="radio" ng-model="keywords.reinsType" value="1">临分
+                        <input type="radio" ng-model="keywords.reinsType" value="2">混合</td>
                     <td class=title>被保险人：</td>
                     <td class=input>
                         <select ng-model="keywords.insuredNameTag" class="tag">
@@ -152,8 +152,8 @@
                 <tr>
                     <td colspan="6" align="right">
                         <a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
-                        <!--<a ng-click="closeSearchTableFlag()" class="btn btn-default">取消</a>-->
-                        <a ng-click="searchPlyInfoList('E',pagination)" class="btn btn-primary">立即查询</a>
+                        <a ng-click="closeSearchTableFlag()" class="btn btn-default">取消</a>
+                        <a ng-click="searchPlyInfoList('C',pagination)" class="btn btn-primary">立即查询</a>
 
                     </td>
                 </tr>

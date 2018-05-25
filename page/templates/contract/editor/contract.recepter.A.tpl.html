@@ -4,8 +4,8 @@
 <div class="container-fluid" style="overflow:scroll; height:auto;">
     <table class="table table-stripped" ng-if="contAttr === 'prop'">
      <tr ng-if="keywords.commFlag != '1'">
-         <th>    接受人编号       </th>
-         <!-- <th>    接受人名称       </th> -->
+         <th>    接受人编号</th>
+          <th>    接受人名称       </th> 
          <th>接受份额（％）</th>
          <th>手续费比例(%)</th>
          <th></th>
@@ -14,10 +14,9 @@
          <td>
              <input class="form-control" type="text" ng-model="reinss.reinsCode" ng-readonly="true" />
          </td>
-         <!-- <td>
-             <input class="form-control" type="text" ng-model="reinss.reinsName" ng-if="operation!='view'&&!effected"
-                     ng-required="true" />
-         </td> -->
+         <td>
+             <input class="form-control" type="text" ng-model="reinss.reinsName"  ng-readonly="true"  />
+         </td>
          <td>
              <input class="form-control" type="text" ng-model="reinss.shareRate"   percentage ng-readonly="true"/>
              

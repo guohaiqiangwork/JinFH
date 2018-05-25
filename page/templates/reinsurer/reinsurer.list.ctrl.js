@@ -55,6 +55,7 @@ define(['app',
 
 		//查询事件
         $scope.search = function(){
+        	$scope.searchTable.flag = ! $scope.searchTable.flag
             $scope.searchReinsurer($scope.keywords, $scope.pagination, $scope.global.user);
         };
         
@@ -121,11 +122,11 @@ define(['app',
         $scope.initKeywords = function (){
             $scope.keywords = {
                 "reinsCode":'',
-                "reinsCodeFlag":'',
+                "reinsCodeFlag":'=',
                 "longName":'',
-                "longNameFlag":'',
+                "longNameFlag":'=',
                 'shortName':'',
-                "shortNameFlag":'',
+                "shortNameFlag":'=',
                 "reinsType":'',
                 "reinsTypeFlag":'',
                 "validStatus":'',

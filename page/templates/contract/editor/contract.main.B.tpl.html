@@ -65,6 +65,7 @@
                 <div class="col-sm-4">
                     <input  class="form-control" type="text" ng-model="contract.uwYear"  
                     ng-readonly="operation==='view' || effected"   ng-required="true">
+                    <span></span>
                 </div>
 
             </div>
@@ -74,7 +75,7 @@
                 </div>
                 <div class="col-sm-4 ">
                 	<div ng-show="operation!='view'&&!effected">
-	                    <input type ="date" class="form-control"  ng-model="contract.startDate"
+	                    <input type ="date" class="form-control"  ng-model="contract.start"
 	                              ng-required="true" >
 	                    <span></span>
 	                    
@@ -90,7 +91,7 @@
 				
                 <div class="col-sm-4 " >
                 	<div ng-if="operation!='view'">
-	                    <input type ="date" class="form-control" ng-model="contract.endDate" 
+	                    <input type ="date" class="form-control" ng-model="contract.end" 
 	                             ng-required="true"  ng-blur="checkEndDate(contract)"  >
 	                    <span></span>
                     </div>
@@ -118,7 +119,7 @@
                 <div class="col-sm-4">
                     <input type ="date" class="form-control" type="text"
                            
-                           ng-model="contract.extendDate" ng-if="operation!='view' && !effected" ng-readonly="operation ==='view' " >
+                           ng-model="contract.extend" ng-if="operation!='view' && !effected" ng-readonly="operation ==='view' " >
                     <div ng-if="operation === 'view' || effected" >{{contract.extendDate | date : config.display.dateFormat}}</div>
                     <span></span>
                 </div>
@@ -130,7 +131,7 @@
                 </div>
 
                 <div class="col-sm-4">
-                    <select class="form-control" ng-show="(operation != 'view' && !effected)" ng-model="contract.currency" ng-options="c.id as c.value for c in currencys"></select>
+                    <select class="form-control" ng-show="(operation != 'view' && !effected)" ng-model="contract.currency" ng-options="c.id as c.id+'-'+ c.value for c in currencys"></select>
                     <div ng-if="(operation==='view' || effected)" >{{contract.currency | code : 'currency' }}</div>
                     <span></span>
                 </div>

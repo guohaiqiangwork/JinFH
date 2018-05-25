@@ -785,14 +785,27 @@ define(['app', 'config', 'codes', '/reins/page/templates/bill/bill.create.ctrl.j
 
             //账单类型切换，重新加载一下账单期的获取
             $scope.changeDateToggle = function(billType){
-                $scope.billTypeFlag = billType;
+            	if(billType=="06"){
+            		$scope.billDataMore = $scope.arrDataM
+            	}else if(billType=="01"){
+            		 $scope.billDataMore = $scope.arrDataQ
+            	}else if(billType=="02"){
+            		 $scope.billDataMore = $scope.arrDataH
+            	}else if(billType=="03"){
+            		 $scope.billDataMore = $scope.arrDataY
+            	}else if(billType=="04"){
+            		 $scope.billDataMore = $scope.arrDataM
+            	}
+            	$scope.keywords.accperiof = $scope.billDataMore[0]
+                
+                /*$scope.billTypeFlag = billType;
                 if($scope.contAttr === "prop"){
                 	$scope.changeDate();
                 }else
-                	$scope.getBillDate(contAttr, $scope.contract.tmpTreatyNo, "", "");
+                	$scope.getBillDate(contAttr, $scope.contract.tmpTreatyNo, "", "");*/
                 	
                	//加载页面时查一遍是否有对应账单期数据
-                $scope.options.ready = false;	
+                //$scope.options.ready = false;	
                	
             };
             
@@ -830,12 +843,46 @@ define(['app', 'config', 'codes', '/reins/page/templates/bill/bill.create.ctrl.j
             $scope.getBillDate = function (contAttr, contractNo, user, lan) {
                 billService.getBillDate(contAttr, contractNo, user, lan).then(
                     function(data){
-                        $scope.billData = data;
+                    	console.log(data.accPeriodQ);
+                        $scope.arrDataM = [];
+                        $scope.arrDataQ = [];
+                        $scope.arrDataH = [];
+                        $scope.arrDataY = [];
+                        for(var i in data.accPeriodQ){
+                        	var textV = data.accPeriodQ[i].substr(data.accPeriodQ[i].length-1,1);
+                        	//月度
+                        	if(textV=="M"){
+                        		console.log("月度："+data.accPeriodQ[i]);
+                        		$scope.arrDataM.push(data.accPeriodQ[i]);
+                        	}else if(textV=="Q"){//季度
+                        		console.log("季度："+data.accPeriodQ[i]);
+                        		 $scope.arrDataQ.push(data.accPeriodQ[i])
+                        	}else if(textV=="H"){//半年
+                        		console.log("半年："+data.accPeriodQ[i]);
+                        		 $scope.arrDataH.push(data.accPeriodQ[i]);
+                        	}else{//一年
+                        		console.log("一年："+data.accPeriodQ[i]);
+                        		$scope.arrDataY.push(data.accPeriodQ[i])
+                        	}
+                        	
+                        	//str.substr(str.length-1,1)
+                        }
+                        
+                        $scope.billData=data;
+                        $scope.billDataMore = $scope.arrDataM
+                        $scope.keywords.accperiof = $scope.billDataMore[0]
+                       /* $scope.billData.o=$scope.arrDataM
+                        $scope.billData.t=$scope.arrDataQ
+                        $scope.billData.s=$scope.arrDataH
+                        $scope.billData.f=$scope.arrDataY*/
+                        
+                        
                         //根据月份算出对应季度
                         $scope.countMonthToQuarter();
                         if($scope.exitFlag.length<=0){
 	                       	if(angular.isDefined($scope.billData.accPeriodQ)){
 	                        	$scope.keywords.accperiod = $scope.billData.accPeriodQ[0];
+	                        	$scope.keywords.accperiof = $scope.billData.accPeriodQ[0];
 	                       	} else {
 	                       		$scope.keywords.accperiod = "";
 	                       	}
@@ -1022,14 +1069,14 @@ define(['app', 'config', 'codes', '/reins/page/templates/bill/bill.create.ctrl.j
             	$scope.showBusy(true);
                 billService.confirmBill(contAttr, contFacMrk, inOutMrk, inExMrk, billType, billList, user).then(
                     function(data){
-                        $scope.showBusy(false);
-                        if(data.result ==="success"){
+                        $scope.showBusy(false);                      
+                        if(data.msg ==="0"){
 	                		//确认成功之后查询对应账单期数据
-	                        alert("确认成功！"+data.msg);
+	                        alert("确认成功！");
 	                		$scope.changeDate($scope.keywords);
 	                	} else{
 	                		alert("确认失败！");
-                		}
+                		}                       
                     },
                     function(code){
                     }
@@ -1523,7 +1570,7 @@ define(['app', 'config', 'codes', '/reins/page/templates/bill/bill.create.ctrl.j
                 $scope.global = global;
                 $scope.showBusy = showBusy;
                 $scope.contAttr = contAttr;
-		        
+		        debugger
                 $scope.options = {
                     billTypes: getBillTypes(contract.contAttr),
                     optTypes: [],
@@ -1636,6 +1683,7 @@ define(['app', 'config', 'codes', '/reins/page/templates/bill/bill.create.ctrl.j
                 	$scope.options.billTypes =  $filter('filter')($scope.options.billTypes,{id:'!03'});
                 	$scope.options.billTypes =  $filter('filter')($scope.options.billTypes,{id:'!07'});
                 	$scope.keywords.billType = $scope.options.billTypes[0].id;
+                	console.log($scope.options)
                 }
                 //如果入口为批量生成账单，不默认查询账单列表。默认跳转入生成账单页面
                 if($scope.contract==="batch"){

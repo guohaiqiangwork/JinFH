@@ -902,7 +902,9 @@ img{
        transform: scale(1.6);    
 } */
 a.dropdown-toggle{
-    color: #999 !important;
+    color: #232222  !important;
+    font-size: 15px;
+
 }
 a.dropdown-toggle:hover{
     color: #00a2ca !important;

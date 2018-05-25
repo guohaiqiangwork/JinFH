@@ -1,88 +1,122 @@
-<h3>分保试算结果</h3>
-<div style="overflow: auto;height: 450px;" >
-	<div>风险单位序号{{reinsShare.riskUnitNo}} </div>
-	<div>
-		<table class="table table-bordered">
-	        <thead >
-	            <th nowrap>分保方式</th>
-	            <!-- <th nowrap>接受人</th>
-	            <th nowrap>最终接受人</th> -->
-	            <th nowrap>比例(%)</th>
-	            <th nowrap>保费币别</th>
-	            <td nowrap>原保额 <!--不同点--></td>
-	            <td nowrap>保额变化量 <!--不同点--></td>
-	            <td nowrap>最新保额 <!--不同点--></td>
-	            <td nowrap>含税原保费 <!--不同点--></td>
-	            <td nowrap>含税保费变化费 <!--不同点--></td>
-	            <td nowrap>含税最新保费 <!--不同点--></td>
-	            <td nowrap>不含税原保费</td>
-	            <td nowrap>不含税保费变化量 </td>
-	            <td nowrap>不含税最新保费 </td>
-	            <td nowrap>原增值税</td>
-	            <td nowrap>最新增值税</td> 
-	        </thead>
-	        <tbody ng-repeat="row in reinsShare.groupped">
-                <tr ng-repeat="share in row.PlyEdrComShares">
-                    <td>{{share.reinsType}}</td>
-		            <td>{{share.shareRate | formatPercent}}</td>
-		            <td>{{share.currency}}</td>
-		            <td>{{share.oriAmount | currency}}</td>
-		            <td>{{share.chgAmount | currency}}</td>
-		            <td>{{share.amount | currency}}</td>
-		            <td>{{share.oriPremium | currency}}</td>
-		            <td>{{share.chgPremium | currency}}</td>
-		            <td>{{share.premium | currency}}</td>
-		             <td>{{share.oriExTaxPremium | currency}}</td>
-		              <td>{{share.chgExTaxPremium | currency}}</td>
-		               <td>{{share.exTaxPremium | currency}}</td>
-		                <td>{{share.oriTax| currency}}</td>
-		                 <td>{{share.tax | currency}}</td>
-                 </tr>
-	        </tbody>
-	        <tr>
-	            <td>合计</td>
-	            <td></td>
-	            <td></td>
-	            <td>{{reinsShare.shareRateCount|formatPercent}}</td> <!-- 比例 -->
-	            <td></td>
-	            <td>{{reinsShare.oriAmountCount | currency}}</td>
-	            <td>{{reinsShare.chgAmountCount | currency}}</td>
-	            <td>{{reinsShare.amountCount | currency}}</td>
-	            <td>{{reinsShare.oriPremiumCount | currency}}</td>
-	            <td>{{reinsShare.chgPremiumCount | currency}}</td>
-	            <td>{{reinsShare.premiumCount | currency}}</td>
-	            <td>{{reinsShare.oriExTaxPremiumCount | currency}}</td>
-		              <td>{{reinsShare.chgExTaxPremiumCount | currency}}</td>
-		               <td>{{reinsShare.exTaxPremiumCount | currency}}</td>
-		                <td>{{reinsShare.oriTaxCount| currency}}</td>
-		                 <td>{{reinsShare.taxCount | currency}}</td>
-	        </tr>
-	    </table>
-	</div>
-	
-	<div>
-	    非比例临分
-	</div>
-	<table class="table table-bordered">
-	    <tr>
-	        <td>分保方式</td>
-	        <td>层号</td>
-	        <td>保费币别</td>
-	        <td>起赔点</td>
-	        <td>止赔点</td>
-	        <td>原层保费</td>
-	        <td>层保费变化量</td>
-	        <td>层最新保费</td>
-	    </tr>
-	    <tr ng-repeat="riskunitsShare in  reinsShare.plyEdrXComShares">
-	        <td>{{riskunitsShare.reinsType}}</td>
-	        <td>{{riskunitsShare.layerNo}}</td>
-	        <td>{{riskunitsShare.currency}}</td>
-	        <td>{{riskunitsShare.excessLoss | currency}}</td>
-	        <td>{{riskunitsShare.stopLimit | currency}}</td>
-	        <td>{{riskunitsShare.layerOriPremium | currency}}</td>
-	        <td>{{riskunitsShare.layerChgPremium | currency}}</td>
-	        <td>{{riskunitsShare.layerPremium | currency}}</td>
-	    </tr>
-	</table>
+<h3 ng-if="trialListShareTrue">分批试算结果</h3>
+<div style="overflow: auto;height: 450px;" ng-if="trialListShareTrue">
+    <div ng-repeat="items in trialListShare">
+        <div>风险单位序号{{items[0].dangerNo}}</div>
+        <table class="table table-bordered">
+            <thead>
+            <th></th>
+            <th nowrap>分保方式</th>
+            <th nowrap>比例(%)</th>
+            <th nowrap>保费币别</th>
+            <td nowrap>保额变化量 <!--不同点--></td>
+            <td nowrap>最新保额 <!--不同点--></td>
+            <td nowrap>含税保费变化费 <!--不同点--></td>
+            <td nowrap>含税最新保费 <!--不同点--></td>
+            <td nowrap>不含税保费变化量</td>
+            <td nowrap>不含税最新保费</td>
+            <td nowrap>增值税变化量</td>
+            <td nowrap>最新增值税</td>
+            </thead>
+
+            <tr ng-repeat="item in items ">
+                <td></td>
+                <td>
+                    <!--{{item.reinsMode}}-->
+                    <div ng-if="item.reinsMode == '181'">自留</div>
+                    <div ng-if="item.reinsMode == '182'">附加自留</div>
+                    <div ng-if="item.reinsMode == '391'">临分</div>
+                    <div ng-if="item.reinsMode == '392'">特约临分</div>
+                    <div ng-if="item.reinsMode == '221'">溢额</div>
+                    <div ng-if="item.reinsMode == '231'">成数</div>
+                </td>
+                <td>{{item.shareRate}}</td>
+                <td>{{item.currency}}</td> <!-- 比例{{reinsShare.shareRateCount|formatPercent}} -->
+                <td>{{item.amountChg}}</td>
+                <td>{{item.amount}}</td>
+                <td>{{item.premiumChg}}</td>
+                <td>{{item.premium}}</td> <!-- 保额{{reinsShare.amountCount | currency}} -->
+                <td>{{item.chgNoTaxPremium}}</td>
+                <td>{{item.noTaxPremium}}</td> <!-- 保费 {{reinsShare.premiumCount| currency}}-->
+                <td>{{item.chgTaxFee}}</td>
+                <td>{{item.taxFee}}</td>  <!--{{reinsShare.exTaxPremiumCount | currency}}-->
+                <!--<td></td>&lt;!&ndash;{{reinsShare.taxCount | currency}}&ndash;&gt;-->
+            <tr>
+                <td>合计</td>
+                <td></td>
+                <td>{{shareRateTotal}}</td>
+                <td></td>
+                <td>{{amountChgTotal}}</td>
+                <td>{{amountTotal}}</td>
+                <td>{{premiumChgTotal}}</td>
+                <td>{{premiumTotal}}</td>
+                <td>{{chgNoTaxPremiumTotal}}</td>
+                <td>{{noTaxPremiumTotal}}</td>
+                <td>{{chgTaxFeeTotal}}</td>
+                <td>{{taxFeeTotal}}</td>
+            </tr>
+            </tr>
+            <!--<tbody ng-repeat="row in reinsShare.groupped">-->
+            <!--<tr ng-repeat="share in row.PlyEdrComShares">-->
+            <!--<td>{{share.reinsType}}</td>-->
+            <!--<td>{{share.shareRate | formatPercent}}</td>-->
+            <!--<td>{{share.currency}}</td>-->
+            <!--<td>{{share.oriAmount | currency}}</td>-->
+            <!--<td>{{share.chgAmount | currency}}</td>-->
+            <!--<td>{{share.amount | currency}}</td>-->
+            <!--<td>{{share.oriPremium | currency}}</td>-->
+            <!--<td>{{share.chgPremium | currency}}</td>-->
+            <!--<td>{{share.premium | currency}}</td>-->
+            <!--<td>{{share.oriExTaxPremium | currency}}</td>-->
+            <!--<td>{{share.chgExTaxPremium | currency}}</td>-->
+            <!--<td>{{share.exTaxPremium | currency}}</td>-->
+            <!--<td>{{share.oriTax| currency}}</td>-->
+            <!--<td>{{share.tax | currency}}</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+            <!--<tr>-->
+            <!--<td>合计</td>-->
+            <!--<td></td>-->
+            <!--<td></td>-->
+            <!--<td>{{reinsShare.shareRateCount|formatPercent}}</td> &lt;!&ndash; 比例 &ndash;&gt;-->
+            <!--<td></td>-->
+            <!--<td>{{reinsShare.oriAmountCount | currency}}</td>-->
+            <!--<td>{{reinsShare.chgAmountCount | currency}}</td>-->
+            <!--<td>{{reinsShare.amountCount | currency}}</td>-->
+            <!--<td>{{reinsShare.oriPremiumCount | currency}}</td>-->
+            <!--<td>{{reinsShare.chgPremiumCount | currency}}</td>-->
+            <!--<td>{{reinsShare.premiumCount | currency}}</td>-->
+            <!--<td>{{reinsShare.oriExTaxPremiumCount | currency}}</td>-->
+            <!--<td>{{reinsShare.chgExTaxPremiumCount | currency}}</td>-->
+            <!--<td>{{reinsShare.exTaxPremiumCount | currency}}</td>-->
+            <!--<td>{{reinsShare.oriTaxCount| currency}}</td>-->
+            <!--<td>{{reinsShare.taxCount | currency}}</td>-->
+            <!--</tr>-->
+        </table>
+    </div>
+
+    <div>
+        非比例临分
+    </div>
+    <table class="table table-bordered">
+        <tr>
+            <td>分保方式</td>
+            <td>层号</td>
+            <td>保费币别</td>
+            <td>起赔点</td>
+            <td>止赔点</td>
+            <td>原层保费</td>
+            <td>层保费变化量</td>
+            <td>层最新保费</td>
+        </tr>
+        <tr ng-repeat="riskunitsShare in  reinsShare.plyEdrXComShares">
+            <td>{{riskunitsShare.reinsType}}</td>
+            <td>{{riskunitsShare.layerNo}}</td>
+            <td>{{riskunitsShare.currency}}</td>
+            <td>{{riskunitsShare.excessLoss | currency}}</td>
+            <td>{{riskunitsShare.stopLimit | currency}}</td>
+            <td>{{riskunitsShare.layerOriPremium | currency}}</td>
+            <td>{{riskunitsShare.layerChgPremium | currency}}</td>
+            <td>{{riskunitsShare.layerPremium | currency}}</td>
+        </tr>
+    </table>
 </div>

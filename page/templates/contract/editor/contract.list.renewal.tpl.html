@@ -17,21 +17,28 @@
                 <td>{{contract.refNo}}</td>
                 <td>{{contract.treatyType| code : 'nprop.treatyType'}}</td>
                 <td>{{contract.stateFlag | code : 'nprop.stateFlag'}}</td>
-               <td><a ng-href="/contracts/contAttr/{{contract.treatyNo}}/edit"></a>{{contract.treatyNo}}</td>
+               <td>{{contract.treatyNo}}</td>
             </tr>
             <!-- 比例合同  -->
             <tr ng-repeat="contract in contractList" ng-hide="tableShow">
-                <td>{{contract.tmpContNo}}</td>
+               <!--  <td>{{contract.tmpContNo}}</td>
                 <td>{{contract.contNo}}</td>
                 <td>{{contract.refNme}}</td>
                 <td>{{contract.contGrpTypCde | code : 'prop.contGrpTypCde'}}</td>
                 <td>{{contract.contStatus | code : 'prop.contStatus'}}</td>
-                <td><a ng-href="/contracts/contAttr/'admin'/{{contract.tmpContractNo}}/edit"></a>{{contract.tmpContractNo}}</td>
+                <td><a ng-href="/contracts/contAttr/'admin'/{{contract.tmpContractNo}}/edit"></a>{{contract.tmpContractNo}}</td> -->
+                <!-- slh  -->
+              	<td>{{contract.treatyNo}}</td>
+                <td>{{contract.refNo}}</td>
+                <td>{{contract.treatyType| code : 'prop.treatyType'}}</td>
+                <td>{{contract.stateFlag | code : 'prop.stateFlag'}}</td>
+               <td>{{contract.treatyNo}}</td>
+               <!-- slh -->
             </tr>
         </table>
     </div>
     <div class="modal-footer">
-        <a ng-click="renewal()" class="btn btn-primary" >续转</a>
+        <a ng-click="renewal()" ng-disabled="renew" class="btn btn-primary" >续转</a>
         <a ng-click="cancel()" class="btn btn-default" >取消</a>
     </div>
 </div>

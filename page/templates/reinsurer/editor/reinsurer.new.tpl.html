@@ -25,18 +25,19 @@
             </div>
             <div class="col-sm-4">
                 <input type="text"  class="form-control"
-                       ng-model="reinsurer.shortName" placeholder="接受人简称">
+                       ng-model="reinsurer.shortName" placeholder="接受人简称"
+                        ng-required="true">
                 <span></span>
             </div>        
             <div class="col-sm-2">
                 <label>境内境外标识:</label>
             </div>	
 		    <div class="col-sm-4">
-		        <select  ng-model="reinsurer.locationFlag" class="form-control" style="width:30%;float: left"
+		        <select  ng-model="reinsurer.locationFlag" class="form-control" 
 			             ng-options="c.id as c.value for c in location"></select> 
-			     <select ng-model="reinsurer.regionCode" class="form-control" style="width: 70%;float: right"
+			    <!--  <select ng-model="reinsurer.regionCode" class="form-control" style="width: 70%;float: right"
 			             ng-options="c.id as c.value for c in regionCodes" ng-required="true">
-			             <option value="">-请选择所在城市/地区-</option></select> 	
+			             <option value="">-请选择所在城市/地区-</option></select> 	 -->
 			    		           
 		    </div>	    
 		</div> 

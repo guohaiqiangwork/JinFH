@@ -51,7 +51,9 @@ require.config({
         'recepter': '../page/templates/common/directives/recepter',
         'menus': '../page/templates/common/configs/menus',
         'mainCtrl': '../page/templates/common/controllers/main.ctrl',
-        'angularFileUpload'  : '../plugin/jquery.file.upload/jquery.fileupload-angular'
+        'angularFileUpload'  : '../plugin/jquery.file.upload/jquery.fileupload-angular',
+        'treeview':'../plugin/treeview/bootstrap-treeview',
+        // 'layer':'../plugin/layer/layer'
     },
     shim: {
         'angular': {
@@ -74,7 +76,13 @@ require.config({
         },
         'uiBootstrap': {
             'exports': 'uiBootstrap'
+        },
+        'treeview':{
+            'deps'    : ['angular']
         }
+        // 'layer': {
+        //     deps: ['jquery']
+        // }
     },
     priority: [
         'jquery',

@@ -91,7 +91,7 @@ define(['app',
              */
             var dropGiven = function(preExclusions, given){
                 $.each(given, function(index, exclusion){
-                    exclusion.check = false;
+                    exclusion.check = true;
                     $.each(preExclusions, function(num, hold){
                         if(angular.isDefined(hold) && hold.id === exclusion.id){
                             preExclusions.splice(num,1);
@@ -162,6 +162,35 @@ define(['app',
                 console.log(risk);
             };
 
+            //按照分项暂存已选内容
+            $scope.conArr = function(selmol){
+            	console.log(selmol)
+            	/*console.log($scope.rightExclusions)
+            	$scope.arrCont = {
+                 		contId:selmol,
+                 		contVul:$scope.rightExclusions
+                 	}
+            	$scope.arrCont.push()*/
+            }
+            
+           //获取暂存选中信息
+            $scope.getArrMsg = function(checkid,msgIdarr){
+            	debugger
+            	for(var i in checkid ){
+            		for(var k in msgIdarr){
+            			if(checkid[i].itemKind === msgIdarr[k].id){
+                			//console.log(msgIdarr[k].id)
+            				msgIdarr[k].checked = true;
+            				msgIdarr[k].check = true;
+                		}
+                	}
+            		
+            	}
+            	 $scope.addExclusion();
+            }
+            
+            
+            
             //关闭选择框
             $scope.cancel = function(){
                 $modalInstance.close();
@@ -232,6 +261,10 @@ define(['app',
                     if(angular.isDefined($scope.allExclusions)){
                         //除外责任左侧列表所有可能值
                         $scope.leftExclusions =angular.copy($scope.allExclusions);
+                      //获取被选中
+                        if($scope.operation.section.length>0){
+                        	$scope.getArrMsg($scope.operation.section,$scope.leftExclusions)
+                        }
                         $.each($scope.leftExclusions,function(index, t){
                             t.check = false;
                         });

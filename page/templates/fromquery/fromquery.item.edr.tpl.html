@@ -73,7 +73,10 @@
 		                </div>
 		
 		                <div class="col-lg-4">
-		                    <div class="input-group"> {{plyRiskUnit.startDate | date : config.display.dateFormat}}
+		                  <!--   <div class="input-group"> {{plyRiskUnit.startDate | date : config.display.dateFormat}}
+		                        <span></span>
+		                    </div> -->
+		                    <div class="input-group"> {{plyRiskUnit.startDate}}
 		                        <span></span>
 		                    </div>
 		                </div>
@@ -82,7 +85,10 @@
 		                    <label>保险止期</label>
 		                </div>
 		                <div class="col-lg-4">
-		                    <div class="input-group"> {{plyRiskUnit.endDate | date : config.display.dateFormat}}
+		                  <!--   <div class="input-group"> {{plyRiskUnit.endDate | date : config.display.dateFormat}}
+		                        <span></span>
+		                    </div> -->
+		                    <div class="input-group"> {{plyRiskUnit.endDate}}
 		                        <span></span>
 		                    </div>
 		                </div>
@@ -242,7 +248,7 @@
 		                    <label>险种</label>
 		                </div>
 		                <div class="col-lg-4">
-		                    <div class="input-group"> {{plyRiskUnit.riskCode}}
+		                    <div class="input-group"> {{plyRiskUnit.riskName}}
 		                        <span></span>
 		                    </div>
 		                </div>
@@ -295,7 +301,7 @@
 		                </div>
 		
 		                <div class="col-lg-2">
-		                    <div class="input-group"> {{plyRiskUnit.baseRate}}
+		                    <div class="input-group"> {{plyRiskUnit.baseRate}}%
 		                        <span></span>
 		                    </div>
 		                </div>
@@ -304,7 +310,7 @@
 		                    <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分出份额：</label>
 		                </div>
 		                <div class="col-lg-2">
-		                    <div class="input-group"> {{plyRiskUnit.shareRate}}
+		                    <div class="input-group"> {{plyRiskUnit.shareRate}}%
 		                        <span></span>
 		                    </div>
 		                </div>

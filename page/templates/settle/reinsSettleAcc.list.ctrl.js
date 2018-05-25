@@ -72,6 +72,11 @@ define(['app',
             settleAccService.querySettleAcc(settleNo, user).then(
                 function(data){
                 	console.log("date:"+data);
+                	if(data.settleFlag==="0"){
+                		data.settleFlag="付款"
+                	}else{
+                		data.settleFlag="收款"
+                	}
                     deffered.resolve(data);
                 },
                 function(message){
@@ -106,6 +111,7 @@ define(['app',
 
 		//查询事件
         $scope.search = function(){
+        	$scope.searchTable.flag = ! $scope.searchTable.flag
         	//add by zhx
          	if($scope.keywords.settleConfFlag === null){
          		$scope.keywords.settleConfFlag = "";
@@ -193,15 +199,15 @@ define(['app',
         $scope.initKeywords = function (){
             $scope.keywords = {
                 "settleNo":'',
-                "settleNoFlag":'',
+                "settleNoFlag":'=',
                 "payCode":'',
-                "payCodeFlag":'',
+                "payCodeFlag":'=',
                 'currency':'',
-                "currencyFlag":'',
+                "currencyFlag":'=',
                 "settleConf":"",
-                "settleConfFlag":"",
+                "settleConfFlag":"=",
                 "operateDate":"",
-                "operateDateFlag":""
+                "operateDateFlag":"="
                
             };
             return $scope.keywords;
@@ -222,16 +228,15 @@ define(['app',
                 "value":"",
                 "other1":"",
                 "settleNo":'',
-                
-                "settleNoFlag":'',
+                "settleNoFlag":'=',
                 "payCode":'',
-                "payCodeFlag":'',
+                "payCodeFlag":'=',
                 'currency':'',
-                "currencyFlag":'',
+                "currencyFlag":'=',
                 "settleConf":"",
                 "settleConfFlag":"",
                 "operateDate":"",
-                "operateDateFlag":""
+                "operateDateFlag":"="
             };
           // add by zhx 查询币种
             var key = angular.copy($scope.keywords);

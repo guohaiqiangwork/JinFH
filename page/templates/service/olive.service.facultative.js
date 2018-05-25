@@ -9,7 +9,9 @@ define(['angular', 'config'], function (angular, config) {
                 searchFacultative: config.backend.ip + config.backend.base + 'recertifyQuery.do?querytype=query',
                 checkQueryAcc: config.backend.ip + config.backend.base + 'fzAccQuery.do?queryType=query',
                 generatingBill: config.backend.ip + config.backend.base + 'genAcc.do?queryType=doBill',
-                deleBill:config.backend.ip + config.backend.base + 'getAcc.do?type1=Delete'
+                deleBill:config.backend.ip + config.backend.base + 'getAcc.do?type=Delete',
+                checkDetails:config.backend.ip + config.backend.base+'repay.do?operateType=View',
+                billPayment:config.backend.ip + config.backend.base+'paymentQuery.do'
             }
         })
         .factory('facultativeService',['$http', '$q', '$filter', 'facultativeServiceConfig', function ($http, $q, $filter, facultativeServiceConfig) {
@@ -102,7 +104,7 @@ define(['angular', 'config'], function (angular, config) {
                  * 删除账单
                  * @param keywords
                  */
-                deleBill: function (keywords) {
+                deleBill: function (keywords,biztype) {
 
                     var deffered = $q.defer();
 
@@ -112,7 +114,10 @@ define(['angular', 'config'], function (angular, config) {
                         url: _url,
                         headers: {
                         },
-                        data:keywords,
+                        data:{
+                            plyRiskUnit:keywords,
+                            biztype:biztype
+                        },
                         timeout:  config.backend.timeout
                     })
                         .success(function(data){
@@ -132,7 +137,30 @@ define(['angular', 'config'], function (angular, config) {
 
                     var deffered = $q.defer();
 
-                    var _url = config.data.method==='files'? facultativeServiceConfig.files.deleBill : facultativeServiceConfig.urls.deleBill;
+                    var _url = config.data.method==='files'? facultativeServiceConfig.files.checkDetails : facultativeServiceConfig.urls.checkDetails;
+                    $http({
+                        method: config.data.method==='files'? 'GET':'POST',
+                        url: _url,
+                        headers: {
+                        },
+                        data:keywords,
+                        timeout:  config.backend.timeout
+                    })
+                        .success(function(data){
+                            deffered.resolve(data);
+                        })
+                        .error(function(e, code){
+                            deffered.reject(code);
+                        });
+
+                    return deffered.promise;
+                },
+
+                billTernPayment:function (keywords) {
+
+                    var deffered = $q.defer();
+
+                    var _url = config.data.method==='files'? facultativeServiceConfig.files.billPayment : facultativeServiceConfig.urls.billPayment;
                     $http({
                         method: config.data.method==='files'? 'GET':'POST',
                         url: _url,

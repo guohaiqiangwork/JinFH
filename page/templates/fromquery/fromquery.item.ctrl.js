@@ -5,11 +5,10 @@ define(['app',
     '/reins/page/templates/common/directives/year.js',
 ], function (app, codes) {
 
-    app.registerController('FromQueryItemCtrl', ['$scope', '$stateParams', '$modalInstance', 'repolicyNo', 'dangerNo', 'user', 'OutqueryService'
-    	,'CodeService', '$q'
-        	, function ($scope, $stateParams, $modalInstance, repolicyNo, dangerNo, user, outqueryService,
+    app.registerController('FromQueryItemCtrl', ['$scope', '$stateParams', '$modalInstance', 'repolicyNo', 'dangerNo', 'user', 'OutqueryService',
+        'CodeService', '$q', function ($scope, $stateParams, $modalInstance, repolicyNo, dangerNo, user, outqueryService,
         		 codeService, $q) {
-        $scope.repolicyNo          = repolicyNo         ;
+        $scope.repolicyNo = repolicyNo;
         $scope.dangerNo = dangerNo;
         $scope.user = user;
             
@@ -72,6 +71,24 @@ define(['app',
             outqueryService.searchPlyDtlInfo(repolicyNo, dangerNo, user, lan).then(
             function(data){
                 if(angular.isUndefined(data.result)){
+                	//add by slh
+                	var newTime = new Date( data.startDate);
+                    var date="";
+                    with(newTime){
+                    	date = date+(getFullYear())+"-";
+                    	date = date+(getMonth()+1)+"-";
+                    	date = date+(getDate());
+                    }
+                    data.startDate=date;
+                    var newTime = new Date( data.endDate);
+                    var date="";
+                    with(newTime){
+                    	date = date+(getFullYear())+"-";
+                    	date = date+(getMonth()+1)+"-";
+                    	date = date+(getDate());
+                    }
+                    data.endDate=date;  
+                  //end by slh
                 	$scope.plyRiskUnit = (data);
                 	console.log("plyRiskUnit---"+$scope.plyRiskUnit );
                 	
@@ -329,7 +346,9 @@ define(['app',
 
         init();
     }]);
-    
+
+
+
     app.registerController('FromQueryItemEdrCtrl', 
     		['$scope', '$stateParams', '$modalInstance', 'endorNo','dangerNo', 'user', 'OutqueryService'
     		 ,'CodeService', '$q'
@@ -503,6 +522,24 @@ define(['app',
             outqueryService.searchEdrDtlInfo(endorNo, dangerNo, user, lan).then(
             function(data){
                 if(angular.isUndefined(data.result)){
+                	//add by slh
+                	var newTime = new Date( data.startDate);
+                    var date="";
+                    with(newTime){
+                    	date = date+(getFullYear())+"-";
+                    	date = date+(getMonth()+1)+"-";
+                    	date = date+(getDate());
+                    }
+                    data.startDate=date;
+                    var newTime = new Date( data.endDate);
+                    var date="";
+                    with(newTime){
+                    	date = date+(getFullYear())+"-";
+                    	date = date+(getMonth()+1)+"-";
+                    	date = date+(getDate());
+                    }
+                    data.endDate=date;  
+                  //end by slh
                 	$scope.plyRiskUnit = (data);
                 	console.log("plyRiskUnit---"+$scope.plyRiskUnit );
                 	
@@ -588,7 +625,7 @@ define(['app',
         $scope.getClmDtlInfo = function(repayNo, dangerNo, user, lan) {
             console.log("getClmDtlInfo is coming ..");
             $scope.showBusy(true);
-            outqueryService.searchClmDtlInfo(repayNo, dangerNo, user, lan).then(
+            outqueryService.showClmDtlInfo(repayNo, dangerNo, user, lan).then(
             function(data){
                 if(angular.isUndefined(data.result)){
                 	$scope.plyRiskUnit = (data);

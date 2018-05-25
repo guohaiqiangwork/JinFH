@@ -123,7 +123,7 @@ define(['angular', 'config'], function (angular, config) {
                  * @param plyNo 保单号 
                  * @param user  操作用户信息
                  */
-                searchClmDtlInfo: function (repayNo, dangerNo, user,lan) {
+                showClmDtlInfo: function (repayNo, dangerNo, user,lan) {
                     var deffered = $q.defer();
                     console.log("____分出查询_ url is coming..");
                     $http({

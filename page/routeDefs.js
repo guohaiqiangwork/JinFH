@@ -269,7 +269,7 @@ define(['app'
                             }
                         }
                     })
-                     //再保人 查看(view)，编辑(edit),删除(delete)
+                     //再保人 查看(view)，修改(edit),删除(delete)
                     .state('reinsurer.operation', {
                         url: '/:reinsurerNo/:operation',
                         resolve: {
@@ -439,7 +439,20 @@ define(['app'
                             controller: 'postCodeDetailsCtrl'
                         }
                     }
-                });
+                })
+                    //人员权限
+                    .state('permission', {
+                        url: '/permission',
+                        resolve: {
+                            dummy: $couchPotatoProvider.resolveDependencies(['/reins/page/templates/authoritys/permission/permission.ctrl.js'])
+                        },
+                        views: {
+                            main: {
+                                templateUrl: '/reins/page/templates/authoritys/permission/permission.tpl.html',
+                                controller: 'permissionCtrl'
+                            }
+                        }
+                    });
             }
         ]
     );

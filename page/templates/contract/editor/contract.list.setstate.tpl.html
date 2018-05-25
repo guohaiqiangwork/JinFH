@@ -20,7 +20,11 @@
                 <td>{{contract.uwYear}}</td>
                 <td>{{contract.refNo}}</td>
                 <td>
-                    <select ng-options="c.id as c.value for c in getPropertyStates(contract.stateFlag)" ng-model="contract.npropStateFlag"
+                    <!--<select ng-options="c.id as c.value for c in getPropertyStates(contract.stateFlag)" ng-model="contract.npropStateFlag"-->
+                            <!--ng-init="contract.npropStateFlag = contract.stateFlag">-->
+                    <!--</select>-->
+                    <select ng-options="c.id as c.value for c in propertyStates(contract.stateFlag)"
+                            ng-model="contract.npropStateFlag"
                             ng-init="contract.npropStateFlag = contract.stateFlag">
                     </select>
                 </td>
@@ -32,7 +36,7 @@
                 <td>{{contract.uwYear}}</td>
                 <td>{{contract.refNo}}</td>
                 <td>
-                    <select ng-options="c.id as c.value for c in getPropertyStates(contract.stateFlag)"
+                    <select ng-options="c.id as c.value for c in propertyStates(contract.stateFlag)"
                     		ng-model="contract.propStateFlag"
                             ng-init="contract.propStateFlag = contract.stateFlag">
                     </select>

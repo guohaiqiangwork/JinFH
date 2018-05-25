@@ -12,7 +12,9 @@ define(['app'
                     	$state.go('reinsurer');
                         //console.log(data);
                     	alert("删除成功！");
-                    	/*$location.path("/reinsurers");*/
+                    	$modalInstance.dismiss('cancel');
+                    	location.reload()
+                    	//$location.path("/reinsurers");
                    	    
                     },
                     function(code){
@@ -37,10 +39,12 @@ define(['app'
                     console.log(temp.reinsCode);
                     console.log(temp.shortName);
                 });
+               // alert("删除成功！");
                 deleteReinsurer(keywords);
-                $modalInstance.close("ok");
+               // $modalInstance.close("ok");
             };
             //关闭窗口
+           
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
             };

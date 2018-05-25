@@ -21,21 +21,21 @@ define(
                         "label": "临分业务",
                         "url": "#/facings/business"
                     },
-                    "1.4": {
+                    /*"1.4": {
                         "id" : "reins.reinsout.manualOut",
                         "label": "手工处理",
                         "url": "#/handledeal"
-                    },
+                    },*/
                     "1.5": {
                         "id" : "reins.reinsout.print",
                         "label": "单证打印",
                         "url": "#/prints"
                     },
-                    "1.6": {
+                    /*"1.6": {
                         "id" : "reins.reinsout.exportOut",
                         "label": "合约对内单证导出",
                         "url": "#/exportOut"
-                    },
+                    },*/
                     "1.7": {
                         "id" : "reins.reinsout.accounting",
                         "label": "临分账务",
@@ -122,11 +122,11 @@ define(
                         "label": "再保人管理",
                         "url": "#/reinsurers"
                     },
-                    "4.5": {
+                    /*"4.5": {
                     	"id": "reins.product.treaty.planmaintenance",
                         "label": "自留额管理",
                         "url": "#/retentions"
-                    }
+                    }*/
                 }
             },
             //add by xujieyang 2018-03-12，结算管理
@@ -188,7 +188,9 @@ define(
                     "7.2": {
                     	 "id":"reins.grade",
                  		"label":"人员权限",
-                         "url":"/reins/permission/QueryUserGradeView.jsp "
+                        "url":"#/permission"
+
+                         // "url":"/reins/permission/QueryUserGradeView.jsp "
                          }
                     
                 }

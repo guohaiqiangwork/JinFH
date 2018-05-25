@@ -7,38 +7,101 @@
     <div collapse="!searchTableFlag" class="well">
         <h4>查询合同</h4>
         <form name="searchForm" novalidate>
-            <table class="table">
+        	<div class="row">
+	          <div class="col-xs-4" >
+	                    <label class="col-xs-4">合同类型：</label>
+	                     <div class="col-xs-8" >
+	                      	<select  ng-model="keywords.treatyType" ng-options="cd.id  as cd.value for cd in contGrpTypCdes">
+	                    	 	<option value="">全部</option>
+		                   	</select>
+	                    </div>
+	            </div>
+            </div>
+            <div class="row"ng-if="mode==='admin'">
+	          <div class="col-xs-4">
+                    <label class="col-xs-4">合同状态：</label>
+                     <div class="col-xs-8">
+                      	<select ng-model="keywords.stateFlag" ng-options="cc.id as  cc.value for cc in contStatus">
+                    	 	<option value="">全部</option>
+	                   	</select>
+                    </div>
+                </div>
+            </div>
+        	<div class="row">
+                <div class="col-xs-4">
+                    <label class="col-xs-4">合同编号：</label>
+                     <div class="col-xs-8">
+                      	<select ng-model="keywords.contNoFlag">
+	                    	 	<option value="=" selected="true">=</option>
+	                     	<option value="*">*</option>
+	                   	</select>
+                        <input type="text" ng-model="keywords.treatyNo" >
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-xs-4">合同简称：</label>
+                     <div class="col-xs-8">
+                      	<select  ng-model="keywords.refNmeFlag">
+	                    	 	<option value="=" selected="true">=</option>
+	                     	<option value="*">*</option>
+	                   	</select>
+                        <input type="text" ng-model="keywords.refNo">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-xs-4">业务年度：</label>
+                     <div class="col-xs-8">
+                      	<select  ng-model="keywords.contYearFlag">
+	                    	 	<option value="=" selected="true">=</option>
+	                     	<option value="*">*</option>
+	                   	</select>
+                        <input type="number" ng-model="keywords.uwYear">
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-xs-4">合同全称：</label>
+                     <div class="col-xs-8">
+                      	<select ng-model="keywords.contNmeFlag">
+	                    	 	<option value="=" selected="true">=</option>
+	                     	<option value="*">*</option>
+	                   	</select>
+                        <input type="text" ng-model="keywords.treatyName">
+                    </div>
+                </div>
+            </div>
+        	 <div class="row" >
+		     	<div class="col-lg-12" align="right">
+		        	<a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
+		            <a ng-click="searchTableFlag = ! searchTableFlag" class="btn btn-default">取消</a>
+		            <a ng-click="searchContracts()" class="btn btn-primary" ng-disabled="!searchForm.$valid">立即查询</a>
+		    	 </div>
+		    </div>
+           <!--  <table class="table">
                 <tr>
-                    <td >合同类型</td>
-                    <td >
-                        <!-- <select ng-model="keywords.contGrpTypCdeFlag">
-                            <option value="=" selected>=</option>
-                            <option value="*">*</option>
-                        </select> -->
-                    </td>
-                    <td >
-                        <select ng-model="keywords.treatyType" ng-options="cd.id  as cd.value for cd in contGrpTypCdes">
+                    <td style="width:500px;"><label style="margin-right:15px;">合同类型</label>
+                     <select ng-model="keywords.treatyType" ng-options="cd.id  as cd.value for cd in contGrpTypCdes">
                             <option value="">全部</option>
-                        </select>
-                    </td>
-                    
-                     <td ><span ng-if="mode==='admin'">合同状态</span></td>
-                    <td >
-                        <span ng-if="mode==='admin'">
-                            <!-- <select ng-model="keywords.contStatusFlag">
-                                <option value="=" selected>=</option>
-                                <option value="*">*</option>
-                            </select> -->
-                        </span>
-                    </td> 
-                    <td>
-                         <span ng-if="mode==='admin'">
+                        </select></td>
+                     <td >
+                     	<span ng-if="mode==='admin'" style="margin-right:15px;">合同状态</span>
+                     	<span ng-if="mode==='admin'">
                               <select ng-model="keywords.stateFlag" ng-options="cc.id as  cc.value for cc in contStatus">
                                   <option value="">全部</option>
                               </select>
                          </span>
-                    </td>
-                   <!--  <td>暂存编号</td>
+                     </td>
+                    <td >
+                        <span ng-if="mode==='admin'">
+                            <select ng-model="keywords.contStatusFlag">
+                                <option value="=" selected>=</option>
+                                <option value="*">*</option>
+                            </select>
+                        </span>
+                         
+                    </td> 
+                    <td>暂存编号</td>
                     <td>
                         <select ng-model="keywords.tmpContNoFlag">
                             <option value="=" selected>=</option>
@@ -47,34 +110,33 @@
                     </td>
                     <td>
                         <input type="text" ng-model="keywords.tmpContNo">
-                    </td>-->
+                    </td>
                     
                 </tr> 
                 <tr>
-                    <td>合同编号</td>
                     <td>
-                        <select ng-model="keywords.contNoFlag">
+                    <label style="margin-right:15px;">合同编号</label>
+                     <select ng-model="keywords.contNoFlag" style="margin-right:15px;">
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
-                    </td>
-                    <td>
                         <input type="text" ng-model="keywords.treatyNo">
                     </td>
-                    <td>合同简称</td>
                     <td>
-                        <select ng-model="keywords.refNmeFlag">
+                    	<label style="margin-right:15px;">合同简称</label>
+                     	<select ng-model="keywords.refNmeFlag"  style="margin-right:15px;">
                             <option value="=" >=</option>
                             <option value="*">*</option>
                         </select>
+                         <input type="text" ng-model="keywords.refNo">
                     </td>
                     <td>
-                        <input type="text" ng-model="keywords.refNo">
+                       
                     </td>
 
                 </tr>
 
-                <!-- <tr>
+                <tr>
                     <td>再保人代码</td>
                     <td>
                         <select ng-model="keywords.ricomCdeFlag">
@@ -95,46 +157,45 @@
                     <td>
                         <input type="text" ng-model="keywords.ttyLinker">
                     </td>
-                </tr> -->
+                </tr>
                  <tr>
-                 <td>业务年度</td>
-                    <td>
-                        <select ng-model="keywords.contYearFlag">
+                 <td>
+                 	<label style="margin-right:15px;">业务年度</label>
+                 	 <select ng-model="keywords.contYearFlag"  style="margin-right:15px;">
                             <option value="=" >=</option>
                             <option value="*">*</option>
-                        </select>
-                    </td>
-                    <td>
+                        </select>	
                         <input type="number" ng-model="keywords.uwYear" >
-                    </td>
+                 </td>
                 	
-                     <td>合同全称</td>
-	                    <td>
-	                        <select ng-model="keywords.contNmeFlag">
+                     <td>
+                     	
+                     	<label style="margin-right:15px;">合同全称</label>
+                     	 <select ng-model="keywords.contNmeFlag"  style="margin-right:15px;">
 	                            <option value="=" >=</option>
 	                            <option value="*">*</option>
 	                        </select>
-	                    </td>
+	                        <input type="text" ng-model="keywords.treatyName">
+                     </td>
                     <td>
-                        <input type="text" ng-model="keywords.treatyName">
+                        
                     </td>
                 </tr>
                 <tr ng-if="mode==='admin'">
                     
-                   <td>业务类型</td>
+                   <td>
+                   		<label style="margin-right:15px;">业务类型</label>
+                   		 <select  ng-model="keywords.optType" ng-options="c.id as c.value for c in inoutMrks">
+                         	<option value="">全部</option>
+	                    </select>
+                   </td>
                     <td>
-                        <!-- <select ng-model="keywords.inoutMrkFlag">
+                        <select ng-model="keywords.inoutMrkFlag">
                             <option value="=" selected>=</option>
                             <option value="*">*</option>
-                        </select> -->
+                        </select>
                     </td>
-                    <td>
-                        
-                        <select  ng-model="keywords.optType" ng-options="c.id as c.value for c in inoutMrks">
-                         <option value="">全部</option>
-	                    </select>
-                    </td>
-                    <!--  
+                     
                     <td><span ng-if="mode==='admin'">合同状态</span></td>
                     <td>
                         <span ng-if="mode==='admin'">
@@ -151,7 +212,7 @@
                               </select>
                          </span>
                     </td>
-                </tr> -->
+                </tr>
               
                 <tr>
                     <td colspan="6" align="right">
@@ -161,7 +222,7 @@
 
                     </td>
                 </tr>
-            </table>
+            </table> -->
         </form>
     </div>
 
@@ -184,14 +245,14 @@
                 <a class="btn btn-default" ng-click="openNewContractModal()">新增</a>
                 <a class="btn btn-danger" ng-disabled="selectedCount===0" ng-click="operateContractList('delete',keywords,pagination)">删除</a>
                 <a class="btn btn-default" ng-disabled="selectedCount===0" ng-click ="operateContractList('copy',keywords,pagination)">复制</a>
-                <!--
+               
                 <a class="btn btn-default" ng-disabled="selectedCount===0" ng-click ="operateContractList('renewal')">续转</a>
-                -->
+               
                 <a class="btn btn-default" ng-disabled="selectedCount===0" ng-click ="operateContractList('setState',keywords,pagination)">设置状态</a>
             </div>
             <div ng-if="mode==='1'" class="btn-group">
-            	 <button ng-click="openContractBill('batch')" class="btn btn-default"><i class="glyphicon glyphicon-list-alt"></i>&nbsp;批量账单</button>
-            </div>
+<!--             	 <button ng-click="openContractBill('batch')" class="btn btn-default"><i class="glyphicon glyphicon-list-alt"></i>&nbsp;批量账单</button>
+ -->            </div>
         </div>
 
         <h3>{{title}}</h3>
@@ -207,12 +268,11 @@
 
         <div ng-if="global.viewType==='table'" ng-include="'page/templates/contract/contract.prop.list.table.tpl.html'"></div>
 
-        
 
+        <div class="clearfix panel-footer">
+            <span class="pull-right">共找到{{pagination.totalItems}}份合同</span>
+        </div>
         <div class="clearfix pull-right" ng-show="contractList.length > 0" style="margin-bottom:3%">
-	        <div class="clearfix panel-footer">
-	            <span class="pull-right">共找到{{pagination.totalItems}}份合同</span>
-	        </div>
             <!-- 分页  -->
             <pagination total-items="pagination.totalItems"
                         page="pagination.pageIndex"

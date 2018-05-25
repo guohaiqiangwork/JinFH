@@ -108,31 +108,31 @@ define(['app',
 	    	  } 
 	    	  if(temp==='delete'){
 	    		  if(contract.length==1){
-			    	  	 if(contract[0].stateFlag == "4"){
+			    	  	 if(contract[0].stateFlag == "4"||contract[0].stateFlag == "1"){
 			    		  alert("已生效状态不能删除");
 			    		  return;
 			    	  }  
-			    	   if(contract[0].stateFlag == "6"){
+			    	   if(contract[0].stateFlag == "6"||contract[0].stateFlag == "2"){
 			    		  alert("已关闭状态不能删除");
 			    		  return;
 			    	  }   
 		    	  }	  
 	    	  }
 	    	  if(temp==='setState'){
-			    	   if(contract[0].stateFlag == "6"){
+			    	   if(contract[0].stateFlag == "6"||contract[0].stateFlag == "2"){
 			    		  alert("已关闭状态不能设置状态");
 			    		  return;
 			    	  }   
 		    	  }
-	    	  // if(temp==='setState'){
-		    	//
-		    	//    if(contract[0].stateFlag == "4"){
-		    	// 	   contract[0].stateFlag = "6"
-		    	//   }
-		    	//    if(contract[0].stateFlag == "0"){
-		    	// 	   contract[0].stateFlag = "4"
-		    	//   }
-	    	  // }
+	    	  if(temp==='setState'){
+
+		    	  //  if(contract[0].stateFlag == "4"){
+                  // 		    		//    contract[0].stateFlag = "6"
+                  // 		    	  // }
+                  // 		    	  //  if(contract[0].stateFlag == "0"){
+                  // 		    		//    contract[0].stateFlag = "4"
+                  // 		    	  // }
+	    	  }
 	    	//add by slh end
             var url = changeUrl(temp);
             $modal.open({

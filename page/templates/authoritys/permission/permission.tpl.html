@@ -1,0 +1,150 @@
+<div collapse="hideList">
+    <div ng-show="!searchTable.flag" class="search-toggle" ng-click="openSearch()">
+        <span class="glyphicon glyphicon-search"></span>
+    </div>
+
+    <div ng-if="searchTable.flag" class="container-fluid">
+        <div class="well">
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-xs-4">员工名称：</label>
+                    <div class="col-xs-8">
+                        <select ng-model="keywords.userNameTag">
+                            <option value="=" selected>=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" ng-model="keywords.userName">
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-xs-4">员工代码：</label>
+                    <div class="col-xs-8">
+                        <select ng-model="keywords.userCodeTag">
+                            <option value="=">=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <select class="condition" ng-model="keywords.userCode" style="width: 143px"
+                                ng-options="c.id as c.id +'-'+ c.value for c in userCode"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <label class="col-xs-2" style="margin-right: -5px;padding-right: 19px;">归属机构：</label>
+                    <div class="col-xs-10">
+                        <select ng-model="keywords.comCodeTag">
+                            <option value="=">=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <select ng-model="keywords.comCode"
+                                ng-options="c.id as c.id +'-'+ c.value for c in comCode"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12" align="right">
+                    <a ng-click="resetSearchBox()" class="btn btn-default">重置</a>
+                    <a ng-click="closeSearch()" class="btn btn-default">取消</a>
+                    <a ng-click="searchPermissionList(keywords);closeSearch()" class="btn btn-primary">立即查询</a>
+                </div>
+            </div>
+            <!-- <table class="table">
+               <tr>
+                    <td class=title>员工代码：</td>
+                    <td class=input>
+                        <select ng-model="keywords.userCodeTag" class="tag">
+                            <option value="=">=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" ng-model="keywords.userCode" maxlength="50" class="condition" >
+                    </td>
+                    <td class=title>归属机构：</td>
+                    <td class=input>
+                        <select ng-model="keywords.comCodeTag" class="tag">
+                            <option value="=">=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" ng-model="keywords.comCode" maxlength="44" class="condition"
+                               ></td>
+                </tr>
+                 <tr>
+                    <td class=title>员工名称：</td>
+                    <td class=input>
+                        <select ng-model="keywords.userNameTag" class="tag">
+                            <option value="=">=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" ng-model="keywords.userName" class="condition" maxlength="50">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" align="right">
+                        <a ng-click="resetSearchBox()" class="btn btn-default">重置</a>
+                        <a ng-click="closeSearch()" class="btn btn-default">取消</a>
+                        <a ng-click="searchPermissionList(keywords)" class="btn btn-primary">立即查询</a>
+
+                    </td>
+                </tr>
+            </table> -->
+        </div>
+        <div class="page-header">
+            <h2 style="display:inline-block">人员权限查询</h2>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="container-fluid">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover ">
+                    <thead>
+                    <th>员工代码</th>
+                    <th>员工名称</th>
+                    <th>归属机构</th>
+                    <th>岗位中文描述</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="person in personList" class="hover-visible-wrapper ng-scope">
+                        <td>{{person.userCode}}</td>
+                        <td>{{person.username}}</td>
+                        <td>{{person.comCode}}</td>
+                        <td>{{person.gradeCName}}</td>
+                        <td>{{person.createTime.time | date : 'yyyy-MM-dd'}}</td>
+                        <td>
+                            <div class="btn-group btn-group-sm hover-visible">
+                                <a class="btn btn-default" ng-click="permissionDeploy(person)">配置</a>
+                                <a class="btn btn-default" ng-click="permissionReset(person)">重置</a>
+                                <a class="btn btn-default" ng-click="passwordManager(person)">密码管理</a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="clearfix panel-footer">
+                    <span class="pull-right">共找到{{pagination.totalItems}}条信息</span>
+                </div>
+
+                <div class="clearfix pull-right" ng-show="personList.length > 0">
+                    <!-- 分页  -->
+                    <pagination total-items="pagination.totalItems"
+                                page="pagination.pageIndex"
+                                items-per-page="pagination.pageSize"
+                                max-size="pagination.maxSize"
+                                previous-text="{{pagination.previousText}}"
+                                next-text="{{pagination.nextText}}"
+                                first-text="{{pagination.firstText}}"
+                                last-text="{{pagination.lastText}}"
+                                class="pagination-small"
+                                boundary-links="true"
+                                on-select-page="onSelectPage(page)">
+                    </pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div ui-view="operation"></div>

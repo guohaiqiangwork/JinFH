@@ -4,7 +4,7 @@ define(['app',
     '/reins/page/templates/inquiry/inquiry.detail.modal.ctrl.js',
     '/reins/page/templates/inquiry/inquiry.bill.modal.ctrl.js',
     '/reins/page/templates/inquiry/inquiry.share.modal.ctrl.js',
-    '/reins/page/templates/inquiry/inquery.settle.modal.ctrl.js'
+    '/reins/page/templates/inquiry/inquery.settle.modal.ctrl.js',
 ], function (app,config,codes) {
     app.registerController('InquiryListCtrl', ['$scope', '$filter', '$stateParams', '$modal', '$location', 'FacingService','BillService', 'RiskunitService','CodeService'
         , function ($scope, $filter, $stateParams, $modal, $location, facingService,billService, riskunitService,codeService) {
@@ -57,6 +57,7 @@ define(['app',
         //临分询价-条件查询 searchFacPlyInfo
         $scope.searchFacPlyInfo_ = function(){
         	$scope.pagination.pageIndex = 1;
+        	$scope.searchTable.flag = !$scope.searchTable.flag
         	$scope.searchFacPlyInfo($scope.options.bizType, $scope.keywords, $scope.pagination, $scope.global.user, ""); 
         }
 
@@ -369,9 +370,22 @@ define(['app',
                 }
             );
         };*/
-
-        var init = function () {
+        $scope.keypressfun = function(e){
+        	 console.log(e)
+        	 if (!String.fromCharCode(e.keyCode).match(/[0-9\.]/)) {
+        		 e.preventDefault();
+             }
+    	}
         
+        var init = function () {
+
+            //判断输入数字
+        	/*$('.input-group').on('input[type=number]','keypress',function(e) {
+        		console.log(e)
+	              　　if (!String.fromCharCode(e.keyCode).match(/[0-9\.]/)) {
+	              　　　　return false;
+	              　　}
+              });*/
         	
         	$scope.operations = $stateParams.operations;
         	

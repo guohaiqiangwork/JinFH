@@ -9,7 +9,7 @@ define(['app',
         //显示查询列表框
         $scope.showSearchList = function(){
             $scope.hideList = false;
-            //$scope.showSearch = false;
+           //$scope.showSearch = false;
         }
 
         //隐藏查询列表框
@@ -40,6 +40,7 @@ define(['app',
 
         //查询合同关系
         $scope.searchRelationship = function(keywords, pagination, user){
+        	$scope.showSearch = false;
             //$scope.pagination.pageIndex = 1;
             relationshipService.searchRelationship(keywords, pagination, user).then(
                 function(data){
@@ -117,7 +118,7 @@ define(['app',
         var init = function () {
         	
         	console.log("relationship--init----");
-
+        	$scope.showSearch = false;
             $scope.$on('$stateChangeStart', function(event, next) {
                 if(next.name === 'admin.relationship')
                     $scope.showSearchList();

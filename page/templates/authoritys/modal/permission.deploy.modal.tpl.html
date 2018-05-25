@@ -1,0 +1,35 @@
+<div>
+    <div class="modal-header">
+        <h3>员工配置</h3>
+    </div>
+    <div class="modal-body">
+        <div>
+            员工代码：{{onePerson.userCode}}
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <td></td>
+                    <td>岗位代码</td>
+                    <td>岗位中文名称</td>
+                    <td>归属机构</td>
+                    <td>有效标志</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="deploy in permissionDeployList">
+                    <td><input type="radio" value=true ng-model="deploy.checkedDeploy" name="gender" ng-change="checkedDeploy(deploy)"/></td>
+                    <td> {{deploy.id}}</td>
+                    <td> {{deploy.gradeCName}}</td>
+                    <td> {{deploy.comCode}}</td>
+                    <td> {{deploy.validStatus}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" ng-click="savePermissionDeploy()">保存</button>
+            <button class="btn btn-default" ng-click="close()">关闭</button>
+        </div>
+    </div>
+</div>
+

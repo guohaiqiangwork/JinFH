@@ -13,149 +13,97 @@
 	    <form name="searchForm" novalidate>
             <!-- <select ng-model="options.bizType" ng-change="changeReset(keywords)" style="border:none">
                 <option  value="2">分保</option>
-                <option  value="3">分赔</option>           
+                <option  value="3">分赔</option>
 	            <option  value="4">分批</option>
 	        </select> -->
 	        <div ng-if="options.bizType==='2' || options.bizType==='4'" class="container-fluid">
-	                <div class="row">
-	                    <div class="col-lg-2">
-	                        <label>询价单号</label>
-	                    </div>
-	
-	                    <div class="col-lg-4">
-	                        <div class="input-group">
-	                            <select ng-model = "keywords.enquiryNoFlag">
-	                                <option value="=">=</option>
-	                                <option value="*">*</option>
-	                            </select>
-	                            <input type="text" ng-model = "keywords.enquiryNo">
-	                            <span></span>
-	                        </div>
-	                    </div>
-	
-	                    <div class="col-lg-2">
-	                        <label>投保单号</label>
-	                    </div>
-	
-	                    <div class="col-lg-4">
-	                        <div class="input-group">
-	                            <select ng-model = "keywords.proposalNoFlag">
-	                                <option value="=">=</option>
-	                                <option value="*">*</option>
-	                            </select>
-	                            <input type="text" ng-model = "keywords.proposalNo">
-	                            <span></span>
-	                        </div>
-	                    </div>
-	
-	                </div>
-	                <div class="row">
-	                    <div class="col-lg-2">
-	                        <label>批单号</label>
-	                    </div>
-	
-	                    <div class="col-lg-4">
-	                        <div class="input-group">
-	                            <select ng-model = "keywords.endorseNoFlag">
-	                                <option value="=">=</option>
-	                                <option value="*">*</option>
-	                            </select>
-	                            <input type="text" ng-model = "keywords.endorseNo">
-	                            <span></span>
-	                        </div>
-	                    </div>
-	
-	                    <div class="col-lg-2">
-	                        <label>保单号</label>
-	                    </div>
-	
-	                    <div class="col-lg-4">
-	                        <div class="input-group">
-	                            <select ng-model = "keywords.policyNoFlag">
-	                                <option value="=">=</option>
-	                                <option value="*">*</option>
-	                            </select>
-	                            <input type="text" ng-model = "keywords.policyNo">
-	                            <span></span>
-	                        </div>
-	                    </div>
-	
-	                </div>
-	                <div class="row">
-	                    
-	                    <div class="col-lg-2">
-	                        <label>币别</label>
-	                    </div>
-	
-	                    <div class="col-lg-4">
-	                        <div class="input-group">
-	                            <select  ng-model="keywords.currency" ng-options="c.id as c.value for c in currencys">
-					            	<option value=''>全部</option>
-           					    </select>
-	                            <span></span>
-	                        </div>
-	                    </div>
-	                    <div class="col-lg-2">
-	                        <label>确认标志</label>
-	                    </div>	
-	                    <div class="col-lg-4">
-		                    <select ng-model="keywords.verifyFlag">
-				      			<option  value="">全部</option>
-								<option  value="0" >暂存</option>
-								<option  value="1" >待确认</option>
-								<option  value="2" >待通过</option>
-								<option  value="3" >通过</option>
-								<option  value="4" >确认不通过</option>
-								<option  value="9" >注销</option>								
-				    		</select>
-	                    </div>
-	                    <!-- <div class="col-lg-2">
-	                    <label>出单机构</label>
-	                    </div>	
-	                    <div class="col-lg-4">
-		                     <div class="input-group">
-	                            <select ng-model = "keywords.makeComTag">
-	                                <option value="=">=</option>
-	                                <option value="*">*</option>
-	                            </select>
-	                            <input type="text" ng-model = "keywords.makeCom">
-	                            <select  ng-model="keywords.makeCom" ng-options="c.id as c.value for c in makeComCode">
-					            	<option value=''>全部</option>
-           					    </select>
-	                            <span></span>
-	                         </div>
-	                  </div> -->
-	                </div>
-	                
-	                
-	                 <div class="row">
+				<div class="row">
+					<div class="col-xs-4">
+						<label class="col-xs-4">询价单号：</label>
+						<div class="col-xs-8">
+							<select ng-model="keywords.enquiryNoFlag">
+								<option value="=">=</option>
+								<option value="*">*</option>
+							</select>
+							<input type="text" ng-model="keywords.enquiryNo">
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<label class="col-xs-4">投保单号：</label>
+						<div class="col-xs-8">
+							<select ng-model="keywords.proposalNoFlag">
+								<option value="=">=</option>
+								<option value="*">*</option>
+							</select>
+							<input type="text" ng-model="keywords.proposalNo">
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<label class="col-xs-4">批单号：</label>
+						<div class="col-xs-8">
+							<select ng-model="keywords.endorseNoFlag">
+								<option value="=">=</option>
+								<option value="*">*</option>
+							</select>
+							<input type="text" ng-model="keywords.endorseNo">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4">
+						<label class="col-xs-4">保单号：</label>
+						<div class="col-xs-8">
+							<select ng-model="keywords.policyNoFlag">
+								<option value="=">=</option>
+								<option value="*">*</option>
+							</select>
+							<input type="text" ng-model="keywords.policyNo">
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<label class="col-xs-4">币别：</label>
+						<div class="col-xs-8">
+							<select ng-model="keywords.currency"
+									ng-options="c.id as c.id +'-'+ c.value for c in currencys">
+								<option value=''>全部</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<label class="col-xs-4">确认标志：</label>
+						<div class="col-xs-8">
+							<select ng-model="keywords.verifyFlag">
+								<option value="">全部</option>
+								<option value="0">暂存</option>
+								<option value="1">待确认</option>
+								<option value="2">待通过</option>
+								<option value="3">通过</option>
+								<option value="4">确认不通过</option>
+								<option value="9">注销</option>
+							</select>
+						</div>
+					</div>
+				</div>
 
-	                    <div class="col-lg-2">
-	                    <label>出单机构</label>
-	                    </div>	
-	                    
-	                     <div class="col-lg-4">
-	                        <div class="input-group">
-	                            <select  ng-model="keywords.makeCom" ng-options="c.id as c.value for c in makeComCode">
-					            	<option value=''>全部</option>
-           					    </select>
-	                            <span></span>
-	                        </div>
-	                    </div>
-	                    
-	                   
-	                </div>
-	                
-	                
-	                <div class="row">	                	                   
-	                </div>
-					<div class="row">
-						<div class="col-lg-12" align="right">
-		                    <a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
-		                    <a ng-click="searchTable.flag = !searchTable.flag" class="btn btn-default">取消</a>
-		                    <a ng-click="searchFacPlyInfo_()" class="btn btn-primary" ng-disabled="!searchForm.$valid">立即查询</a>
-		                </div>
-	                </div>
+				<div class="row">
+					<div class="col-xs-8">
+						<label class="col-xs-2">出单机构：</label>
+						<div class="col-xs-10">
+							<select ng-model="keywords.makeCom" ng-options="c.id as c.value for c in makeComCode">
+								<option value=''>全部</option>
+							</select>
+						</div>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-lg-12" align="right">
+						<a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
+						<a ng-click="searchTable.flag = !searchTable.flag" class="btn btn-default">取消</a>
+						<a ng-click="searchFacPlyInfo_()" class="btn btn-primary"
+						   ng-disabled="!searchForm.$valid">立即查询</a>
+					</div>
+				</div>
 	        </div>
         	<!-- <div ng-if="options.bizType==='3'" class="container-fluid">
 	                <div class="row">
@@ -320,11 +268,12 @@
     	</div>
    	</div>
    	
-   	<div class="clearfix panel-footer">
-        <span class="pull-right">共: {{pagination.totalItems}}份</span>
-    </div>
+   	
 
-    <div class="clearfix pull-right" ng-show="inquiry.length > 0">
+	    <div class="clearfix panel-footer">
+	        <span class="pull-right">共: {{pagination.totalItems}}份</span>
+	    </div>
+	<div class="clearfix pull-right" ng-show="inquiry.length > 0" style="margin-bottom:3%">
     <!-- 分页  -->
         <pagination total-items="pagination.totalItems"
                     page="pagination.pageIndex"

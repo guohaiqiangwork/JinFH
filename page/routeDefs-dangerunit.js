@@ -43,6 +43,7 @@ define(['app',
 
                     //风险单位
                     //bizType: 1 投保单  2 批单
+                    //certiType 1，投保单,2: 保单 ,3,批单申请单 4:批单
                     .state('riskunit', {
                         url: '/:certiType/:editType/:certiNo',
                         views: {

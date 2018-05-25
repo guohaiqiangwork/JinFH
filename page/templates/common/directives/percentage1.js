@@ -4,7 +4,7 @@ define(['app', 'jquery'], function (app, $) {
             restrict: 'AE',
             require: 'ngModel',
             link: function linkFn(scope, elm, attrs, ctrl) {
-            
+
             	if(angular.isUndefined(attrs.size) || attrs.size === ""){
             		attrs.size = 20;
             	}
@@ -22,6 +22,7 @@ define(['app', 'jquery'], function (app, $) {
 
                     var isValid = true;
                     $(elm).on('blur',function(){
+
                     	if(isValid){
                     		  previewElm.show();
                     		  $(elm).hide();
@@ -39,34 +40,35 @@ define(['app', 'jquery'], function (app, $) {
                     
                     ctrl.$parsers.push (function (viewValue) {
                     	$timeout.cancel(timeout);
+                        if(viewValue) {
+                            if (FLOAT_REGEXP.test(viewValue)) {
+                                if (parseFloat(viewValue) > MAX) {
+                                    isValid = false;
+                                    // ctrl.$setValidity('percentage', false);
+                                    ctrl.$setValidity('percentage-over', false);
+                                    return (viewValue);
+                                } else {
+                                    isValid = true;
+                                    ctrl.$setValidity('percentage', true);
+                                    ctrl.$setValidity('percentage-over', true);
+                                    return parseFloat(viewValue.replace(',', '.'));
 
-	                    if(FLOAT_REGEXP.test(viewValue)) {
-	                        if(parseFloat(viewValue) > MAX){
-	                            isValid = false;
-                        		// ctrl.$setValidity('percentage', false);
-	                       		ctrl.$setValidity('percentage-over', false);
-	                       		return (viewValue);
-	                        }else{
-	                            isValid = true;
-                                ctrl.$setValidity('percentage', true);
-                                ctrl.$setValidity('percentage-over', true);
-                                return parseFloat(viewValue.replace(',', '.'));
-	
-	                        }
-	                    } else {
-	                        if(viewValue.indexOf('.', viewValue.length - 1) !== -1){
-	                            timeout = $timeout(function() {
-	                                ctrl.$setValidity('percentage', false);
-	                                console.log('delay');
-	                            },1500)
-	
-	                        }else{
-	                            ctrl.$setValidity('percentage', false);
-	                        }
-	                        isValid = false;
-	
-	                        return (viewValue);
-	                    }
+                                }
+                            } else {
+                                if (viewValue.indexOf('.', viewValue.length - 1) !== -1) {
+                                    timeout = $timeout(function () {
+                                        ctrl.$setValidity('percentage', false);
+                                        console.log('delay');
+                                    }, 1500);
+
+                                } else {
+                                    ctrl.$setValidity('percentage', false);
+                                }
+                                isValid = false;
+
+                                return (viewValue);
+                            }
+                        }
                     });
             }
 

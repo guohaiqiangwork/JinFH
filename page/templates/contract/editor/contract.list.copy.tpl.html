@@ -17,7 +17,7 @@
                 <td>{{contract.refNo}}</td>
                 <td>{{contract.treatyType| code : 'nprop.treatyType'}}</td>
                 <td>{{contract.stateFlag | code : 'nprop.stateFlag'}}</td>
-                <td><a ng-click="pageJump(contract.tmpContractNo)">{{contract.treatyNo}}</a></td>
+                <td>{{contract.treatyNo}}</td>
             </tr>
             <!-- 比例合同  -->
             <tr ng-repeat="contract in contractList" ng-hide="tableShow">
@@ -25,7 +25,7 @@
                 <td>{{contract.refNo}}</td>
                 <td>{{contract.treatyType | code : 'prop.treatyType'}}</td>
                 <td>{{contract.stateFlag | code : 'prop.stateFlag'}}</td>
-                <td><a ng-click="pageJump(contract.treatyNo)">{{contract.treatyNo}}</a></td>
+                <td>{{contract.treatyNo}}</td>
             </tr>
         </table>
     </div>

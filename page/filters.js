@@ -43,22 +43,47 @@ define(['app', 'codes'], function (app, codes) {
                  var temp = (input+"").split(".");
                  var result = "";
                  if(temp.length>1){
-                     for(var i = temp[1].length; i < 4; i++){
+                     for(var i = temp[1].length; i < 6; i++){
                          temp[1] = temp[1]+""+0;
                      }
                      result = temp[0]+"."+temp[1];
                      return (result);
 
                  }else{
-                     return   (input +".0000");
+                     return   (input +".000000");
                  }
              }else{
             	 if(isNaN(input) || blank.test(input)){
-            		 return "0.0000";
+            		 return "0.000000";
             	 }else
             		 return input;
              }
          };
      });
+    app.filter('formatPercent1',function(){
+        return function(input){
+            var t = /^((\-)?((([0-9]{1,99})(\.[0-9]{1,4})?)|(100(\.[0]{1,4})?)))$/;
+            var blank = /^\s*$/;
+            if(t.test(input)){
+                var temp = (input+"").split(".");
+                var result = "";
+                if(temp.length>1){
+                    for(var i = temp[1].length; i < 2; i++){
+                        temp[1] = temp[1]+""+0;
+                    }
+                    result = temp[0]+"."+temp[1];
+                    return (result);
+
+                }else{
+                    return   (input +".00");
+                }
+            }else{
+                if(isNaN(input) || blank.test(input)){
+                    return "0.00";
+                }else
+                    return input;
+            }
+        };
+    });
 });
 

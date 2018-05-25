@@ -1,427 +1,848 @@
 <ng-form>
-            <hr>
-            <h4>接受人管理</h4>
-            <a href="" class="btn btn-default" 
-            	ng-if="editTypeFlag"
-            	ng-click="addFeoReinsProp()">
-            	<span class="glyphicon glyphicon-plus"></span>
-           	</a>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-6">
-                    </div>
-                    <div class="col-lg-6">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div style="overflow: scroll">
-                            <table class="table table-bordered" >
-                                <thead ng-if="dangerUnitFacEnquiry.feoReinsReceiveList.length >0">
-                                    <th nowrap>序号</th>
-                                    <th nowrap>接受人</th>
-                                    <th nowrap>经纪人</th>
-                                    <th nowrap>最终接受人</th>
-                                    <th nowrap>接受的比例(%)</th>
-                                    <th nowrap>分出保额</th>
-                                    <th nowrap ng-if="certiType === '3'">分保额变化量</th>
-                                    <th nowrap>费率差异</th>
-                                    <th nowrap>费率</th>
-                                    <th nowrap>分出不含税保费</th>
-                                    <th nowrap ng-if="certiType === '3'">不含税分保费变化量</th>
-                                    <th nowrap>接受的手续费的比例%</th>
-	                                <!--<th>营业税</th> -->
-                                    <th>增值税比例%</th>
-                                    <th>附加税比例%</th>
-                                    <th nowrap>其他费用比例%</th>
-                                    <!-- <th nowrap>净分保费</th>
-                                    <th nowrap>Balance</th> -->
-                                    <th nowrap>差异分保</th>
-                                    <th nowrap>备注</th>
-                                    <th nowrap>最迟付款天数</th> 
-                                </thead>
-                                <tr ng-repeat="feoReins in dangerUnitFacEnquiry.feoReinsReceiveList">
-                                    <td><a href="" title="可得到该接收人对应的缴费信息" ng-click="tabs[$index].active = true">{{$index +1}}</a></td>
-                                    <td ng-if="certiType==='1'">
-                                        <div class="input-group" ng-if="(editTypeFlag && feoReins.isNewFlag==='1') || (editTypeFlag && certiType==='1')">
-                                            <input size="30" type="text" ng-model="feoReins.reinsCode"
-													ng-blur="distinctReceiver('prop',dangerUnitFacEnquiry,feoReins,'reinsCode');"
-                                                   ng-readonly="operation ==='view'" placeholder="" typeahead-loading="loading..."
-                                                   typeahead="state.id +'-'+ state.value +'-'+ state.other1 as state.id +'-'+ state.value +'-'+ state.other1 for state in getByReturn('reinsCode',$viewValue) | filter:$viewValue "
-                                                   ng-required="true" 	typeahead-wait-ms="500"
-                                                   >
-                                            <span></span>
-                                        </div>
-                                        <div ng-if="pageFlag || !editTypeFlag ||  (editTypeFlag && feoReins.isNewFlag!=='1')">{{feoReins.reinsCode}}</div>
-                                    </td>
-                                    <td ng-if="certiType==='3'">
-                                    	<div class="input-group" ng-if="(editTypeFlag && feoReins.isNewFlag==='1') || (editTypeFlag && certiType==='1')">
-                                            <input size="30" type="text" ng-model="feoReins.finalReinsCode"
-													ng-blur="distinctReceiver('prop',dangerUnitFacEnquiry,feoReins,'finalReinsCode');"
-                                                   ng-readonly="operation ==='view'" placeholder="" typeahead-loading="loading..."
-                                                   typeahead="state.id +'-'+ state.value +'-'+ state.other1 as state.id +'-'+ state.value +'-'+ state.other1 for state in getByReturn('reinsCode',$viewValue) | filter:$viewValue "
-                                                   ng-required="true" 	typeahead-wait-ms="500"
-                                                   >
-                                            <span></span>
-                                        </div>
-                                        <div ng-if="pageFlag || !editTypeFlag ||  (editTypeFlag && feoReins.isNewFlag!=='1')">{{feoReins.finalReinsCode}}</div>
-                                    </td>
-                                    <td ng-if="certiType==='1'">
-                                        <input type="checkbox" ng-model="feoReins.reinsType" ng-if="editTypeFlag"
-                                               ng-init="dealBrokerToBoolean()" 
-                                               ng-click="ctrlFinalRecepter('prop',feoReins);" />
-                                         <div ng-if="pageFlag || !editTypeFlag">
-                                         	<span ng-if="feoReins.reinsType==='0' || feoReins.reinsType===0">是</span>
-                                         	<span ng-if="feoReins.reinsType==='1' || feoReins.reinsType===1">否</span>
-                                         </div>
-                                    </td>
-                                    <td ng-if="certiType==='3'">
-                                        <input type="checkbox" ng-model="feoReins.reinsType" ng-if="editTypeFlag"
-                                               ng-init="dealBrokerToBoolean()" 
-                                               ng-click="ctrlFinalRecepter('prop',feoReins);" />
-                                         <div ng-if="pageFlag || !editTypeFlag">
-                                         	<span ng-if="feoReins.reinsType==='0' || feoReins.reinsType===0">是</span>
-                                         	<span ng-if="feoReins.reinsType==='1' || feoReins.reinsType===1">否</span>
-                                         </div>
-                                    </td>
-                                    <td ng-if="certiType==='1'">
-                                        <div class="input-group">
-	                                         <input size="30" type="text" ng-model="feoReins.finalReinsCode" ng-if="editTypeFlag"
-	                                           ng-blur="distinctReceiver('prop',dangerUnitFacEnquiry,feoReins,'finalReinsCode');"
-	                                           ng-readonly="operation ==='view'" placeholder="" typeahead-loading="loading..." 
-	                                           typeahead="state.id +'-'+ state.value +'-'+ state.other1 as state.id +'-'+ state.value +'-'+ state.other1 for state in getByReturn('finalReinsCode',$viewValue) | filter:$viewValue "
-	                                           ng-required="true" typeahead-wait-ms="500">
-	                                         <span></span>
-	                                    </div>
-	                                    <div ng-if="pageFlag || !editTypeFlag">{{feoReins.finalReinsCode}}</div>
-                                    </td>
-                                    <td ng-if="certiType==='3'">
-                                        <div class="input-group">
-	                                         <input size="30" type="text" ng-model="feoReins.finalReinsCode" ng-if="editTypeFlag"
-	                                           ng-blur="distinctReceiver('prop',dangerUnitFacEnquiry,feoReins,'finalReinsCode');"
-	                                           ng-readonly="operation ==='view'" placeholder="" typeahead-loading="loading..." 
-	                                           typeahead="state.id +'-'+ state.value +'-'+ state.other1 as state.id +'-'+ state.value +'-'+ state.other1 for state in getByReturn('finalReinsCode',$viewValue) | filter:$viewValue "
-	                                           ng-required="true" typeahead-wait-ms="500">
-	                                         <span></span>
-	                                    </div>
-	                                    <div ng-if="pageFlag || !editTypeFlag">{{feoReins.finalReinsCode}}</div>
-                                    </td>
-                                    <td ng-if="certiType==='1'">
-                                    	<div class="input-group" ng-class="{'warning':feoReins.warning}" ng-if="editTypeFlag">
-					                        <input size="20" type="text" percentage ng-model="feoReins.signedLine"  ng-required="true"
-					                               ng-readonly="operation==='view'" 
-					                               ng-keyup="feoReins.amount=enquiryPropCalculator('getFacAmount',feoReins,dangerUnit, '');
-					                               feoReins.premium=enquiryPropCalculator('getFacPremium',feoReins,dangerUnit, '')">
-					                        <span></span>
-					                    </div>
-					                    <div ng-if="pageFlag || !editTypeFlag">
-					                    	<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.signedLine" percentage />
-					                    </div>
-                                    </td>
-                                    <td ng-if="certiType==='3'">
-                                    	<div class="input-group" ng-class="{'warning':feoReins.warning}" ng-if="editTypeFlag">
-					                        <input size="20" type="text" percentage ng-model="feoReins.signedLine"  ng-required="true"
-					                               ng-readonly="operation==='view'" 
-					                               ng-keyup="feoReins.faccomChgAmt=enquiryPropCalculator('getFenbaoEBhl',feoReins,dangerUnit, '');
-					                               enquiryPropCalculator('getFenbaoFBhl',feoReins,dangerUnit, '');
-					                               enquiryPropCalculator('getFenbaoFNew',feoReins,dangerUnit, '')">
-					                        <span></span>
-					                    </div>
-					                    <div ng-if="pageFlag || !editTypeFlag">
-					                    	<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.signedLine" percentage />
-					                    </div>
-                                    </td>
-                                    
-                                    <td ng-if="certiType==='1'">
-                                    	<div ng-show="editTypeFlag">
-	                                        <input type="text" ng-model="feoReins.amount" currency
-	                                        	ng-if="feoReins.amount === null || feoReins.amount === 0.0000"
-	                                               ng-init="feoReins.amount=enquiryPropCalculator('chushihua1',feoReins,dangerUnit, '')"
-	                                                />
-	                                        <input type="text" ng-model="feoReins.amount" currency 
-	                                        	ng-if="feoReins.amount != null && feoReins.amount != 0.0000"
-	                                        	   ng-keyup="enquiryPropCalculator('getJsblByFenbaoE',feoReins,dangerUnit, '');
-	                                               enquiryPropCalculator('getQuandanjsblByFenbaoE',feoReins,dangerUnit, '');	                                              
-	                                               feoReins.premium=enquiryPropCalculator('fenbaofei',feoReins,dangerUnit, '')" />
-                                        </div>        
-                                        <div ng-if="pageFlag || !editTypeFlag">
-                                        	{{feoReins.amount | currency}}
-                                       	</div>
-                                    </td>
-                                    <td ng-if="certiType==='3'">
-                                    	<div ng-show="editTypeFlag">
-	                                        <input type="text" ng-model="feoReins.amount" currency
-	                                        	ng-if="feoReins.amount === null || feoReins.amount === 0.0000"
-	                                        	 ng-init="feoReins.amount=enquiryPropCalculator('chushihua1',feoReins,dangerUnit, '')"
-	                                                />
-	                                        <input type="text" ng-model="feoReins.amount" currency 
-	                                        	ng-if="feoReins.amount != null && feoReins.amount != 0.0000"
-	                                        	   ng-keyup="enquiryPropCalculator('getJsblByFenbaoE',feoReins,dangerUnit, '');
-	                                               enquiryPropCalculator('getQuandanjsblByFenbaoE',feoReins,dangerUnit, '');
-	                                               enquiryPropCalculator('getFenbaoEBhlByFenbaoE',feoReins,dangerUnit, '');
-	                                               enquiryPropCalculator('fenbaofeiBhl',feoReins,dangerUnit, '');
-	                                               enquiryPropCalculator('getFenbaoFNew',feoReins,dangerUnit, '')"
-	                                                />
-                                        </div>        
-                                        <div ng-if="pageFlag || !editTypeFlag">
-                                        	{{feoReins.amount | currency}}
-                                       	</div>
-                                    </td>
-                                    <td ng-if="certiType==='3'">
-                                    	<div ng-show="editTypeFlag">
-	                                        <input type="text" ng-model="feoReins.chgAmount" currency
-	                                               ng-readonly="true" style="border:none;"
-	                                                />
-                                        </div>        
-                                        <div ng-if="pageFlag || !editTypeFlag">
-                                        	{{feoReins.chgAmount | currency}}
-                                       	</div>
-                                    </td>
-                                    <td ng-if="certiType==='1'">
-	                                    <input  type="radio" ng-model="feoReins.isRateDiff" value="1" 
-	                                    	    ng-click="feoReins.premium=enquiryPropCalculator('fenbaofei',feoReins,dangerUnit, '1-BD')"
-	                                    				/>是
-	                                	<input  type="radio" ng-model="feoReins.isRateDiff" value="0"
-	                                			ng-click="feoReins.premium=enquiryPropCalculator('fenbaofei',feoReins,dangerUnit, '0-BD')"
-	                                					/>否
-                                    </td>
-                                    <td ng-if="certiType==='3'">
-	                                    <input  type="radio" ng-model="feoReins.isRateDiff" value="1" 
-	                                    	    ng-click="enquiryPropCalculator('fenbaofeiBhl',feoReins,dangerUnit, '1-PD');
-	                                                      enquiryPropCalculator('getFenbaoFNew',feoReins,dangerUnit, '')"
-	                                    				/>是
-	                                	<input  type="radio" ng-model="feoReins.isRateDiff" value="0"
-	                                			ng-click="enquiryPropCalculator('fenbaofeiBhl',feoReins,dangerUnit, '0-PD');
-	                                               	      enquiryPropCalculator('getFenbaoFNew',feoReins,dangerUnit, '')"
-	                                					/>否
-                                    </td>
-                                    <td ng-if="certiType==='1'">
-                                    	<div class="input-group" ng-if="editTypeFlag">
-	                                    	<input size="20" type="text" ng-model="feoReins.rate" 
-	                                    			ng-readonly="feoReins.isRateDiff==='0'"
-	                                        	   ng-init="feoReins.rate=enquiryPropCalculator('getRate',feoReins,dangerUnit, '')" percentage1
-	                                               ng-keyup="feoReins.premium=enquiryPropCalculator('fenbaofei',feoReins,dangerUnit, '')" percentage1
-	                                              />
-                                            <span></span>
-                                        </div>
-                                        <div ng-if="(((operations === 0) || (operations === '0')) && feoReins.rate != null) || !(editTypeFlag)">
-                                       		<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.rate" percentage1 />
-                                       	</div>
-                                    </td>
-                                    <td ng-if="certiType==='3'">
-                                    	<div class="input-group" ng-if="editTypeFlag">
-	                                    	<input size="20" type="text" ng-model="feoReins.rate" 
-	                                    		ng-readonly="feoReins.isRateDiff==='0'"
-	                                        	   ng-init="feoReins.rate=enquiryPropCalculator('getRate',feoReins,dangerUnit, '')" percentage1
-	                                               ng-keyup="enquiryPropCalculator('fenbaofeiBhl',feoReins,dangerUnit, '')"  percentage1
-	                                              />
-                                            <span></span>
-                                        </div>
-                                        <div ng-if="(((operations === 0) || (operations === '0')) && feoReins.rate != null) || !(editTypeFlag)">
-                                       		<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.rate" percentage1 />
-                                       	</div>
-                                    </td>
-                                    <td ng-if="certiType==='1'">
-                                    	<div class="input-group" >
-	                                        <input type="text" ng-model="feoReins.premium" currency ng-if="editTypeFlag"
-	                                               ng-readonly="feoReins.isRateDiff==='0'"
-	                                               ng-keyup="feoReins.rate=enquiryPropCalculator('getChangedRate',feoReins,dangerUnit, '')"
-	                                               />
-                                            <span></span>
-										</div>
-										<div ng-if="pageFlag || !editTypeFlag">{{feoReins.premium | currency}}</div>
-                                    </td>
-                                    <td ng-if="certiType==='3'">
-	                                    <div ng-show="editTypeFlag" >
-		                                        <input type="text" 
-		                                        	ng-if="editTypeFlag && (feoReins.isRateDiff !== '1')"
-		                                        	ng-model="feoReins.premium" 	currency
-		                                              ng-readonly="true" style="border:none;"  />
-	                                            <span></span>
-										</div>
-										<div ng-show="editTypeFlag">
-	                                        <input type="text" ng-model="feoReins.premium" currency 
-	                                        	ng-if="editTypeFlag && (feoReins.isRateDiff === '1')"
-	                                        	   ng-keyup="feoReins.rate=enquiryPropCalculator('getChangedRate',feoReins,dangerUnit, '');
-	                                        	    	 enquiryPropCalculator('fenbaofeiBhl',feoReins,dangerUnit, '')"
-	                                                />
-                                        </div> 
-										<div ng-if="pageFlag || !editTypeFlag">{{feoReins.premium | currency}}</div>
-                                    </td>
-                                    <td ng-if="certiType==='3'">
-                                    	<div class="input-group" >
-	                                        <input type="text" 
-	                                        	ng-if="editTypeFlag"
-	                                        	ng-model="feoReins.chgPremium" 	currency
-	                                              ng-readonly="true" style="border:none;"  />
-                                            <span></span>
-										</div>
-										<div ng-if="pageFlag || !editTypeFlag">{{feoReins.chgPremium | currency}}</div>
-                                    </td>
-                                    <td ng-if="certiType==='1'">
-                                    	<div class="input-group" ng-if="editTypeFlag">
-                                        	<input size="20" type="text" percentage ng-model="feoReins.signedComm" />
-                                        	<span></span>
-										</div>
-										<div ng-if="pageFlag || !editTypeFlag">
-											<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.signedComm" percentage />
-										</div>
-                                    </td>
-                                    <td ng-if="certiType==='3'">
-                                    	<div class="input-group" ng-if="editTypeFlag">
-                                        	<input size="20" type="text" percentage ng-model="feoReins.signedComm" />
-                                        	<span></span>
-										</div>
-										<div ng-if="pageFlag || !editTypeFlag">
-											<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.signedComm" percentage />
-										</div>
-                                    </td>
-                                    <!-- 这个版本截图中没有营业税，有可能需要 <td ng-if="certiType==='1'">
-                                    	<div class="input-group" ng-if="editTypeFlag">
-                                        	<input size="20" type="text" percentage ng-model="feoReins.facComTax" ng-readonly="true"
-                                        		/>
-                                        		<span></span>
-										</div>
-										<div ng-if="pageFlag || !editTypeFlag">
-											<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.facComTax" percentage />
-										</div>
-                                    </td>
-                                    <td ng-if="certiType==='3'">
-                                    	<div class="input-group" ng-if="editTypeFlag">
-                                        	<input size="20" type="text" percentage ng-model="feoReins.facComTax" ng-readonly="true"
-                                        		 style="border:none" />
-                                        		<span></span>
-										</div>
-										<div ng-if="pageFlag || !editTypeFlag">
-											<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.facComTax" percentage />
-										</div>
-                                    </td> -->
-                                    <!-- 增值税 -->
-                                    <td ng-if="certiType==='1'">
-                                    	<div class="input-group" ng-if="editTypeFlag">
-                                        	<input size="20" type="text" percentage ng-model="feoReins.vatRate" ng-required="true" />
-                                        		<span></span>
-										</div>
-										<div ng-if="pageFlag || !editTypeFlag">
-											<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.vatRate" percentage />
-										</div>
-                                    </td>
-                                    <td ng-if="certiType==='3'">
-                                    	<div class="input-group" ng-if="editTypeFlag">
-                                        	<input size="20" type="text" percentage ng-model="feoReins.vatRate" ng-required="true" style="border:none" />
-                                        		<span></span>
-										</div>
-										<div ng-if="pageFlag || !editTypeFlag">
-											<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.vatRate" percentage />
-										</div>
-                                    </td>
-                                    <!-- 城建税 -->
-                                    <td ng-if="certiType==='1'">
-                                    	<div class="input-group" ng-if="editTypeFlag">
-                                        	<input size="20" type="text" percentage ng-model="feoReins.addVatRate" ng-required="true" />
-                                        		<span></span>
-										</div>
-										<div ng-if="pageFlag || !editTypeFlag">
-											<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.addVatRate" percentage />
-										</div>
-                                    </td>
-                                    <td ng-if="certiType==='3'">
-                                    	<div class="input-group" ng-if="editTypeFlag">
-                                        	<input size="20" type="text" percentage ng-model="feoReins.addVatRate" ng-required="true" style="border:none" />
-                                        		<span></span>
-										</div>
-										<div ng-if="pageFlag || !editTypeFlag">
-											<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.addVatRate" percentage />
-										</div>
-                                    </td>
-                                   
-                                    <td ng-if="certiType==='1'">
-                                    	<div class="input-group" ng-if="editTypeFlag">
-                                        	<input size="20" type="text" percentage ng-model="feoReins.othRate" />
-                                        	<span></span>
-										</div>
-										<div ng-if="pageFlag || !editTypeFlag">
-											<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.othRate" percentage />
-										</div>
-                                    </td>
-                                    <td ng-if="certiType==='3'">
-                                    	<div class="input-group" ng-if="editTypeFlag">
-                                        	<input size="20" type="text" percentage ng-model="feoReins.othRate" style="border:none" />
-                                        	<span></span>
-										</div>
-										<div ng-if="pageFlag || !editTypeFlag">
-											<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.othRate" percentage />
-										</div>
-                                    </td>
-                                    <td >
-                                    	<div class="input-group" style="width:100px;">
-                                    		<div ng-if="editTypeFlag">
-	                                        	<input type="checkbox"  ng-model="feoReins.dif" ng-init="getDifReinsAbc(feoReins, 'dif')" ng-click="dealDifReinsAbcChecked(feoReins, 'dif')" />免赔
-	                                        	<input type="checkbox"  ng-init="getDifReinsAbc(feoReins, 'abc')" ng-click="dealDifReinsAbcChecked(feoReins, 'abc')" ng-model="feoReins.abc" />责任
-                                    		</div>
-                                        	
-                                        	<div ng-if="pageFlag || !editTypeFlag">
-	                                        	<input type="checkbox"  ng-disabled="true" ng-model="feoReins.dif" ng-init="getDifReinsAbc(feoReins, 'dif')" ng-click="dealDifReinsAbcChecked(feoReins, 'dif')" />免赔
-	                                        	<input type="checkbox"  ng-disabled="true" ng-init="getDifReinsAbc(feoReins, 'abc')" ng-click="dealDifReinsAbcChecked(feoReins, 'abc')" ng-model="feoReins.abc" />责任
-                                        	</div>
-                                        </div>
-                                        
-                                       	<div collapse="!feoReins.dif" ng-show="feoReins.dif">
-                                       		<hr>
-								            <div >
-								                免赔额
-								                <div class="input-group" ng-if="editTypeFlag">
-									                <input type="text" ng-model="feoReins.deductible" />
-									                <span></span>
-								                </div>
-								                <div ng-if="pageFlag || !editTypeFlag">{{feoReins.deductible}}</div>
-								            </div>
-								            <div >
-								                免赔率
-								                <div class="input-group" ng-if="editTypeFlag">
-									                <input type="text" ng-model="feoReins.deductibleRate" percentage/>
-									                <span></span>
-								                </div>
-								                <div ng-if="pageFlag || !editTypeFlag">
-								                	<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.deductibleRate" percentage />
-								                </div>
-								            </div>
-									        
-                                        </div>
-                                        <div collapse="!feoReins.abc" ng-show="feoReins.abc">
-                                        	<hr>
-									        特别约定
-									        <textarea name="" cols="30" rows="5" ng-if="editTypeFlag"
-									        		ng-model="feoReins.specialProvisions">
-									        </textarea>
-									        <div ng-if="pageFlag || !editTypeFlag">{{feoReins.specialProvisions}}</div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                   		    <textarea name="" cols="30" rows="5" ng-if="editTypeFlag"
-									        		ng-model="feoReins.remarks">
-									        </textarea>
-                                        <div ng-if="pageFlag || !editTypeFlag">{{feoReins.remarks}}</div>
-                                    </td>
-                                    <td>
-                                        <input type="number" ng-model="feoReins.ppwDate" ng-if="editTypeFlag"/>
-                                        <div ng-if="pageFlag || !editTypeFlag">{{feoReins.deadLineDays}}</div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group" ng-if="editTypeFlag" style="width: 179px;">
-                                            <a ng-if="(editTypeFlag && feoReins.isNewFlag==='1') || (editTypeFlag && certiType==='1')"
-                                            	href="" class="btn btn-default"
-                                               ng-click="removeRecepterProp(feoReins)">
-                                               <span class="glyphicon glyphicon-minus"></span>
-											</a>
-                                        </div>
-                                    </td>
-                                </tr>
+    <div>
+        <h4>临分意向确认</h4>
+        <table class="table">
+            <tr>
+                <td>险种</td>
+                <td>{{feoEnquiry.riskCode}}</td>
+                <td>业务类型</td>
+                <td>{{feoEnquiry.certiName}}</td>
+            </tr>
+            <tr>
+                <td>业务号</td>
+                <td>{{feoEnquiry.certiNo}}</td>
+                <td>危险单位号</td>
+                <td>
+                    {{feoEnquiry.dangerNo}}
+                    <!--<input type="text" ng-model="feoEnquiryDto.dangerNo" />-->
+                </td>
+            </tr>
+            <tr>
+                <td>临分意向</td>
+                <td>
+                    <textarea name="" cols="30" rows="2"
+                              ng-model="feoEnquiry.remarks">
 
-                            </table>
-                        </div>
-                    </div>
+                    </textarea>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <!--ng-init="dealBrokerToBoolean()"-->
+                    <input type="checkbox"  ng-model="feoEnquiry.facFlag" ng-if="editTypeFlag"
+                           ng-true-value="1"
+                           ng-false-value="0"
+                           ng-change="checkBoxOne(feoEnquiry)"
+                           ng-click="ctrlFinalRecepter('prop',feoEnquiry);nihao(feoEnquiry)"/>需要普通临分
+                </td>
+                <td>普通临分比例(%):</td>
+                <td>
+                    <input type="text" style="background-color: #fff" ng-model="feoEnquiry.facShare" ng-disabled="feoEnquiry.specialFacFlag == '1'">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <!--ng-init="dealBrokerToBoolean()"-->
+                    <input type="checkbox"  ng-model="feoEnquiry.specialFacFlag" ng-if="editTypeFlag"
+                           ng-true-value="1"
+                           ng-false-value="0"
+                           ng-change="checkBoxOne(feoEnquiry)"
+                           ng-click="ctrlFinalRecepter('prop',feoEnquiry);"/>需要特约临分
+                </td>
+                <td>特约临分比例(%):</td>
+                <td>
+                    <input type="text" style="background-color: #fff" ng-model="feoEnquiry.specialFacShare" ng-disabled="feoEnquiry.facFlag == '1'">
+                </td>
+            </tr>
+
+        </table>
+        <div>再保确认状态：
+            <span ng-if="feoEnquiry.verifyFlag == '0'">暂存</span>
+            <span ng-if="feoEnquiry.verifyFlag == '1'">待确认</span>
+            <span ng-if="feoEnquiry.verifyFlag == '2'">待通过</span>
+            <span ng-if="feoEnquiry.verifyFlag == '3'">确认通过</span>
+            <span ng-if="feoEnquiry.verifyFlag == '4'">确认不通过</span>
+            <span ng-if="feoEnquiry.verifyFlag == '5'">非临分</span>
+            <span ng-if="feoEnquiry.verifyFlag == '9'">注销</span>
+            <!--{{feoEnquiry.verifyFlag}}-->
+        </div>
+
+
+    </div>
+    <hr>
+    <h4>接受人管理</h4>
+    <a href="" class="btn btn-default"
+       ng-if="editTypeFlag"
+       ng-click="addFeoReinsProp()">
+        <span class="glyphicon glyphicon-plus"></span>
+    </a>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+            </div>
+            <div class="col-lg-6">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div style="overflow: scroll">
+                    <!--<table class="table table-bordered"  ng-if="certiType === '1'">-->
+                        <!--<thead ng-if="dangerUnitFacEnquiry.feoReinsReceiveList.length >0">-->
+                        <!--<th nowrap>序号</th>-->
+                        <!--<th nowrap>接受人</th>-->
+                        <!--<th nowrap>经纪人</th>-->
+                        <!--<th nowrap>最终接受人</th>-->
+                        <!--<th nowrap>接受的比例(%)</th>-->
+                        <!--<th nowrap>分出保额</th>-->
+                        <!--<th nowrap ng-if="certiType === '3'">分保额变化量</th>-->
+                        <!--<th nowrap>费率差异</th>-->
+                        <!--<th nowrap>费率</th>-->
+                        <!--<th nowrap>分出不含税保费</th>-->
+                        <!--<th nowrap ng-if="certiType === '3'">不含税分保费变化量</th>-->
+                        <!--<th nowrap>接受的手续费的比例%</th>-->
+                        <!--<th>增值税比例%</th>-->
+                        <!--<th>附加税比例%</th>-->
+                        <!--<th nowrap>其他费用比例%</th>-->
+                        <!--<th nowrap>差异分保</th>-->
+                        <!--<th nowrap>备注</th>-->
+                        <!--<th nowrap>最迟付款天数</th>-->
+                        <!--</thead>-->
+                        <!--<tr ng-repeat="feoReins in dangerUnitFacEnquiry.feoReinsReceiveList">-->
+                            <!--<td><a href="" title="可得到该接收人对应的缴费信息" ng-click="tabs[$index].active = true">{{$index-->
+                                <!--+1}}</a></td>-->
+                            <!--<td ng-if="certiType==='1'">-->
+                                <!--<div class="input-group"-->
+                                     <!--ng-if="(editTypeFlag && feoReins.isNewFlag==='1') || (editTypeFlag && certiType==='1')">-->
+                                    <!--<input size="30" type="text" ng-model="feoReins.reinsCode"-->
+                                           <!--ng-blur="distinctReceiver('prop',dangerUnitFacEnquiry,feoReins,'reinsCode');"-->
+                                           <!--ng-readonly="operation ==='view'" placeholder=""-->
+                                           <!--typeahead-loading="loading..."-->
+                                           <!--typeahead="state.id +'-'+ state.value +'-'+ state.other1 as state.id +'-'+ state.value +'-'+ state.other1 for state in getByReturn('reinsCode',$viewValue) | filter:$viewValue "-->
+                                           <!--ng-required="true" typeahead-wait-ms="500"-->
+                                    <!--&gt;-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                              <!--&lt;!&ndash;   <div ng-if="pageFlag || !editTypeFlag ||  (editTypeFlag && feoReins.isNewFlag!=='1')">-->
+                                    <!--{{feoReins.reinsCode}}-->
+                                <!--</div> &ndash;&gt;-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='3'">-->
+                                <!--<div class="input-group"-->
+                                     <!--ng-if="(editTypeFlag && feoReins.isNewFlag==='3') || (editTypeFlag && certiType==='3')">-->
+                                    <!--<input size="30" type="text" ng-model="feoReins.reinsCode"-->
+                                           <!--ng-blur="distinctReceiver('prop',dangerUnitFacEnquiry,feoReins,'reinsCode');"-->
+                                           <!--ng-readonly="operation ==='view'" placeholder=""-->
+                                           <!--typeahead-loading="loading..."-->
+                                           <!--typeahead="state.id +'-'+ state.value +'-'+ state.other1 as state.id +'-'+ state.value +'-'+ state.other1 for state in getByReturn('reinsCode',$viewValue) | filter:$viewValue "-->
+                                           <!--ng-required="true" typeahead-wait-ms="500"-->
+                                    <!--&gt;-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--&lt;!&ndash;<div class="input-group"&ndash;&gt;-->
+                                     <!--&lt;!&ndash;ng-if="(editTypeFlag && feoReins.isNewFlag==='1') || (editTypeFlag && certiType==='1')">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<input size="30" type="text" ng-model="feoReins.finalReinsCode"&ndash;&gt;-->
+                                           <!--&lt;!&ndash;ng-blur="distinctReceiver('prop',dangerUnitFacEnquiry,feoReins,'finalReinsCode');"&ndash;&gt;-->
+                                           <!--&lt;!&ndash;ng-readonly="operation ==='view'" placeholder=""&ndash;&gt;-->
+                                           <!--&lt;!&ndash;typeahead-loading="loading..."&ndash;&gt;-->
+                                           <!--&lt;!&ndash;typeahead="state.id +'-'+ state.value +'-'+ state.other1 as state.id +'-'+ state.value +'-'+ state.other1 for state in getByReturn('reinsCode',$viewValue) | filter:$viewValue "&ndash;&gt;-->
+                                           <!--&lt;!&ndash;ng-required="true" typeahead-wait-ms="500"&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&gt;&ndash;&gt;-->
+                                                                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<div ng-if="pageFlag || !editTypeFlag ||  (editTypeFlag && feoReins.isNewFlag!=='1')">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;{{feoReins.finalReinsCode}}&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='1'">-->
+                                <!--<input type="checkbox" ng-model="feoReins.reinsType" ng-if="editTypeFlag"-->
+                                       <!--ng-init="dealBrokerToBoolean()"-->
+                                       <!--ng-click="ctrlFinalRecepter('prop',feoReins);"/>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+                                    <!--<span ng-if="feoReins.reinsType==='0' || feoReins.reinsType===0">是</span>-->
+                                    <!--<span ng-if="feoReins.reinsType==='1' || feoReins.reinsType===1">否</span>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='3'">-->
+
+                                <!--<input type="checkbox" ng-model="feoReins.reinsType" ng-if="editTypeFlag"-->
+                                       <!--ng-init="dealBrokerToBoolean()"-->
+                                       <!--ng-click="ctrlFinalRecepter('prop',feoReins);"/>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+                                    <!--<span ng-if="feoReins.reinsType==='0' || feoReins.reinsType===0">是</span>-->
+                                    <!--<span ng-if="feoReins.reinsType==='1' || feoReins.reinsType===1">否</span>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='1'">-->
+                                <!--<div class="input-group">-->
+                                    <!--<input size="30" type="text" ng-model="feoReins.finalReinsCode" ng-if="editTypeFlag"-->
+                                           <!--ng-blur="distinctReceiver('prop',dangerUnitFacEnquiry,feoReins,'finalReinsCode');"-->
+                                           <!--ng-readonly="operation ==='view'" placeholder=""-->
+                                           <!--typeahead-loading="loading..."-->
+                                           <!--typeahead="state.id +'-'+ state.value +'-'+ state.other1 as state.id +'-'+ state.value +'-'+ state.other1 for state in getByReturn('finalReinsCode',$viewValue) | filter:$viewValue "-->
+                                           <!--ng-required="true" typeahead-wait-ms="500">-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">{{feoReins.finalReinsCode}}</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='3'">-->
+                                <!--<div class="input-group">-->
+                                    <!--<input size="30" type="text" ng-model="feoReins.finalReinsCode" ng-if="editTypeFlag"-->
+                                           <!--ng-blur="distinctReceiver('prop',dangerUnitFacEnquiry,feoReins,'finalReinsCode');"-->
+                                           <!--ng-readonly="operation ==='view'" placeholder=""-->
+                                           <!--typeahead-loading="loading..."-->
+                                           <!--typeahead="state.id +'-'+ state.value +'-'+ state.other1 as state.id +'-'+ state.value +'-'+ state.other1 for state in getByReturn('finalReinsCode',$viewValue) | filter:$viewValue "-->
+                                           <!--ng-required="true" typeahead-wait-ms="500">-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">{{feoReins.finalReinsCode}}</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='1'">-->
+                                <!--<div class="input-group" ng-class="{'warning':feoReins.warning}" ng-if="editTypeFlag">-->
+                                    <!--<input size="20" type="text" percentage ng-model="feoReins.signedLine"-->
+                                           <!--ng-required="true"-->
+                                           <!--ng-readonly="operation==='view'"-->
+                                           <!--ng-keyup="feoReins.amount=enquiryPropCalculator('getFacAmount',feoReins,dangerUnit, '');-->
+					                               <!--feoReins.premium=enquiryPropCalculator('getFacPremium',feoReins,dangerUnit, '')">-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+                                    <!--<input type="text" ng-readonly="true" style="border:none"-->
+                                           <!--ng-model="feoReins.signedLine" percentage/>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='3'">-->
+                                <!--<div class="input-group" ng-class="{'warning':feoReins.warning}" ng-if="editTypeFlag">-->
+                                    <!--<input size="20" type="text" percentage ng-model="feoReins.signedLine"-->
+                                           <!--ng-required="true"-->
+                                           <!--ng-readonly="operation==='view'"-->
+                                           <!--ng-keyup="feoReins.amount=enquiryPropCalculator('getFacAmount',feoReins,dangerUnit, '');-->
+					                               <!--feoReins.premium=enquiryPropCalculator('getFacPremium',feoReins,dangerUnit, '')">-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+                                    <!--<input type="text" ng-readonly="true" style="border:none"-->
+                                           <!--ng-model="feoReins.signedLine" percentage/>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='1'">-->
+                                <!--<div ng-show="editTypeFlag">-->
+                                    <!--<input type="text" ng-model="feoReins.amount"-->
+                                           <!--ng-if="feoReins.amount === null || feoReins.amount === 0.0000"-->
+                                           <!--ng-init="feoReins.amount=enquiryPropCalculator('chushihua1',feoReins,dangerUnit, '')"-->
+                                    <!--/>-->
+                                    <!--&lt;!&ndash;<input type="text" ng-model="feoReins.amount" currency&ndash;&gt;-->
+                                           <!--&lt;!&ndash;ng-if="feoReins.amount === null || feoReins.amount === 0.0000"&ndash;&gt;-->
+                                           <!--&lt;!&ndash;ng-init="feoReins.amount=enquiryPropCalculator('chushihua1',feoReins,dangerUnit, '')"&ndash;&gt;-->
+                                    <!--&lt;!&ndash;/>&ndash;&gt;-->
+                                    <!--<input type="text" ng-model="feoReins.amount"-->
+                                           <!--ng-if="feoReins.amount != null && feoReins.amount != 0.0000"-->
+                                           <!--ng-keyup="enquiryPropCalculator('getJsblByFenbaoE',feoReins,dangerUnit, '');-->
+	                                               <!--enquiryPropCalculator('getQuandanjsblByFenbaoE',feoReins,dangerUnit, '');-->
+	                                               <!--feoReins.premium=enquiryPropCalculator('fenbaofei',feoReins,dangerUnit, '')"/>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+                                    <!--{{feoReins.amount}}-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='3'">-->
+                                <!--<div ng-show="editTypeFlag">-->
+                                    <!--<input type="text" ng-model="feoReins.amount"-->
+                                           <!--ng-if="feoReins.amount === null || feoReins.amount === 0.0000"-->
+                                           <!--ng-init="feoReins.amount=enquiryPropCalculator('chushihua1',feoReins,dangerUnit, '')"-->
+                                    <!--/>-->
+                                    <!--&lt;!&ndash;<input type="text" ng-model="feoReins.amount" currency&ndash;&gt;-->
+                                    <!--&lt;!&ndash;ng-if="feoReins.amount === null || feoReins.amount === 0.0000"&ndash;&gt;-->
+                                    <!--&lt;!&ndash;ng-init="feoReins.amount=enquiryPropCalculator('chushihua1',feoReins,dangerUnit, '')"&ndash;&gt;-->
+                                    <!--&lt;!&ndash;/>&ndash;&gt;-->
+                                    <!--<input type="text" ng-model="feoReins.amount"-->
+                                           <!--ng-if="feoReins.amount != null && feoReins.amount != 0.0000"-->
+                                           <!--ng-keyup="enquiryPropCalculator('getJsblByFenbaoE',feoReins,dangerUnit, '');-->
+	                                               <!--enquiryPropCalculator('getQuandanjsblByFenbaoE',feoReins,dangerUnit, '');-->
+	                                               <!--feoReins.premium=enquiryPropCalculator('fenbaofei',feoReins,dangerUnit, '')"/>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+                                    <!--{{feoReins.amount}}-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='3'">-->
+                                <!--<div ng-show="editTypeFlag">-->
+                                    <!--<input type="text" ng-model="feoReins.chgAmount"-->
+                                           <!--ng-readonly="true" style="border:none;"-->
+                                    <!--/>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+                                    <!--{{feoReins.chgAmount}}-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='1'">-->
+                                <!--<input type="radio" ng-model="feoReins.isRateDiff" value="1"-->
+                                       <!--ng-click="feoReins.premium=enquiryPropCalculator('fenbaofei',feoReins,dangerUnit, '1-BD')"-->
+                                <!--/>是-->
+                                <!--<input type="radio" ng-model="feoReins.isRateDiff" value="0"-->
+                                       <!--ng-click="feoReins.premium=enquiryPropCalculator('fenbaofei',feoReins,dangerUnit, '0-BD')"-->
+                                <!--/>否-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='3'">-->
+                                <!--<input type="radio" ng-model="feoReins.isRateDiff" value="1"-->
+                                       <!--ng-click="enquiryPropCalculator('fenbaofeiBhl',feoReins,dangerUnit, '1-PD');-->
+	                                                      <!--enquiryPropCalculator('getFenbaoFNew',feoReins,dangerUnit, '')"-->
+                                <!--/>是-->
+                                <!--<input type="radio" ng-model="feoReins.isRateDiff" value="0"-->
+                                       <!--ng-click="enquiryPropCalculator('fenbaofeiBhl',feoReins,dangerUnit, '0-PD');-->
+	                                               	      <!--enquiryPropCalculator('getFenbaoFNew',feoReins,dangerUnit, '')"-->
+                                <!--/>否-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='1'">-->
+                                <!--<div class="input-group" ng-if="editTypeFlag">-->
+                                    <!--<input size="20" type="text" ng-model="feoReins.rate"-->
+                                           <!--ng-readonly="feoReins.isRateDiff==='0'"-->
+                                           <!--ng-init="feoReins.rate=enquiryPropCalculator('getRate',feoReins,dangerUnit, '')"-->
+                                           <!--percentage1-->
+                                           <!--ng-keyup="feoReins.premium=enquiryPropCalculator('fenbaofei',feoReins,dangerUnit, '')"-->
+                                           <!--percentage1-->
+                                    <!--/>-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="(((operations === 0) || (operations === '0')) && feoReins.rate != null) || !(editTypeFlag)">-->
+                                    <!--<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.rate"-->
+                                           <!--percentage1/>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='3'">-->
+                                <!--<div class="input-group" ng-if="editTypeFlag">-->
+                                    <!--<input size="20" type="text" ng-model="feoReins.rate"-->
+                                           <!--ng-readonly="feoReins.isRateDiff==='0'"-->
+                                           <!--ng-init="feoReins.rate=enquiryPropCalculator('getRate',feoReins,dangerUnit, '')"-->
+                                           <!--percentage1-->
+                                           <!--ng-keyup="enquiryPropCalculator('fenbaofeiBhl',feoReins,dangerUnit, '')"-->
+                                           <!--percentage1-->
+                                    <!--/>-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="(((operations === 0) || (operations === '0')) && feoReins.rate != null) || !(editTypeFlag)">-->
+                                    <!--<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.rate"-->
+                                           <!--percentage1/>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='1'">-->
+                                <!--<div class="input-group">-->
+                                    <!--<input type="text" ng-model="feoReins.premium"  ng-if="editTypeFlag"-->
+                                           <!--ng-readonly="feoReins.isRateDiff==='0'"-->
+                                           <!--ng-keyup="feoReins.rate=enquiryPropCalculator('getChangedRate',feoReins,dangerUnit, '')"-->
+                                    <!--/>-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">{{feoReins.premium}}</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='3'">-->
+                                <!--<div ng-show="editTypeFlag">-->
+                                    <!--<input type="text"-->
+                                           <!--ng-if="editTypeFlag && (feoReins.isRateDiff !== '1')"-->
+                                           <!--ng-model="feoReins.premium"-->
+                                           <!--ng-readonly="true" style="border:none;"/>-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-show="editTypeFlag">-->
+                                    <!--<input type="text" ng-model="feoReins.premium"-->
+                                           <!--ng-if="editTypeFlag && (feoReins.isRateDiff === '1')"-->
+                                           <!--ng-keyup="feoReins.rate=enquiryPropCalculator('getChangedRate',feoReins,dangerUnit, '');-->
+	                                        	    	 <!--enquiryPropCalculator('fenbaofeiBhl',feoReins,dangerUnit, '')"-->
+                                    <!--/>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">{{feoReins.premium}}</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='3'">-->
+                                <!--<div class="input-group">-->
+                                    <!--<input type="text"-->
+                                           <!--ng-if="editTypeFlag"-->
+                                           <!--ng-model="feoReins.chgPremium"-->
+                                           <!--ng-readonly="true" style="border:none;"/>-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">{{feoReins.chgPremium}}</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='1'">-->
+                                <!--<div class="input-group" ng-if="editTypeFlag">-->
+                                    <!--<input size="20" type="text" percentage ng-model="feoReins.signedComm"/>-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+                                    <!--<input type="text" ng-readonly="true" style="border:none"-->
+                                           <!--ng-model="feoReins.signedComm" percentage/>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='3'">-->
+                                <!--<div class="input-group" ng-if="editTypeFlag">-->
+                                    <!--<input size="20" type="text" percentage ng-model="feoReins.signedComm"/>-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+                                    <!--<input type="text" ng-readonly="true" style="border:none"-->
+                                           <!--ng-model="feoReins.signedComm" percentage/>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--&lt;!&ndash; 这个版本截图中没有营业税，有可能需要 <td ng-if="certiType==='1'">-->
+                                <!--<div class="input-group" ng-if="editTypeFlag">-->
+                                    <!--<input size="20" type="text" percentage ng-model="feoReins.facComTax" ng-readonly="true"-->
+                                        <!--/>-->
+                                        <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+                                    <!--<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.facComTax" percentage />-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='3'">-->
+                                <!--<div class="input-group" ng-if="editTypeFlag">-->
+                                    <!--<input size="20" type="text" percentage ng-model="feoReins.facComTax" ng-readonly="true"-->
+                                         <!--style="border:none" />-->
+                                        <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+                                    <!--<input type="text" ng-readonly="true" style="border:none" ng-model="feoReins.facComTax" percentage />-->
+                                <!--</div>-->
+                            <!--</td> &ndash;&gt;-->
+                            <!--&lt;!&ndash; 增值税 &ndash;&gt;-->
+                            <!--<td ng-if="certiType==='1'">-->
+                                <!--<div class="input-group" ng-if="editTypeFlag">-->
+                                    <!--<input size="20" type="text" percentage ng-model="feoReins.vatRate"-->
+                                           <!--ng-required="true"/>-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+                                    <!--<input type="text" ng-readonly="true" style="border:none"-->
+                                           <!--ng-model="feoReins.vatRate" percentage/>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='3'">-->
+                                <!--<div class="input-group" ng-if="editTypeFlag">-->
+                                    <!--<input size="20" type="text" percentage ng-model="feoReins.vatRate"-->
+                                           <!--ng-required="true" style="border:none"/>-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+                                    <!--<input type="text" ng-readonly="true" style="border:none"-->
+                                           <!--ng-model="feoReins.vatRate" percentage/>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--&lt;!&ndash; 城建税 &ndash;&gt;-->
+                            <!--<td ng-if="certiType==='1'">-->
+                                <!--<div class="input-group" ng-if="editTypeFlag">-->
+                                    <!--<input size="20" type="text" percentage ng-model="feoReins.addVatRate"-->
+                                           <!--ng-required="true"/>-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+                                    <!--<input type="text" ng-readonly="true" style="border:none"-->
+                                           <!--ng-model="feoReins.addVatRate" percentage/>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='3'">-->
+                                <!--<div class="input-group" ng-if="editTypeFlag">-->
+                                    <!--<input size="20" type="text" percentage ng-model="feoReins.addVatRate"-->
+                                           <!--ng-required="true" style="border:none"/>-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+                                    <!--<input type="text" ng-readonly="true" style="border:none"-->
+                                           <!--ng-model="feoReins.addVatRate" percentage/>-->
+                                <!--</div>-->
+                            <!--</td>-->
+
+                            <!--<td ng-if="certiType==='1'">-->
+                                <!--<div class="input-group" ng-if="editTypeFlag">-->
+                                    <!--<input size="20" type="text" percentage ng-model="feoReins.othRate"/>-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+                                    <!--<input type="text" ng-readonly="true" style="border:none"-->
+                                           <!--ng-model="feoReins.othRate" percentage/>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td ng-if="certiType==='3'">-->
+                                <!--<div class="input-group" ng-if="editTypeFlag">-->
+                                    <!--<input size="20" type="text" percentage ng-model="feoReins.othRate"-->
+                                           <!--style="border:none"/>-->
+                                    <!--<span></span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+                                    <!--<input type="text" ng-readonly="true" style="border:none"-->
+                                           <!--ng-model="feoReins.othRate" percentage/>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--&lt;!&ndash;<div style=" display:inline-block;  ">&ndash;&gt;-->
+
+
+                                <!--<div class="input-group" style="width:700px;float: right">-->
+                                    		<!--<span ng-if="editTypeFlag">-->
+	                                        	<!--<input type="checkbox" ng-model="feoReins.dif"-->
+                                                       <!--ng-init="getDifReinsAbc(feoReins, 'dif')"-->
+                                                       <!--ng-click="dealDifReinsAbcChecked(feoReins, 'dif')"/>免赔-->
+	                                        	<!--<input type="checkbox" ng-init="getDifReinsAbc(feoReins, 'abc')"-->
+                                                       <!--ng-click="dealDifReinsAbcChecked(feoReins, 'abc')"-->
+                                                       <!--ng-model="feoReins.abc"/>责任-->
+                                    		<!--</span>-->
+
+                                    <!--<span ng-if="pageFlag || !editTypeFlag">-->
+	                                        	<!--<input type="checkbox" ng-disabled="true" ng-model="feoReins.dif"-->
+                                                       <!--ng-init="getDifReinsAbc(feoReins, 'dif')"-->
+                                                       <!--ng-click="dealDifReinsAbcChecked(feoReins, 'dif')"/>免赔-->
+	                                        	<!--<input type="checkbox" ng-disabled="true"-->
+                                                       <!--ng-init="getDifReinsAbc(feoReins, 'abc')"-->
+                                                       <!--ng-click="dealDifReinsAbcChecked(feoReins, 'abc')"-->
+                                                       <!--ng-model="feoReins.abc"/>责任-->
+                                        	<!--</span>-->
+
+                                    <!--<span collapse="!feoReins.dif" style="float: left" ng-show="feoReins.dif">-->
+								            <!--<div style="float: right;margin-top: 3%">-->
+								                <!--免赔额-->
+								                <!--<div class="input-group" ng-if="editTypeFlag">-->
+									                <!--<input type="text" ng-model="feoReins.deductible"/>-->
+									                <!--<span></span>-->
+								                <!--</div>-->
+								                <!--<div ng-if="pageFlag || !editTypeFlag">{{feoReins.deductible}}</div>-->
+								            <!--</div>-->
+								            <!--<div style="float: right">-->
+								                <!--免赔率-->
+								                <!--<div class="input-group" ng-if="editTypeFlag">-->
+									                <!--<input type="text" ng-model="feoReins.deductibleRate" percentage/>-->
+									                <!--<span></span>-->
+								                <!--</div>-->
+								                <!--<div ng-if="pageFlag || !editTypeFlag">-->
+								                	<!--<input type="text" ng-readonly="true" style="border:none"-->
+                                                           <!--ng-model="feoReins.deductibleRate" percentage/>-->
+								                <!--</div>-->
+								            <!--</div>-->
+
+                                        <!--</span>-->
+                                    <!--<span collapse="!feoReins.abc" style="float: left" ng-show="feoReins.abc">-->
+
+									        <!--特别约定-->
+									        <!--<textarea name="" cols="30" rows="2" ng-if="editTypeFlag"-->
+                                                      <!--ng-model="feoReins.specialProvisions">-->
+									        <!--</textarea>-->
+									        <!--<div ng-if="pageFlag || !editTypeFlag">{{feoReins.specialProvisions}}</div>-->
+                                        <!--</span>-->
+
+                                <!--</div>-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                   		    <!--<textarea name="" cols="30" rows="5" ng-if="editTypeFlag"-->
+                                                      <!--ng-model="feoReins.remarks">-->
+									        <!--</textarea>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">{{feoReins.remarks}}</div>-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<input type="number" ng-model="feoReins.ppwDate" ng-if="editTypeFlag"/>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag">{{feoReins.deadLineDays}}</div>-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<div class="input-group" ng-if="editTypeFlag" style="width: 179px;">-->
+                                    <!--<a ng-if="(editTypeFlag && feoReins.isNewFlag==='1') || (editTypeFlag && certiType==='3')"-->
+                                       <!--href="" class="btn btn-default"-->
+                                       <!--ng-click="removeRecepterProp(feoReins)">-->
+                                        <!--<span class="glyphicon glyphicon-minus"></span>-->
+                                    <!--</a>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                        <!--</tr>-->
+
+                    <!--</table>-->
+                    <table class="table table-bordered"  ng-if="certiType === '3'">
+                        <thead ng-if="dangerUnitFacEnquiry.feoReinsReceiveList.length >0">
+                        <th nowrap>再保代理人/再保经纪人</th>
+                        <th nowrap>分入公司/经纪公司</th>
+                        <th nowrap>分入公司</th>
+                        <th nowrap>接受的比例(%)</th>
+                        <th nowrap>接受的手续费的比例%</th>
+                        <th>增值税比例%</th>
+                        <th>附加税比例%</th>
+                        <th nowrap>其他费用比例%</th>
+                        <th nowrap>特约</th>
+                        <th nowrap>*</th>
+                        </thead>
+                        <tr ng-repeat="feoReins in dangerUnitFacEnquiry.feoReinsReceiveList">
+                            <td>
+                                <input type="checkbox" ng-model="feoReins.reinsType" ng-if="editTypeFlag"
+                                       ng-init="dealBrokerToBoolean()"
+                                       ng-click="ctrlFinalRecepter('prop',feoReins);"/>
+                                <div ng-if="pageFlag || !editTypeFlag">
+                                    <span ng-if="feoReins.reinsType==='0' || feoReins.reinsType===0">是</span>
+                                    <span ng-if="feoReins.reinsType==='1' || feoReins.reinsType===1">否</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group"
+                                     ng-if="(editTypeFlag && feoReins.isNewFlag==='3') || (editTypeFlag && certiType==='3')">
+                                    <input size="30" type="text" ng-model="feoReins.reinsCode"
+                                           ng-blur="distinctReceiver('prop',dangerUnitFacEnquiry,feoReins,'reinsCode');"
+                                           ng-readonly="operation ==='view'" placeholder=""
+                                           typeahead-loading="loading..."
+                                           typeahead="state.id +'-'+ state.value +'-'+ state.other1 as state.id +'-'+ state.value +'-'+ state.other1 for state in getByReturn('reinsCode',$viewValue) | filter:$viewValue "
+                                           ng-required="true" typeahead-wait-ms="500"
+                                    >
+                                    <span></span>
+                                </div>
+                                <!--<div class="input-group"-->
+                                     <!--ng-if="(editTypeFlag && feoReins.isNewFlag==='1') || (editTypeFlag && certiType==='1')">-->
+                                    <!--<input size="30" type="text" ng-model="feoReins.finalReinsCode"-->
+                                           <!--ng-blur="distinctReceiver('prop',dangerUnitFacEnquiry,feoReins,'finalReinsCode');"-->
+                                           <!--ng-readonly="operation ==='view'" placeholder=""-->
+                                           <!--typeahead-loading="loading..."-->
+                                           <!--typeahead="state.id +'-'+ state.value +'-'+ state.other1 as state.id +'-'+ state.value +'-'+ state.other1 for state in getByReturn('reinsCode',$viewValue) | filter:$viewValue "-->
+                                           <!--ng-required="true" typeahead-wait-ms="500"-->
+                                    <!--&gt;-->
+                                                                  <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag ||  (editTypeFlag && feoReins.isNewFlag!=='1')">-->
+                                    <!--{{feoReins.finalReinsCode}}-->
+                                <!--</div>-->
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input size="30" type="text" ng-model="feoReins.finalReinsCode" ng-if="editTypeFlag"
+                                           ng-blur="distinctReceiver('prop',dangerUnitFacEnquiry,feoReins,'finalReinsCode');"
+                                           ng-readonly="operation ==='view'" placeholder=""
+                                           typeahead-loading="loading..."
+                                           typeahead="state.id +'-'+ state.value +'-'+ state.other1 as state.id +'-'+ state.value +'-'+ state.other1 for state in getByReturn('finalReinsCode',$viewValue) | filter:$viewValue "
+                                           ng-required="true" typeahead-wait-ms="500">
+                                    <span></span>
+                                </div>
+                                <div ng-if="pageFlag || !editTypeFlag">{{feoReins.finalReinsCode}}</div>
+                            </td>
+                            <td>
+                                <div class="input-group" ng-class="{'warning':feoReins.warning}" ng-if="editTypeFlag">
+                                    <input size="20" type="text" percentage ng-model="feoReins.signedLine"
+                                           ng-required="true"
+                                           ng-readonly="operation==='view'"
+                                           ng-keyup="feoReins.amount=enquiryPropCalculator('getFacAmount',feoReins,dangerUnit, '');
+					                               feoReins.premium=enquiryPropCalculator('getFacPremium',feoReins,dangerUnit, '')">
+                                    <span></span>
+                                </div>
+                                <div ng-if="pageFlag || !editTypeFlag">
+                                    <input type="text" ng-readonly="true" style="border:none"
+                                           ng-model="feoReins.signedLine" percentage/>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group" ng-if="editTypeFlag">
+                                    <input size="20" type="text" percentage ng-model="feoReins.signedComm"/>
+                                    <span></span>
+                                </div>
+                                <div ng-if="pageFlag || !editTypeFlag">
+                                    <input type="text" ng-readonly="true" style="border:none"
+                                           ng-model="feoReins.signedComm" percentage/>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group" ng-if="editTypeFlag">
+                                    <input size="20" type="text" percentage ng-model="feoReins.vatRate"
+                                           ng-required="true" style="border:none"/>
+                                    <span></span>
+                                </div>
+                                <div ng-if="pageFlag || !editTypeFlag">
+                                    <input type="text" ng-readonly="true" style="border:none"
+                                           ng-model="feoReins.vatRate" percentage/>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group" ng-if="editTypeFlag">
+                                    <input size="20" type="text" percentage ng-model="feoReins.addVatRate"
+                                           ng-required="true" style="border:none"/>
+                                    <span></span>
+                                </div>
+                                <div ng-if="pageFlag || !editTypeFlag">
+                                    <input type="text" ng-readonly="true" style="border:none"
+                                           ng-model="feoReins.addVatRate" percentage/>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group" ng-if="editTypeFlag">
+                                    <input size="20" type="text" percentage ng-model="feoReins.othRate"
+                                           style="border:none"/>
+                                    <span></span>
+                                </div>
+                                <div ng-if="pageFlag || !editTypeFlag">
+                                    <input type="text" ng-readonly="true" style="border:none"
+                                           ng-model="feoReins.othRate" percentage/>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="checkbox"
+                                       ng-init="dealBrokerToBooleans()"
+                                       ng-model="feoReins.facFlag"
+                                     >
+                            </td>
+                            <td>
+                                <div class="input-group" ng-if="editTypeFlag" style="width: 179px;">
+                                    <a
+                                       href="" class="btn btn-default"
+                                       ng-click="removeRecepterProp(feoReins)">
+                                        <span class="glyphicon glyphicon-minus"></span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered"  ng-if="certiType === '1'">
+                        <thead ng-if="dangerUnitFacEnquiry.feoReinsReceiveList.length >0">
+                        <th nowrap>再保代理人/再保经纪人</th>
+                        <th nowrap>分入公司/经纪公司</th>
+                        <th nowrap>分入公司</th>
+                        <th nowrap>接受的比例(%)</th>
+                        <th nowrap>接受的手续费的比例%</th>
+                        <th>增值税比例%</th>
+                        <th>附加税比例%</th>
+                        <th nowrap>其他费用比例%</th>
+                        <th nowrap>特约</th>
+                        <th nowrap>*</th>
+                        </thead>
+                        <tr ng-repeat="feoReins in dangerUnitFacEnquiry.feoReinsReceiveList">
+                            <td>
+
+                                <input type="checkbox" ng-model="feoReins.reinsType" ng-if="editTypeFlag"
+                                       ng-init="dealBrokerToBoolean()"
+                                       ng-click="ctrlFinalRecepter('prop',feoReins);"/>
+                                <div ng-if="pageFlag || !editTypeFlag">
+                                    <span ng-if="feoReins.reinsType==='0' || feoReins.reinsType===0">是</span>
+                                    <span ng-if="feoReins.reinsType==='1' || feoReins.reinsType===1">否</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group"
+                                     ng-if="(editTypeFlag && feoReins.isNewFlag==='1') || (editTypeFlag && certiType==='1')">
+                                    <input size="30" type="text" ng-model="feoReins.reinsCode"
+                                           ng-blur="distinctReceiver('prop',dangerUnitFacEnquiry,feoReins,'reinsCode');"
+                                           ng-readonly="operation ==='view'" placeholder=""
+                                           typeahead-loading="loading..."
+                                           typeahead="state.id +'-'+ state.value +'-'+ state.other1 as state.id +'-'+ state.value +'-'+ state.other1 for state in getByReturn('reinsCode',$viewValue) | filter:$viewValue "
+                                           ng-required="true" typeahead-wait-ms="500"
+                                    >
+                                    <span></span>
+                                </div>
+                                <!--<div class="input-group"-->
+                                     <!--ng-if="(editTypeFlag && feoReins.isNewFlag==='1') || (editTypeFlag && certiType==='1')">-->
+                                    <!--<input size="30" type="text" ng-model="feoReins.finalReinsCode"-->
+                                           <!--ng-blur="distinctReceiver('prop',dangerUnitFacEnquiry,feoReins,'finalReinsCode');"-->
+                                           <!--ng-readonly="operation ==='view'" placeholder=""-->
+                                           <!--typeahead-loading="loading..."-->
+                                           <!--typeahead="state.id +'-'+ state.value +'-'+ state.other1 as state.id +'-'+ state.value +'-'+ state.other1 for state in getByReturn('reinsCode',$viewValue) | filter:$viewValue "-->
+                                           <!--ng-required="true" typeahead-wait-ms="500"-->
+                                    <!--&gt;-->
+                                                                  <!--</div>-->
+                                <!--<div ng-if="pageFlag || !editTypeFlag ||  (editTypeFlag && feoReins.isNewFlag!=='1')">-->
+                                    <!--{{feoReins.finalReinsCode}}-->
+                                <!--</div>-->
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input size="30" type="text" ng-model="feoReins.finalReinsCode" ng-if="editTypeFlag"
+                                           ng-blur="distinctReceiver('prop',dangerUnitFacEnquiry,feoReins,'finalReinsCode');"
+                                           ng-readonly="operation ==='view'" placeholder=""
+                                           typeahead-loading="loading..."
+                                           typeahead="state.id +'-'+ state.value +'-'+ state.other1 as state.id +'-'+ state.value +'-'+ state.other1 for state in getByReturn('finalReinsCode',$viewValue) | filter:$viewValue "
+                                           ng-required="true" typeahead-wait-ms="500">
+                                    <span></span>
+                                </div>
+                                <div ng-if="pageFlag || !editTypeFlag">{{feoReins.finalReinsCode}}</div>
+                            </td>
+                            <td>
+                                <div class="input-group" ng-class="{'warning':feoReins.warning}" ng-if="editTypeFlag">
+                                    <input size="20" type="text" percentage ng-model="feoReins.signedLine"
+                                           ng-required="true"
+                                           ng-readonly="operation==='view'"
+                                           ng-keyup="feoReins.amount=enquiryPropCalculator('getFacAmount',feoReins,dangerUnit, '');
+					                               feoReins.premium=enquiryPropCalculator('getFacPremium',feoReins,dangerUnit, '')">
+                                    <span></span>
+                                </div>
+                                <div ng-if="pageFlag || !editTypeFlag">
+                                    <input type="text" ng-readonly="true" style="border:none"
+                                           ng-model="feoReins.signedLine" percentage/>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group" ng-if="editTypeFlag">
+                                    <input size="20" type="text" percentage ng-model="feoReins.signedComm"/>
+                                    <span></span>
+                                </div>
+                                <div ng-if="pageFlag || !editTypeFlag">
+                                    <input type="text" ng-readonly="true" style="border:none"
+                                           ng-model="feoReins.signedComm" percentage/>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group" ng-if="editTypeFlag">
+                                    <input size="20" type="text" percentage ng-model="feoReins.vatRate"
+                                           ng-required="true" style="border:none"/>
+                                    <span></span>
+                                </div>
+                                <div ng-if="pageFlag || !editTypeFlag">
+                                    <input type="text" ng-readonly="true" style="border:none"
+                                           ng-model="feoReins.vatRate" percentage/>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group" ng-if="editTypeFlag">
+                                    <input size="20" type="text" percentage ng-model="feoReins.addVatRate"
+                                           ng-required="true" style="border:none"/>
+                                    <span></span>
+                                </div>
+                                <div ng-if="pageFlag || !editTypeFlag">
+                                    <input type="text" ng-readonly="true" style="border:none"
+                                           ng-model="feoReins.addVatRate" percentage/>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group" ng-if="editTypeFlag">
+                                    <input size="20" type="text" percentage ng-model="feoReins.othRate"
+                                           style="border:none"/>
+                                    <span></span>
+                                </div>
+                                <div ng-if="pageFlag || !editTypeFlag">
+                                    <input type="text" ng-readonly="true" style="border:none"
+                                           ng-model="feoReins.othRate" percentage/>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="checkbox"
+                                       ng-init="dealBrokerToBooleans()"
+                                       ng-model="feoReins.facFlag"
+                                >
+                            </td>
+                            <td>
+                                <div class="input-group" ng-if="editTypeFlag" style="width: 179px;">
+                                    <a
+                                       href="" class="btn btn-default"
+                                       ng-click="removeRecepterProp(feoReins)">
+                                        <span class="glyphicon glyphicon-minus"></span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <h4>再保反馈意见</h4>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <th>确认次数</th>
+                        <th>再保意见</th>
+                        <th>授权人</th>
+                        <th>处理时间</th>
+                        </thead>
+                        <tbody>
+                        <tr class="hover-visible-wrapper" ng-class="{'danger animated shake':contract.contStatus==='2'}">
+                            <td>{{item.serialNo}}</td>
+                            <td>{{item.serialNo}}</td>
+                            <td>{{item.serialNo}}</td>
+                            <td>{{item.verifyDate}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div>询价单号：<input type="text" ng-model="feoEnquiry.EnquiryNo"></div>
                 </div>
             </div>
-
+        </div>
+    </div>
 </ng-form>

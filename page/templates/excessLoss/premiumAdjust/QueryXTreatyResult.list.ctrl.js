@@ -108,6 +108,7 @@ define(['app',
     		};
     		 //条件查询
             $scope.searchContracts = function(){
+            	$scope.searchTableFlag = ! $scope.searchTableFlag
             	if($scope.keywords.contYear === null){
             		$scope.keywords.contYear = "";
             	}

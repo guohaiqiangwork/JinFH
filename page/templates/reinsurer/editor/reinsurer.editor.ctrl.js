@@ -63,7 +63,8 @@ define(['app',
                             function(data){                            	
                             	if(data.result==="success"){
                                 	alert("新增成功！再保人为："+data.msg);
-                                	$window.location.reload();
+                                	$location.path("/reinsurers");
+                                    location.reload()
                                     $scope.closeReinsurer();
                                 }else{
                                 	alert("新增失败！");
@@ -108,12 +109,24 @@ define(['app',
             //必录项控制
             var checkoutRequired = function(){
             	var flag = true;
-                if($scope.reinsurer.locationFlag === "" || $scope.reinsurer.locationFlag === null){
+            	if($scope.reinsurer.longName === "" || $scope.reinsurer.longName === null){
+                    alert("请填写接受人名称！");
+                    flag = false;
+                    return ;
+            	}else if($scope.reinsurer.shortName === "" || $scope.reinsurer.shortName === null){
+                    alert("请填写接受人简称！");
+                    flag = false;
+                    return ;
+            	}else if($scope.reinsurer.locationFlag === "" || $scope.reinsurer.locationFlag === null){
                     alert("请选择境内境外标识！");
                     flag = false;
                     return ;
-                }else if($scope.reinsurer.regionCode === "" || $scope.reinsurer.regionCode === null){
+                }/*else if($scope.reinsurer.regionCode === "" || $scope.reinsurer.regionCode === null){
                     alert("请选择所在城市/地区！");
+                    flag = false;
+                    return ;
+                }*/else if($scope.reinsurer.countryName === "" || $scope.reinsurer.countryName === null){
+                    alert("请填写所属国家！");
                     flag = false;
                     return ;
                 }else if($scope.reinsurer.reinsType === "" || $scope.reinsurer.reinsType === null){

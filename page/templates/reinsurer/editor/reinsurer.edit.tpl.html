@@ -44,11 +44,11 @@
             </div>
             <div class="col-sm-4">
                 <div ng-if="operation==='edit'">
-                    <select  class="form-control" style="width:30%;float: left"
+                    <select  class="form-control" 
                               ng-model="reinsurer.locationFlag" ng-options="c.id as c.value for c in location"></select>
-                    <select ng-model="reinsurer.regionCode" class="form-control" style="width: 70%;float: right"
+                  <!--   <select ng-model="reinsurer.regionCode" class="form-control" style="width: 70%;float: right"
 			             ng-options="c.id as c.value for c in regionCodes">
-			             <option value = ""> --请选择所在城市/地区--</option></select>           
+			             <option value = ""> --请选择所在城市/地区--</option></select>   -->         
                 </div>
                 <div ng-if="operation==='view'">
                     <div ng-switch on="reinsurer.locationFlag">

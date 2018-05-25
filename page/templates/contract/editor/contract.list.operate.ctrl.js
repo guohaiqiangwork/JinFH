@@ -111,6 +111,7 @@ define(['app',
             };
             //续转
             $scope.renewal = function(){
+            	$scope.renew=true;
                 contractService.transferContracts(contractDistinguish,getTmpContractNoList(),{}).then(
                     function(data){
                     	if(angular.isDefined(data.msg)){
@@ -264,11 +265,10 @@ define(['app',
             };
             //根据当前的状态获取可以修改的状态
             $scope. getPropertyStates = function(input){
-    
             	var temp = [];
             	if(input === "3"||input === "4"){
     				$.each($scope.stateFlags, function(index, t){
-    				
+
     					if(t.id === input || t.id === "1" || t.id === "6"){
     						temp.push(t);
     					}
@@ -282,6 +282,24 @@ define(['app',
     			}
             	return temp;
             };
+            $scope.propertyStates =function(input){
+                var temp = [];
+                if(input === '0'){
+                    $.each($scope.stateFlags, function(index, t){
+                        if( t.id === "4" || t.id === "6" ||t.id === "1" || t.id === "2"){
+                            temp.push(t);
+                        }
+                    });
+                }
+                if(input === "4"||input === "1"){
+                    $.each($scope.stateFlags, function(index, t){
+                        if(t.id === "6"||t.id === "2"){
+                            temp.push(t);
+                        }
+                    });
+                }
+                return temp;
+			}
             //关闭窗口
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');

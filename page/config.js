@@ -10,7 +10,8 @@
         method: 'urls' //files:urls
     },
     backend: {
-        ip: 'http://localhost:8080/reins',
+//    	ip: 'http://ut-zbxt.cathay-ins.com.cn/reins',
+    	ip: 'http://localhost:8080/reins',
         base: '/',
         timeout: 360000,
         printIp: '10.1.1.62:8808'

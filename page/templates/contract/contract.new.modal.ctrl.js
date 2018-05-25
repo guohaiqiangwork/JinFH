@@ -6,7 +6,7 @@ define(['app', 'codes'], function (app, codes) {
         $scope.ok = function () {
             var url = "";
             if($scope.options.contAttr === 'prop'){
-            	debugger
+
             	console.log($stateParams)
                 url = "/contracts/" + $scope.options.contAttr + "/" + $scope.options.optType + "/" + $scope.options.treatyType + "/new/admin";
             } else {

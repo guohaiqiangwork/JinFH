@@ -81,7 +81,8 @@ define(['app',
                     		var uwYear = data.msg.uwYear;
                     		alert("保存成功！");
 //                    		alert("保存成功！业务年度为："+uwYear+" 合同编号为："+treatyNo);
-                    	    $location.path("/relationships");                  		
+                    		 $location.path("/relationships");
+                             location.reload()                 		
 //                       $location.path("/relationships/" + uwYear + treatyNo +"/view");
                     		
                     	}else{
@@ -153,10 +154,27 @@ define(['app',
         $scope.saveRelationship = function(operation){
             if($scope.operation === "new"){   
             	console.log("$scope.relationship.treatyNo:**"+$scope.relationship.treatyNo);
+            	var year = $scope.relationship.uwYear;
+                var reg = /^\d{4}$/;
+                if (!reg.test(year)) {
+                    alert("请输入4位的“业务年度”！！");
+                    return false;
+                }
+                if (!$scope.relationship.treatyNo) {
+                    alert("请选择合同编号！！");
+                    return false;
+                }
+                var pNo = $scope.relationship.priorityNo;
+                var reg = /^[+]{0,1}(\d+)$/;
+                if (!reg.test(pNo)) {
+                    alert("请输入正确的“顺序号”！！");
+                    return false;
+                }
             	check($scope.relationship.treatyNo/*,$scope.relationship.priorityNo*/);           	
             }else if($scope.operation === "edit"){
                 updateRelationship();
             }
+            
         };
 
         //获取合同关系详情 方法

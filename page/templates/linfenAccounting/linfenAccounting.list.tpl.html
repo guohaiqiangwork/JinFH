@@ -2,61 +2,995 @@
     <div ng-show="!searchTable.flag" class="search-toggle" ng-click="openSearchTableFlag()">
         <span class="glyphicon glyphicon-search"></span>
     </div>
-    <div class="well">
-        <form name="searchForm" novalidate>
-            <div ng-if="searchTable.flag">
-                <select ng-model="options.bizType" ng-change="changeReset(keywords,options.bizType)">
-                    <option value="P">分保单账单生成</option>
-                    <option value="E">分批单账单生成</option>
-                    <option value="C">分赔案账单生成</option>
-                </select>
-                <div ng-if="options.bizType==='P'" class="container-fluid">
 
-                    <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepolicyQuery.html'"></div>
-                    <div>
-                        <a style="float: right; margin-top: -82px;margin-right: 172px;"
-                           ng-click="closeSearchTableFlag()" class="btn btn-default">取消</a>
+    <div ng-if="searchTable.flag">
+        <select ng-model="options.bizType" ng-change="changeReset(keywords,options.bizType)">
+            <option value="P">分保单账单生成</option>
+            <option value="E">分批单账单生成</option>
+            <option value="C">分赔案账单生成</option>
+        </select>
+        <div ng-if="options.bizType==='P'" class="container-fluid">
+            <div class="well">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>保单号：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.policyNoTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.policyNo" class="condition"
+                                       maxlength="44"></div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>危险单位号：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.dangerNoTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.dangerNo" class="condition" maxlength="5">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>投保单号：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.proposalNoTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.proposalNo" class="condition"
+                                       maxlength="44">
+                            </div>
+                        </div>
                     </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>询价单号：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.enquiryNoTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.enquiryNo" class="condition"
+                                       maxlength="22">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>分保单号：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.recertifyNoTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.recertifyNo" class="condition"
+                                       maxlength="22"></div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>被保险人：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.insuredNameTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.insuredName" class="condition"
+                                       maxlength="4">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>险类：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.classCodeTag" class="tag">
+                                    <option value="=">=</option>
+                                </select>
+                                <select style="width: 143px;" class="condition" ng-model="keywords.classCode"
+                                        ng-options="c.id as c.value for c in classCode"></select>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>险种：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.riskCodeTag" class="tag">
+                                    <option value="=">=</option>
+                                </select>
+                                <select style="width: 143px;" class="condition" ng-model="keywords.riskCode"
+                                        ng-options="c.id as c.value for c in riskCode"></select>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>业务年度：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.uwYearTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.uwYear" class="condition" maxlength="4">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>币种：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.currencyTag" class="tag">
+                                    <option value="=">=</option>
+                                </select>
+                                <select style="width: 143px;" class="condition" ng-model="keywords.currency"
+                                        ng-options="c.id as c.value for c in currency"></select>
 
-                    <div class="page-header">
-                        <h2 style="display:inline-block">查询分保账单</h2>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>帐单生成状态：</label>
+                            <div class='col-xs-8'>
+                                <input type="radio" ng-model="keywords.accType" value="0">全部
+                                <input type="radio" ng-model="keywords.accType" value="1">已生成帐单
+                                <input type="radio" ng-model="keywords.accType" value="2">未生成帐单
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>分保方式：</label>
+                            <div class='col-xs-8' colspan="3">
+                                <input type="radio" ng-model="keywords.reinsType" value="0">全部
+                                <input type="radio" ng-model="keywords.reinsType" value="1">临分
+                                <input type="radio" ng-model="keywords.reinsType" value="2">混合
+                            </div>
+                        </div>
+
                     </div>
-                </div>
-                <div ng-if="options.bizType==='E'" class="container-fluid">
-                    <div ng-include="'/reins/page/templates/linfenAccounting/AccFacReendorQuery.html'"></div>
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <label class='col-xs-2' style="padding-right: 1px;">出单公司：</label>
+                            <div class='col-xs-10'>
+                                <select style="margin-left: 14px;" ng-model="keywords.comCodeTag" class="tag">
+                                    <option value="=">=</option>
+                                </select>
+                                <select class="condition" ng-model="keywords.comCode"
+                                        ng-options="c.id as c.id +'-'+ c.value for c in comCode"></select>
+                            </div>
+                        </div>
+                        <div class="col-xs-5">
+                            <label class='col-xs-2'>起保日期：</label>
+                            <div class='col-xs-10'>
+                                <select ng-model="keywords.startDateTag" class="tag"
+                                        ng-change="changeTerm(keywords.startDateTag)">
+                                    <option value=":">:</option>
+                                    <option value="=">=</option>
+                                    <option value=">">></option>
+                                    <option value="<"><</option>
+                                    <option value=">=">>=</option>
+                                    <option value="<="><=</option>
+                                </select>
+                                <input type="text" ng-model="keywords.startDate" class="date" maxlength="4">
+                                <span ng-if="showTwoInput">-</span> <input type="text" ng-if="showTwoInput"
+                                                                           ng-model="keywords.startDate2"
+                                                                           class="date" maxlength="4">
+                            </div>
+                        </div>
+                    </div>
                     <div>
-                        <a style="float: right; margin-top: -82px;margin-right: 172px;"
-                           ng-click="closeSearchTableFlag()" class="btn btn-default">取消</a>
-                    </div>
-                    <div class="page-header">
-                        <h2 style="display:inline-block">查询分批账单</h2>
-                    </div>
-                </div>
-                <div ng-if="options.bizType==='C'" class="container-fluid">
-                    <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepayQuery.html'"></div>
-                    <div>
-                        <a style="float: right; margin-top: -82px;margin-right: 172px;"
-                           ng-click="closeSearchTableFlag()" class="btn btn-default">取消</a>
-                    </div>
-                    <div class="page-header">
-                        <h2 style="display:inline-block">查询分赔账单</h2>
+                        <div colspan="6" align="right">
+                            <a ng-click="resetSearchBox()" class="btn btn-default">重置</a>
+                            <a ng-click="closeSearchTableFlag()" class="btn btn-default">取消</a>
+                            <a ng-click="searchPlyInfoList('P',pagination)" class="btn btn-primary">立即查询</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div>
-                <div ng-if="options.bizType==='P'" class="container-fluid">
-                    <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepolicyQuery.list.html'"></div>
-                </div>
-                <div ng-if="options.bizType==='E'" class="container-fluid">
-                    <div ng-include="'/reins/page/templates/linfenAccounting/AccFacReendorQuery.list.html'"></div>
-                </div>
-                <div ng-if="options.bizType==='C'" class="container-fluid">
-                    <div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepayQuery.list.html'"></div>
+            <div class="page-header">
+                <h2 style="display:inline-block">查询分保账单</h2>
+            </div>
+        </div>
+        <div ng-if="options.bizType==='E'" class="container-fluid">
+            <div class="well">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>批单申请号：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.endorNoTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.endorNo" class="condition" maxlength="50">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>保单号：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.policyNoTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.policyNo" class="condition"
+                                       maxlength="44"></div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>危险单位号：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.dangerNoTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" name="dangerNo" class="condition" maxlength="5"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>险类：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.classCodeTag" class="tag">
+                                    <option value="=">=</option>
+                                </select>
+                                <select style="width: 143px;" class="condition" ng-model="keywords.classCode"
+                                        ng-options="c.id as c.value for c in classCode"></select>
+
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>险种：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.riskCodeTag" class="tag">
+                                    <option value="=">=</option>
+                                </select>
+                                <select style="width: 143px;" class="condition" ng-model="keywords.riskCode"
+                                        ng-options="c.id as c.value for c in riskCode"></select>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>业务年度：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.uwYearTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.uwYear" class="condition" maxlength="100">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>币种：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.currencyTag" class="tag">
+                                    <option value="=">=</option>
+                                </select>
+                                <select style="width: 143px;" class="condition" ng-model="keywords.currency"
+                                        ng-options="c.id as c.value for c in currency"></select>
+
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>分批单号：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.recertifyNoTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.recertifyNo" class="condition"
+                                       maxlength="22">
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>被保险人：</label>
+                            <div class='col-xs-8'>
+                                <select ng-model="keywords.insuredNameTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.insuredName" class="condition"
+                                       maxlength="22"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>分保方式：</label>
+                            <div class='col-xs-8'>
+                                <input type="radio" ng-model="keywords.reinsType" value="0">全部
+                                <input type="radio" ng-model="keywords.reinsType" value="1">临分
+                                <input type="radio" ng-model="keywords.reinsType" value="2">混合
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class='col-xs-4'>帐单生成状态：</label>
+                            <div class='col-xs-8' colspan="3">
+                                <input type="radio" ng-model="keywords.accType" value="0">全部
+                                <input type="radio" ng-model="keywords.accType" value="1">已生成帐单
+                                <input type="radio" ng-model="keywords.accType" value="2">未生成帐单
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <label class='col-xs-2' style="padding-right: 1px">出单公司：</label>
+                            <div class='col-xs-10'>
+                                <select style="margin-left: 14px" ng-model="keywords.comCodeTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <select class="condition" ng-model="keywords.comCode"
+                                        ng-options="c.id as c.id +'-'+ c.value for c in comCode"></select>
+                                <!--<input type="text" ng-model="keywords.comCode" class="condition" maxlength="4">-->
+                            </div>
+                        </div>
+                        <div class="col-xs-5">
+                            <label class='col-xs-2'>生效日期：</label>
+                            <div class='col-xs-10'>
+                                <select ng-model="keywords.endorDateTag" class="tag"
+                                        ng-change="changeTerm1(keywords.endorDateTag)">
+                                    <option value=":">:</option>
+                                    <option value="=">=</option>
+                                    <option value=">">></option>
+                                    <option value="<"><</option>
+                                    <option value=">=">>=</option>
+                                    <option value="<="><=</option>
+                                </select>
+                                <input type="text" ng-model="keywords.endorDate" class="date" maxlength="4">
+                                <span ng-if="showTwoInput1">-</span> <input type="text" ng-if="showTwoInput1"
+                                                                            ng-model="keywords.endorDate2"
+                                                                            class="date" maxlength="4">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <label class='col-xs-2' style="padding-right: 1px">批改方式：</label>
+                            <div class='col-xs-10'>
+                                <select style="margin-left: 14px" ng-model="keywords.endorTypeTag" class="tag">
+                                    <option value="=">=</option>
+                                </select>
+                                <select class="condition" ng-model="keywords.endorType"
+                                        ng-options="c.id as c.value for c in endorType"></select>
+
+                            </div>
+                        </div>
+                        <div class="col-xs-5">
+                            <label class='col-xs-2'>起保日期：</label>
+                            <div class='col-xs-10'>
+                                <select ng-model="keywords.startDateTag" class="tag"
+                                        ng-change="changeTerm(keywords.startDateTag)">
+                                    <option value=":">:</option>
+                                    <option value="=">=</option>
+                                    <option value=">">></option>
+                                    <option value="<"><</option>
+                                    <option value=">=">>=</option>
+                                    <option value="<="><=</option>
+                                </select>
+                                <input type="text" ng-model="keywords.startDate" class="date" maxlength="4">
+                                <span ng-if="showTwoInput">-</span> <input type="text" ng-if="showTwoInput"
+                                                                           ng-model="keywords.startDate2"
+                                                                           class="date" maxlength="4">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div colspan="6" align="right">
+                            <a ng-click="resetSearchBox()" class="btn btn-default"
+                               ng-show="searchForm.$dirty">重置</a>
+                            <a ng-click="closeSearchTableFlag()" class="btn btn-default">取消</a>
+                            <a ng-click="searchPlyInfoList('E',pagination)" class="btn btn-primary">立即查询</a>
+
+                        </div>
+                    </div>
                 </div>
             </div>
-        </form>
+            <div class="page-header">
+                <h2 style="display:inline-block">查询分批账单</h2>
+            </div>
+        </div>
+        <div ng-if="options.bizType==='C'" class="container-fluid">
+            <div class="well">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label class="col-xs-4">分赔案号：</label>
+                            <div class="col-xs-8">
+                                <select ng-model="keywords.recertifyNoTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.recertifyNo" class="condition"
+                                       maxlength="40"></div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class="col-xs-4">保单号：</label>
+                            <div class="col-xs-8">
+                                <select ng-model="keywords.policyNoTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.policyNo" class="condition"
+                                       maxlength="44"></div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class="col-xs-4">危险单位号：</label>
+                            <div class="col-xs-8">
+                                <select ng-model="keywords.dangerNoTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.dangerNo" class="condition"
+                                       maxlength="5"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label class="col-xs-4">立案号：</label>
+                            <div class="col-xs-8">
+                                <select ng-model="keywords.payNoTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.payNo" class="condition"
+                                       maxlength="44"></div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class="col-xs-4">出险原因：</label>
+                            <div class="col-xs-8">
+                                <select ng-model="keywords.damageCodeTag" class="tag">
+                                    <option value="=">=</option>
+                                </select>
+                                <select style="width: 143px;" class="condition" ng-model="keywords.damageCode"
+                                        ng-options="c.id as c.value for c in damageCode"></select>
+
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class="col-xs-4">理算书号：</label>
+                            <div class="col-xs-8">
+                                <select ng-model="keywords.compensateNoTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.compensateNo"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label class="col-xs-4">险类：</label>
+                            <div class="col-xs-8">
+                                <select ng-model="keywords.classCodeTag" class="tag">
+                                    <option value="=">=</option>
+                                </select>
+                                <select style="width: 143px" class="condition" ng-model="keywords.classCode"
+                                        ng-options="c.id as c.value for c in classCode"></select>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <label class="col-xs-4">分保单号：</label>
+                            <div class="col-xs-8">
+                                <select ng-model="keywords.repolicyNoTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.repolicyNo" class="condition"
+                                       maxlength="10"></div>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <label class="col-xs-4">业务年度：</label>
+                            <div class="col-xs-8">
+                                <select ng-model="keywords.uwYearTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.uwYear" class="condition"
+                                       maxlength="22"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label class="col-xs-4">币种：</label>
+                            <div class="col-xs-8">
+                                <select ng-model="keywords.currencyTag" class="tag">
+                                    <option value="=">=</option>
+                                </select>
+                                <select style="width: 143px" class="condition" ng-model="keywords.currency"
+                                        ng-options="c.id as c.value for c in currency"></select>
+                            </div>
+                        </div>
+
+
+                        <div class="col-xs-4">
+                            <label class="col-xs-4">被保险人：</label>
+                            <div class="col-xs-8">
+                                <select ng-model="keywords.insuredNameTag" class="tag">
+                                    <option value="=">=</option>
+                                    <option value="*">*</option>
+                                </select>
+                                <input type="text" ng-model="keywords.insuredName" class="condition"
+                                       maxlength="100">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class="col-xs-4">险种：</label>
+                            <div class="col-xs-8">
+                                <select ng-model="keywords.riskCodeTag" class="tag">
+                                    <option value="=">=</option>
+                                </select>
+                                <select style="width: 143px" class="condition" ng-model="keywords.riskCode"
+                                        ng-options="c.id as c.value for c in riskCode"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label class="col-xs-4">帐单生成状态：</label>
+                            <div class="col-xs-8">
+                                <input type="radio" ng-model="keywords.accType" value="0">全部
+                                <input type="radio" ng-model="keywords.accType" value="1">已生成帐单
+                                <input type="radio" ng-model="keywords.accType" value="2">未生成帐单
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <label class="col-xs-5" style="padding-right: 3px;">分保方式：</label>
+                            <div class="col-xs-7" style="padding-left: 28px">
+                                <input type="checkbox" ng-model="keywords.reinsType" value="0">全部
+                                <input type="checkbox" ng-model="keywords.reinsType" value="1">临分
+                                <input type="checkbox" ng-model="keywords.reinsType" value="2">混合
+                            </div>
+                        </div>
+                        <div class="col-xs-5">
+                            <label class="col-xs-2">起保日期：</label>
+                            <div class="col-xs-10">
+                                <select ng-model="keywords.startDateTag" class="tag"
+                                        ng-change="changeTerm(keywords.startDateTag)">
+                                    <option value=":">:</option>
+                                    <option value="=">=</option>
+                                    <option value=">">></option>
+                                    <option value="<"><</option>
+                                    <option value=">=">>=</option>
+                                    <option value="<="><=</option>
+                                </select>
+                                <input type="text" ng-model="keywords.startDate" class="date" maxlength="4">
+                                <span ng-if="showTwoInput">-</span> <input type="text" ng-if="showTwoInput"
+                                                                           ng-model="keywords.startDate2"
+                                                                           class="date" maxlength="4">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <label class="col-xs-2" style="padding-right: 1px">出单公司：</label>
+                            <div class="col-xs-10">
+                                <select style="margin-left: 14px;" ng-model="keywords.comCodeTag" class="tag">
+                                    <option value="=">=</option>
+                                </select>
+                                <select class="condition" ng-model="keywords.comCode"
+                                        ng-options="c.id as c.id +'-'+ c.value for c in comCode"></select>
+
+                            </div>
+                        </div>
+                        <div class="col-xs-5">
+                            <label class="col-xs-2">出险日期：</label>
+                            <div class="col-xs-10">
+                                <select ng-model="keywords.damageDateTag" class="tag"
+                                        ng-change="changeTerm1(keywords.damageDateTag)">
+                                    <option value=":">:</option>
+                                    <option value="=">=</option>
+                                    <option value=">">></option>
+                                    <option value="<"><</option>
+                                    <option value=">=">>=</option>
+                                    <option value="<="><=</option>
+                                </select>
+                                <input type="text" ng-model="keywords.damageDate" class="date"
+                                       maxlength="4"> <span ng-if="showTwoInput1">-</span> <input
+                                    type="text" ng-if="showTwoInput1" ng-model="keywords.damageDate2"
+                                    class="date" maxlength="4">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div colspan="6" align="right">
+                            <a ng-click="resetSearchBox()" class="btn btn-default"
+                               ng-show="searchForm.$dirty">重置</a>
+                            <a ng-click="closeSearchTableFlag()" class="btn btn-default">取消</a>
+                            <a ng-click="searchPlyInfoList('C',pagination)"
+                               class="btn btn-primary">立即查询</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-header">
+                <h2 style="display:inline-block">查询分赔账单</h2>
+            </div>
+        </div>
     </div>
+    <div class="panel panel-default">
+        <div ng-if="options.bizType==='P'" class="container-fluid">
+            <div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <th>序号</th>
+                        <th>{{prompt.fcoRepolicy.RepolicyNo}}</th>
+                        <th>{{prompt.fcoRepolicy.PolicyNo}}</th>
+                        <th>出单公司</th>
+                        <th>{{prompt.fcoRepolicy.InsuredName}}</th>
+                        <th>临分确认人</th>
+                        <th>{{prompt.fcoRepolicy.StartDate}}</th>
+                        <th>转收付时间</th>
+                        <th>{{prompt.fcoRepolicy.Currency}}</th>
+                        <th>{{prompt.fcoRepolicy.Amount}}</th>
+                        <th>总含税保费</th>
+                        <th>{{prompt.fcoRepolicy.baseRate}}</th>
+                        <th>{{prompt.fcoRepolicy.ShareRate}}</th>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="plyRisk in plyRiskUnitList">
+                            <td><input type="radio" value="true" ng-model="plyRisk.checkedBill"
+                                       name="selectState" ng-change="QueryAcc(plyRisk.rePolicyNo,'P')"/></td>
+                            <td>{{plyRisk.rePolicyNo}}</td>
+                            <td>{{plyRisk.policyNo}}</td>
+                            <td>{{plyRisk.comName}}</td>
+                            <td>{{plyRisk.insuredName}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>{{plyRisk.currency}}</td>
+                            <td>{{plyRisk.amount}}</td>
+                            <td></td>
+                            <td>{{plyRisk.baseRate}}</td>
+                            <td>{{plyRisk.shareRate}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="clearfix panel-footer">
+                        <span class="pull-right">共找到{{pagination.totalItems}}份单子</span>
+                    </div>
+
+                    <div class="clearfix pull-right" ng-show="plyRiskUnitList.length > 0">
+                        <!-- 分页  -->
+                        <pagination total-items="pagination.totalItems"
+                                    page="pagination.pageIndex"
+                                    items-per-page="pagination.pageSize"
+                                    max-size="pagination.maxSize"
+                                    previous-text="{{pagination.previousText}}"
+                                    next-text="{{pagination.nextText}}"
+                                    first-text="{{pagination.firstText}}"
+                                    last-text="{{pagination.lastText}}"
+                                    class="pagination-small"
+                                    boundary-links="true"
+                                    on-select-page="onSelectPage(page)">
+                        </pagination>
+                    </div>
+                    <table class="table table-striped">
+                        <tr class=common>
+                            <button class="btn btn-default" ng-click="genAcc('FB','P')">生成帐单</button>
+                            <!--<input type="button" class="button" value="打印分保条" onclick="PrintParticularsButtonAction();">-->
+                            <button class="btn btn-default" ng-click="delAcc('P')">删除账单</button>
+                            <button class="btn btn-default" ng-click="payment('P')">账单转收付</button>
+                        </tr>
+                    </table>
+                    <div ng-if="fzBAccList.length>0 || fzBAccList.length>0">
+                        <h5>临分对内账单</h5>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <th>账单类型</th>
+                            <th>账单状态</th>
+                            <th>账单编号</th>
+                            <th>出单公司</th>
+                            <th>接受人编码</th>
+                            <th>接受人名称</th>
+                            <th>分保业务单证号</th>
+                            <th>账单币种</th>
+                            <th>账单余额</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="fzBAc in fzBAccList">
+                                <td>{{fzBAc.flag4}}</td>
+                                <td>{{fzBAc.flag1}}</td>
+                                <td>{{fzBAc.accNo}}</td>
+                                <td>{{fzBAc.comCode}}</td>
+                                <td>{{fzBAc.reinsCode}}</td>
+                                <td>{{fzBAc.reinsName}}</td>
+                                <td>{{fzBAc.recertifyNo}}</td>
+                                <td>{{fzBAc.currency}}</td>
+                                <td>{{fzBAc.balance}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <h5>临分对外账单</h5>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <th>账单类型</th>
+                            <th>账单状态</th>
+                            <th>账单编号</th>
+                            <th>出单公司</th>
+                            <th>接受人编码</th>
+                            <th>接受人名称</th>
+                            <th>分保业务单证号</th>
+                            <th>账单币种</th>
+                            <th>账单余额</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="fzRAcc in fzRAccList">
+                                <td>{{fzRAcc.flag4}}</td>
+                                <td>{{fzRAcc.flag1}}</td>
+                                <td>{{fzRAcc.accNo}}</td>
+                                <td>{{fzRAcc.comCode}}</td>
+                                <td>{{fzRAcc.reinsCode}}</td>
+                                <td>{{fzRAcc.reinsName}}</td>
+                                <td>{{fzRAcc.recertifyNo}}</td>
+                                <td>{{fzRAcc.currency}}</td>
+                                <td>{{fzRAcc.balance}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--<div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepolicyQuery.list.html'"></div>-->
+        </div>
+        <div ng-if="options.bizType==='E'" class="container-fluid">
+            <div>
+                <div class="table-responsive ng-scope">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <th>序号</th>
+                        <th>{{prompt.fpoReendor.ReendorNo}}</th>
+                        <th>{{prompt.fpoReendor.PolicyNo}}</th>
+                        <th>批单号</th>
+                        <th>生效日期</th>
+                        <th>转收付时间</th>
+                        <th>{{prompt.fpoReendor.ComCode}}</th>
+                        <th>{{prompt.fpoReendor.InsuredNam}}</th>
+                        <th>临分确认人</th>
+                        <th>{{prompt.fpoReendor.Currency}}</th>
+                        <th>{{prompt.fpoReendor.AmountChg}}</th>
+                        <th>含税保费变化量</th>
+                        <th>{{prompt.fpoReendor.BaseRate}}</th>
+                        <th>{{prompt.fpoReendor.ShareRate}}</th>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="plyRisk in plyRiskUnitList" class="hover-visible-wrapper ng-scope">
+                            <td><input type="radio" value="true" ng-model="plyRisk.checkedBill" name="gender"
+                                       ng-click="QueryAcc(plyRisk.reendorNo,'E')"/></td>
+                            <td>{{plyRisk.reendorNo}}</td>
+                            <td>{{plyRisk.policyNo}}</td>
+                            <td>{{plyRisk.endorNo}}</td>
+                            <td>{{plyRisk.startDate.time | date : config.display.dateFormat }}</td>
+                            <td>{{plyRisk.settleDate.time | date : config.display.dateFormat}}</td>
+                            <td>{{plyRisk.comName}}</td>
+                            <td>{{plyRisk.insuredName}}</td>
+                            <td></td>
+                            <td>{{plyRisk.currency}}</td>
+                            <td>{{plyRisk.amountChg}}</td>
+                            <td>{{plyRisk.premiumChg}}</td>
+                            <td>{{plyRisk.baseRate}}</td>
+                            <td>{{plyRisk.shareRate}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="clearfix panel-footer">
+                        <span class="pull-right">共找到{{pagination.totalItems}}份单子</span>
+                    </div>
+
+                    <div class="clearfix pull-right" ng-show="plyRiskUnitList.length > 0">
+                        <!-- 分页  -->
+                        <pagination total-items="pagination.totalItems"
+                                    page="pagination.pageIndex"
+                                    items-per-page="pagination.pageSize"
+                                    max-size="pagination.maxSize"
+                                    previous-text="{{pagination.previousText}}"
+                                    next-text="{{pagination.nextText}}"
+                                    first-text="{{pagination.firstText}}"
+                                    last-text="{{pagination.lastText}}"
+                                    class="pagination-small"
+                                    boundary-links="true"
+                                    on-select-page="onSelectPage(page)">
+                        </pagination>
+                    </div>
+                    <table class=sub>
+                        <tr class=common>
+                            <td>
+                                <button class="btn btn-default" ng-click="genAcc('FB','E')">生成帐单</button>
+                                <!--<input type="button" class="button" value="打印分保条" onclick="PrintParticularsButtonAction();return false;">-->
+                                <button class="btn btn-default" ng-click="delAcc('E')">帐单删除</button>
+                                <button class="btn btn-default" ng-click="payment('E')">账单转收付</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <div ng-if="fzBAccList.length>0 || fzBAccList.length>0">
+                        <h5>临分对内账单</h5>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <th>账单类型</th>
+                            <th>账单状态</th>
+                            <th>账单编号</th>
+                            <th>出单公司</th>
+                            <th>接受人编码</th>
+                            <th>接受人名称</th>
+                            <th>分保业务单证号</th>
+                            <th>账单币种</th>
+                            <th>账单余额</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="fzBAc in fzBAccList">
+                                <td>{{fzBAc.flag4}}</td>
+                                <td>{{fzBAc.flag1}}</td>
+                                <td>{{fzBAc.accNo}}</td>
+                                <td>{{fzBAc.comCode}}</td>
+                                <td>{{fzBAc.reinsCode}}</td>
+                                <td>{{fzBAc.reinsName}}</td>
+                                <td>{{fzBAc.recertifyNo}}</td>
+                                <td>{{fzBAc.currency}}</td>
+                                <td>{{fzBAc.balance}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <h5>临分对外账单</h5>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <th>账单类型</th>
+                            <th>账单状态</th>
+                            <th>账单编号</th>
+                            <th>出单公司</th>
+                            <th>接受人编码</th>
+                            <th>接受人名称</th>
+                            <th>分保业务单证号</th>
+                            <th>账单币种</th>
+                            <th>账单余额</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="fzRAcc in fzRAccList">
+                                <td>{{fzRAcc.flag4}}</td>
+                                <td>{{fzRAcc.flag1}}</td>
+                                <td>{{fzRAcc.accNo}}</td>
+                                <td>{{fzRAcc.comCode}}</td>
+                                <td>{{fzRAcc.reinsCode}}</td>
+                                <td>{{fzRAcc.reinsName}}</td>
+                                <td>{{fzRAcc.recertifyNo}}</td>
+                                <td>{{fzRAcc.currency}}</td>
+                                <td>{{fzRAcc.balance}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
 
+            <!--<div ng-include="'/reins/page/templates/linfenAccounting/AccFacReendorQuery.list.html'"></div>-->
+        </div>
+        <div ng-if="options.bizType==='C'" class="container-fluid">
+            <div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <th></th>
+                        <th>{{prompt.floRepay.RepayNo}}</th>
+                        <th>{{prompt.floRepay.PolicyNo}}</th>
+                        <th>赔案号</th>
+                        <th>理算书号</th>
+                        <th>{{prompt.floRepay.DamageDate}}</th>
+                        <th>转收付时间</th>
+                        <th>{{prompt.floRepay.DamageReason}}</th>
+                        <th>{{prompt.floRepay.ComCode}}</th>
+                        <th>{{prompt.floRepay.InsuredName}}/船名</th>
+                        <th>临分确认人</th>
+                        <th>{{prompt.floRepay.Currency}}</th>
+                        <th>已决赔款</th>
+                        <th>{{prompt.floRepay.OutStanding}}</th>
+                        </thead>
+                        <tr ng-repeat="plyRisk in plyRiskUnitList">
+                            <td><input type="radio" value="true" ng-model="plyRisk.checkedBill" name="gender"
+                                       ng-click="QueryAcc(plyRisk.repayNo,'C')"/></td>
+                            <td><a ng-click="openClmFromQuery(plyRisk)">{{plyRisk.repayNo}}</a></td>
+                            <td>{{plyRisk.policyNo}}</td>
+                            <td>{{}}</td>
+                            <td>{{}}</td>
+                            <td>{{}}</td>
+                            <td>{{}}</td>
+                            <td>{{plyRisk.damageReason}}</td>
+                            <td>{{plyRisk.comCode}}</td>
+                            <td>{{plyRisk.insuredName}}</td>
+                            <td>{{}}</td>
+                            <td>{{plyRisk.currency}}</td>
+                            <td>{{}}</td>
+                            <td>{{plyRisk.outStanding}}</td>
+                        </tr>
+                    </table>
+                    <div class="clearfix panel-footer">
+                        <span class="pull-right">共找到{{pagination.totalItems}}份单子</span>
+                    </div>
+
+                    <div class="clearfix pull-right" ng-show="plyRiskUnitList.length > 0">
+                        <!-- 分页  -->
+                        <pagination total-items="pagination.totalItems"
+                                    page="pagination.pageIndex"
+                                    items-per-page="pagination.pageSize"
+                                    max-size="pagination.maxSize"
+                                    previous-text="{{pagination.previousText}}"
+                                    next-text="{{pagination.nextText}}"
+                                    first-text="{{pagination.firstText}}"
+                                    last-text="{{pagination.lastText}}"
+                                    class="pagination-small"
+                                    boundary-links="true"
+                                    on-select-page="onSelectPage(page)">
+                        </pagination>
+                    </div>
+
+                    <table class=sub>
+                        <tr class=common>
+                            <td>
+                                <button class="btn btn-default" ng-click="genAcc('FB','C')">生成帐单</button>
+                                <!--<input type="button" class="button" value="打印分保条" onclick="PrintParticularsButtonAction();return false;">-->
+                                <button class="btn btn-default" ng-click="delAcc('C')">帐单删除</button>
+                                <button class="btn btn-default" ng-click="payment('C')" disabled>账单转收付</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <div ng-if="fzBAccList.length>0 || fzBAccList.length>0">
+                        <h5>临分对内账单</h5>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <th>账单类型</th>
+                            <th>账单状态</th>
+                            <th>账单编号</th>
+                            <th>出单公司</th>
+                            <th>接受人编码</th>
+                            <th>接受人名称</th>
+                            <th>分保业务单证号</th>
+                            <th>账单币种</th>
+                            <th>账单余额</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="fzBAc in fzBAccList">
+                                <td>{{fzBAc.flag4}}</td>
+                                <td>{{fzBAc.flag1}}</td>
+                                <td>{{fzBAc.accNo}}</td>
+                                <td>{{fzBAc.comCode}}</td>
+                                <td>{{fzBAc.reinsCode}}</td>
+                                <td>{{fzBAc.reinsName}}</td>
+                                <td>{{fzBAc.recertifyNo}}</td>
+                                <td>{{fzBAc.currency}}</td>
+                                <td>{{fzBAc.balance}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <h5>临分对外账单</h5>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <th>账单类型</th>
+                            <th>账单状态</th>
+                            <th>账单编号</th>
+                            <th>出单公司</th>
+                            <th>接受人编码</th>
+                            <th>接受人名称</th>
+                            <th>分保业务单证号</th>
+                            <th>账单币种</th>
+                            <th>账单余额</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="fzRAcc in fzRAccList">
+                                <td>{{fzRAcc.flag4}}</td>
+                                <td>{{fzRAcc.flag1}}</td>
+                                <td>{{fzRAcc.accNo}}</td>
+                                <td>{{fzRAcc.comCode}}</td>
+                                <td>{{fzRAcc.reinsCode}}</td>
+                                <td>{{fzRAcc.reinsName}}</td>
+                                <td>{{fzRAcc.recertifyNo}}</td>
+                                <td>{{fzRAcc.currency}}</td>
+                                <td>{{fzRAcc.balance}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div ng-include="'/reins/page/templates/linfenAccounting/AccFacRepayQuery.list.html'"></div>-->
+        </div>
+    </div>
 </div>
 <div ui-view="operation"></div>

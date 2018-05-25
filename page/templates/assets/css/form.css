@@ -15,11 +15,11 @@ form.readonly .input-group-addon{
     border:none;
 }
 
-form label{
-    color: #6a7483;
-    margin-top:8px;
-    font-weight:normal;
-}
+/*form label{*/
+    /*color: #6a7483;*/
+    /*margin-top:8px;*/
+    /*font-weight:normal;*/
+/*}*/
 
 form label[required]{
     color:#428bca;

@@ -9,27 +9,71 @@
 	    <h4>查询再保人</h4>
 	    <form name="frmSearchReinsurer" novalidate>
 	        <div class="container-fluid well">
+	           <div class="row" style="margin-bottom:20px;">
+			         <div class="col-lg-4" >
+			                    <label style="float:left;margin-right:15px;width:60px;">接受人代码</label>
+			                     <div class="input-group" >
+			                      	<select  ng-model="keywords.reinsCodeFlag" class="form-control ng-pristine ng-valid" style="width:20%;padding:6px 2px;">
+			                    	 	<option value="=" selected>=</option>
+				                     	<option value="*">*</option>
+				                   	</select>
+			                        <input type="text"  placeholder="接受人代码" ng-model="keywords.reinsCode" class="form-control ng-pristine ng-valid" style="width:80%">
+			                        <span></span>
+			                    </div>
+			                </div>
+			                <div class="col-lg-4">
+			                    <label style="float:left;margin-right:15px;width:60px;">接受人全称</label>
+			                     <div class="input-group">
+			                      	<select  ng-model="keywords.longNameFlag" class="form-control ng-pristine ng-valid" style="width:20%;padding:6px 2px;">
+				                    	 	<option value="=" selected="true">=</option>
+				                     	<option value="*">*</option>
+				                   	</select>
+			                        <input type="text" placeholder="接受人名称" ng-model="keywords.longName" class="form-control ng-pristine ng-valid" style="width:80%">
+			                        <span></span>
+			                    </div>
+			                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px;">
+	        	 <div class="col-lg-4" >
+	                    <label style="float:left;margin-right:15px;width:60px;">接受人简称</label>
+	                     <div class="input-group" >
+	                      	<select ng-model="keywords.shortNameFlag" class="form-control ng-pristine ng-valid" style="width:20%;padding:6px 2px;">
+	                    	 	<option value="=" selected>=</option>
+		                     	<option value="*">*</option>
+		                   	</select>
+	                        <input type="text"  ng-model="keywords.shortName" placeholder="接受人简称" class="form-control ng-pristine ng-valid" style="width:80%">
+	                        <span></span>
+	                    </div>
+	                </div>
+	                <div class="col-lg-4">
+	                    <label style="float:left;margin-right:15px;width:60px;">再保人属性</label>
+	                     <div class="input-group">
+	                      	<select ng-model="keywords.reinsType" class="form-control ng-pristine ng-valid" >
+					           <option  value="">全部</option>
+					           <option  value="0">直保公司</option>
+					           <option  value="1">经纪人</option>
+					           <option  value="2">专业再保</option>
+	                          <!--  <option  value="0" >经纪人</option>
+							   <option  value="1" >专业再保</option> -->
+		                   	</select>
+	                        <span></span>
+	                    </div>
+	                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px;">
+	                <div class="col-lg-4">
+	                    <label style="float:left;margin-right:15px;width:60px;">效力状态</label>
+	                     <div class="input-group">
+	                      <select ng-model="keywords.validStatus" class="form-control ng-pristine ng-valid">
+			      			<option  value="">全部</option>
+							<option  value="0" >失效</option>
+							<option  value="1" >有效</option>
+			    		</select>
+	                        <span></span>
+	                    </div>
+	                </div>
+            </div>
 	           <!--  <div class="row">
-	                    <div class="col-sm-2">
-	                        <label>接受人类型</label><br>
-	                    </div>
-	                    <div class="col-sm-4">
-	                        <div class="btn-group">
-	                            <input type="radio" ng-value="0" ng-model="keywords.reinsType"/>直保公司
-	                            <input type="radio" ng-value="1" ng-model="keywords.reinsType"/>经纪公司
-	                            <input type="radio" ng-value="2" ng-model="keywords.reinsType"/>专业再保公司
-	                            <input type="radio" ng-value="3" ng-model="keywords.reinsType"/>自保公司
-	                        </div>
-	                    </div>
-	                    <div class="col-sm-2">
-	                        <label>境内境外</label><br>
-	                    </div>
-	                    <div class="col-sm-4">
-	                        <input type="radio" ng-value="1" ng-model="keywords.locationFlag"/>境内
-	                        <input type="radio" ng-value="2" ng-model="keywords.locationFlag"/>境外（含港澳台）
-	                    </div>
-	            </div> -->
-	            <div class="row">
 	                <div class="col-sm-1">
 	                    <label>接受人代码：</label>
 	                </div>
@@ -38,7 +82,7 @@
 	                        <option value="=">=&nbsp;</option>
                             <option value="*">*&nbsp;</option>
 	                    </select>
-	                </div>
+	                </div>	                
 	                <div class="col-sm-4">
 	                    <input type="text" class="form-control" placeholder="接受人代码" ng-model="keywords.reinsCode">
 	                </div>
@@ -56,7 +100,7 @@
 	                </div>
 	            </div>
 	            <div class="row">
-	               <!--  <div class="col-sm-1">
+	                <div class="col-sm-1">
 	                    <label>接受人英文名</label>
 	                </div>
 	                <div class="col-sm-1">
@@ -67,7 +111,7 @@
 	                </div>     
 	                <div class="col-sm-4">
 	                    <input type="text" class="form-control" ng-model="keywords.reinsEName" placeholder="接受人英文名">
-	                </div> -->	                	                 
+	                </div>	                	                 
 	                	         
 	                 <div class="col-sm-1">
 	                    <label>接受人简称：</label>
@@ -85,20 +129,20 @@
 	                 <div class="col-sm-1">
 	                    <label>再保人属性：</label>
 	                 </div>
-				   <!--    <div class="col-sm-1">
+				      <div class="col-sm-1">
 				      	 <select ng-model="keywords.reinsTypeFlag">
 				      		  <option  value="=">=&nbsp;</option>
 							  <option  value="*">*&nbsp;</option>
 				    	 </select>
-				      </div> -->
+				      </div>
 				      <div class="col-sm-1">
 					      <select ng-model="keywords.reinsType">
 					           <option  value="">全部</option>
 					           <option  value="0">直保公司</option>
 					           <option  value="1">经纪人</option>
 					           <option  value="2">专业再保</option>
-	                          <!--  <option  value="0" >经纪人</option>
-							   <option  value="1" >专业再保</option> -->
+	                           <option  value="0" >经纪人</option>
+							   <option  value="1" >专业再保</option>
 					      </select>
 				       </div>					       
 	            </div>	                	                
@@ -113,7 +157,7 @@
 							<option  value="1" >有效</option>
 			    		</select>
 	                  </div>
-	            </div>
+	            </div> -->
 	            
 	            <div class="row">
 		            <div class="btn-group pull-right" style="padding-top:10px">
@@ -152,10 +196,10 @@
 <!--     <div class="clearfix panel-footer"> -->
        <!--  <span class="pull-right">共: {{pagination.totalItems}}份</span> -->
    <!--  </div> -->
-    <div class="clearfix pull-right" ng-show="reinsurerList.length > 0" style="margin-bottom:3%">
     <div class="clearfix panel-footer">
      <span class="pull-right">共: {{pagination.totalItems}}份</span>
      </div>
+	<div class="clearfix pull-right" ng-show="reinsurerList.length > 0" style="margin-bottom:3%">
         <!-- 分页  -->
 	    <pagination total-items="pagination.totalItems"
 	                page="pagination.pageIndex"

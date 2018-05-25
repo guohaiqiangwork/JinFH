@@ -7,8 +7,74 @@
     <div collapse="!searchTableFlag" class="well">
         <h4>查询合同</h4>
         <form name="searchForm" novalidate>
-            <table class="table">
-                <tr>
+			<div class="row">
+				<div class="col-xs-4">
+					<label class="col-xs-4">合同类型</label>
+					<div class="col-xs-8">
+						<select ng-model="keywords.contGrpTypCdeFlag">
+							<option value="=">=</option>
+							<option value="*">*</option>
+						</select>
+						<select ng-model="keywords.contGrpTypCde"
+								ng-options="cd.id  as cd.value for cd in contGrpTypCdes">
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<label class="col-xs-4">合同编号</label>
+					<div class="col-xs-8">
+						<select ng-model="keywords.contNoFlag">
+							<option value="=">=</option>
+							<option value="*">*</option>
+						</select>
+						<input type="text" ng-model="keywords.treatyNo">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<label class="col-xs-4">合同简称</label>
+					<div class="col-xs-8">
+						<select ng-model="keywords.refNmeFlag">
+							<option value="=">=</option>
+							<option value="*">*</option>
+						</select>
+						<input type="text" ng-model="keywords.refNo">
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<label class="col-xs-4">合同全称</label>
+					<div class="col-xs-8">
+						<select ng-model="keywords.contNmeFlag">
+							<option value="=">=</option>
+							<option value="*">*</option>
+						</select>
+						<input type="text" ng-model="keywords.treatyName">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<label class="col-xs-4">业务年度</label>
+					<div class="col-xs-8">
+						<select ng-model="keywords.contYearFlag">
+							<option value="=">=</option>
+							<option value="*">*</option>
+						</select>
+						<input type="text" ng-model="keywords.uwYear">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12" align="right">
+					<a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
+					<a ng-click="searchTableFlag = ! searchTableFlag" class="btn btn-default">取消</a>
+					<a ng-click="searchContracts()" class="btn btn-primary">立即查询</a>
+				</div>
+			</div>
+             <!-- <table class="table">
+               <tr>
                     <td>合同类型</td>
                     <td>
                         <select ng-model="keywords.contGrpTypCdeFlag">
@@ -31,10 +97,8 @@
                     <td>
                         <input type="text" ng-model="keywords.treatyNo">
                     </td>
-                </tr>
-                
-                
-                <tr>
+                </tr> -->
+               <!--  <tr>
                     <td>合同简称</td>
                     <td>
                         <select ng-model="keywords.refNmeFlag">
@@ -55,10 +119,8 @@
                     <td>
                         <input type="text" ng-model="keywords.treatyName">
                     </td>
-                </tr>
-
-
-                <tr>
+                </tr> -->
+                <!-- <tr>
                     <td>业务年度</td>
                     <td>
                         <select ng-model="keywords.contYearFlag">
@@ -69,9 +131,8 @@
                     <td>
                         <input type="number" ng-model="keywords.uwYear" >
                     </td>
-                </tr>
-                
-              
+                </tr> -->
+              <!-- 
                 <tr>
                     <td colspan="6" align="right">
                         <a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
@@ -80,7 +141,7 @@
 
                     </td>
                 </tr>
-            </table>
+            </table> -->
         </form>
     </div>
 
@@ -105,15 +166,16 @@
 
     <div class="panel panel-default " ng-show="contractList.length > 0">
         <!-- 显示查询结果列表 -->
-      
- 		<div  ng-include="'/reins/page/templates/print/print.prop.list.table.tpl.html.html'"></div>
+      	<div ng-if="global.viewType==='thumbnail'"  ng-include="'/reins/page/templates/print/print.prop.list.thumbnail.tpl.html'"></div>
+ 		<div ng-if="global.viewType==='table'"  ng-include="'/reins/page/templates/print/print.prop.list.table.tpl.html.html'"></div>
 
-        <div class="clearfix panel-footer">
-            <span class="pull-right">共找到{{pagination.totalItems}}份合同</span>
-        </div>
 
-        <div class="clearfix pull-right" ng-show="contractList.length > 0">
             <!-- 分页  -->
+             <div class="clearfix panel-footer">
+	            <span class="pull-right">共找到{{pagination.totalItems}}份合同</span>
+	        </div>
+
+		<div class="clearfix pull-right" ng-show="contractList.length > 0" style="margin-bottom:3%">
             <pagination total-items="pagination.totalItems"
                         page="pagination.pageIndex"
                         items-per-page="pagination.pageSize"

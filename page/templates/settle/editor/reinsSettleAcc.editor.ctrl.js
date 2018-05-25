@@ -6,7 +6,13 @@ define(['app',
 
     app.registerController('SettleAccEditorCtrl', ['$scope', 'SettleAccService', '$stateParams', '$location','$q','$modal','$filter'
         , function ($scope, settleAccService, $stateParams, $location,$q,$modal,$filter) {
-
+	        //返回查询结算单
+    		$scope.backSettAcc = function () {
+	            //var url = "/settleAccs";
+	            $location.path( "/settleAccs");
+	            location.reload()
+	        };
+    	
             //查询字典
             var searchFlag = true;
             $scope.searchList = [];
@@ -48,12 +54,7 @@ define(['app',
             	
                 $scope.operation = _mode;
             };
-
-            //返回查询结算单
-            $scope.closeSettleAcc = function () {
-                var url = "/settleAccs";
-                $location.path(url);
-            };
+            
             
 //            .controller('SettleAccEditorCtrl',function($scope,$state){
 //            	$scope.findAcc=function(accNo){
@@ -61,6 +62,7 @@ define(['app',
 //            	};
 //            });
             $scope.findAcc = function(accNo){
+            	debugger
             	console.log('accNo1992:'+accNo);
             	$scope.accNo1=accNo;
                 $modal.open({
@@ -120,7 +122,7 @@ define(['app',
             var init = function(){
                 //默认隐藏条件框
                 $scope.hideSearchList();
-
+                
                 //默认对象初始化
 //                $scope.initReinsurer();
 

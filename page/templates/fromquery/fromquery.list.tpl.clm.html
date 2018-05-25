@@ -1,175 +1,121 @@
-	                <div class="row">
-	                <div class="col-lg-2">
-	                        <label>分赔案号</label>
-	                    </div>
-	                    <div class="col-lg-4">
-	                        <div class="input-group">
-	                            <select ng-model="keywords.repayNoFlag">
-	                                <option value="=">=</option>
-	                                <option value="*">*</option>
-	                            </select>
-	                            <input type="text" ng-model="keywords.repayNo">
-	                            <span></span>
-	                        </div>
-	                    </div>
-	                    <div class="col-lg-2">
-	                        <label>立案号</label>
-	                    </div>
-	                    <div class="col-lg-4">
-	                        <div class="input-group">
-	                            <select ng-model="keywords.payNoFlag">
-	                                <option value="=">=</option>
-	                                <option value="*">*</option>
-	                            </select>
-	                            <input type="text" ng-model="keywords.payNo">
-	                            <span></span>
-	                        </div>
-	                    </div>
-	                </div>
-	                
-	                
-	                
-	                <div class="row">
-	                    <div class="col-lg-2">
-                   	 		<label>保单号</label>
-                		</div>
-		                <div class="col-lg-4">
-		                    <div class="input-group">
-		                      	<select  ng-model="keywords.policyNoFlag">
-		                    	 	<option value="=" selected="true">=</option>
-		                     	<option value="*">*</option>
-		                   	</select>
-		                        <input type="text" ng-model="keywords.policyNo">
-		                        <span></span>
-		                    </div>
-		                </div>
-		                <div class="col-lg-2">
-                   			<label>危险单位号</label>
-                		</div>
-		                <div class="col-lg-4">
-		                    <div class="input-group">
-		                        <select ng-model = "keywords.dangerNoFlag">
-		                            <option value="=">=</option>
-		                            <option value="*">*</option>
-		                        </select>
-		                        <input type="text" ng-model = "keywords.dangerNo">
-		                        <span></span>
-		                    </div>
-		                </div>
-	                </div>
-	                
-	                
-	                
-	                <div class="row">
-	                <div class="col-lg-2">
-                    		<label>险种</label>
-                		</div>
-		                <div class="col-lg-4">
-		                    <div class="input-group">
-		                        <select ng-model = "keywords.riskCodeFlag">
-		                            <option value="=" selected="true">=</option>
-		                            <option value="*">*</option>
-		                        </select>
-		                        <input type="text" ng-model = "keywords.riskCode">
-		                        <span></span>
-		                    </div>
-		                </div>
-	                    <div class="col-lg-2">
-	                        <label>出险原因</label>
-	                    </div>
-	                    <div class="col-lg-4">
-	                        <div class="input-group">
-	                            <select ng-model="keywords.damageReasonFlag">
-	                                <option value="=">=</option>
-	                                <option value="*">*</option>
-	                            </select>
-	                            <input type="text" ng-model="keywords.damageReason">
-	                            <span></span>
-	                        </div>
-	                    </div>
-	                </div>
-	                
-	                
-	                
-	                <div class="row">
-		         		<div class="col-lg-2">
-		                    <label>币别</label>
-		                </div>
-		                <div class="col-lg-4">
-		                    <div class="input-group">
-		                        <select ng-model = "keywords.currencyFlag">
-		                            <option value="=" selected="true">=</option>
-		                            <option value="*">*</option>
-		                        </select>
-		                        <input type="text" ng-model = "keywords.currency">
-		                        <span></span>
-		                    </div>
-		                </div>
-						<div class="col-lg-2">
-	                        <label>被保险人</label>
-	                    </div>
-	                    <div class="col-lg-4">
-	                        <div class="input-group">
-	                            <select ng-model="keywords.insuredNameFlag">
-	                                <option value="=">=</option>
-	                                <option value="*">*</option>
-	                            </select>
-	                            <input type="text" ng-model="keywords.insuredName">
-	                            <span></span>
-	                        </div>
-	                    </div>
-         			</div>
-         			
-         			
-         			
-	                <div class="row">
-	                <div class="col-lg-2">
-	                        <label>起保日期</label>
-	                    </div>
-	                    <div class="col-lg-4">
-	                        <div class="input-group">
-	                            <input type="date"
-										datepicker2
-										ng-model="keywords.startDate">
-	                                   	至
-								<input type="date"
-										datepicker2
-										ng-model="keywords.endDate">
-	                            <span></span>
-	                        </div>
-	                    </div>
-		                <div class="col-lg-2">
-	                        <label>出险日期</label>
-	                    </div>
-	                    <div class="col-lg-4">
-	                        <div class="input-group">
-	                            <input type="date"
-										datepicker2
-										ng-model="keywords.damageStartDate">
-	                            <span></span>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="row">
-	                 <div class="col-lg-2">
-							<label>归属部门</label>
-						</div>
-						<div class="col-lg-4">
-							<div class="input-group">
-								<select  ng-model="keywords.comCodeFlag">
-									<option value="=" selected="true">=</option>
-									<option value="*">*</option>
-								</select>
-								<input type="text" ng-model="keywords.comCode">
-									<span></span>
-							</div>
-						</div>
-	                </div>
-	                
-					<div class="row">
-						<div class="col-lg-12" align="right">
-		                	<a ng-click="resetClmSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
-		                    <a ng-click="searchTable.flag = !searchTable.flag" class="btn btn-default">取消</a>
-		                    <a ng-click="searchFacPlyInfo_()" class="btn btn-primary" ng-disabled="!searchForm.$valid">立即查询</a>
-		                </div>
-	                </div>
+<div class="row">
+    <div class="col-xs-4">
+        <label class="col-xs-4">分赔案号</label>
+        <div class="col-xs-8">
+            <select ng-model="keywords.repayNoFlag">
+                <option value="=">=</option>
+                <option value="*">*</option>
+            </select>
+            <input type="text" ng-model="keywords.repayNo">
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <label class="col-xs-4">立案号</label>
+        <div class="col-xs-8">
+            <select ng-model="keywords.payNoFlag">
+                <option value="=">=</option>
+                <option value="*">*</option>
+            </select>
+            <input type="text" ng-model="keywords.payNo">
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <label class="col-xs-4">保单号</label>
+        <div class="col-xs-8">
+            <select ng-model="keywords.policyNoFlag">
+                <option value="=" selected="true">=</option>
+                <option value="*">*</option>
+            </select>
+            <input type="text" ng-model="keywords.policyNo">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-4">
+        <label class="col-xs-4">危险单位号</label>
+        <div class="col-xs-8">
+            <select ng-model="keywords.dangerNoFlag">
+                <option value="=">=</option>
+                <option value="*">*</option>
+            </select>
+            <input type="text" ng-model="keywords.dangerNo">
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <label class="col-xs-4">险种</label>
+        <div class="col-xs-8">
+            <select ng-model="keywords.riskCodeFlag">
+                <option value="=" selected="true">=</option>
+                <option value="*">*</option>
+            </select>
+            <input type="text" ng-model="keywords.riskCode">
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <label class="col-xs-4">出险原因</label>
+        <div class="col-xs-8">
+            <select ng-model="keywords.damageReasonFlag">
+                <option value="=">=</option>
+                <option value="*">*</option>
+            </select>
+            <input type="text" ng-model="keywords.damageReason">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-4">
+        <label class="col-xs-4">币别</label>
+        <div class="col-xs-8">
+            <select ng-model="keywords.currencyFlag">
+                <option value="=" selected="true">=</option>
+                <option value="*">*</option>
+            </select>
+            <input type="text" ng-model="keywords.currency">
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <label class="col-xs-4">被保险人</label>
+        <div class="col-xs-8">
+            <select ng-model="keywords.insuredNameFlag">
+                <option value="=">=</option>
+                <option value="*">*</option>
+            </select>
+            <input type="text" ng-model="keywords.insuredName">
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <label class="col-xs-4">出险日期</label>
+        <div class="col-xs-8">
+            <input style="line-height: normal" type="date" datepicker2 ng-model="keywords.damageStartDate">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-4">
+        <label class="col-xs-4">归属部门</label>
+        <div class="col-xs-8">
+            <select ng-model="keywords.comCodeFlag">
+                <option value="=" selected="true">=</option>
+                <option value="*">*</option>
+            </select>
+            <input type="text" ng-model="keywords.comCode">
+        </div>
+    </div>
+    <div class="col-xs-8">
+        <label class="col-xs-2">起保日期</label>
+        <div class="col-xs-10">
+            <input type="date" style="line-height: normal" datepicker2 ng-model="keywords.startDate">
+            <span>至</span>
+            <input type="date" style="line-height: normal" datepicker2 ng-model="keywords.endDate">
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-lg-12" align="right">
+        <a ng-click="resetClmSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
+        <a ng-click="searchTable.flag = !searchTable.flag" class="btn btn-default">取消</a>
+        <a ng-click="searchFacPlyInfo_()" class="btn btn-primary" ng-disabled="!searchForm.$valid">立即查询</a>
+    </div>
+</div>

@@ -23,7 +23,20 @@ define(['angular', 'config'], function (angular, config) {
                 updateRelationship: config.backend.ip + config.backend.base + 'processFhPriority.do?actionType=update',
                 deleteRelationships: config.backend.ip + config.backend.base + 'processFhPriority.do?actionType=delete',
                 getRelation:        config.backend.ip + config.backend.base + 'processFhPriority.do?actionType=data',
-                checked    :        config.backend.ip + config.backend.base + 'processFhPriority.do?actionType=checked'
+                checked    :        config.backend.ip + config.backend.base + 'processFhPriority.do?actionType=checked',
+                //人员权限
+                searchPermission: config.backend.ip + config.backend.base + 'userGrade.do?actionType=query',//查询列表
+                permissionDeploy:config.backend.ip + config.backend.base + 'userGrade.do?actionType=queryTask',//配置
+                savePermissionDeploy:config.backend.ip + config.backend.base + 'userGrade.do?actionType=insert',//配置保存
+                permissionReset:config.backend.ip + config.backend.base + 'userGrade.do?actionType=deleteTask',//重置
+                passwordManager:config.backend.ip + config.backend.base + 'changePassword.do',//密码修改
+                //岗位代码
+                viewPostCodeDetails:config.backend.ip + config.backend.base + 'permission.do?actionType=view',//岗位代码查看详情
+                addPostCodeDetails:config.backend.ip + config.backend.base + 'permission.do?actionType=prepareInsert',//岗位代码新增
+                editPostCodeDetails:config.backend.ip + config.backend.base + 'permission.do?actionType=prepareUpdate',//岗位代码编辑
+
+                saveAddPostCodeDetails:config.backend.ip + config.backend.base + 'permission.do?actionType=insert',//新增保存
+                saveEditPostCodeDetails:config.backend.ip + config.backend.base + 'permission.do?actionType=update'//编辑保存
             }
         })
         .factory('PostCodesService',['$http', '$q', 'PostCodesServiceConfig', function ($http, $q, postCodesServiceConfig) {
@@ -242,6 +255,272 @@ define(['angular', 'config'], function (angular, config) {
                         .error(function(e, code){
                             deffered.reject(code);
                         });
+                    return deffered.promise;
+                },
+                /**
+                 * 人员信息列表查询
+                 * @param keywords
+                 */
+                searchPermission:function (keywords,pagination) {
+                    var deffered = $q.defer();
+
+                    var _url = config.data.method==='files'? postCodesServiceConfig.files.searchPermission : postCodesServiceConfig.urls.searchPermission;
+                    $http({
+                        method: config.data.method==='files'? 'GET':'POST',
+                        url: _url,
+                        headers: {
+                        },
+                        data:{
+                            keywords:keywords,
+                            pagination:pagination
+                        },
+                        timeout:  config.backend.timeout
+                    })
+                        .success(function(data){
+                            deffered.resolve(data);
+                        })
+                        .error(function(e, code){
+                            deffered.reject(code);
+                        });
+
+                    return deffered.promise;
+                },
+                /**
+                 * 重置
+                 * @param keywords
+                 */
+                permissionReset:function (keywords) {
+                    var deffered = $q.defer();
+
+                    var _url = config.data.method==='files'? postCodesServiceConfig.files.permissionReset : postCodesServiceConfig.urls.permissionReset;
+                    $http({
+                        method: config.data.method==='files'? 'GET':'POST',
+                        url: _url,
+                        headers: {
+                        },
+                        data:keywords,
+                        timeout:  config.backend.timeout
+                    })
+                        .success(function(data){
+                            deffered.resolve(data);
+                        })
+                        .error(function(e, code){
+                            deffered.reject(code);
+                        });
+
+                    return deffered.promise;
+                },
+                /**
+                 * 密码修改
+                 * @param keywords
+                 */
+                passwordManager:function (keywords) {
+                    var deffered = $q.defer();
+
+                    var _url = config.data.method==='files'? postCodesServiceConfig.files.passwordManager : postCodesServiceConfig.urls.passwordManager;
+                    $http({
+                        method: config.data.method==='files'? 'GET':'POST',
+                        url: _url,
+                        headers: {
+                        },
+                        data:keywords,
+                        timeout:  config.backend.timeout
+                    })
+                        .success(function(data){
+                            deffered.resolve(data);
+                        })
+                        .error(function(e, code){
+                            deffered.reject(code);
+                        });
+
+                    return deffered.promise;
+                },
+                /**
+                 * 配置
+                 * @param keywords
+                 */
+                permissionDeploy:function () {
+                    var deffered = $q.defer();
+
+                    var _url = config.data.method==='files'? postCodesServiceConfig.files.permissionDeploy : postCodesServiceConfig.urls.permissionDeploy;
+                    $http({
+                        method: config.data.method==='files'? 'GET':'POST',
+                        url: _url,
+                        headers: {
+                        },
+                        data:'',
+                        timeout:  config.backend.timeout
+                    })
+                        .success(function(data){
+                            deffered.resolve(data);
+                        })
+                        .error(function(e, code){
+                            deffered.reject(code);
+                        });
+
+                    return deffered.promise;
+                },
+                /**
+                 * 配置保存
+                 * @param keywords
+                 */
+                savePermissionDeploy:function (keywords,userCode) {
+                    var deffered = $q.defer();
+
+                    var _url = config.data.method==='files'? postCodesServiceConfig.files.savePermissionDeploy : postCodesServiceConfig.urls.savePermissionDeploy;
+                    $http({
+                        method: config.data.method==='files'? 'GET':'POST',
+                        url: _url,
+                        headers: {
+                        },
+                        data:{
+                            userCode:userCode,
+                            keywords:keywords
+                        },
+                        timeout:  config.backend.timeout
+                    })
+                        .success(function(data){
+                            deffered.resolve(data);
+                        })
+                        .error(function(e, code){
+                            deffered.reject(code);
+                        });
+
+                    return deffered.promise;
+                },
+                /**
+                 * 岗位代码查看详情
+                 * @param keywords
+                 */
+                viewPostCodeDetails:function (keywords) {
+                    var deffered = $q.defer();
+
+                    var _url = config.data.method==='files'? postCodesServiceConfig.files.viewPostCodeDetails : postCodesServiceConfig.urls.viewPostCodeDetails;
+                    $http({
+                        method: config.data.method==='files'? 'GET':'POST',
+                        url: _url,
+                        headers: {
+                        },
+                        data:{
+                            id:keywords
+                        },
+                        timeout:  config.backend.timeout
+                    })
+                        .success(function(data){
+                            deffered.resolve(data);
+                        })
+                        .error(function(e, code){
+                            deffered.reject(code);
+                        });
+
+                    return deffered.promise;
+                },
+                /**
+                 * 岗位代码新增
+                 * @param keywords
+                 */
+                addPostCodeDetails:function (keywords) {
+                    var deffered = $q.defer();
+
+                    var _url = config.data.method==='files'? postCodesServiceConfig.files.addPostCodeDetails : postCodesServiceConfig.urls.addPostCodeDetails;
+                    $http({
+                        method: config.data.method==='files'? 'GET':'POST',
+                        url: _url,
+                        headers: {
+                        },
+                        data:keywords,
+                        timeout:  config.backend.timeout
+                    })
+                        .success(function(data){
+                            deffered.resolve(data);
+                        })
+                        .error(function(e, code){
+                            deffered.reject(code);
+                        });
+
+                    return deffered.promise;
+                },
+                /**
+                 * 岗位代码编辑
+                 * @param keywords
+                 */
+                editPostCodeDetails:function (keywords) {
+                    var deffered = $q.defer();
+
+                    var _url = config.data.method==='files'? postCodesServiceConfig.files.editPostCodeDetails : postCodesServiceConfig.urls.editPostCodeDetails;
+                    $http({
+                        method: config.data.method==='files'? 'GET':'POST',
+                        url: _url,
+                        headers: {
+                        },
+                        data:keywords,
+                        timeout:  config.backend.timeout
+                    })
+                        .success(function(data){
+                            deffered.resolve(data);
+                        })
+                        .error(function(e, code){
+                            deffered.reject(code);
+                        });
+
+                    return deffered.promise;
+                },
+                /**
+                 * 新增保存
+                 * @param checked
+                 * @param data
+                 */
+                saveAddPostCodeDetails:function (checked,data) {
+                    var deffered = $q.defer();
+
+                    var _url = config.data.method==='files'? postCodesServiceConfig.files.saveAddPostCodeDetails : postCodesServiceConfig.urls.saveAddPostCodeDetails;
+                    $http({
+                        method: config.data.method==='files'? 'GET':'POST',
+                        url: _url,
+                        headers: {
+                        },
+                        data:{
+                            saaGrade:data,
+                            saaGradetaskList:checked
+                        },
+                        timeout:  config.backend.timeout
+                    })
+                        .success(function(data){
+                            deffered.resolve(data);
+                        })
+                        .error(function(e, code){
+                            deffered.reject(code);
+                        });
+
+                    return deffered.promise;
+                },
+                /**
+                 * 编辑保存
+                 * @param checked
+                 * @param data
+                 */
+                saveEditPostCodeDetails:function (checked,data) {
+                    var deffered = $q.defer();
+
+                    var _url = config.data.method==='files'? postCodesServiceConfig.files.saveEditPostCodeDetails : postCodesServiceConfig.urls.saveEditPostCodeDetails;
+                    $http({
+                        method: config.data.method==='files'? 'GET':'POST',
+                        url: _url,
+                        headers: {
+                        },
+                        data:{
+                            saaGrade:data,
+                            taskCode:checked
+                        },
+                        timeout:  config.backend.timeout
+                    })
+                        .success(function(data){
+                            deffered.resolve(data);
+                        })
+                        .error(function(e, code){
+                            deffered.reject(code);
+                        });
+
                     return deffered.promise;
                 }
             };

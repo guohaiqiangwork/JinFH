@@ -33,9 +33,9 @@
 
             <div class="btn-group btn-group-sm hover-visible">
             	
-                <a class="btn btn-default" ng-if="mode==='admin'"  ng-href="#/contracts/nprop/{{contract.treatyNo}}/view">查看</a>
-                <a class="btn btn-default" ng-if="!(mode==='admin')" ng-href="#/contracts/nprop/{{contract.treatyNo}}/view">查看</a>
-               	<a class="btn btn-default" ng-if="mode==='admin' && contract.stateFlag !='6'" ng-href="#/contracts/nprop/{{contract.treatyNo}}/edit">编辑</a>
+                <a class="btn btn-default" ng-if="mode==='admin'"  ng-href="#/contracts/nprop/{{contract.treatyNo}}/{{mode}}/view">查看</a>
+                <a class="btn btn-default" ng-if="!(mode==='admin')" ng-href="#/contracts/nprop/{{contract.treatyNo}}/{{mode}}/view">查看</a>
+               	<a class="btn btn-default" ng-if="mode==='admin' && contract.stateFlag !='6'" ng-href="#/contracts/nprop/{{contract.treatyNo}}/{{mode}}/edit">编辑</a>
                 <button ng-if="mode==='bill'" ng-click="openContractBill(contract)" class="btn btn-default"><span class="glyphicon glyphicon-list-alt"></span> 账单</button>
             </div>
         </div>

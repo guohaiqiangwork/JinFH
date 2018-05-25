@@ -12,12 +12,12 @@
 		     </thead>
 		     <tbody>
 		     <tr ng-repeat="relationship in relationshipList" class="hover-visible-wrapper">
-		         <td><input type="checkbox" ng-model="relationship.checked">{{getIndex($index)}}</td>
-		         <td>{{relationship.uwYear}}</td>
-		         <td><a ng-href="#/relationships/{{relationship.uwYear}}{{relationship.treatyNo}}/view">{{relationship.treatyNo}}</a></td>
-		         <td>{{relationship.treatyName}}</td>
-		         <td>{{relationship.priorityNo}}</td>
-		         <td>
+		         <td width="5%"><input type="checkbox" ng-model="relationship.checked">{{getIndex($index)}}</td>
+		         <td width="10%">{{relationship.uwYear}}</td>
+		         <td width="10%"><a ng-href="#/relationships/{{relationship.uwYear}}{{relationship.treatyNo}}/view">{{relationship.treatyNo}}</a></td>
+		         <td width="20%">{{relationship.treatyName}}</td>
+		         <td width="15%">{{relationship.priorityNo}}</td>
+		         <td width="30%">
 		         	<div class="btn-group btn-group-sm hover-visible">
 		         		 <a ng-href="#/relationships/{{relationship.uwYear}}{{relationship.treatyNo}}/edit"  class="btn btn-default" >编辑</a>
 		         		<!-- <a ng-href="#/relationships/{{parameters}}/edit"  class="btn btn-default" >编辑</a> -->

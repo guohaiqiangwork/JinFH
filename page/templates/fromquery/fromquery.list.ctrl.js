@@ -3,8 +3,8 @@ define(['app',
     '/reins/page/templates/fromquery/fromquery.item.ctrl.js',
     '/reins/page/templates/inquiry/inquiry.detail.modal.ctrl.js'
 ], function (app,config) {
-    app.registerController('FromQueryListCtrl', ['$scope', '$stateParams',  '$filter', '$modal', '$location','OutqueryService','CodeService'
-        , function ($scope, $stateParams, $filter, $modal, $location,outqueryService,codeService) {
+    app.registerController('FromQueryListCtrl', ['$scope', '$stateParams',  '$filter', '$modal', '$location','OutqueryService','CodeService',
+		function ($scope, $stateParams, $filter, $modal, $location,outqueryService,codeService) {
 
             //分保单详情
             $scope.openPlyFromQuery = function (repolicyNo,dangerNo) {
@@ -84,15 +84,18 @@ define(['app',
 	            if($scope.options.bizType == "3"){
 	            	$scope.resetClmSearchBox();
 	            }
-	            consloe.log(keywords)
-	            $location.path("/fromquerys/" +$scope.options.bizType);
+	            $scope.pagination.pageIndex = 1;
+	        	$scope.searchPlyInfoList($scope.options.bizType, $scope.keywords, $scope.pagination, $scope.global.user, "");
+	            // consloe.log(keywords)
+	            //$location.path("/fromquerys/" +$scope.options.bizType);
 	            //切换分保、分陪、分批时，重新查询一遍列表数据
-	            $scope.searchFacPlyInfo_($scope.options.bizType); 
+	            //$scope.searchFacPlyInfo_($scope.options.bizType); 
 	           // $scope.searchFacPlyInfo($scope.keywords, $scope.pagination, $scope.global.user, ""); 
 	        };
 	        
 	        //临分询价-条件查询 searchFacPlyInfo
 	        $scope.searchFacPlyInfo_ = function(){
+	        	$scope.searchTable.flag =false;
 	        	$scope.pagination.pageIndex = 1;
 	        	$scope.searchPlyInfoList($scope.options.bizType, $scope.keywords, $scope.pagination, $scope.global.user, ""); 
 	        }
@@ -196,7 +199,7 @@ define(['app',
 	        //分保处理-分保单查询-条件查询
 	        $scope.searchPlyInfo = function(){
 	        	$scope.pagination.pageIndex = 1;
-	        	
+	        	$scope.searchTable.flag = !$scope.searchTable.flag
 	        	$scope.searchPlyInfoList($scope.options.bizType, $scope.keywords, $scope.pagination, $scope.global.user, ""); 
 	        }
 

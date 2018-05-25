@@ -58,6 +58,31 @@ define(['app',
                 settleAccService.queryAcc(accNo).then(
                 	function(data){                 		                      		     
                              $scope.Accs=data;
+                            //add by slh
+                             if(data.fzAcc.accType==="00"){
+                            	 data.fzAcc.accType="对内临分账单"
+                             }
+                             if(data.fzAcc.accType==="01"){
+                            	 data.fzAcc.accType="对内合同账单"
+                             }
+                             if(data.fzAcc.accType==="10"){
+                            	 data.fzAcc.accType="对外临分账单"
+                             }
+                             if(data.fzAcc.accType==="11"){
+                            	 data.fzAcc.accType="对外合同账单"
+                             }
+                            //end by slh
+                            //add by slh  把毫秒数转化为时间
+                            var newTime = new Date( data.fzAcc.accDate);
+                            var date="";
+                            with(newTime){
+                            	date = date+(getFullYear())+"-";
+                            	date = date+(getMonth()+1)+"-";
+                            	date = date+(getDate());
+                            }
+                            //data.fzAcc.accDate= newTime.toLocaleString();
+                            data.fzAcc.accDate=date;
+                            //slh end
                              console.log($scope.planMain);
                   	   },
                   	 function(message){

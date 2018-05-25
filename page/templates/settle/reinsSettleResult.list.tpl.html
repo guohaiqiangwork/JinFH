@@ -26,7 +26,12 @@
                 <input type="checkbox" ng-model="settle.checked">
                 {{$index+1}}
             </td>
-            <td>{{settle.settleStatus}}</td>
+           <!--  <td>{{settle.settleStatus}}</td> -->
+            <td>
+           <div ng-if="settle.settleStatus==='0'">未结</div>
+           <div ng-if="settle.settleStatus==='1'">部分结</div>
+           <div ng-if="settle.settleStatus==='2'">全结付</div>
+           </td>
             <td>{{settle.payCode}}</td>
             <td>{{settle.payName}}</td>
             <td>{{settle.accNo}}</td>
@@ -45,7 +50,7 @@
         </tbody>
         <tr>
            <td colspan="6" align="right">
-              <a class="btn btn-danger"  ng-disabled="selectedCount===0" ng-click="prepareSettle()">结算</a>
+              <a class="btn btn-danger"   ng-click="prepareSettle()">结算</a>
            </td>
        </tr> 
     </table>

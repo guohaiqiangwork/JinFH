@@ -33,18 +33,10 @@
                             <!--< option ng-repeat=" c in reinsCodes"
                              value="{{c.id}}">{{c.value}}</option>       -->
                         </select>
-                        <select ng-if="operation === 'edit'" ng-model="rein.reinsCode"
-                                ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes">
+                        <select ng-if="operation === 'edit' || operation === 'view'" ng-model="rein.reinsCode"
+                                ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes"ng-disabled = "operation === 'view'">	
                             <option value="" ng-selected="{{rein.reinsCode}}">{{rein.reinsCode}}</option>
                         </select>
-
-                        <input ng-if="operation ==='view'" size="30" type="text" ng-model="rein.reinsCode"
-                               ng-readonly="operation ==='view' || effected " placeholder=""
-                               typeahead-loading="loading..."
-                               typeahead="c.id as c.id +'-'+ c.value for c in   getByReturn('reinsCode',$viewValue) | filter:$viewValue "
-                               ng-required="true" typeahead-wait-ms="500"
-                               ng-blur="distinctReceiver(layer,rein,'recepter')">
-
                         <span></span>
                     </div>
                 </td>
@@ -54,16 +46,10 @@
                                 ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes">
                             <option value="">--请选择--</option>
                         </select>
-                        <select ng-if="operation === 'edit'" ng-model="rein.freinsCode"
-                                ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes">
+                        <select ng-if="operation === 'edit' || operation === 'view'" ng-model="rein.freinsCode"
+                                ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes"ng-disabled = "operation === 'view'">
                             <option value="" ng-selected="{{rein.freinsCode}}">{{rein.freinsCode}}</option>
                         </select>
-                        <input ng-if="operation ==='view'" size="30" type="text" ng-model="rein.freinsCode"
-                               ng-readonly="operation ==='view' || effected" placeholder=""
-                               typeahead-loading="loading..."
-                               typeahead="c.id as c.id +'-'+ c.value for c in   getByReturn('freinsCode',$viewValue) | filter:$viewValue "
-                               ng-required="true" typeahead-wait-ms="500"
-                               ng-blur="distinctReceiver(layer,final,'finalRecepter')">
                         <span></span>
                     </div>
                 </td>
@@ -123,21 +109,28 @@
                                  value="{{c.id}}">{{c.value}}</option>
                            </select>
                             -->
-                            <select class="form-control" ng-show="operation !='view'" ng-model="receptor.reinsCode"
-
+                            
+                            <select ng-if="operation === 'new'" ng-model="receptor.reinsCode"
                                     ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes"
                                     ng-change="linkageReinsCode(contract.fhReinsList,$index)">
+                                    <option value="">--请选择--</option>
+                                <option value="" ng-selected="{{receptor.reinsCode}}">{{receptor.reinsCode}}</option>
+                            </select>
+                            <select ng-if="operation === 'edit' || operation === 'view'" ng-model="receptor.reinsCode"
+
+                                    ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes"
+                                    ng-change="linkageReinsCode(contract.fhReinsList,$index)" ng-disabled = "operation === 'view'">	
                                 <option value="" ng-selected="{{receptor.reinsCode}}">{{receptor.reinsCode}}</option>
                             </select>
 
                             <!-- ng-options="c.value for c in reinsCodes"></select>	 -->
-                            <input ng-model="receptor.reinsCode" ng-if="operation ==='view'" size="30" type="text"
+                           <!--  <input ng-model="receptor.reinsCode" ng-if="operation ==='view'" size="30" type="text"
                                    ng-model="receptor.reinsCode"
                                    ng-readonly="operation ==='view' || effected" placeholder=""
                                    typeahead-loading="loading..."
                                    typeahead="c.id as c.id +'-'+ c.value for c in   getByReturn('reinsCode',$viewValue) | filter:$viewValue "
                                    ng-required="true"
-                                   typeahead-wait-ms="500">
+                                   typeahead-wait-ms="500"> -->
                             <span></span>
                         </div>
                     </td>
@@ -153,7 +146,7 @@
                     <td>
                         <div ng-if="operation==='view' ||effected">
                             <div style="width: 70px;" ng-if="receptor.brokerFlag==='1' ">经纪人</div>
-                            <div style="width: 70px;" ng-if="receptor.brokerFlag==='false' ">再保人</div>
+                            <div style="width: 70px;" ng-if="receptor.brokerFlag==='0' ">再保人</div>
                         </div>
                         <div ng-if="editIf">
                             <div ng-if="operation!='view' && !effected" style="width: 70px;">
@@ -202,21 +195,38 @@
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <select ng-if="operation != 'view'"
+                                    <!--  <select ng-if="operation === 'new'" ng-model="receptor.reinsCode"
+		                                    ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes"
+		                                    ng-change="linkageReinsCode(contract.fhReinsList,$index)">
+		                                    <option value="">--请选择--</option>
+		                                <option value="" ng-selected="{{receptor.reinsCode}}">{{receptor.reinsCode}}</option>
+		                            </select>
+		                            <select ng-if="operation === 'edit' || operation === 'view'" ng-model="receptor.reinsCode"
+		
+		                                    ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes"
+		                                    ng-change="linkageReinsCode(contract.fhReinsList,$index)" ng-disabled = "operation === 'view'">	
+		                                <option value="" ng-selected="{{receptor.reinsCode}}">{{receptor.reinsCode}}</option>
+		                            </select> -->
+                                        <select ng-if="operation === 'new'" 
                                                 name="freins"
                                                 ng-model="final.freinsCode"
                                                 ng-options="c.id as c.id +'-'+ c.value for c in freinsCodes">
+                                            </option>
+                                        </select>
+                                        <select ng-if="operation === 'edit' || operation === 'view'"
+                                                name="freins"
+                                                ng-model="final.freinsCode"
+                                                ng-options="c.id as c.id +'-'+ c.value for c in freinsCodes" ng-disabled = "operation === 'view'">	
 
                                             <option value="" ng-selected="{{final.freinsCode}}">{{final.freinsCode}}
                                             </option>
-                                            <!-- <option ng-repeat=" c in freinsCodes" value="{{c.id}}">{{c.value}}</option> -->
                                         </select>
-                                        <input ng-if="operation ==='view'" size="30" type="text"
+                                       <!--  <input ng-if="operation ==='view'" size="30" type="text"
                                                ng-model="final.freinsCode"
                                                ng-readonly="operation ==='view' || effected" placeholder=""
                                                typeahead-loading="loading..."
                                                typeahead="state.id +'-'+ state.value as state.id +'-'+ state.value for state in getByReturn('freinsCode',$viewValue) | filter:$viewValue "
-                                               ng-required="true" typeahead-wait-ms="500" ng-required="true">
+                                               ng-required="true" typeahead-wait-ms="500" ng-required="true"> -->
                                     </div>
                                 </td>
                                 <td class="col-sm-4">
@@ -249,21 +259,49 @@
                 <tr>
                     <td>
                         <div class="input-group">
-                            <select class="form-control" ng-show="operation !='view'" ng-model="contract.brokerCode"
-                                    ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes"
-                            >
-                                <option value="" ng-selected="{{contract.reinsCode}}">{{contract.reinsCode}}</option>
+                            <!--<select class="form-control"  ng-model="contract.brokerCode"-->
+                                    <!--ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes"-->
+                           <!--&gt;-->
+                                <!--<option value="" ng-selected="{{contract.brokerCode}}">{{contract.brokerCode}}</option>-->
+                            <!--</select>-->
+                            <select ng-if="operation === 'new'" ng-model="contract.brokerCode"
+                                    ng-options="c.id as c.id +'-'+ c.value for c in freinsCodes">
+                                <option value="" ng-selected="{{contract.brokerCode}}">{{contract.brokerCode}}</option>
                             </select>
+                            <select ng-if="operation === 'edit' || operation === 'view'"ng-model="contract.brokerCode"
+                                    ng-options="c.id as c.id +'-'+ c.value for c in freinsCodes" ng-disabled = "operation === 'view'">	
+                                <option value="" ng-selected="{{contract.brokerCode}}">{{contract.brokerCode}}</option>
+                            </select>
+                            <!-- <select ng-if="operation === 'view'" ng-model="contract.brokerCode"
+                                    disabled="operation === 'view'"
+                                    class="form-control"
+                                    ng-options="c.id as c.id +'-'+ c.value for c in freinsCodes">
+                                <option value="" ng-selected="{{contract.brokerCode}}">{{contract.brokerCode}}</option>
+                            </select> -->
                         </div>
                     </td>
                     <td>
                         <div class="input-group">
-                            <select class="form-control" ng-show="operation !='view'" ng-model="contract.inReinsCode"
-                                    ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes"
-                            >
-                                <option value="" ng-selected="{{contract.inReinsCode}}">{{contract.inReinsCode}}
-                                </option>
+                            <!--<select class="form-control"  ng-model="contract.inReinsCode"-->
+                                    <!--ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes"-->
+
+                            <!--&gt;-->
+                                <!--<option value="" ng-selected="{{contract.inReinsCode}}">{{contract.inReinsCode}}</option>-->
+                            <!--</select>-->
+                            <select ng-if="operation === 'new'" ng-model="contract.inReinsCode"
+                                    ng-options="c.id as c.id +'-'+ c.value for c in freinsCodes">
+                                <option value="" ng-selected="{{contract.inReinsCode}}">{{contract.inReinsCode}}</option>
                             </select>
+                            <select ng-if="operation === 'edit' || operation === 'view'" ng-model="contract.inReinsCode"
+                                    ng-options="c.id as c.id +'-'+ c.value for c in freinsCodes" ng-disabled = "operation === 'view'">	
+                                <option value="" ng-selected="{{contract.inReinsCode}}">{{contract.inReinsCode}}</option>
+                            </select>
+                            <!-- <select ng-if="operation === 'view'" ng-model="contract.inReinsCode"
+                                    disabled="operation === 'view'"
+                                    class="form-control"
+                                    ng-options="c.id as c.id +'-'+ c.value for c in freinsCodes">
+                                <option value="" ng-selected="{{contract.inReinsCode}}">{{contract.inReinsCode}}</option>
+                            </select> -->
                         </div>
                     </td>
                 </tr>
@@ -284,21 +322,26 @@
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <select ng-if="operation != 'view'"
+                                        <select ng-if="operation === 'new'"
                                                 name="freins"
                                                 ng-model="final.freinsCode"
                                                 ng-options="c.id as c.id +'-'+ c.value for c in freinsCodes">
+                                            </option>
+                                        </select>
+                                         <select ng-if="operation === 'edit' || operation === 'view'"
+                                                name="freins"
+                                                ng-model="final.freinsCode"
+                                                ng-options="c.id as c.id +'-'+ c.value for c in freinsCodes"  ng-disabled = "operation === 'view'">	
 
                                             <option value="" ng-selected="{{final.freinsCode}}">{{final.freinsCode}}
                                             </option>
-                                            <!-- <option ng-repeat=" c in freinsCodes" value="{{c.id}}">{{c.value}}</option> -->
                                         </select>
-                                        <input ng-if="operation ==='view'" size="30" type="text"
+                                       <!--  <input ng-if="operation ==='view'" size="30" type="text"
                                                ng-model="final.freinsCode"
                                                ng-readonly="operation ==='view' || effected" placeholder=""
                                                typeahead-loading="loading..."
                                                typeahead="state.id +'-'+ state.value as state.id +'-'+ state.value for state in getByReturn('freinsCode',$viewValue) | filter:$viewValue "
-                                               ng-required="true" typeahead-wait-ms="500" ng-required="true">
+                                               ng-required="true" typeahead-wait-ms="500" ng-required="true"> -->
                                     </div>
                                 </td>
                                 <td class="col-sm-4">

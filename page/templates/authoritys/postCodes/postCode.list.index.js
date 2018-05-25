@@ -6,8 +6,12 @@ define(['app',
     	'$modal','$state',
         function ($scope,$filter,$location,$stateParams, excessLossService, postCodesService, $q, $modal,$state ) {
     		//跳转到查看页面
-            $scope.checkPostDetails = function (id) {
-                $state.go('postCodesCheck',{id:id});
+            $scope.checkPostDetails = function (id1,flag) {
+            	var keywords = {
+                    id:id1,
+					flag:flag
+				};
+                $state.go('postCodesCheck',{id:JSON.stringify(keywords)});
             };
 	    	//新增合同类型选择框
 	        $scope.preparePrintAcc = function (accType,contractListr,accPeriod) {
@@ -107,14 +111,13 @@ define(['app',
                 $scope.pagination.pageIndex = 1;
                 $scope.searchPostCodes($scope.keywords, $scope.pagination, {});
             };
-	    	 //重置查询框中内容
-	        $scope.resetSearchBox = function(){
-	            $scope.keywords = {
-	            		"gradeCName":'',
-		            	"validStatus":''
-	            };
-	            
-	        };
+
+            //根据页号查询合同列表
+            $scope.onSelectPage = function(pageIndex){
+                $scope.pagination.pageIndex = pageIndex;
+                var _pagination = angular.copy($scope.pagination);
+                $scope.searchPostCodes($scope.keywords, _pagination, {});
+            };
 	        
 	        
 	        //初始化数据显示信息
@@ -134,23 +137,17 @@ define(['app',
 	        // 搜索条件
 	        $scope.resetSearchBox = function(){
 	            $scope.keywords = {
-	            		"gradeCNameFlag":'',
-	            		"gradeCName":'',
-		            	"validStatus":''
+	            		gradeCNameFlag:'=',
+	            		gradeCName:'',
+		            	validStatus:'1'
 	            };
 	        };
-	        
-	        //跳转新增页面
-	        $scope.localhref = function(){
-	        	$state.go('postCodesnew',{operation:'new'});
-//	        	  var url = "/postCodek/new";
-//	        	  alert("ooo");
-//	              $location.path(url);
-	        	
-	        }
-	        
-	        
             var init = function () {
+                $scope.keywords = {
+                    gradeCNameFlag: "=",
+                    gradeCName: "",
+                    validStatus: "1"
+                };
                 $scope.$on('$stateChangeStart', function(event, next) {
                     if(next.name === 'admin.relationship')
                         $scope.showSearchList();
@@ -172,10 +169,9 @@ define(['app',
                     firstText: config.pagination.firstText,
                     lastText: config.pagination.lastText
                 };
-                //add by renshuai
 //                $scope.getParameter();
                 //初始化查询框
-                $scope.resetSearchBox();
+                // $scope.resetSearchBox();
 
                 //初始化关系列表
                 $scope.searchPostCodes($scope.keywords, $scope.pagination, {});

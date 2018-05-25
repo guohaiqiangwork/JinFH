@@ -1,1 +1,86 @@
 
+<div class="container" style="background-color: white;height: 100%">
+    <div style="float: right;margin: 16px 0 16px 0">
+        <button ng-click="saveTree(postDataList)" class="btn btn-default" ng-if="codeData.flag==='edit' || codeData.flag==='add'">保存</button>
+        <button ng-click="previousText()" class="btn btn-default">返回</button>
+    </div>
+    <table class="table table-bordered" style="margin-top: 18px" ng-if="codeData.flag==='view'">
+        <thead>
+        <tr>
+            <td>岗位中文名称</td>
+            <td>岗位英文名称</td>
+            <td>岗位繁体名称</td>
+            <td>岗位归属机构</td>
+            <td>岗位性质</td>
+            <td>有效标志</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{postDataList.gradeCName}}</td>
+            <td> {{postDataList.gradeEName}}</td>
+            <td> {{postDataList.gradeTName}}</td>
+            <td> {{postDataList.comCode}}</td>
+            <td>{{postDataList.commonGrade ==="1" ? '公有': '私有' }}</td>
+            <td>{{postDataList.validStatus ==="1" ? '有效': '无效' }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div ng-if="codeData.flag==='edit' || codeData.flag==='add'" style="margin-top: 66px">
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="col-xs-5">岗位中文名称</div>
+                <div class="col-xs-7"><input type="text" ng-model="postDataList.gradeCName"></div>
+            </div>
+            <div class="col-xs-4">
+                <div class="col-xs-5">岗位英文名称</div>
+                <div class="col-xs-7"><input type="text" ng-model="postDataList.gradeEName"></div>
+            </div>
+            <div class="col-xs-4">
+                <div class="col-xs-5">岗位繁体名称</div>
+                <div class="col-xs-7"><input type="text" ng-model="postDataList.gradeTName"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="col-xs-5">岗位归属机构</div>
+                <div class="col-xs-7"><input type="text" ng-model="postDataList.comCode"></div>
+            </div>
+            <div class="col-xs-4">
+                <div class="col-xs-5">岗位性质</div>
+                <div class="col-xs-7">
+                    <select ng-model="postDataList.commonGrade">
+                        <option value="1">共有</option>
+                        <option value="0">私有</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="col-xs-5">有效标志</div>
+                <div class="col-xs-7">
+                    <select ng-model="postDataList.validStatus">
+                        <option value="1">有效</option>
+                        <option value="0">无效</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="height: 100%">
+        <hr>
+        <div class="col-sm-4">
+            <h6>再保险系统功能</h6>
+            <div id="treeview-checkable"></div>
+        </div>
+        <div class="col-sm-4">
+            <h2>状态</h2>
+            <div id="checkable-output"></div>
+        </div>
+        <div ng-if="codeData.flag==='view'"
+             style="background-color: grey;height: 100%;width: 500px;position: absolute;opacity:0;left: 47px"></div>
+    </div>
+
+
+</div>

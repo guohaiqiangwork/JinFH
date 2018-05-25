@@ -36,7 +36,6 @@
             </div>
             <div class="col-sm-4">
                 <select class="form-control" ng-show="operation !='view'&&!effected" ng-model="contract.optType" 
-                ng-init="contract.optType='00'"
                  ng-options="c.id as c.value for c in inoutMrks"></select>
                  <div ng-if="operation==='view' || effected">
                     {{contract.optType | code : 'prop.optType'}}

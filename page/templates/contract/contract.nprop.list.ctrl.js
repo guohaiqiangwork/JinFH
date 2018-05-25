@@ -46,6 +46,7 @@ define(['app',
 
             //条件查询
             $scope.searchContracts = function(){
+            	 $scope.searchTableFlag = ! $scope.searchTableFlag
             	if($scope.keywords.uwYear === null){
             		$scope.keywords.uwYear = "";
             	}
@@ -57,6 +58,7 @@ define(['app',
             		$scope.keywords.stateFlag = "";
             	}
                 $scope.pagination.pageIndex = 1;
+               
                 $scope.searchContract($scope.contAttr, $scope.keywords, $scope.pagination, {});
             };
             //是否可以重置查询框
@@ -74,10 +76,10 @@ define(['app',
             		 "stateFlag":'',
             		 "treatyName":'',
             		 "optType":"",
-            		 "contNoFlag":"",
-            		 "refNmeFlag":"",
-            		 "contNmeFlag":"",
-            		 "contYearFlag":""
+            		 "contNoFlag":"=",
+            		 "refNmeFlag":"=",
+            		 "contNmeFlag":"=",
+            		 "contYearFlag":"="
                		
                 };
                 if(formFlag)

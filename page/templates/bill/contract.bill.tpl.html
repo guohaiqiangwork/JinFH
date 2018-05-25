@@ -9,7 +9,7 @@
             账单类型 :
              <select ng-if="!(contract === 'batch')" 
              		 ng-model="keywords.billType" 
-                     ng-options="billType.id as billType.value for billType in options.billTypes">
+                     ng-options="billType.id as billType.value for billType in options.billTypes" ng-change="changeDateToggle(keywords.billType)">
             </select> 
              <select ng-if="contract === 'batch'" 
              		 ng-model="keywords.billType" 
@@ -25,15 +25,13 @@
         <span ng-if="billTypeFlag!=09">
              <span ng-if="(keywords.billType === '01' && contAttr === 'prop' && contract === 'batch')">
                 账单期类型:
-                <select ng-model="keywords.billPeriodCde" 
-                	ng-options="billPeriodCde.id as billPeriodCde.value for billPeriodCde in options.billPeriodCdes">
+                <select ng-model="keywords.billPeriodCde" ng-change="changeDateToggle(keywords.billPeriodCde)" ng-options="billPeriodCde.id as billPeriodCde.value for billPeriodCde in options.billPeriodCdes">
                 </select>
             </span>
              <span ng-show="!(pageJumpView === 0) && !(pageJumpView === 1)">   <!--  张晓永 2015-06-15 -->
                 合同账单期:
-                <select
-                        ng-if="operation != 'view'" ng-model="keywords.accperiod">
-                    <option  ng-repeat="accperiod in billData.accPeriodQ">{{accperiod}}</option> <!-- {{aaa}} -->
+                <select ng-if="operation != 'view'" ng-model="keywords.accperiof">
+                    <option  ng-repeat="accperiod in billDataMore">{{accperiod}}</option> <!-- {{aaa}} -->
                 </select>
             </span>&nbsp;
             <span ng-if="(keywords.billType === '06' && contAttr === 'prop')">

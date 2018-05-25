@@ -35,7 +35,21 @@ define(['app', 'config'], function (app, config) {
                     return input;
                 }
             };
+
+            // layer.config({
+            //     path: "../plugin/layer/layer"
+            // });
 //        //-----------------------------------------------
+
+            $scope.showMenus = function (data) {
+                $scope.isShow = true;
+                $scope.menuName = data.label;
+            };
+            $scope.hideMenus = function (data) {
+                $scope.menuName = data.label;
+                $scope.isShow = false;
+            };
+
             $scope.config = config;
 
             $scope.menus = {};

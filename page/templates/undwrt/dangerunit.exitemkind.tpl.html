@@ -3,7 +3,7 @@
     <thead>
         <th>合同类型</th>   <!-- ? ------ -->
         <th>除外责任</th>
-        <th>SA申请通过</th>
+        <!--<th>SA申请通过</th>-->
         <th>备注</th>
     </thead>
     <tr>
@@ -23,13 +23,13 @@
                 <!--{{ObjTypeList| filter:riskunit.quotaObjTypeCde}}-->
             </div>
         </td>
-        <td>
-            <input type="checkbox" ng-show="riskunit.editing" ng-model="riskunit.quotaSaMrk" ng-click="selectExclusion(riskunit)"/>
-            <div ng-show="!riskunit.editing">
-                <span ng-if="riskunit.quotaSaMrk ">是</span>
-                <span ng-if="!riskunit.quotaSaMrk ">否</span>
-            </div>
-        </td>
+        <!--<td>-->
+            <!--<input type="checkbox" ng-show="riskunit.editing" ng-model="riskunit.quotaSaMrk" ng-click="selectExclusion(riskunit)"/>-->
+            <!--<div ng-show="!riskunit.editing">-->
+                <!--<span ng-if="riskunit.quotaSaMrk ">是</span>-->
+                <!--<span ng-if="!riskunit.quotaSaMrk ">否</span>-->
+            <!--</div>-->
+        <!--</td>-->
         <td>
             <input type="text" ng-show="riskunit.editing" ng-model="riskunit.quotaSaRemark"/>
             <div ng-show="!riskunit.editing">{{riskunit.quotaSaRemark}}</div>

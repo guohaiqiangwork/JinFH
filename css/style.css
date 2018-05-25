@@ -329,3 +329,14 @@ span.text-label{
 .paper hr {
     border-top: dotted 3px #B6E0C5;
 }
+
+.well .row label {
+    text-align: left;
+}
+
+.well .row select {
+   /*height: 22px;*/
+}
+.container-fluid{
+   padding: 0;
+}

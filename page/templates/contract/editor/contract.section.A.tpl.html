@@ -22,7 +22,7 @@
                 <input class="form-control" type="text" placeholder="系统内自动生成" ng-model="section.treatyNo"   ng-readonly="true">
                 <span></span>
             </div>
-             <div  ng-model="contract.treatyType"  ng-if="contract.treatyType != '31' || effected">
+              <div  ng-model="contract.treatyType"  ng-if="contract.treatyType != '31' ">
            <div class="col-sm-2" >
                 <label>线数</label>
             </div>
@@ -70,7 +70,7 @@
                 <label>币别</label>
             </div>
             <div class="col-sm-4">
-                <select class="form-control" ng-model="section.currency" ng-options="c.id as c.value for c in currencys"
+                <select class="form-control" ng-model="section.currency" ng-options="c.id as c.id +'-'+ c.value for c in currencys"
                         ng-show="operation != 'view'&& ! effected"></select>
                 <div ng-model="section.currency"  ng-if="operation === 'view' ||effected">
                     {{section.currency | code : 'currency'}}
@@ -92,7 +92,7 @@
                 <label>合同限额</label>
             </div>
             <div class="col-sm-4">
-                <input class="form-control" type="text" ng-model="section.limitValue" ng-readonly="operation === 'view'||effected"  ng-required="true">
+                <input class="form-control" percentage2 type="text" ng-model="section.limitValue" ng-readonly="operation === 'view'||effected"  ng-required="true">
                 <span></span>
             </div>
         </div>
@@ -131,7 +131,7 @@
                 <label>合同自留额</label>
             </div>
             <div class="col-sm-4">
-                <input class="form-control" type="text" ng-model="section.retentionValue" ng-required="true"
+                <input class="form-control" percentage2 type="text" ng-model="section.retentionValue" ng-required="true"
                        ng-readonly="operation === 'view'||effected" >
                 <span></span>
             </div>
@@ -216,7 +216,7 @@
                 <label>重大赔案通知额</label>
             </div>
             <div class="col-sm-4">
-                <input class="form-control" type="text" ng-model="section.largeLossValue"
+                <input class="form-control" percentage2 type="text" ng-model="section.largeLossValue"
                        ng-readonly="operation === 'view'||effected">
                 <span></span>
             </div>
@@ -225,7 +225,7 @@
                 <label>现金赔款通知额</label>
             </div>
             <div class="col-sm-4">
-                <input class="form-control" type="text" ng-model="section.cashLossValue"
+                <input class="form-control" percentage2 type="text" ng-model="section.cashLossValue"
                        ng-readonly="operation === 'view'||effected">
                 <span></span>
             </div>
@@ -319,7 +319,7 @@
                 <label>事故类别限额</label>
             </div>
             <div class="col-sm-4">                                        
-                <input class="form-control" type="text" ng-model="section.accidentTypeValue" ng-readonly="operation === 'view'||effected"
+                <input class="form-control" percentage2 type="text" ng-model="section.accidentTypeValue" ng-readonly="operation === 'view'||effected"
                >
                 <span></span>
             </div>
@@ -330,7 +330,7 @@
                 <label>每次事故责任限额</label>
             </div>
             <div class="col-sm-4">
-                <input class="form-control" type="text" ng-model="section.liabilityLimitValue" ng-readonly="operation === 'view'||effected">
+                <input class="form-control" percentage2 type="text" ng-model="section.liabilityLimitValue" ng-readonly="operation === 'view'||effected">
                 <span></span>
             </div>
             
@@ -338,7 +338,7 @@
                 <label>累积事故责任限额</label>
             </div>
             <div class="col-sm-4">                                        
-                <input class="form-control" type="text" ng-model="section.liabilityLimitValues" ng-readonly="operation === 'view'||effected"
+                <input class="form-control" percentage2 type="text" ng-model="section.liabilityLimitValues" ng-readonly="operation === 'view'||effected"
                       >
                 <span></span>
             </div>

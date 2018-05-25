@@ -27,7 +27,8 @@ define([
     'icheck',
     'index',
     'zTree',
-    'templates/layout/router'
+    'templates/layout/router',
+    'treeview'
     ], function ($, angular, couchPotato) {
 
         'use strict';

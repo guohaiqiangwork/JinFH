@@ -16,7 +16,7 @@
             	<table align="left" style="margin-left:20px;">
                     <tr ng-repeat="l in leftExclusions">
                         <td align="left">
-                            <input type="checkbox"  ng-model="l.check" ng-click="checkLeft(l)">{{l.id}}-{{l.value}}
+                            <input type="checkbox" ng-checked="l.checked" ng-model="l.check" ng-click="checkLeft(l)">{{l.id}}-{{l.value}}
                         </td>
                     </tr>
                 </table>

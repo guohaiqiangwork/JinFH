@@ -262,7 +262,7 @@ define(['angular', 'config'], function (angular, config) {
                     "stateFlag": "0",//合同状态
 //                    "carFlag":"0",//是否为车险合同 -- （国泰不用）
 //                    "carServAmoutFlag":"0",//车险合同属性 --（国泰不行）
-                    "optType": "00",
+//                    "optType": "",
                     "fhSectionList": [
 //                    "contOutInssects":[
                         {
@@ -338,7 +338,7 @@ define(['angular', 'config'], function (angular, config) {
                             "reinsCode": "",//接受人编码
                             "shareRate": "",//所占份额
                             "brokerFlag": "false",//经纪人标识：0-接受人,1-经纪人
-                           // "isPrireins": "false",
+                            // "isPrireins": "false",
 //						    "ttyLinker":"",
 //						    "ttyMobile":"",
 //						    "ttyPhone":"",
@@ -350,7 +350,7 @@ define(['angular', 'config'], function (angular, config) {
 //						    "fhFinalReinsList":[]
                         }
                     ],
-              }
+                }
                 ,
 
                 //比例合同分项初始化元素集
@@ -601,7 +601,7 @@ define(['angular', 'config'], function (angular, config) {
                     "layerPremium": "",
                     "shareRate": "",
                     "reinstTimes": "",
-                    "reinstRate": "",
+                    "reinstRate": 0.0000,
                     "residualReinstSum": 0,
                     "reinstType": "1",
                     "remarks": "",
@@ -681,10 +681,11 @@ define(['angular', 'config'], function (angular, config) {
                 },
                 //比例机构
                 "propCompany": {
-                    "treatyNo": "",
-                    "layerNo": "",
-                    "comCode": "",
-                    "comName": ""
+                    "treatyNo": "",//合约号
+                    "reinsCode": "",//接受人编码
+                    "shareRate": "",//所占份额
+                    "brokerFlag": "false",//经纪人标识：0-接受人,1-经纪人
+                    "fhFinalReinsList": []
                 },
                 //非比例适用险种
                 "npropRisk": {

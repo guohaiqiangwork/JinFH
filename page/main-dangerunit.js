@@ -50,7 +50,8 @@ require.config({
         'recepter': '/reins/page/templates/common/directives/recepter',
         'menus': '/reins/page/templates/common/configs/menus',
         'mainCtrl': '/reins/page/templates/common/controllers/main.ctrl',
-        'angularFileUpload'  : '/reins/plugin/jquery.file.upload/jquery.fileupload-angular'
+        'angularFileUpload'  : '/reins/plugin/jquery.file.upload/jquery.fileupload-angular',
+        'treeview':'/reins/plugin/treeview/bootstrap-treeview'
     },
     shim: {
         'angular': {
@@ -73,6 +74,9 @@ require.config({
         },
         'uiBootstrap': {
             'exports': 'uiBootstrap'
+        },
+        'treeview':{
+            'deps'    : ['angular']
         }
     },
     priority: [

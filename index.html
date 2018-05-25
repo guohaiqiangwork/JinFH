@@ -12,7 +12,7 @@
 <link type="text/css" rel="stylesheet" href="./plugin/bootstrap-table/dist/bootstrap-table.min.css">
 <link rel="stylesheet" href="./plugin/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="./page/templates/assets/css/bootstrap.3.1.1.css">
-<!--<link rel="stylesheet" href="./plugin/bootstrap-olive/bootstrap-olive.css" />-->
+<link rel="stylesheet" href="./plugin/bootstrap-olive/bootstrap-olive.css" />
 <link type="text/css" rel="stylesheet" href="./plugin/bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css" />
 <!--选择框-->
 <link type="text/css" rel="stylesheet" href="./plugin/select2-master/dist/css/select2.min.css">
@@ -32,7 +32,7 @@
 <link rel="stylesheet"  href="./css/style.css" />
 <link rel="stylesheet" href="./page/templates/assets/css/form.css" />
 <link rel="stylesheet" href="./page/templates/assets/css/main.css" />
-
+<link rel="stylesheet" href="./plugin/treeview/bootstrap-treeview.css">
 <style>
     .popover  {
         max-width:600px;
@@ -151,6 +151,12 @@
         margin-top: -5px;
         margin-right:5px;
     }
+    /*.open>.overShow{*/
+         /*display: block!important;*/
+    /*}*/
+    /*.leaveHide{*/
+        /*display: none;*/
+    /*}*/
 </style>
 <script type="text/javascript">
 window.appType = 'dev';
@@ -173,12 +179,12 @@ var jessionid = localStorage.getItem("JSESSIONID");
                 <span class="icon-bar"></span>
             </button>
             
-            <span class="navbar-brand" style="margin-top: -5px;">
-                <span class="color-black font-weight-bolder glyphicon glyphicon-certificate" style="font-size:30px">
-                    <!--<img src="./img/arch6-logo.png">-->
+            <span class="navbar-brand" style="margin-top: -16px;">
+                <span class="color-black font-weight-bolder">
+                    <img src="./img/logo.jpg" width="173">
                 </span>
-                <span class="color-black font-weight-bold">国泰保险</span></span>
-                        
+                <!--<span class="color-black font-weight-bold">国泰保险</span></span>-->
+            </span>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" id="side-bar">
@@ -198,13 +204,13 @@ var jessionid = localStorage.getItem("JSESSIONID");
                                 class="fa fa-caret-down fa-lg "></i></a>
                 
                     <ul class="dropdown-menu treeview-menu">
-                        <li ng-click=baow()>
+                       <!--  <li ng-click=baow()>
                             <a href="javascript:$('.addshortcut').trigger('click');"  target="_blank"><i class="fa fa-user fa-fw">个性配置</i></a>
                         </li>
                         <li class="divider">
-                        </li>
+                        </li> -->
                         <li>
-                            <a href="javascript:;" class="" id="logout"><i class="fa fa-sign-out" >重新登录</i></a>
+                            <a href="/reins/logonin.do" class="" id="logout"><i class="fa fa-sign-out" >重新登录</i></a>
                         </li>
                     </ul>
                 </li>
@@ -218,8 +224,10 @@ var jessionid = localStorage.getItem("JSESSIONID");
 				            <!-- Main content -->
 				            <!-- <div ng-include="'../page/templates/layout/elements/menu/menu.html'"></div> -->
 							 <ul class="nav navbar-nav olive-menu">
-				                  <li ng-repeat = "menu in menus.menu" class="dropdown menu-dropdown">
-				                      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span ng-bind="menu.label"></span><b class="caret"></b></a>
+				                  <li ng-repeat = "menu in menus.menu" class="dropdown menu-dropdown"ng-mouseover="showMenus(menu)" ng-mouseleave="hideMenus(menu)" ng-class="{true:'open'}[isShow && menu.label===menuName]">
+				                      <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                         >
+                                          <span ng-bind="menu.label"></span><b class="caret"></b></a>
 				                      <ul class="dropdown-menu pull-center min-width-210">
 				                            <div class="menu-group">   
 				                                <div class="menu" >
@@ -232,11 +240,9 @@ var jessionid = localStorage.getItem("JSESSIONID");
 				                                   </div>
 				                                 </div>
 				                              </div>
-				                          <!-- <li ng-if="!submenu.hide" ng-repeat = "submenu in menu.menus" class="slide"> -->
 				                      </ul>
 				                  </li>
 				              </ul>
-				            <!-- /.content -->
 				        </div>
 				    </div>
 				</div>

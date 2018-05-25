@@ -83,7 +83,9 @@
 	
 	
   <!-- 险种特殊判断配置信息 begin author LJ 20141023 此部分请根据客户所给信息进行配置 -->
-  <PML_CLASS description="PML试算险类配置 多个用逗号分隔，没有请配置为 00">10,12,11</PML_CLASS>
+    <!-- modify by wl 国泰责任险为08 begin 20180523 -->
+    <PML_CLASS description="PML试算险类配置 多个用逗号分隔，没有请配置为 00">08</PML_CLASS>
+    <!-- modify by wl 国泰责任险为08 end 20180523 -->
 	<PROPERTYCLASS description="财产险险类代码，多个用逗号分隔">01</PROPERTYCLASS>
 	<AUTOMOBLIECLASS description="车险险类代码，多个用逗号分隔">08</AUTOMOBLIECLASS>
 	<ENGINEERINGCLASS description="工程险险类代码，多个用逗号分隔">07</ENGINEERINGCLASS>

@@ -9,27 +9,68 @@
 	    <h4>结算单查询</h4>
 	    <form name="frmSearchSettleAcc" novalidate>
 	        <div class="container-fluid well">
-	           <!--  <div class="row">
-	                    <div class="col-sm-2">
-	                        <label>接受人类型</label><br>
-	                    </div>
-	                    <div class="col-sm-4">
-	                        <div class="btn-group">
-	                            <input type="radio" ng-value="0" ng-model="keywords.reinsType"/>直保公司
-	                            <input type="radio" ng-value="1" ng-model="keywords.reinsType"/>经纪公司
-	                            <input type="radio" ng-value="2" ng-model="keywords.reinsType"/>专业再保公司
-	                            <input type="radio" ng-value="3" ng-model="keywords.reinsType"/>自保公司
-	                        </div>
-	                    </div>
-	                    <div class="col-sm-2">
-	                        <label>境内境外</label><br>
-	                    </div>
-	                    <div class="col-sm-4">
-	                        <input type="radio" ng-value="1" ng-model="keywords.locationFlag"/>境内
-	                        <input type="radio" ng-value="2" ng-model="keywords.locationFlag"/>境外（含港澳台）
-	                    </div>
-	            </div> -->
-	            <div class="row">
+	            <div class="row" style="margin-bottom:20px;">
+			         <div class="col-lg-4" >
+			                    <label style="float:left;margin-right:15px;width:60px;">结算单编号</label>
+			                     <div class="input-group" >
+			                      	<select  ng-model="keywords.settleNoFlag" class="form-control ng-pristine ng-valid" style="width:20%;padding:6px 2px;">
+			                    	 	<option value="=" selected>=</option>
+				                     	<option value="*">*</option>
+				                   	</select>
+			                        <input type="text"  placeholder="结算单编号" ng-model="keywords.settleNo" class="form-control ng-pristine ng-valid" style="width:80%">
+			                        <span></span>
+			                    </div>
+			                </div>
+			                <div class="col-lg-4">
+			                    <label style="float:left;margin-right:15px;width:60px;">结算确认</label>
+			                     <div class="input-group">
+			                      	<select ng-model="keywords.settleConfFlag" class="form-control ng-pristine ng-valid">
+				                        <option value="" selected>全部&nbsp;</option>
+			                            <option value="1">已确认&nbsp;</option>
+			                            <option value="0">未确认&nbsp;</option>
+				                    </select>
+			                        <span></span>
+			                    </div>
+			                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px;">
+         		<div class="col-lg-4" >
+                    <label style="float:left;margin-right:15px;width:60px;">结算人编号</label>
+                     <div class="input-group" >
+                      	<select ng-model="keywords.payCodeFlag" class="form-control ng-pristine ng-valid" style="width:20%;padding:6px 2px;">
+                    	 	<option value="=" selected>=</option>
+	                     	<option value="*">*</option>
+	                   	</select>
+                        <input type="text"  ng-model="keywords.payCode" placeholder="结算人编号" class="form-control ng-pristine ng-valid" style="width:80%">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <label style="float:left;margin-right:15px;width:60px;">结付币种</label>
+                     <div class="input-group">
+                     <select class="form-control ng-pristine ng-valid" ng-model="keywords.currency" ng-options="c.id as c.id + '-' + c.value for c in currencys" >
+				       </select>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px;">
+         		<div class="col-lg-4" >
+                    <label style="float:left;margin-right:15px;width:60px;">结付日期</label>
+                     <div class="input-group" >
+                      	<select ng-model="keywords.operateDateFlag" class="form-control ng-pristine ng-valid" style="width:20%;padding:6px 2px;">
+                    	 	 <option  value="=" selected>=&nbsp;</option>
+							  <option  value=">">>&nbsp;</option>
+							  <option  value="<">&lt;&nbsp;</option>
+							  <option  value=">=">>=&nbsp;</option>
+							  <option  value="<=">&lt;=&nbsp;</option>	
+	                   	</select>
+                        <input type="text" ng-model="keywords.operateDate" placeholder="结付日期" class="form-control ng-pristine ng-valid" style="width:80%">
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+	            <!-- <div class="row">
 	                <div class="col-sm-1">
 	                    <label>结算单编号：</label>
 	                </div>
@@ -55,7 +96,7 @@
 	                
 	            </div>
 	            <div class="row">
-	               <!--  <div class="col-sm-1">
+	                <div class="col-sm-1">
 	                    <label>接受人英文名</label>
 	                </div>
 	                <div class="col-sm-1">
@@ -66,7 +107,7 @@
 	                </div>     
 	                <div class="col-sm-4">
 	                    <input type="text" class="form-control" ng-model="keywords.reinsEName" placeholder="接受人英文名">
-	                </div> -->	                	                 
+	                </div>	                	                 
 	                	         
 	                 <div class="col-sm-1">
 	                    <label>结算人编号：</label>
@@ -84,18 +125,18 @@
 	                 <div class="col-sm-1">
 	                    <label>结付币种：</label>
 	                 </div>
-				      <!-- <div class="col-sm-1">
+				      <div class="col-sm-1">
 				      	 <select ng-model="keywords.currencyFlag">
 				      		  <option  value="=">=&nbsp;</option>
 							  <option  value="*">*&nbsp;</option>
 							  
 							  
 				    	 </select>
-				      </div> -->
+				      </div>
 				       <div class="col-sm-4">
 				       <select class="form-control" ng-model="keywords.currency" ng-options="c.id as c.value for c in currencys" >
 				       </select>
-	                    <!-- <input type="text" class="form-control" ng-model="keywords.currency" placeholder="结付币种"> -->
+	                    <input type="text" class="form-control" ng-model="keywords.currency" placeholder="结付币种">
 	                </div>
 							       
 	            </div>	                	                
@@ -115,7 +156,7 @@
 	                    <div class="col-sm-4">
 	                    <input type="date" class="form-control" ng-model="keywords.operateDate" placeholder="结付日期">
 	                </div>
-	            </div>
+	            </div> -->
 	            
 	            <div class="row">
 		            <div class="btn-group pull-right" style="padding-top:10px">

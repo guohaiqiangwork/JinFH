@@ -18,7 +18,7 @@
 					
                         <div class="col-sm-4">
                         		<input class="form-control" type="text" ng-model="layer.layerNo"
-                                   ng-readonly="true"  ng-required="true">
+                                    ng-required="true">
                             <span></span>
                         </div>
                         <div class="col-sm-2">
@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="col-sm-4">
-                            <input class="form-control" type="text" ng-model="layer.excessLoss"  ng-required="true"
+                            <input class="form-control" percentage2 type="text" ng-model="layer.excessLoss"  ng-required="true"
                             ng-readonly="operation==='view' || effected"     >
                             <span></span>
                         </div>
@@ -54,7 +54,7 @@
 
                         <div class="col-sm-4">
                             <input class="form-control" type="text" ng-model="layer.layerquota" ng-readonly="operation==='view' ||effected"
-                                ng-required="true"  ng-blur="calTotalQuota(layer);setRol(layer)"   >
+                                ng-required="true" percentage2  ng-blur="calTotalQuota(layer);setRol(layer)"   >
                             <span></span>
                         </div>
 
@@ -65,7 +65,7 @@
 						</div>
                         <div class="col-sm-4">
                             <input class="form-control" type="text" ng-model="layer.egnpi" ng-readonly="operation==='view' ||effected"
-                                     ng-required="true"  ng-blur="calLayerPremium(layer);calLayerMdp(layer);setRol(layer)">
+                                     ng-required="true" percentage2  ng-blur="calLayerPremium(layer);calLayerMdp(layer);setRol(layer)">
                             <span></span>
                         </div>
                     	<div class="col-sm-2">
@@ -73,7 +73,7 @@
                         </div>
 
                         <div class="col-sm-4">
-                            <select class="form-control" ng-if="operation != 'view' && !effected" ng-model="layer.currency" ng-options="c.id as c.value for c in currencys"></select>
+                            <select class="form-control" ng-if="operation != 'view' && !effected" ng-model="layer.currency" ng-options="c.id as c.id +'-'+ c.value for c in currencys"></select>
                             <div ng-if="operation==='view' || effected">{{layer.currency | code : 'currency'}}</div>
                             <span></span>
                         </div>
@@ -100,8 +100,8 @@
                         </div>
 
                         <div class="col-sm-4">
-                            <input class="form-control" type="text"  ng-model="layer.layerPremium"
-                                   ng-readonly="operation==='view' ||effected"  ng-required="true"
+                            <input class="form-control" type="text" percentage2  ng-model="layer.layerPremium"
+                                  ng-readonly="operation === 'view'||'new'||'edit'||effected"  ng-required="true"
                                    >
                             <span></span>
                         </div>
@@ -115,11 +115,11 @@
 
                         <div class="col-sm-4">
                             <input ng-if="(operation==='view' || effected)"
-                            	class="form-control" type="text" ng-model="layer.mdpRate" percentage1
+                            	class="form-control" type="text" ng-model="layer.mdpRate" percentage
                                    ng-readonly="operation==='view' || effected" ng-required="true"
                                     >
                             <input ng-if="!(operation==='view' || effected)"
-                            	class="form-control" type="text" ng-model="layer.mdpRate" percentage1
+                            	class="form-control" type="text" ng-model="layer.mdpRate" percentage
                                     ng-blur="calLayerMdp(layer)" ng-required="true"
                                     >
                             <span></span>
@@ -131,11 +131,11 @@
 
                         <div class="col-sm-4">
                             <input ng-if="(operation==='view' || effected)"
-                            	class="form-control" type="text" ng-model="layer.mdp"
+                            	class="form-control" percentage2 type="text" ng-model="layer.mdp"
                                    ng-readonly="operation==='view' || effected" ng-required="true">
                            	<input ng-if="!(operation==='view' || effected)"
-                            	class="form-control" type="text" ng-model="layer.mdp"
-                                 ng-required="true">
+                            	class="form-control" percentage2 type="text" ng-model="layer.mdp"
+                                ng-readonly="operation ==='new'||'edit'||effected" ng-required="true">
                             <span></span>
                         </div>
 
@@ -147,7 +147,7 @@
 
                         <div class="col-sm-4">
                             <input class="form-control" type="text" ng-model="layer.rol"
-                                     ng-required="true" percentage
+                                    ng-readonly="operation === 'view'||'new'||'edit'||effected" ng-required="true" percentage
                                     >
                             <span></span>
                         </div>
@@ -171,7 +171,7 @@
                         </div>
 
                         <div class="col-sm-4">
-                            <input class="form-control" type="text" ng-model="layer.totalquota"
+                            <input class="form-control" percentage2 type="text" ng-model="layer.totalquota"
                             ng-readonly="operation==='view' ||effected" >
                            <span></span>
                         </div>	
@@ -213,7 +213,7 @@
                                                   ng-init="allCreateNum=layer.fhXReinstTimesList.length"
                                                   ng-model="allCreateNum" style="width: 88px;background-color: white"/></span>
                     <span class="col-xs-1" ng-if="operation!=='view'"><button class="btn btn-default"
-                                                                              ng-click="createNum(allCreateNum)">确定</button></span>
+                                                                              ng-click="createNum(layer,allCreateNum)">确定</button></span>
 
 
                     <table  class="table table-stripped" >
@@ -295,10 +295,10 @@
                                     <input class="form-control "
                                            datepicker2
                                            ng-required="true"
-                                           type="text"  ng-model="plan.planDate" ng-change="checkPlanDate(layer.fhxPlanList, plan.planDate)">
+                                           type="text"  ng-model="plan.plan" ng-change="checkPlanDate(layer.fhxPlanList, plan.planDate)">
                                 </div>
                                 <div ng-if="operation==='view'||effected">
-                                    {{plan.planDate | date:'yyyy-MM-dd'}}
+                                    {{plan.plan | date:'yyyy-MM-dd'}}
                                 </div>
                             </td>
                             <td>{{plan.currency | code : 'currency'}}</td>
