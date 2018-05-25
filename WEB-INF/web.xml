@@ -61,7 +61,7 @@
     </init-param>
     <load-on-startup>5</load-on-startup>
   </servlet>
-    
+    <!-- 
      <servlet>
 		<servlet-name>CommonTask</servlet-name>
 		<servlet-class>com.sinosoft.reins.common.ui.control.action.UICommonTaskAction</servlet-class>
@@ -81,7 +81,7 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	 </servlet>
-	
+	 -->
 
 	<!-- <servlet>
 		<servlet-name>OffLineCal</servlet-name>

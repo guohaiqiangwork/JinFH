@@ -91,7 +91,7 @@ define(['app',
             $scope.distinctReceiver = function (contAttr, dangerUnitFacEnquiry, feoReins, distinct) {
                 // console.log("distinctReceiver's method is coming...");
                 if (contAttr === "prop") {
-                    if (feoReins.reinsType === '1') {
+                    if (feoReins.reinsType === '0') {
                         //非经纪人
                         feoReins.finalReinsCode = feoReins.reinsCode;
 
@@ -104,7 +104,7 @@ define(['app',
                             });
                         }
                     }
-                    if (feoReins.reinsType === '0') {
+                    if (feoReins.reinsType === '1') {
                         //经纪人
                         if (distinct === "finalReinsCode" && dangerUnitFacEnquiry.feoReinsReceiveList.length > 1) {
                             $.each(dangerUnitFacEnquiry.feoReinsReceiveList, function (index, r) {
@@ -719,7 +719,7 @@ define(['app',
                     if ($scope.dangerUnitFacEnquiry.feoReinsReceiveList.length > 0) {
 
                         $.each($scope.dangerUnitFacEnquiry.feoReinsReceiveList, function (index, fac) {
-                            if (fac.reinsType === "0" || fac.reinsType === true) {
+                            if (fac.reinsType === "1" || fac.reinsType === false) {
                                 fac.reinsType = true;
                             } else {
                                 fac.reinsType = false;
@@ -1155,6 +1155,7 @@ define(['app',
                             $scope.planNpropFlag = false;
                             $scope.save.flag = true;
                             $scope.showBusy(false);
+                            location.reload();
                             //$scope.$emit('notification', {message:'临分意向保存成功', delay:3000, type:'success'});
                         }
                     },
@@ -2485,9 +2486,9 @@ define(['app',
                 if ($scope.dangerUnitFacEnquiry.feoReinsReceiveList.length > 0) {
                     $.each($scope.dangerUnitFacEnquiry.feoReinsReceiveList, function (index, fac) {
                         if (fac.reinsType) {
-                            fac.reinsType = "1";
-                        } else {
                             fac.reinsType = "0";
+                        } else {
+                            fac.reinsType = "1";
                         }
                         // console.log("dealBrokerToString _预处理比例中的经纪人 :" + fac.brokerFlag);
                     });
@@ -2990,9 +2991,9 @@ define(['app',
                 $.each($scope.RU.dangerUnitList, function (index, temp) {
                     temp.editing = flag;
                     temp.editSplit = flag;
-
                     temp.editSaveFlag = flag;
                     temp.editSplitSaveFlag = true;
+                    temp.flag = true;
                 });
 
                 $scope.editSplitFlag = false;

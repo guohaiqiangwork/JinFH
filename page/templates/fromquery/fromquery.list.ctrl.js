@@ -105,13 +105,13 @@ define(['app',
 	            $scope.keywords = {
 	            		 //分保
                    
-	            		'comCodeFalg'    :'',
-	            		'riskCodeFlag' :'',
-	            		'insuredNameFlag' :'',
-	            		'proposalNoFlag' :'',
-	            		'dangerNoFlag' :'',
-	            		'policyNoFlag' :'',
-	            		'rePolicyNoFlag' :'',
+	            		'comCodeFalg'    :'=',
+	            		'riskCodeFlag' :'=',
+	            		'insuredNameFlag' :'=',
+	            		'proposalNoFlag' :'=',
+	            		'dangerNoFlag' :'=',
+	            		'policyNoFlag' :'=',
+	            		'rePolicyNoFlag' :'=',
 	            		'policyNo'   :'',// 保单号
                 		'dangerNo'   :'',// 风险单位号
                 		'proposalNo' :'', //  投保单号
@@ -133,13 +133,13 @@ define(['app',
 	            $scope.keywords = {
 	            		 //分批
 	            		'currencyFlag1' :'',
-	            		'riskCodeFlag' :'',
-	            		'currencyFlag' :'',
-	            		'isuredNameFlag' :'',
-	            		'riskUnitNoFlag' :'',
-	            		'endorNoFlag' :'',
-	            		'policyNoFlag' :'',
-	            		'reendorNoFlag' :'',
+	            		'riskCodeFlag' :'=',
+	            		'currencyFlag' :'=',
+	            		'isuredNameFlag' :'=',
+	            		'riskUnitNoFlag' :'=',
+	            		'endorNoFlag' :'=',
+	            		'policyNoFlag' :'=',
+	            		'reendorNoFlag' :'=',
                         'policyNo':'',// 保单号
                         'endorNo':'',//批单号
                 		'dangerNo':'',// 风险单位号
@@ -163,15 +163,15 @@ define(['app',
 	            $scope.keywords = {
 	            		'policyNo':'',
 	            		'damageStartDate':'',
-                        'payNoFlag':'',//立案号标志位
-                        'policyNoFlag':'',//保单号标志位
-                        'dangerNoFlag':'',//危险单位号标志位
-                        'damageReasonFlag':'',//出险原因标志位
-                        'currencyFlag':'',//币别标志位
-                        'insuredNameFlag':'',//被保险人标志位
-                        'riskCodeFlag':'',//险种标志位
-                        'comCodeFlag':'',//险种标志位
-                        'repayNoFlag':'',//分赔案号标志位
+                        'payNoFlag':'=',//立案号标志位
+                        'policyNoFlag':'=',//保单号标志位
+                        'dangerNoFlag':'=',//危险单位号标志位
+                        'damageReasonFlag':'=',//出险原因标志位
+                        'currencyFlag':'=',//币别标志位
+                        'insuredNameFlag':'=',//被保险人标志位
+                        'riskCodeFlag':'=',//险种标志位
+                        'comCodeFlag':'=',//险种标志位
+                        'repayNoFlag':'=',//分赔案号标志位
                         'payNo':'',//立案号
                         'repolicyNo':'',//保单号
                         'dangerNo':'',//危险单位号
@@ -261,13 +261,13 @@ define(['app',
               //初始化条件查询对应的绑定字段
                 $scope.keywords = {
                 		
-                		'comCodeFalg'    :'',
-	            		'riskCodeFlag' :'',
-	            		'insuredNameFlag' :'',
-	            		'proposalNoFlag' :'',
-	            		'dangerNoFlag' :'',
-	            		'policyNoFlag' :'',
-	            		'rePolicyNoFlag' :'',
+                		'comCodeFalg'    :'=',
+	            		'riskCodeFlag' :'=',
+	            		'insuredNameFlag' :'=',
+	            		'proposalNoFlag' :'=',
+	            		'dangerNoFlag' :'=',
+	            		'policyNoFlag' :'=',
+	            		'rePolicyNoFlag' :'=',
                         //分保、分批
                 		'endorNo':'',//批单号
                 		'policyNo'   :'',// 保单号

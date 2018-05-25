@@ -414,7 +414,7 @@ define(['app',
                         sumRein = sumRein + rein.reinsRate;
                     })
                 if (angular.isNumber(parseFloat(layer.layerquota + "")) && angular.isNumber(parseFloat(sumRein + ""))) {
-                    layer.totalquota = (parseFloat(layer.layerquota + "")) * ((parseFloat(sumRein + "") / 100) + 1);
+                    layer.totalquota = ((parseFloat(layer.layerquota + "")) * ((parseFloat(sumRein + "") / 100) + 1)).toFixed(2);
 //                    		layer.totalquota=(parseFloat(layer.layerquota+""))*((parseFloat(layer.reinstType+""))+1);
                 }
             };
