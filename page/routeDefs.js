@@ -452,7 +452,19 @@ define(['app'
                                 controller: 'permissionCtrl'
                             }
                         }
-                    });
+                    })
+            .state('demo', {
+                    url: '/demo',
+                    resolve: {
+                        dummy: $couchPotatoProvider.resolveDependencies(['/reins/page/templates/demo/demo.ctrl.js'])
+                    },
+                    views: {
+                        main: {
+                            templateUrl: '/reins/page/templates/demo/demo.tpl.html',
+                            controller: 'demoCtrl'
+                        }
+                    }
+                });
             }
         ]
     );

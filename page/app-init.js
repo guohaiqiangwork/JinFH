@@ -21,4 +21,15 @@ define(['app', 'routeDefs', 'filters'], function(app) {
 
         }
     ]);
+    app.config(["growlProvider", "$httpProvider", function(growlProvider, $httpProvider) {
+        $('body').append('<div growl></div>');
+        growlProvider.globalTimeToLive(2000);
+        growlProvider.messagesKey("my-messages");
+        growlProvider.messageTextKey("messagetext");
+        growlProvider.messageSeverityKey("severity-level");
+        growlProvider.onlyUniqueMessages(false);
+        $httpProvider.responseInterceptors.push(growlProvider.serverMessagesInterceptor);
+
+
+    }]);
 });

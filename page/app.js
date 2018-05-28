@@ -28,7 +28,9 @@ define([
     'index',
     'zTree',
     'templates/layout/router',
-    'treeview'
+    'treeview',
+    'angular-sanitize',
+    'angular-growl'
     ], function ($, angular, couchPotato) {
 
         'use strict';
@@ -44,7 +46,9 @@ define([
                     //'mc.datepicker',
                     'olive.service',
                     'angupoly',
-                    'ngIdle'
+                    'ngIdle',
+                    'ngSanitize',
+                    'angular-growl'
         ]);
         
     couchPotato.configureApp(app);

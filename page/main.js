@@ -37,6 +37,7 @@ require.config({
         'qrcode':'../plugin/jquery-qrcode/qrcode',
         'jquery-qrcode':'../plugin/jquery-qrcode/jquery.qrcode',
         'angular': '../plugin/angular.1.2.14.min',
+        'angular-sanitize' : '../plugin/angular-sanitize/angular-sanitize.min',
         'ngIdle': '../plugin/angular-idle',
         'angularTranslate': '../plugin/angular-translate.min',
         'angular-ui-router': '../plugin/angular-ui-router.min',
@@ -53,12 +54,16 @@ require.config({
         'mainCtrl': '../page/templates/common/controllers/main.ctrl',
         'angularFileUpload'  : '../plugin/jquery.file.upload/jquery.fileupload-angular',
         'treeview':'../plugin/treeview/bootstrap-treeview',
+        'angular-growl' : '../plugin/angular-growl/angular-growl'
         // 'layer':'../plugin/layer/layer'
     },
     shim: {
         'angular': {
             'exports': 'angular'
         },
+    'angular-sanitize': {
+        'deps': ['angular']
+    },
         'angupoly': {
             'deps'    : ['angular']
         },
@@ -79,6 +84,9 @@ require.config({
         },
         'treeview':{
             'deps'    : ['angular']
+        },
+        'angular-growl': {
+            'deps':['angular']
         }
         // 'layer': {
         //     deps: ['jquery']
