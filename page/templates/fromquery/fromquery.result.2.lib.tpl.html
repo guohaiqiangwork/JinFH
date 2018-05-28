@@ -2,6 +2,66 @@
 <div style="overflow: auto;height: auto;">
 	<div>
 		<table class="table table-bordered">
+	        <thead>
+		        <tr>
+		            <td nowrap>分保方式</td>
+		            <td nowrap>分保比例%</td>
+		            <td nowrap>分出保额</td>
+		            <td nowrap>分出含税保费</td>
+	                <td nowrap>分出不含税保费 </td>
+		            <td nowrap>分出税额</td>
+				<tr>
+	        </thead>
+                <tr ng-repeat="reinsShare in reinsShares">
+		            <td ng-if="reinsShare.reinsMode==181">自留</td>
+		            <td ng-if="reinsShare.reinsMode==182">附加自留</td>
+		            <td ng-if="reinsShare.reinsMode==391">临分</td>
+		            <td ng-if="reinsShare.reinsMode==392">特约临分</td>
+		            <td ng-if="reinsShare.reinsMode==221">溢额</td>
+		            <td ng-if="reinsShare.reinsMode==231">成数</td>
+		            <td>{{reinsShare.shareRate}}%</td>
+		            <td>{{reinsShare.amount}}</td>
+		            <td>{{reinsShare.premium}}</td>
+		            <td>{{reinsShare.noTaxPremium}}</td>
+		            <td>{{reinsShare.taxFee}}</td>
+				</tr>
+	        <tr>
+	            <td>合计</td>
+	            <td>{{allNum.shareRate | formatPercent}}</td>
+	            <td>{{allNum.amount}}</td>
+	            <td>{{allNum.premium}}</td>
+	            <td>{{allNum.noTaxPremium}}</td>
+	            <td>{{allNum.taxFee}}</td>
+
+	        </tr>
+	    </table>
+	</div>
+	<div>
+	    非比例临分
+	</div>
+	<table class="table table-bordered">
+	    <thead>
+		    <tr>
+		    	<td>分保方式</td>
+		        <td>层号</td>
+		        <td>保费币别</td>
+		        <td>起赔点</td>
+		        <td>层保费</td>
+
+		    </tr>
+	    </thead>
+	    <tr ng-repeat="riskunitsShare in  reinsShare.plyEdrXComShares">
+	        <td>{{riskunitsShare.reinsType}}</td>
+	        <td>{{riskunitsShare.layerNo}}</td>
+	        <td>{{riskunitsShare.currency}}</td>
+	        <td>{{riskunitsShare.excessLoss}}</td>
+	        <td>{{riskunitsShare.layerPremium}}</td>
+	    </tr>
+	</table>
+	
+
+	<!-- <div>
+		<table class="table table-bordered">
 	        <thead >
 	            <td nowrap>分保方式</td>
 	            <td nowrap>接受人</td>
@@ -22,7 +82,7 @@
 		            <td>{{share.shareRate | formatPercent}}%</td>
 		            <td>{{share.currency}}</td>
 		            <td>{{share.amount}}</td>
-		            <!-- 20140821 fxy edit 待组长提供字段（每次事故赔偿限额） 20140828 hdl edit -->
+		            20140821 fxy edit 待组长提供字段（每次事故赔偿限额） 20140828 hdl edit
 		            <td>{{share.amount}}</td>
 		            <td>{{share.premium}}</td>
 		            <td>{{share.exTaxPremium}}</td>
@@ -33,11 +93,11 @@
 	            <td>合计</td>
 	            <td></td>
 	            <td></td>
-	            <td>{{reinsShare.shareRateCount|formatPercent}}</td> <!-- 比例 -->
+	            <td>{{reinsShare.shareRateCount|formatPercent}}</td> 比例
 	            <td></td>
-	            <td>{{reinsShare.amountCount}}</td> <!-- 保额 -->
-	            <td>{{reinsShare.speValueCount}}</td> <!-- 每次事故赔偿限额 -->
-	            <td>{{reinsShare.premiumCount}}</td> <!-- 保费 -->
+	            <td>{{reinsShare.amountCount}}</td> 保额
+	            <td>{{reinsShare.speValueCount}}</td> 每次事故赔偿限额
+	            <td>{{reinsShare.premiumCount}}</td> 保费
 	             <td>{{reinsShare.exTaxPremiumCount}}</td>
 	             <td>{{reinsShare.taxCount}}</td>
 	        </tr>
@@ -64,5 +124,5 @@
 	        <td>{{riskunitsShare.stopLimit}}</td>
 	        <td>{{riskunitsShare.layerPremium}}</td>
 	    </tr>
-	</table>
+	</table> -->
 </div>

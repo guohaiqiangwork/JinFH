@@ -334,10 +334,12 @@ define(['app',
                  }
                  facultativeService.billTernPayment(keywords).then(
                      function(data){
-                         if(data.data==='0'){
+                    	 if(data.msg==='success'){
+//                    		 $scope.searchPlyInfoList(biztype, $scope.pagination);
+                    		 $scope.QueryAcc(biztype,$scope.fzBAccList[0].rePolicyNo)
                              alert('账单转收付成功！！');
                          }else
-                         if(data.data==='-1'){
+                         if(data.msg==='error'){
                              alert('账单转收付失败！！');
                          }
                         console.log(data);
@@ -346,6 +348,42 @@ define(['app',
                      }
                  );
              }
+             //打印份保单
+             $scope.printbtn = function(option){
+            	 $modal.open({
+                     backdrop: 'true',
+                     animation: true,
+                     windowClass: 'modal-big',
+                     templateUrl:'/reins/page/templates/linfenAccounting/linfenAccounting.SlipCargo.html',
+                     resolve: {
+                     },
+                     controller: function ($scope, $modalInstance) {
+                         var queryAcc ={
+                             biztype:"C",
+                             plyRisk:plyRisk
+                         };
+                         facultativeService.checkDetails(queryAcc).then(
+                             function(data){
+                                 $scope.plyRiskUnit=data;
+                             },function(code){
+                                 throw(code);
+                             }
+                         );
+
+                         $scope.close = function () {
+                             $modalInstance.dismiss();
+                         };
+                     }
+                 });
+            	 
+            	 
+             }
+             
+             
+             
+             
+             
+             
 	        //根据页号查询合同列表
 	        $scope.onSelectPage = function(pageIndex){
 	            $scope.pagination.pageIndex = pageIndex;

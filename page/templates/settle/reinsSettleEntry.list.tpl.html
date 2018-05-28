@@ -1,250 +1,172 @@
 <div ng-controller="SettleListCtrl" collapse="hideList">
-	<div ng-hide="searchTableFlag" class="search-toggle" ng-click="searchTableFlag = ! searchTableFlag">
+    <div ng-hide="searchTableFlag" class="search-toggle" ng-click="searchTableFlag = ! searchTableFlag">
         <span class="glyphicon glyphicon-search"></span>
     </div>
     <div collapse="!searchTableFlag" class="well">
         <h4>账单查询</h4>
         <form name="searchForm" novalidate>
-            <table class="table">
-              <tr>
-                    <td>结算人编号</td>
-                     <td class="col-sm-1">               
-                       <!--  <select ng-model="searchWords.payCodeTag">
-                            <option value=""  selected>=&nbsp;</option>
-                            <option value="*">*&nbsp;</option>
-                        </select> -->
-                    </td>
-                    
-                    
-                    
-                    
-                    <td>
-						
-						  <select class="form-control" ng-model="searchWords.reinsCode"
-								style="width: 40%; float: left"  ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes"
-								>							
-					      </select>
-						<!-- <div class="col-sm-4">
-							<span
-								style="width: 30%; float: left; padding: 6px 11px 7px; border-bottom: #c0c0c0 1px dashed; color: #6a7483">
-								{{settleMain.reinsCode|code:'reinsCode'}} </span>
-						</div> -->
-					</td>
-                    
-                    
-                    
-                    
-                    
-                    
-                    <td>账单币种</td>
-                    <td>
-                        <!-- <select ng-model="searchWords.currencyTag">
-                            <option value="" selected>=&nbsp;</option>
-                            <option value="*">*&nbsp;</option>
-                        </select> -->
-                    </td>
-                    
-                    
-                    <td>
-                        
-						  <select class="form-control"
-								style="width: 40%; float: left" ng-model="searchWords.currency" ng-options="c.id as c.id +'-'+ c.value for c in currencys"
-								>
-					      </select>
-						<!-- <div class="col-sm-4">
-							<span
-								style="width: 30%; float: left; padding: 6px 11px 7px; border-bottom: #c0c0c0 1px dashed; color: #6a7483">
-								{{settleMain.currency|code:'currency'}} </span>
-						</div> -->
-                    </td>
-                </tr>  
-				
-				
-				
-				<tr>
-                    <td>账单编号</td>
-                    <td>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-xs-4">结算人编号：</label>
+                    <div class="col-xs-8">
+                        <select ng-model="searchWords.reinsCode" style="width: 143px"
+                                ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes">
+                            <option value=''>全部</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-xs-4">账单币种：</label>
+                    <div class="col-xs-8">
+                        <select ng-model="searchWords.currency"
+                                ng-options="c.id as c.id +'-'+ c.value for c in currencys">
+                            <option value=''>全部</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-xs-4">账单编号：</label>
+                    <div class="col-xs-8">
                         <select ng-model="searchWords.accNoTag">
                             <option value="=" selected>=&nbsp;</option>
                             <option value="*">*&nbsp;</option>
                         </select>
-                    </td>
-                    <td>
                         <input type="text" ng-model="searchWords.accNo">
-                    </td>
-                    <td>归属机构</td>
-                    <td>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-xs-4">归属机构：</label>
+                    <div class="col-xs-8">
                         <select ng-model="searchWords.comCodeTag">
                             <option value="=" selected>=&nbsp;</option>
                             <option value="*">*&nbsp;</option>
                         </select>
-                    </td>
-                    <td>
                         <input type="text" ng-model="searchWords.comCode">
-                    </td>
-
-                </tr>
-
-                <tr>
-                    <td>直接业务号</td>
-                    <td>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-xs-4">直接业务号：</label>
+                    <div class="col-xs-8">
                         <select ng-model="searchWords.drCertifyNoTag">
                             <option value="=" selected>=&nbsp;</option>
                             <option value="*">*&nbsp;</option>
                         </select>
-                    </td>
-                    <td>
                         <input type="text" ng-model="searchWords.drCertifyNo">
-                    </td>
-                    <td>分保业务号</td>
-                    <td>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-xs-4">分保业务号：</label>
+                    <div class="col-xs-8">
                         <select ng-model="searchWords.reCertifyNoTag">
                             <option value="=" selected>=&nbsp;</option>
                             <option value="*">*&nbsp;</option>
                         </select>
-                    </td>
-                    <td>
                         <input type="text" ng-model="searchWords.reCertifyNo">
-                    </td>
-                </tr>
-                 <tr>
-                 <td>合约编号</td>
-                    <td>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-xs-4">合约编号：</label>
+                    <div class="col-xs-8">
                         <select ng-model="searchWords.treatyNoTag">
                             <option value="=" selected>=&nbsp;</option>
                             <option value="*">*&nbsp;</option>
                         </select>
-                    </td>
-                    <td>
-                        <input type="text" ng-model="searchWords.treatyNo" >
-                    </td>
-                	
-                     <td>合约分项编号</td>
-	                    <td>
-	                        <select ng-model="searchWords.sectionNoTag">
-	                            <option value="=" selected>=&nbsp;</option>
-	                            <option value="*">*&nbsp;</option>
-	                        </select>
-	                    </td>
-                    <td>
+                        <input type="text" ng-model="searchWords.treatyNo">
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-xs-4">合约分项编号：</label>
+                    <div class="col-xs-8">
+                        <select ng-model="searchWords.sectionNoTag">
+                            <option value="=" selected>=&nbsp;</option>
+                            <option value="*">*&nbsp;</option>
+                        </select>
                         <input type="text" ng-model="searchWords.sectionNo">
-                    </td>
-                </tr>
-                <tr ng-if="mode==='admin'">
-                    
-                   <td>起始帐单期(如2014-01M/Q)：</td>
-                    <td>
-                        <select ng-model="searchWords.startAccPeriodTag">
-                            <option value="=" selected>=&nbsp;</option>
-                            <option value="*">*&nbsp;</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="text" ng-model="searchWords.startAccPeriod">
-                    </td>
-                   <td>截止帐单期(如2014-01M/Q)：</td>
-                    <td>
-                        <select ng-model="searchWords.endAccPeriodTag">
-                            <option value="=" selected>=&nbsp;</option>
-                            <option value="*">*&nbsp;</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="text" ng-model="searchWords.endAccPeriod">
-                    </td>
-                 </tr>
-                 <tr>
-                    <td>业务年度：</td>
-                        <td>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-xs-4">业务年度：</label>
+                    <div class="col-xs-8">
                         <select ng-model="searchWords.uwYearTag">
                             <option value="=" selected>=&nbsp;</option>
                             <option value="*">*&nbsp;</option>
                         </select>
-                    </td>
-                    <td>
                         <input type="text" ng-model="searchWords.uwYear">
-                    </td>
-                 </tr>
-                 <tr>
-                    <td>险类：</td>
-                      <td>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-xs-4">险类：</label>
+                    <div class="col-xs-8">
                         <select ng-model="searchWords.classCodeTag">
                             <option value="=" selected>=&nbsp;</option>
                             <option value="*">*&nbsp;</option>
                         </select>
-                      </td>
-                      <td>
                         <input type="text" ng-model="searchWords.classCode">
-                      </td>
-                    <td>险种：</td>
-                      <td>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-xs-4">险种：</label>
+                    <div class="col-xs-8">
                         <select ng-model="searchWords.riskCodeTag">
                             <option value="=" selected>=&nbsp;</option>
                             <option value="*">*&nbsp;</option>
                         </select>
-                      </td> 
-                      <td>
                         <input type="text" ng-model="searchWords.riskCode">
-                      </td>
-                </tr>
-              	
-              	<tr>
-                    <td>应结付日期：</td>
-                      <td>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-xs-4">应结付日期：</label>
+                    <div class="col-xs-8">
                         <select ng-model="searchWords.settleDateTag">
                             <option value="=" selected>=&nbsp;</option>
                             <option value="*">*&nbsp;</option>
                         </select>
-                      </td>
-                      <td>
-                        <input type="date" ng-model="searchWords.settleDate">
-                      </td>
-                    <td>被保险人/船名：</td>
-                      <td>
+                        <input type="date" style="line-height: normal" ng-model="searchWords.settleDate">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-xs-4">被保险人/船名：</label>
+                    <div class="col-xs-8">
                         <select ng-model="searchWords.insuredNameTag">
                             <option value="=" selected>=&nbsp;</option>
                             <option value="*">*&nbsp;</option>
                         </select>
-                      </td>
-                      <td>
                         <input type="text" ng-model="searchWords.insuredName">
-                      </td>
-                </tr>
-              	
-              	<tr>
-                    <td>对方帐单编号：</td>
-                      <td>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-xs-4">对方帐单编号：</label>
+                    <div class="col-xs-8">
                         <select ng-model="searchWords.yourRefTag">
                             <option value="=" selected>=&nbsp;</option>
                             <option value="*">*&nbsp;</option>
                         </select>
-                      </td>
-                      <td>
                         <input type="text" ng-model="searchWords.yourRef">
-                      </td>
-                    <td>分出公司：</td>
-                      <td>
+                    </div>
+                </div>
+               <!--  <div class="col-xs-4">
+                    <label class="col-xs-4">分出公司：</label>
+                    <div class="col-xs-8">
                         <select ng-model="searchWords.comCodeInTag">
                             <option value="=" selected>=&nbsp;</option>
                             <option value="*">*&nbsp;</option>
                         </select>
-                      </td>
-                                     
-                      <td>
                         <input type="text" ng-model="searchWords.comCodeIn">
-                      </td>
-                </tr>
-              	
-              	<tr>
-              		<td ng-model="searchWords.reinsType">分保方式：</td>
-              		<td>
-              		  <label><input name="searchWords.reinsType" type="radio" value="1" ng-model="searchWords.reinsType"/>合约 </label>
-					  <label><input name="searchWords.reinsType" type="radio" value="0" ng-model="searchWords.reinsType"/>临分 </label>
-					  <label><input name="searchWords.reinsType" type="radio" value="" checked/>全部  </label>
-              		<td>
-              		<td>帐单类型：</td>
-              		<td>
-              		  <select ng-model="searchWords.accKind">
+                    </div>
+                </div> -->
+                 <div class="col-xs-4">
+                    <label class="col-xs-4">帐单类型：</label>
+                    <div class="col-xs-8">
+                        <select ng-model="searchWords.accKind">
                             <option name="searchWords.accKind" value="" selected>全部</option>
                             <option name="searchWords.accKind" value="P" ng-model="searchWords.accKind">分保单账单</option>
                             <option name="searchWords.accKind" value="E" ng-model="searchWords.accKind">分批单账单</option>
@@ -254,40 +176,100 @@
                             <option name="searchWords.accKind" value="L" ng-model="searchWords.accKind">冲销账单</option>
                             <option name="searchWords.accKind" value="CT" ng-model="searchWords.accKind">巨灾账单</option>
                         </select>
-              		<td>
-              	</tr>
-              	<tr>
-              		<td>结算状态：</td>
-              		<td>
-              		  <label><input name="searchWords.settleStatus" type="radio" value="2"  ng-model="searchWords.settleStatus"/>已结算 </label>
-					  <label><input name="searchWords.settleStatus" type="radio" value="0"  ng-model="searchWords.settleStatus"/>未结算 </label>
-					  <label><input name="searchWords.settleStatus" type="radio" value="" ng-model="searchWords.settleStatus"  checked/>全部  </label>
-              		<td>
-              		
-              		<td>业务类型：</td>
-              		<td>
-              		  <label><input name="searchWords.optType" type="radio" value="1"  ng-model="searchWords.optType"/>分入 </label>
-					  <label><input name="searchWords.optType" type="radio" value="0" ng-model="searchWords.optType" checked/>分出</label>
-              		<td>
-              	</tr>
-              	
-              	
-                <tr>
-                    <td colspan="6" align="right">
-                        <a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
-                        <a ng-click="searchTableFlag = ! searchTableFlag" class="btn btn-default">取消</a>
-                        <a ng-click="searchSettle(searchWords, {}, {})" class="btn btn-primary" ng-disabled="!searchForm.$valid">立即查询</a>
-
-                    </td>
-                </tr>
-            </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-xs-4">分保方式：</label>
+                    <div class="col-xs-8">
+                        <label><input name="searchWords.reinsType" type="radio" value="1"
+                                      ng-model="searchWords.reinsType"/>合约 </label>
+                        <label><input name="searchWords.reinsType" type="radio" value="0"
+                                      ng-model="searchWords.reinsType"/>临分 </label>
+                        <label><input name="searchWords.reinsType" type="radio" value="" checked/>全部 </label>
+                    </div>
+                </div>
+               <!--  <div class="col-xs-4">
+                    <label class="col-xs-4">帐单类型：</label>
+                    <div class="col-xs-8">
+                        <select ng-model="searchWords.accKind">
+                            <option name="searchWords.accKind" value="" selected>全部</option>
+                            <option name="searchWords.accKind" value="P" ng-model="searchWords.accKind">分保单账单</option>
+                            <option name="searchWords.accKind" value="E" ng-model="searchWords.accKind">分批单账单</option>
+                            <option name="searchWords.accKind" value="CF" ng-model="searchWords.accKind">分赔案账单</option>
+                            <option name="searchWords.accKind" value="G" ng-model="searchWords.accKind">普通合约账单</option>
+                            <option name="searchWords.accKind" value="M" ng-model="searchWords.accKind">现金赔款账单</option>
+                            <option name="searchWords.accKind" value="L" ng-model="searchWords.accKind">冲销账单</option>
+                            <option name="searchWords.accKind" value="CT" ng-model="searchWords.accKind">巨灾账单</option>
+                        </select>
+                    </div>
+                </div> -->
+                <div class="col-xs-4">
+                    <label class="col-xs-4">业务类型：</label>
+                    <div class="col-xs-8">
+                        <label><input name="searchWords.optType" type="radio" value="1" ng-model="searchWords.optType"/>分入
+                        </label>
+                        <label><input name="searchWords.optType" type="radio" value="0" ng-model="searchWords.optType"
+                                      checked/>分出</label>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-xs-4">结算状态：</label>
+                    <div class="col-xs-8">
+                        <label><input name="searchWords.settleStatus" type="radio" value="2"
+                                      ng-model="searchWords.settleStatus"/>已结算 </label>
+                        <label><input name="searchWords.settleStatus" type="radio" value="0"
+                                      ng-model="searchWords.settleStatus"/>未结算 </label>
+                        <label><input name="searchWords.settleStatus" type="radio" value=""
+                                      ng-model="searchWords.settleStatus" checked/>全部 </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+               <!--  <div class="col-xs-4">
+                    <label class="col-xs-4">业务类型：</label>
+                    <div class="col-xs-8">
+                        <label><input name="searchWords.optType" type="radio" value="1" ng-model="searchWords.optType"/>分入
+                        </label>
+                        <label><input name="searchWords.optType" type="radio" value="0" ng-model="searchWords.optType"
+                                      checked/>分出</label>
+                    </div>
+                </div> -->
+                <div class="col-xs-4" ng-if="mode==='admin'">
+                    <label class="col-xs-4">起始帐单期(如2014-01M/Q)：</label>
+                    <div class="col-xs-8">
+                        <select ng-model="searchWords.startAccPeriodTag">
+                            <option value="=" selected>=&nbsp;</option>
+                            <option value="*">*&nbsp;</option>
+                        </select>
+                        <input type="text" ng-model="searchWords.startAccPeriod">
+                    </div>
+                </div>
+                <div class="col-xs-4" ng-if="mode==='admin'">
+                    <label class="col-xs-4">截止帐单期(如2014-01M/Q)：</label>
+                    <div class="col-xs-8">
+                        <select ng-model="searchWords.endAccPeriodTag">
+                            <option value="=" selected>=&nbsp;</option>
+                            <option value="*">*&nbsp;</option>
+                        </select>
+                        <input type="text" ng-model="searchWords.endAccPeriod">
+                    </div>
+                </div>
+            </div>
+            <div colspan="6" align="right">
+                <a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
+                <a ng-click="searchTableFlag = ! searchTableFlag" class="btn btn-default">取消</a>
+                <a ng-click="searchSettle(searchWords, {}, {})" class="btn btn-primary"
+                   ng-disabled="!searchForm.$valid">立即查询</a>
+            </div>
         </form>
     </div>
     <div class="page-header">
-    
 
-       <h3 class="ng-binding">结算单生成</h3>
-   </div>
+
+        <h3 class="ng-binding">结算单生成</h3>
+    </div>
     <div class="panel panel-default " ng-show="settleList.length > 0">
         <!-- 显示查询结果列表 -->
         <div ng-include="'/reins/page/templates/settle/reinsSettleResult.list.tpl.html'"></div>

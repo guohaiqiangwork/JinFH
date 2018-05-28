@@ -5,7 +5,7 @@
 
     <div ng-if="searchTable.flag" class="container-fluid">
         <div class="well">
-            <div class="row">
+            <div class="row" style="margin-top: 18px">
                 <div class="col-xs-4">
                     <label class="col-xs-4">员工名称：</label>
                     <div class="col-xs-8">
@@ -24,7 +24,9 @@
                             <option value="*">*</option>
                         </select>
                         <select class="condition" ng-model="keywords.userCode" style="width: 143px"
-                                ng-options="c.id as c.id +'-'+ c.value for c in userCode"></select>
+                                ng-options="c.id as c.id +'-'+ c.value for c in userCode">
+                            <option value=''>全部</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -36,8 +38,14 @@
                             <option value="=">=</option>
                             <option value="*">*</option>
                         </select>
-                        <select ng-model="keywords.comCode"
-                                ng-options="c.id as c.id +'-'+ c.value for c in comCode"></select>
+                        <!--<select ng-model="keywords.comCode"-->
+                                <!--ng-options="c.id as c.id +'-'+ c.value for c in comCode">-->
+                            <!--<option value=''>全部</option>-->
+                        <!--</select>-->
+
+                        <input  type="text" ng-model="keywords.comCode"
+                                typeahead="state.id as state.id +'-'+ state.value for state in getByReturn('comCode',keywords.comCode)"
+                                typeahead-wait-ms="500">
                     </div>
                 </div>
             </div>
@@ -101,6 +109,7 @@
                     <th>员工代码</th>
                     <th>员工名称</th>
                     <th>归属机构</th>
+                    <th>归属机构名称</th>
                     <th>岗位中文描述</th>
                     <th>创建时间</th>
                     <th>操作</th>
@@ -110,13 +119,14 @@
                         <td>{{person.userCode}}</td>
                         <td>{{person.username}}</td>
                         <td>{{person.comCode}}</td>
+                        <td>{{person.comName}}</td>
                         <td>{{person.gradeCName}}</td>
                         <td>{{person.createTime.time | date : 'yyyy-MM-dd'}}</td>
                         <td>
                             <div class="btn-group btn-group-sm hover-visible">
                                 <a class="btn btn-default" ng-click="permissionDeploy(person)">配置</a>
                                 <a class="btn btn-default" ng-click="permissionReset(person)">重置</a>
-                                <a class="btn btn-default" ng-click="passwordManager(person)">密码管理</a>
+                                <!--<a class="btn btn-default" ng-click="passwordManager(person)">密码管理</a>-->
                             </div>
                         </td>
                     </tr>

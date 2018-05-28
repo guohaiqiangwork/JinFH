@@ -2,7 +2,7 @@
 	<div class="pull-right">
 	    <a class="btn btn-default" ng-click="dangerUnit.showExtra = comeback(enquiryForm.$invalid,enquiryForm.$dirty,dangerUnit.showExtra)">返回</a>
 	    <a class="btn btn-primary" ng-disabled="enquiryForm.$invalid || (feoXReinssFlag===2) || feoEnquiry.verifyFlag == '3'" ng-click="saveFacEnquiry(dangerUnitFacEnquiry,'1')">保存</a>
-	    <a class="btn btn-primary" ng-disabled="reinsuranceTrue" ng-disabled="enquiryForm.$invalid || (feoXReinssFlag===2)" ng-click="saveFacEnquiry(dangerUnitFacEnquiry,'2')">提交再保</a>
+	    <a class="btn btn-primary" ng-disabled="reinsuranceTrue" ng-disabled="enquiryForm.$invalid || (feoXReinssFlag===2)|| || feoEnquiry.verifyFlag != '0'" ng-click="saveFacEnquiry(dangerUnitFacEnquiry,'2')">提交再保</a>
 	</div>
 	<div class="paper">
 		<ng-form name="enquiryForm">

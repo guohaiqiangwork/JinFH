@@ -85,7 +85,10 @@ define(['app',
 	            	"treatyNo":'',
 	            	"refNo":'',
 	            	"uwYear":'',
-	            	"treatyType":''
+	            	"treatyType":'',
+	            	'contNoFlag':'=',
+	            	'contYearFlag':'=',
+	            	'refNmeFlag':'='
 	            };
 	            
 	        };

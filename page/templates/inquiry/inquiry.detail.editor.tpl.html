@@ -1,6 +1,13 @@
 <div >
     <div class="modal-header">
-        <h3>询价详情</h3>
+        <h3>
+        	询价详情
+        	<div style="float:right">
+        		 <a class="btn btn-default" style="margin-right:10px;" ng-click="saveEnquiry()">保存</a>
+        		  <a class="btn btn-default" ng-click="ok()">关闭</a>
+        	
+        	</div>
+        </h3>
     </div>
     <div class="modal-body">
         <div>
@@ -230,7 +237,25 @@
 		                            <option value="4">确认不通过</option>
 		                            <option value="9">注销</option>
 			                    </select>
-	                         </div>	                         
+	                         </div>	   
+	                         <div class="col-lg-2">
+				                <label>自动生成账单</label>
+				             </div>
+				             <div class="col-lg-4" >
+			                   <input type="radio" value="1" ng-model="dangerUnitFacEnquiry.feoEnquiry.genAccFlag"  name="dangerUnitFacEnquiry.feoEnquiry.genAccFlag" /><span>是</span>
+			                   <input type="radio" value="0" ng-model="dangerUnitFacEnquiry.feoEnquiry.genAccFlag"  name="dangerUnitFacEnquiry.feoEnquiry.genAccFlag"/><span>否</soan>
+			                   
+	                         </div>
+				             <!--  <div class="col-lg-4" ng-if="dangerUnitFacEnquiry.feoEnquiry.genAccFlag==0">
+			                   <input type="radio" ng-checked="true" ng-click="changeChice(dangerUnitFacEnquiry.feoEnquiry.genAccFlag)"  name="chioce" /><span>是</span>
+			                   <input type="radio" name="chioce" ng-model="dangerUnitFacEnquiry.feoEnquiry.genAccFlag"/><span>否</soan>
+			                   
+	                         </div>
+	                         <div class="col-lg-4" ng-if="dangerUnitFacEnquiry.feoEnquiry.genAccFlag==1">
+			                    <input type="radio" name="chioce" /><span>是</span>
+			                   <input type="radio" ng-checked="true" name="chioce"/><span>否</soan>
+			                   
+	                         </div> -->	                     
 			        	</div>
 			        	
 			        	<div class="row">
@@ -238,18 +263,9 @@
 				                <label>再保确认意见</label>
 				             </div>
 				             <div class="col-lg-2">
-				                 <textarea rows="2" cols="60" ng-model="dangerUnitFacEnquiry.feoEnquiry.reinsHandleText" style="border:none;"></textarea>
+				                 <textarea style="border:1px solid #ccc" rows="2" cols="60" ng-model="dangerUnitFacEnquiry.feoEnquiry.reinsHandleText" style="border:none;"></textarea>
 				             </div>
-				         </div>
-			        	
-			        	<div class="row">
-			        	    <div  class="col-lg-4">
-	                             <a class="btn btn-default" ng-click="saveEnquiry()">保存</a>
-	                        </div>
-	                        <div class="col-lg-4">            
-					            <a class="btn btn-default" ng-click="ok()">关闭</a>&nbsp;&nbsp;&nbsp;           
-					        </div>
-			        	</div>			        	
+				         </div>		        	
                     </form>
                 </tab>
 

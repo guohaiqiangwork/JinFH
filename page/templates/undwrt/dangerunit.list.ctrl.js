@@ -719,7 +719,7 @@ define(['app',
                     if ($scope.dangerUnitFacEnquiry.feoReinsReceiveList.length > 0) {
 
                         $.each($scope.dangerUnitFacEnquiry.feoReinsReceiveList, function (index, fac) {
-                            if (fac.reinsType === "1" || fac.reinsType === false) {
+                            if (fac.reinsType === "0" || fac.reinsType) {
                                 fac.reinsType = true;
                             } else {
                                 fac.reinsType = false;
@@ -964,6 +964,20 @@ define(['app',
 
             //临分意向-保存
             $scope.saveFacEnquiry = function (facEnquiry, id) {
+               for(var i=0;i<$scope.dangerUnitFacEnquiry.feoReinsReceiveList.length;i++) {
+                    if($scope.dangerUnitFacEnquiry.feoReinsReceiveList[i].reinsType){
+                        if($scope.dangerUnitFacEnquiry.feoReinsReceiveList[i].reinsCode === $scope.dangerUnitFacEnquiry.feoReinsReceiveList[i].finalReinsCodes.id){
+                            alert('再保代理人/再保经纪人勾选，接受人/经纪人 和 最终接受人 不能相等');
+                            return false;
+                        }
+                    }
+                    if(!$scope.dangerUnitFacEnquiry.feoReinsReceiveList[i].reinsType){
+                        if($scope.dangerUnitFacEnquiry.feoReinsReceiveList[i].reinsCode !== $scope.dangerUnitFacEnquiry.feoReinsReceiveList[i].finalReinsCodes.id){
+                            alert('再保代理人/再保经纪人未勾选，接受人/经纪人 和 最终接受人 必须相等');
+                            return false;
+                        }
+                    }
+                }
 
                 //输入时检查超赔接受人(接收人接受比例之和必须等于层信息的分出比例 否则接收人的接受比例报warning)
                 $scope.checkRecepter(); //暂时注释掉
@@ -1007,7 +1021,7 @@ define(['app',
                 $scope.dealDifReinsAbcToNum();
 
                 //预处理比例超赔中的经纪人(true-false;"1"-"0")
-                $scope.dealBrokerToString();
+                // $scope.dealBrokerToString();
 
                 //预处理超赔中的接收人缴费信息
                 $scope.dealNpropRecepter();
@@ -1086,9 +1100,75 @@ define(['app',
                 }
                 //结构置空调用保存方法
                 // console.log("结构置空调用保存方法" + saveFlag != "1" && ($scope.error.flag.length <= 0));
+                //进行赋值
+                $.each($scope.dangerUnitFacEnquiry.feoReinsReceiveList,function(index,items) {
+                    if(items.finalReinsCodes){
+                        var finalReinsCodeTransfer = items.finalReinsCodes
+                        items.finalReinsCode = finalReinsCodeTransfer.id
+                        items.finalReinsName = finalReinsCodeTransfer.value
+                        items.WithHoldFlag = finalReinsCodeTransfer.other1
+                    }
+                })
+                console.log($scope.dangerUnitFacEnquiry.feoReinsReceiveList)
+                //校验接受人管理
+                $scope.signedLineTrue = true;
+                var facShareListSum = [];
+                var specialFacShareListSum = [];
+                $.each($scope.dangerUnitFacEnquiry.feoReinsReceiveList,function(index,items){
+                    if(items.facFlag == '1'){
+                        facShareListSum.push(items.signedLine)
+                    }
+                    if(items.facFlag == '0'){
+                        specialFacShareListSum.push(items.signedLine)
+                    }
+                });
+                var facShareSumA = eval(facShareListSum.join('+')) //特约
+                var specialFacShareSumB = eval(specialFacShareListSum.join('+')) //普通
+                if(specialFacShareListSum.length > 0){
+                    if(specialFacShareSumB != $scope.feoEnquiry.facShare){
+                        $scope.signedLineTrue = false;
+                        alert('普通临分与接受比例不相等')
+                        return
+                    }
+                }
+                if(facShareListSum.length > 0 ){
+                    if(facShareSumA != $scope.feoEnquiry.specialFacShare){
+                        $scope.signedLineTrue = false;
+                        alert('特约临分与接受比例不相等')
+                        return
+                    }
+                }
 
+                // $.each($scope.dangerUnitFacEnquiry.feoReinsReceiveList,function(index,items){
+                //     // 普通临分 facShare 特约临分specialFacShare
+                //     if($scope.feoEnquiry.facFlag == '1'){
+                //         if(items.facFlag == '0'){
+                //             if(items.signedLine != $scope.feoEnquiry.facShare){
+                //                 $scope.signedLineTrue = false;
+                //                 alert('普通临分与接受比例不相等')
+                //                 return
+                //             }
+                //         }
+                //     }
+                //     if($scope.feoEnquiry.specialFacFlag == '1'){
+                //         if(items.facFlag == '1'){
+                //             if(items.signedLine != $scope.feoEnquiry.specialFacShare){
+                //                 $scope.signedLineTrue = false;
+                //                 alert('特约临分与接受比例不相等')
+                //                 return
+                //             }
+                //         }
+                //     }
+                // })
                 if (id == '2') {
-                    $scope.saveFacEnquiryreinsurance($scope.keywords_, $scope.dangerUnitFacEnquiry, $scope.global.user)
+                    if($scope.feoEnquiry.verifyFlag != '0'){
+                        alert('非暂存状态不可再次提交再保')
+                        return
+                    }
+if($scope.signedLineTrue){
+    $scope.saveFacEnquiryreinsurance($scope.keywords_, $scope.dangerUnitFacEnquiry, $scope.global.user)
+
+}
                 }
                 if (id == "1") {
                     if (saveFlag != "1" && ($scope.error.flag.length <= 0)) {
@@ -1099,8 +1179,9 @@ define(['app',
                         if(!$scope.dangerUnitFacEnquiry.feoEnquiry.specialFacFlag){
                             $scope.dangerUnitFacEnquiry.feoEnquiry.specialFacFlag = '0';
                         }
-
-                        $scope.saveFacEnquiryDetail($scope.keywords_, $scope.dangerUnitFacEnquiry, $scope.global.user);
+                        if( $scope.signedLineTrue){
+                            $scope.saveFacEnquiryDetail($scope.keywords_, $scope.dangerUnitFacEnquiry, $scope.global.user);
+                        }
                     }
                 }
 
@@ -1121,7 +1202,7 @@ define(['app',
                 $scope.showBusy(true);
                 riskunitService.saveFacEnquiry(certiType, facEnquiry, user, lan).then(
                     function (data) {
-                        if (angular.isDefined(data.msg)) {
+                        if (!angular.isDefined(data.msg)) {
                             alert("保存失败! " + data.msg);
                             $scope.showBusy(false);
                         } else {
@@ -1131,6 +1212,7 @@ define(['app',
                             $scope.planNpropFlag = false;
                             $scope.save.flag = true;
                             $scope.showBusy(false);
+                            $scope.getFacEnquiryInfo($scope.certiTypeCopy, $scope.certiNo, $scope.dangerNo, $scope.global.user, {});
                             //$scope.$emit('notification', {message:'临分意向保存成功', delay:3000, type:'success'});
                         }
                     },
@@ -1155,7 +1237,8 @@ define(['app',
                             $scope.planNpropFlag = false;
                             $scope.save.flag = true;
                             $scope.showBusy(false);
-                            location.reload();
+                            $scope.getFacEnquiryInfo($scope.certiTypeCopy, $scope.certiNo, $scope.dangerNo, $scope.global.user, {});
+
                             //$scope.$emit('notification', {message:'临分意向保存成功', delay:3000, type:'success'});
                         }
                     },
@@ -1200,7 +1283,6 @@ define(['app',
                 }
                 $scope.dangerUnitFacEnquiry.feoXLayerList.push(_section);
             }
-
             //删除层
             $scope.removeLayer = function (risiunit, $layer) {
                 if (confirm('删除层' + $layer.layerNo + "吗？")) {
@@ -1223,7 +1305,8 @@ define(['app',
                     };
                 }
                 var _feoReinsProp = {
-                    facFlag: 'false'
+                    facFlag: '0',
+                    vatRate:'6.000000'
                 }
                 // _feoReinsProp.isNewFlag = "1";
                 $scope.dangerUnitFacEnquiry.feoReinsReceiveList.push(_feoReinsProp);
@@ -1817,7 +1900,7 @@ define(['app',
                         sumTaxEdr: 0,
                         sumPrmEdrMain2: 0
                     };
-                    //sum1 = dangerUnit.oldAmt;//保额和
+                    sum1 += dangerUnit.amount;//保额和
                     sum2 += dangerUnit.premium;//保费和
                     sum3 += dangerUnit.noTaxPremium;
                     sum4 += dangerUnit.taxFee;
@@ -2095,10 +2178,10 @@ define(['app',
              * 进合同-除外责任-前台控制
              * ----start----
              */
-            $scope.selectExclusion = function (riskunit) {
+            $scope.selectExclusion = function (riskunit){
+                console.log(riskunit)
                 $timeout(function () {
-                    if (riskunit.quotaObjTypeCde === "0000" || riskunit.overObjTypeCde === "0000" || riskunit.xTreatyObjTypeCde === "0000"
-                        || riskunit.quotaSaMrk === true || riskunit.overSaMrk === true || riskunit.xTreatySaMrk === true) {
+                    if (riskunit.exItemKind.treatyNo == null || riskunit.exItemKind.treatyNo == undefined || riskunit.exItemKind.treatyNo == "") {
                         riskunit.flag = true;
                     }
                     else {
@@ -2329,6 +2412,15 @@ define(['app',
                                     $scope.RU.reinsShares[index] = reinsShareCount($scope.RU.reinsShares[index]);
                                 }
                             });
+                            var amountTotalList = [];
+                            var premiumTotalList = [];
+                            var noTaxPremiumTotalList = [];
+                            var taxFeeTotalList = [];
+                            var shareRateTotalList = [];
+                            var amountChgTotalList = [];
+                            var premiumChgTotalList = [];
+                            var chgNoTaxPremiumTotalList = [];
+                            var chgTaxFeeTotalList = [];
                             $scope.reinsShares = angular.copy($scope.RU.reinsShares);
                             //$scope.groupData = groupBySection(data);
                             $.each($scope.reinsShares, function (index, unitrisk) {
@@ -2340,29 +2432,32 @@ define(['app',
                                 $scope.trialListShare.push(unitrisk.reinsShareList)
                             });
 
-
-                            var amountTotalList = [];
-                            var premiumTotalList = [];
-                            var noTaxPremiumTotalList = [];
-                            var taxFeeTotalList = [];
-                            var shareRateTotalList = [];
-                            var amountChgTotalList = [];
-                            var premiumChgTotalList = [];
-                            var chgNoTaxPremiumTotalList = [];
-                            var chgTaxFeeTotalList = [];
-                            $.each($scope.trialListShare, function (index, items) {
-                                if (items) {
-                                    amountTotalList.push(items[index].amount)
-                                    premiumTotalList.push(items[index].premium)
-                                    noTaxPremiumTotalList.push(items[index].noTaxPremium)
-                                    taxFeeTotalList.push(items[index].taxFee)
-                                    shareRateTotalList.push(items[index].shareRate)
-                                    amountChgTotalList.push(items[index].amountChg)
-                                    premiumChgTotalList.push(items[index].premiumChg)
-                                    chgNoTaxPremiumTotalList.push(items[index].chgNoTaxPremium)
-                                    chgTaxFeeTotalList.push(items[index].chgTaxFee)
+                            for(var i = 0;i<$scope.trialListShare[0].length;i++){
+                                if ($scope.trialListShare) {
+                                    amountTotalList.push($scope.trialListShare[0][i].amount)
+                                    premiumTotalList.push($scope.trialListShare[0][i].premium)
+                                    noTaxPremiumTotalList.push($scope.trialListShare[0][i].noTaxPremium)
+                                    taxFeeTotalList.push($scope.trialListShare[0][i].taxFee)
+                                    shareRateTotalList.push($scope.trialListShare[0][i].shareRate)
+                                    amountChgTotalList.push($scope.trialListShare[0][i].amountChg)
+                                    premiumChgTotalList.push($scope.trialListShare[0][i].premiumChg)
+                                    chgNoTaxPremiumTotalList.push($scope.trialListShare[0][i].chgNoTaxPremium)
+                                    chgTaxFeeTotalList.push($scope.trialListShare[0][i].chgTaxFee)
                                 }
-                            });
+                            }
+                            // $.each($scope.trialListShare, function (index, items) {
+                            //     if (items) {
+                            //         amountTotalList.push(items[index].amount)
+                            //         premiumTotalList.push(items[index].premium)
+                            //         noTaxPremiumTotalList.push(items[index].noTaxPremium)
+                            //         taxFeeTotalList.push(items[index].taxFee)
+                            //         shareRateTotalList.push(items[index].shareRate)
+                            //         amountChgTotalList.push(items[index].amountChg)
+                            //         premiumChgTotalList.push(items[index].premiumChg)
+                            //         chgNoTaxPremiumTotalList.push(items[index].chgNoTaxPremium)
+                            //         chgTaxFeeTotalList.push(items[index].chgTaxFee)
+                            //     }
+                            // });
                             $scope.amountTotal = eval(amountTotalList.join('+'))
                             $scope.premiumTotal = eval(premiumTotalList.join('+'))
                             $scope.noTaxPremiumTotal = eval(noTaxPremiumTotalList.join('+'))
@@ -2470,7 +2565,7 @@ define(['app',
                         } else {
                             feoReinsReceive.abc = false;
                         }
-                        if (feoReinsReceive.facFlag) {
+                        if (feoReinsReceive.facFlag == '1') {
                             feoReinsReceive.facFlag = '1'
                         } else {
                             feoReinsReceive.facFlag = '0'
@@ -2485,6 +2580,7 @@ define(['app',
 
                 if ($scope.dangerUnitFacEnquiry.feoReinsReceiveList.length > 0) {
                     $.each($scope.dangerUnitFacEnquiry.feoReinsReceiveList, function (index, fac) {
+
                         if (fac.reinsType) {
                             fac.reinsType = "0";
                         } else {
@@ -2548,9 +2644,23 @@ define(['app',
 
                 riskunitService.getFacEnquiryInfo(certiType, certiNo, dangerNo, user, lan).then(
                     function (data) {
+
                         if (angular.isUndefined(data.result)) {
                             $scope.dangerUnitFacEnquiry = (data);
-                            $scope.feoEnquiry = $scope.dangerUnitFacEnquiry.feoEnquiry;
+                            $.each( $scope.dangerUnitFacEnquiry.feoReinsReceiveList,function(index,items){
+                                    items.vatRate = '6.000000'
+                            });
+                            $.each( $scope.dangerUnitFacEnquiry.feoReinsReceiveList,function(index,items){
+                                if(items.finalReinsCode){
+                                    items.finalReinsCodes ={
+                                        id: items.finalReinsCode,
+                                        other1:items.finalReinsOther1,
+                                        value:items.finalReinsName
+                                    }
+                                }
+                            });
+
+                            console.log($scope.dangerUnitFacEnquiry.feoReinsReceiveList)
                             $scope.feoEnquiry = $scope.dangerUnitFacEnquiry.feoEnquiry;
                             $scope.feoEnquiry.riskCode = $scope.dangerUnitFacEnquiry.riskCode;
                             $scope.feoEnquiry.certiName = $scope.dangerUnitFacEnquiry.certiName;
@@ -2605,24 +2715,17 @@ define(['app',
             $scope.updateRiskunitEdr = function (riskUnit) {
                 if (judgeEqualInitValue(riskUnit)) {
                     $scope.RU.changeFlag = false;
-                    // console.log("是否按标的信息拆分保存：" + "$scope.splitMode.flagFlag:" + $scope.splitMode.flagFlag);//true,数据没有改变，普通保存
-                    // console.log("是否按占比拆分保存：" + "$scope.splitMode.flagFlag:" + $scope.splitMode.flagFlag);//false，数据发生改变，按占比拆分保存
-
                     $.each(riskUnit, function (index, riskunits) {
                         riskunits.flag = transformBooleanToNum(riskunits.flag);
                     });
-                    // console.log(riskUnit);
                     if (!judgeSplitByItem(riskUnit) && riskUnit[0].splitType === "1") {
                         //按标的拆分保存
-                        // console.log("标的");
                         modifyRiskUnit($scope.certiTypeCopy, "1", riskUnit, $scope.global.user, $scope.global.lang);
                     } else if (!judgeSplitByProportion(riskUnit) && riskUnit[0].splitType === "2") {
                         //按占比拆分保存
-                        // console.log("占比");
                         modifyRiskUnit($scope.certiTypeCopy, "2", riskUnit, $scope.global.user, $scope.global.lang);
                     } else {
                         //普通保存
-                        // console.log("普通");
                         modifyRiskUnit($scope.certiTypeCopy, "3", riskUnit, $scope.global.user, $scope.global.lang);
                     }
                 } else {
@@ -2679,6 +2782,7 @@ define(['app',
              * @param lan
              */
             $scope.updateRiskUnits = function (riskUnit) {
+            	console.log(riskUnit)
 
                 // console.log(riskUnit[0].dangerItemCoList);
                 //如果标的信息中有附加险2的数据，将本期riskunitVo的splitType 置成B
@@ -2802,6 +2906,7 @@ define(['app',
             var judgeEqualInitValue = function (riskUnit) {
                 var sumA = 0;
                 var sumP = 0;
+                var sumE = 0;
                 var flag;
                 $.each(riskUnit, function (index, riskunit) {
 //	               if($scope.certiTypeCopy === "1" || $scope.certiTypeCopy === "2"){
@@ -2855,7 +2960,7 @@ define(['app',
                     }
                 });
 
-                if (parseFloat(sumA * 1).toFixed(2) === parseFloat(riskUnit[0]._temp.copyUnitAmt * 1).toFixed(2)
+                if (parseFloat(sumA * 1).toFixed(2) === parseFloat(riskUnit[0]._temp.sumDangerUnitAmt * 1).toFixed(2)
                     && parseFloat(sumP * 1).toFixed(2) === parseFloat(riskUnit[0]._temp.sumExTaxPremium * 1).toFixed(2)) {
                     flag = true;
                 } else {
@@ -3699,6 +3804,15 @@ define(['app',
                     items.specialFacFlag = '0'
                 }
             }
+            //            截取接受最后一位
+            $scope.getInterceptingTheLast =function (item) {
+                if(item.finalReinsCodes.other1 == 'D'){
+                    item.addVatRate ='0.000000'
+                }
+                if(item.finalReinsCodes.other1 == 'F'){
+                    item.addVatRate ='12.000000'
+                }
+            }
 
             var init = function () {
                 $scope.trialListShareTrue = false //试算结果 默认不展示
@@ -3730,15 +3844,25 @@ define(['app',
                 });
 
                 //获取币别
+                // $scope.keywords = {
+                //     id: '',
+                //     value: ''
+                // }
+                //数据字典差寻条件
                 $scope.keywords = {
-                    id: '',
-                    value: ''
-                }
+                    "id":"",
+                    "value":"",
+                    "other1":""
+                };
                 var key = angular.copy($scope.keywords);
                 key.id = "currency";
                 key.value = "";
                 $scope.getCode(key, {}, "currencys");
 
+                var key = angular.copy($scope.keywords);
+                key.id="reinsCode";
+                key.value = "";
+                $scope.getCode(key,{},"reinsCodes");
                 //从路由获取的参数
                 $scope.certiType = $stateParams.certiType;//1，投保单,2: 保单  ,3,批单申请单 4:批单
                 $scope.editType = $stateParams.editType;//是否可编辑（0，查看，1，编辑）

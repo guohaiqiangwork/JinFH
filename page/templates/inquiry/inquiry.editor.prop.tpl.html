@@ -29,7 +29,7 @@
                                     <th nowrap>特约</th>
                                     <th nowrap>起保日期</th>
                                     <th nowrap>终保日期</th>
-                                    <th nowrap>币种</th>
+                                    <!-- <th nowrap>币种</th>
                                     <th nowrap>分出保额</th>
                                     <th nowrap ng-if="dangerUnitFacEnquiry.feoEnquiry.enquiryType === 'E'">分保额变化量</th>
                                     <th nowrap>费率</th>
@@ -39,7 +39,7 @@
                                     <th nowrap>免赔率</th>
                                     <th nowrap>备注</th>
                                     <th nowrap>特别约定</th>
-                                    <th nowrap>最迟付款天数</th> 
+                                    <th nowrap>最迟付款天数</th>  -->
                                     <th nowrap>删除</th> 
                                 </thead>
                                 <tr ng-repeat="feoReins in dangerUnitFacEnquiry.feoReinsReceiveList">
@@ -51,9 +51,13 @@
                                     </td>
                                     <td>
                                         <div class="input-group">
-                                            <select ng-model="feoReins.reinsCode" style="border:none;width:100px;"
-									              ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes">
-									        </select>       
+                                             <select ng-model="feoReins.reinsCode" ng-change="getCodeof(feoReins.reinsCode,reinsCodes,$index)" style="border:none;width:100px;"
+									              ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes" >
+									        </select>
+									          <!-- <select ng-model="feoReins.reinsCode" ng-change="getCode(feoReins.reinsCode)" style="border:none;width:100px;"
+									              >
+									              <option  ng-repeat="c in reinsCodes">{{c.id}}--{{c.value}}</option>
+									        </select> -->
                                             <span></span> 
                                         </div>
                                     </td>
@@ -66,6 +70,7 @@
                                                    > -->
                                             <select ng-model="feoReins.finalReinsCode" style="border:none;width:100px;"
 									              ng-options="c.id as c.id +'-'+ c.value for c in reinsCodes">
+									             <option></option>
 									        </select> 
                                             <span></span>
                                         </div>
@@ -92,8 +97,9 @@
                                     </td>
                                      <td>
                                     	<div class="input-group">
-                                        	<input size="10" type="number" style="width:75px;height:35px" percentage ng-model="feoReins.vatRate" ng-required="true" style="border:none"/>
-                                        		<span></span>
+											<input size="10" type="number" readonly style="width:75px;height:35px;border:none" value="6" ng-required="true" />
+                                        	<!-- <input size="10" type="number" readonly style="width:75px;height:35px;border:none" ng-model="feoReins.vatRate" ng-required="true" /> -->
+                                        		<!--<span style="text-align: center"> {{feoReins.vatRate}}</span>-->
 										</div>
                                     </td>
                                     <td>
@@ -104,8 +110,10 @@
                                     </td>
                                     <td>
                                     	<div class="input-group">
-                                        	<input size="10" type="number" style="width:75px;height:35px" percentage ng-model="feoReins.addVatRate" ng-required="true" style="border:none"/>
-                                        		<span></span>
+
+                                        	<!-- <input size="10" readonly type="number" style="width:75px;height:35px;border:none" ng-model="feoReins.addVatRate" ng-required="true"/> -->
+                                        	<input size="10" readonly type="number" style="width:75px;height:35px;border:none" ng-model="feoReins.addVatRate" ng-required="true"/>
+                                        		<!--<span style="text-align: center">{{feoReins.addVatRate}}</span>-->
 										</div>
                                     </td>
                                     <td>
@@ -116,17 +124,17 @@
                                     </td>
                                     <td>       
                                         <div>
-                                            <input size="15" type="date" ng-model="feoReins.strStartDate"  style="border:none"/>
+                                            <input size="15" type="date" ng-model="feoReins.strStartDate" readonly  style="border:none"/>
                                         		<span></span>
                                        	</div>
                                     </td>
                                     <td> 
                                         <div>
-                                            <input size="15" type="date" ng-model="feoReins.strEndDate"  style="border:none"/>
+                                            <input size="15" type="date" ng-model="feoReins.strEndDate" readonly  style="border:none"/>
                                         		<span></span>
                                        	</div>      
                                     </td>  
-                                     <td> 
+                                   <!--   <td> 
                                         <div>
                                             <select style="border:none;width:100px"
 						                            ng-model="feoReins.currency" ng-options="c.id as c.value for c in currencys">
@@ -140,11 +148,11 @@
 	                                        <input type="number" ng-model="feoReins.amount"  style="border:none"/>	                                                
                                         </div>        
                                     </td>
-                                   <!--  <td ng-if="dangerUnitFacEnquiry.feoEnquiry.enquiryType === 'E'">
+                                    <td ng-if="dangerUnitFacEnquiry.feoEnquiry.enquiryType === 'E'">
                                     	<div class="input-group">
 	                                        <input type="number" ng-model="feoReins.chgAmount" style="border:none;"/>	                                                
                                         </div>        
-                                    </td> -->
+                                    </td>
                                     <td ng-if="dangerUnitFacEnquiry.feoEnquiry.enquiryType === 'E'">
                                     	<div class="input-group" >
 	                                        <input type="number" ng-keypress="keypressfun($event)" ng-model="feoReins.chgAmount" style="border:none;"/>	                                                
@@ -164,12 +172,12 @@
                                             <span></span>
 										</div>
                                     </td>
-                                   <!--  <td ng-if="dangerUnitFacEnquiry.feoEnquiry.enquiryType === 'E'">
+                                    <td ng-if="dangerUnitFacEnquiry.feoEnquiry.enquiryType === 'E'">
                                     	<div class="input-group" >
 	                                        <input size="10" type="number" ng-model="feoReins.chgPremium"  style="border:none;"  />
                                             <span></span>
 										</div>
-                                    </td> -->
+                                    </td>
                                      <td ng-if="dangerUnitFacEnquiry.feoEnquiry.enquiryType === 'E'">
                                     	<div class="input-group" >
 	                                        <input size="10" type="number" ng-keypress="keypressfun($event)" ng-model="feoReins.chgPremium"  style="border:none;"  />
@@ -203,7 +211,7 @@
                                     
                                     <td>
                                         <input type="number" ng-model="feoReins.deadLineDays" style="border:none;width:40px"/>
-                                    </td>
+                                    </td> -->
                                      <td size="10">
                                         <div class="input-group">
                                             <a href="" class="btn btn-default" 

@@ -28,18 +28,75 @@ define(['app',
                         nodeChecked(event, node);
 
                         $scope.siblings = $('#treeview-checkable').treeview('getChecked', node.nodeId);
-                        console.log($scope.siblings)
-                        $('#checkable-output').prepend('<p>' + node.text + ' --被选中</p>');
+                        // console.log($scope.siblings)
+                        // $('#checkable-output').prepend('<p>' + node.text + ' --被选中</p>');
                     },
                     // 点击取消选中
                     onNodeUnchecked: function (event, node) {
                         nodeUnchecked(event, node);
                         $scope.siblings = $('#treeview-checkable').treeview('getChecked', node.nodeId);
-                        console.log($scope.siblings)
-                        $('#checkable-output').prepend('<p>' + node.text + ' --被取消选中</p>');
+                        // console.log($scope.siblings)
+                        // $('#checkable-output').prepend('<p>' + node.text + ' --被取消选中</p>');
                     }
                 });
             }
+            $scope.getByReturn = function (flag,data) {
+                if(flag==='comCode'){
+                    var codes = [];
+                    $.each($scope.comCode,function (index,code) {
+                        if(code.id.indexOf(data)>-1 || code.value.indexOf(data)>-1 ){
+                            codes.push(code);
+                        }
+                    });
+                    return codes;
+                }
+            };
+            $scope.searchRiskCode = function(id){
+                $scope.keys = {
+                    "id":"",
+                    "value":"",
+                    "other1":""
+                };
+                // $scope.keywords.id = $scope.classCode;
+                var key = angular.copy($scope.keys);
+                key.id = id;
+                key.value = '';
+                $scope.getCode(key, {}, id);
+            };
+            //查询字典
+            var searchFlag = true;
+            $scope.searchList = [];
+            $scope.getCode = function(key,user,searcher){
+                var temp = angular.copy({keywords:key,searcher:searcher});
+                $scope.searchList.push(temp);
+                if(searchFlag && $scope.searchList.length > 0){
+                    ralSearch(user);
+                }
+            };
+            var ralSearch = function(user){
+                if(searchFlag && $scope.searchList.length > 0){
+                    searchFlag = false;
+                    $scope.getCodes($scope.searchList[0].keywords,user).then(
+                        function(data){
+                            $scope[$scope.searchList[0].searcher] = data;
+                            searchFlag = true;
+                            $scope.searchList.splice(0,1);
+                            ralSearch();
+                        },
+                        function(code){
+                            searchFlag = true;
+                            if(angular.equals(code,"bussy")){
+                                $scope.searchList.push($scope.searchList[0]);
+                                $scope.searchList.splice(0,1);
+                            }else{
+                                $scope[$scope.searchList[0].searcher] = [];
+                                $scope.searchList.splice(0,1);
+                            }
+                            ralSearch();
+                        }
+                    );
+                }
+            };
 
             //保存
             $scope.saveTree = function (data) {
@@ -66,6 +123,7 @@ define(['app',
                     PostCodesService.saveAddPostCodeDetails(checkedTree, data).then(
                         function (data) {
                             if(data.result==='susses'){
+                                $state.go('postCodes');
                                 alert('保存成功！！');
                             }
                             console.log(data);
@@ -83,6 +141,7 @@ define(['app',
                     PostCodesService.saveEditPostCodeDetails(checkedTree, data).then(
                         function (data) {
                             if(data.result==='susses'){
+                                $state.go('postCodes');
                                 alert('保存成功！！');
                             }
                             console.log(data);
@@ -100,6 +159,9 @@ define(['app',
                         function (data) {
                             $scope.defaultData = data.saaGradetaskList;
                             $scope.postDataList = data.saaGrade;
+                            if($scope.postDataList.gradeTName==="null"){
+                            	$scope.postDataList.gradeTName="";
+                            }
                             treeview();//展示tree
 
                         }, function (code) {
@@ -139,7 +201,7 @@ define(['app',
                         }
                     );
                 }
-
+                $scope.searchRiskCode('comCode');
             };
 
             init();

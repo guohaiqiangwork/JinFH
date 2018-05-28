@@ -234,7 +234,18 @@
 				                      <div ng-switch-when="9">
 				                          <input type="text"  style="width: 100%;border:none" value="注销" readonly></div>                    
 				                  </div>
-	                         </div>	                         
+	                         </div>	
+	                         <div class="col-lg-2">
+				                <label>自动生成账单</label>
+				             </div>
+				             <div class="col-lg-4" ng-if="dangerUnitFacEnquiry.feoEnquiry.genAccFlag==1">
+				             	<span> 是</span>
+			                   
+	                         </div>
+	                         <div class="col-lg-4" ng-if="dangerUnitFacEnquiry.feoEnquiry.genAccFlag==0">
+			                    <span>否</span>
+			                   
+	                         </div>	                            
 			        	</div>
 		        	
 			        	<div class="row">

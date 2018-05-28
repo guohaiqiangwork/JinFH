@@ -87,7 +87,9 @@
                                     <option value="=">=</option>
                                 </select>
                                 <select style="width: 143px;" class="condition" ng-model="keywords.classCode"
-                                        ng-options="c.id as c.value for c in classCode"></select>
+                                        ng-options="c.id as c.value for c in classCode">
+                                    <option value=''>全部</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-xs-4">
@@ -97,7 +99,9 @@
                                     <option value="=">=</option>
                                 </select>
                                 <select style="width: 143px;" class="condition" ng-model="keywords.riskCode"
-                                        ng-options="c.id as c.value for c in riskCode"></select>
+                                        ng-options="c.id as c.value for c in riskCode">
+                                    <option value=''>全部</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-xs-4">
@@ -119,7 +123,9 @@
                                     <option value="=">=</option>
                                 </select>
                                 <select style="width: 143px;" class="condition" ng-model="keywords.currency"
-                                        ng-options="c.id as c.value for c in currency"></select>
+                                        ng-options="c.id as c.value for c in currency">
+                                    <option value=''>全部</option>
+                                </select>
 
                             </div>
                         </div>
@@ -149,7 +155,9 @@
                                     <option value="=">=</option>
                                 </select>
                                 <select class="condition" ng-model="keywords.comCode"
-                                        ng-options="c.id as c.id +'-'+ c.value for c in comCode"></select>
+                                        ng-options="c.id as c.id +'-'+ c.value for c in comCode">
+                                    <option value=''>全部</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-xs-5">
@@ -164,8 +172,8 @@
                                     <option value=">=">>=</option>
                                     <option value="<="><=</option>
                                 </select>
-                                <input type="text" ng-model="keywords.startDate" class="date" maxlength="4">
-                                <span ng-if="showTwoInput">-</span> <input type="text" ng-if="showTwoInput"
+                                <input style="line-height:normal" type="date" ng-model="keywords.startDate" class="date" maxlength="4">
+                                <span ng-if="showTwoInput">-</span> <input style="line-height:normal" type="date" ng-if="showTwoInput"
                                                                            ng-model="keywords.startDate2"
                                                                            class="date" maxlength="4">
                             </div>
@@ -226,7 +234,9 @@
                                     <option value="=">=</option>
                                 </select>
                                 <select style="width: 143px;" class="condition" ng-model="keywords.classCode"
-                                        ng-options="c.id as c.value for c in classCode"></select>
+                                        ng-options="c.id as c.value for c in classCode">
+                                    <option value=''>全部</option>
+                                </select>
 
                             </div>
                         </div>
@@ -237,7 +247,9 @@
                                     <option value="=">=</option>
                                 </select>
                                 <select style="width: 143px;" class="condition" ng-model="keywords.riskCode"
-                                        ng-options="c.id as c.value for c in riskCode"></select>
+                                        ng-options="c.id as c.value for c in riskCode">
+                                    <option value=''>全部</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-xs-4">
@@ -259,7 +271,9 @@
                                     <option value="=">=</option>
                                 </select>
                                 <select style="width: 143px;" class="condition" ng-model="keywords.currency"
-                                        ng-options="c.id as c.value for c in currency"></select>
+                                        ng-options="c.id as c.value for c in currency">
+                                    <option value=''>全部</option>
+                                </select>
 
                             </div>
                         </div>
@@ -344,7 +358,9 @@
                                     <option value="=">=</option>
                                 </select>
                                 <select class="condition" ng-model="keywords.endorType"
-                                        ng-options="c.id as c.value for c in endorType"></select>
+                                        ng-options="c.id as c.value for c in endorType">
+                                    <option value=''>全部</option>
+                                </select>
 
                             </div>
                         </div>
@@ -435,7 +451,9 @@
                                     <option value="=">=</option>
                                 </select>
                                 <select style="width: 143px;" class="condition" ng-model="keywords.damageCode"
-                                        ng-options="c.id as c.value for c in damageCode"></select>
+                                        ng-options="c.id as c.value for c in damageCode">
+                                    <option value=''>全部</option>
+                                </select>
 
                             </div>
                         </div>
@@ -457,7 +475,9 @@
                                     <option value="=">=</option>
                                 </select>
                                 <select style="width: 143px" class="condition" ng-model="keywords.classCode"
-                                        ng-options="c.id as c.value for c in classCode"></select>
+                                        ng-options="c.id as c.value for c in classCode">
+                                    <option value=''>全部</option>
+                                </select>
                             </div>
                         </div>
 
@@ -493,7 +513,9 @@
                                     <option value="=">=</option>
                                 </select>
                                 <select style="width: 143px" class="condition" ng-model="keywords.currency"
-                                        ng-options="c.id as c.value for c in currency"></select>
+                                        ng-options="c.id as c.value for c in currency">
+                                    <option value=''>全部</option>
+                                </select>
                             </div>
                         </div>
 
@@ -516,7 +538,9 @@
                                     <option value="=">=</option>
                                 </select>
                                 <select style="width: 143px" class="condition" ng-model="keywords.riskCode"
-                                        ng-options="c.id as c.value for c in riskCode"></select>
+                                        ng-options="c.id as c.value for c in riskCode">
+                                    <option value=''>全部</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -564,7 +588,9 @@
                                     <option value="=">=</option>
                                 </select>
                                 <select class="condition" ng-model="keywords.comCode"
-                                        ng-options="c.id as c.id +'-'+ c.value for c in comCode"></select>
+                                        ng-options="c.id as c.id +'-'+ c.value for c in comCode">
+                                    <option value=''>全部</option>
+                                </select>
 
                             </div>
                         </div>
@@ -616,9 +642,9 @@
                         <th>{{prompt.fcoRepolicy.PolicyNo}}</th>
                         <th>出单公司</th>
                         <th>{{prompt.fcoRepolicy.InsuredName}}</th>
-                        <th>临分确认人</th>
+                        <!-- <th>临分确认人</th> -->
                         <th>{{prompt.fcoRepolicy.StartDate}}</th>
-                        <th>转收付时间</th>
+                        <!-- <th>转收付时间</th> -->
                         <th>{{prompt.fcoRepolicy.Currency}}</th>
                         <th>{{prompt.fcoRepolicy.Amount}}</th>
                         <th>总含税保费</th>
@@ -633,12 +659,12 @@
                             <td>{{plyRisk.policyNo}}</td>
                             <td>{{plyRisk.comName}}</td>
                             <td>{{plyRisk.insuredName}}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <!-- <td></td> -->
+                            <td>{{plyRisk.startDate.time | date : config.display.dateFormat}}</td>
+                            <!-- <td>{{plyRisk.updateDate.time | date : config.display.dateFormat}}</td> -->
                             <td>{{plyRisk.currency}}</td>
                             <td>{{plyRisk.amount}}</td>
-                            <td></td>
+                            <td>{{plyRisk.premium}}</td>
                             <td>{{plyRisk.baseRate}}</td>
                             <td>{{plyRisk.shareRate}}</td>
                         </tr>
@@ -677,6 +703,7 @@
                             <thead>
                             <th>账单类型</th>
                             <th>账单状态</th>
+                            <th>转收付时间</th>
                             <th>账单编号</th>
                             <th>出单公司</th>
                             <th>接受人编码</th>
@@ -689,6 +716,7 @@
                             <tr ng-repeat="fzBAc in fzBAccList">
                                 <td>{{fzBAc.flag4}}</td>
                                 <td>{{fzBAc.flag1}}</td>
+                                <td>{{fzBAc.settleDate.time|date :"yyyy-MM-dd"}}</td>	
                                 <td>{{fzBAc.accNo}}</td>
                                 <td>{{fzBAc.comCode}}</td>
                                 <td>{{fzBAc.reinsCode}}</td>
@@ -704,6 +732,7 @@
                             <thead>
                             <th>账单类型</th>
                             <th>账单状态</th>
+                            <th>转收付时间</th>
                             <th>账单编号</th>
                             <th>出单公司</th>
                             <th>接受人编码</th>
@@ -716,6 +745,7 @@
                             <tr ng-repeat="fzRAcc in fzRAccList">
                                 <td>{{fzRAcc.flag4}}</td>
                                 <td>{{fzRAcc.flag1}}</td>
+                                <td>{{fzRAcc.settleDate.time|date :"yyyy-MM-dd"}}</td>
                                 <td>{{fzRAcc.accNo}}</td>
                                 <td>{{fzRAcc.comCode}}</td>
                                 <td>{{fzRAcc.reinsCode}}</td>
@@ -741,10 +771,10 @@
                         <th>{{prompt.fpoReendor.PolicyNo}}</th>
                         <th>批单号</th>
                         <th>生效日期</th>
-                        <th>转收付时间</th>
+                        <!-- <th>转收付时间</th> -->
                         <th>{{prompt.fpoReendor.ComCode}}</th>
                         <th>{{prompt.fpoReendor.InsuredNam}}</th>
-                        <th>临分确认人</th>
+                        <!-- <th>临分确认人</th> -->
                         <th>{{prompt.fpoReendor.Currency}}</th>
                         <th>{{prompt.fpoReendor.AmountChg}}</th>
                         <th>含税保费变化量</th>
@@ -759,10 +789,10 @@
                             <td>{{plyRisk.policyNo}}</td>
                             <td>{{plyRisk.endorNo}}</td>
                             <td>{{plyRisk.startDate.time | date : config.display.dateFormat }}</td>
-                            <td>{{plyRisk.settleDate.time | date : config.display.dateFormat}}</td>
+                           <!--  <td>{{plyRisk.settleDate.time | date : config.display.dateFormat}}</td> -->
                             <td>{{plyRisk.comName}}</td>
                             <td>{{plyRisk.insuredName}}</td>
-                            <td></td>
+                            <!-- <td></td> --> 
                             <td>{{plyRisk.currency}}</td>
                             <td>{{plyRisk.amountChg}}</td>
                             <td>{{plyRisk.premiumChg}}</td>
@@ -806,6 +836,7 @@
                             <thead>
                             <th>账单类型</th>
                             <th>账单状态</th>
+                            <th>转收付时间</th>
                             <th>账单编号</th>
                             <th>出单公司</th>
                             <th>接受人编码</th>
@@ -818,6 +849,7 @@
                             <tr ng-repeat="fzBAc in fzBAccList">
                                 <td>{{fzBAc.flag4}}</td>
                                 <td>{{fzBAc.flag1}}</td>
+                                <td>{{fzBAc.settleDate.time | date : config.display.dateFormat}}</td> 
                                 <td>{{fzBAc.accNo}}</td>
                                 <td>{{fzBAc.comCode}}</td>
                                 <td>{{fzBAc.reinsCode}}</td>
@@ -833,6 +865,7 @@
                             <thead>
                             <th>账单类型</th>
                             <th>账单状态</th>
+                            <th>转收付时间</th>
                             <th>账单编号</th>
                             <th>出单公司</th>
                             <th>接受人编码</th>
@@ -845,6 +878,7 @@
                             <tr ng-repeat="fzRAcc in fzRAccList">
                                 <td>{{fzRAcc.flag4}}</td>
                                 <td>{{fzRAcc.flag1}}</td>
+                                <td>{{fzRAcc.settleDate.time | date : config.display.dateFormat}}</td>
                                 <td>{{fzRAcc.accNo}}</td>
                                 <td>{{fzRAcc.comCode}}</td>
                                 <td>{{fzRAcc.reinsCode}}</td>
@@ -873,11 +907,11 @@
                         <th>赔案号</th>
                         <th>理算书号</th>
                         <th>{{prompt.floRepay.DamageDate}}</th>
-                        <th>转收付时间</th>
+                        <!-- <th>转收付时间</th> -->
                         <th>{{prompt.floRepay.DamageReason}}</th>
                         <th>{{prompt.floRepay.ComCode}}</th>
                         <th>{{prompt.floRepay.InsuredName}}/船名</th>
-                        <th>临分确认人</th>
+                       <!--  <th>临分确认人</th> -->
                         <th>{{prompt.floRepay.Currency}}</th>
                         <th>已决赔款</th>
                         <th>{{prompt.floRepay.OutStanding}}</th>
@@ -887,14 +921,14 @@
                                        ng-click="QueryAcc(plyRisk.repayNo,'C')"/></td>
                             <td><a ng-click="openClmFromQuery(plyRisk)">{{plyRisk.repayNo}}</a></td>
                             <td>{{plyRisk.policyNo}}</td>
+                            <td>{{plyRisk.}}</td>
                             <td>{{}}</td>
                             <td>{{}}</td>
-                            <td>{{}}</td>
-                            <td>{{}}</td>
+                           <!--  <td>{{}}</td> -->
                             <td>{{plyRisk.damageReason}}</td>
                             <td>{{plyRisk.comCode}}</td>
                             <td>{{plyRisk.insuredName}}</td>
-                            <td>{{}}</td>
+                            <!-- <td>{{}}</td> -->
                             <td>{{plyRisk.currency}}</td>
                             <td>{{}}</td>
                             <td>{{plyRisk.outStanding}}</td>
@@ -936,6 +970,7 @@
                             <thead>
                             <th>账单类型</th>
                             <th>账单状态</th>
+                            <th>转收付时间</th>
                             <th>账单编号</th>
                             <th>出单公司</th>
                             <th>接受人编码</th>
@@ -948,6 +983,7 @@
                             <tr ng-repeat="fzBAc in fzBAccList">
                                 <td>{{fzBAc.flag4}}</td>
                                 <td>{{fzBAc.flag1}}</td>
+                                <td>{{fzBAc.settleDate.time | date : config.display.dateFormat}}</td>
                                 <td>{{fzBAc.accNo}}</td>
                                 <td>{{fzBAc.comCode}}</td>
                                 <td>{{fzBAc.reinsCode}}</td>
@@ -963,6 +999,7 @@
                             <thead>
                             <th>账单类型</th>
                             <th>账单状态</th>
+                            <th>转收付时间</th>
                             <th>账单编号</th>
                             <th>出单公司</th>
                             <th>接受人编码</th>
@@ -975,6 +1012,7 @@
                             <tr ng-repeat="fzRAcc in fzRAccList">
                                 <td>{{fzRAcc.flag4}}</td>
                                 <td>{{fzRAcc.flag1}}</td>
+                                <td>{{fzRAcc.settleDate.time | date : config.display.dateFormat}}</td>
                                 <td>{{fzRAcc.accNo}}</td>
                                 <td>{{fzRAcc.comCode}}</td>
                                 <td>{{fzRAcc.reinsCode}}</td>

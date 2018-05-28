@@ -37,7 +37,7 @@ define(['app', 'codes'], function (app, codes) {
         }]);
      app.filter('formatPercent',function(){
     	 return function(input){
-             var t = /^((\-)?((([0-9]{1,2})(\.[0-9]{1,4})?)|(100(\.[0]{1,4})?)))$/;
+             var t = /^((\-)?((([0-9]{1,2})(\.[0-9]{1,6})?)|(100(\.[0]{1,4})?)))$/;
              var blank = /^\s*$/;
              if(t.test(input)){
                  var temp = (input+"").split(".");

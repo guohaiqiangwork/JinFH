@@ -135,6 +135,7 @@ define(['app',
 	    	  }
 	    	//add by slh end
             var url = changeUrl(temp);
+            
             $modal.open({
                     templateUrl: url,
                     controller: 'listOperateCtrl',

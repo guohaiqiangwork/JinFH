@@ -86,7 +86,7 @@
     <div class="col-xs-4">
         <label class="col-xs-4">出险日期</label>
         <div class="col-xs-8">
-            <input style="line-height: normal" type="date" datepicker2 ng-model="keywords.damageStartDate">
+            <input style="line-height: normal" type="date" datepicker2 ng-model="keywords.damageDate">
         </div>
     </div>
 </div>
@@ -112,8 +112,8 @@
 
 </div>
 
-<div class="row">
-    <div class="col-lg-12" align="right">
+<div class="">
+    <div style="float: right;margin-right:20px;" >
         <a ng-click="resetClmSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
         <a ng-click="searchTable.flag = !searchTable.flag" class="btn btn-default">取消</a>
         <a ng-click="searchFacPlyInfo_()" class="btn btn-primary" ng-disabled="!searchForm.$valid">立即查询</a>

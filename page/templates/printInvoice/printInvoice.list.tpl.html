@@ -4,80 +4,81 @@
         <span class="glyphicon glyphicon-search"></span>
     </div>
     <div collapse="!searchTableFlag" class="well">
-	<div class="panel panel-default">
-	<div class="panel-heading">
-        <span class="panel-title">分入开票查询</span>          
-    </div>
-    <div class="panel-body">
+        <span class="panel-title">分入开票查询</span>
     	 <form name="searchForm" >
-         <table class="table table-bordered">
-            <tr>
-                <td >核销包号</td>
-                <td>
-                    <select ng-model="keywords.chargeoffPkgNoFlag">
-                        <option value="=" selected>=</option>
-                        <option value="*">*</option>
-                    </select>
-                </td>
-                <td>
-                    <input type="text" ng-model="keywords.chargeoffPkgNo">
-                </td>                 
-                <td>核销包状态</td>
-                <td>
-                    <select ng-model="keywords.chargeoffStat" style="width:160px">
-                        <option value="0" selected="selected">全部</option>
-                        <option value="12">分项账单包未打包</option>
-                        <option value="1">分项账单包暂存</option>
-                        <option value="2">分项账单包提交  </option>
-                        <option value="3">分项账单包确认</option>
-                        <option value="4">分项账单包退回</option>                
-                        <option value="5">核销包暂存</option>
-                        <option value="6">核销包提交审批  </option>
-                        <option value="7">核销包审核中</option>
-                        <option value="8">核销包审核结束</option>
-                        <option value="10">核销包退回</option>
-                        <option value="9">核销包提交财务</option>
-                        <option value="11">核销包已核销</option>
-                    </select>
-                </td>      
-            </tr>            
-            
-            <tr>
-                <td>提交/确认/退回时间</td>
-                <td></td>
-                
-                <td>
-                    <input type="date" datepicker2  ng-model = "keywords.startDate" >至
-                    <input type="date" datepicker2  ng-model = "keywords.endDate" >
-                </td>
-                
-             	<td>发票状态</td>
-                <td>
-                    <select ng-model="keywords.settleStat" style="width:160px">
-                        <option value="2" >全部</option>
-                        <option value="0">待开票</option>
-                        <option value="1">已开票  </option>
-                    </select> 
-                </td>
-            </tr>
-            <tr>
-                <td>应税免税标识</td>                  
-                <td></td>
-				<td>
-					<input type="radio" ng-value="1" name="keywords.taxFlag" checked/>应税
-					<input type="radio" ng-value="0" name="keywords.taxFlag"/>免税
-				</td>				
-            </tr>
-            <tr>
-                <td colspan="6" align="right">
+            <div class="row" style="margin-top: 18px">
+                <div class="col-xs-4">
+                    <label class="col-xs-4">核销包号</label>
+                    <div class="col-xs-8">
+                        <select ng-model="keywords.chargeoffPkgNoFlag">
+                            <option value="=" selected>=</option>
+                            <option value="*">*</option>
+                        </select>
+                        <input type="text" ng-model="keywords.chargeoffPkgNo">
+                    </div>
+                </div>
+
+                <div class="col-xs-4">
+                    <label class="col-xs-4">核销包状态</label>
+                    <div class="col-xs-8">
+                        <select ng-model="keywords.chargeoffStat" style="width:160px">
+                            <option value="0" selected="selected">全部</option>
+                            <option value="12">分项账单包未打包</option>
+                            <option value="1">分项账单包暂存</option>
+                            <option value="2">分项账单包提交  </option>
+                            <option value="3">分项账单包确认</option>
+                            <option value="4">分项账单包退回</option>
+                            <option value="5">核销包暂存</option>
+                            <option value="6">核销包提交审批  </option>
+                            <option value="7">核销包审核中</option>
+                            <option value="8">核销包审核结束</option>
+                            <option value="10">核销包退回</option>
+                            <option value="9">核销包提交财务</option>
+                            <option value="11">核销包已核销</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-xs-4">提交/确认/退回时间</label>
+                    <div class="col-xs-8">
+                        <input type="date" datepicker2 style="line-height: normal"  ng-model = "keywords.startDate" >至
+                        <input type="date" datepicker2 style="line-height: normal" ng-model = "keywords.endDate" >
+                    </div>
+                </div>
+
+                <div class="col-xs-4">
+                    <label class="col-xs-4">发票状态</label>
+                    <div class="col-xs-8">
+                        <select ng-model="keywords.settleStat" style="width:160px">
+                            <option value="2" >全部</option>
+                            <option value="0">待开票</option>
+                            <option value="1">已开票  </option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-xs-4">应税免税标识</label>
+                    <div class="col-xs-8">
+                        <input type="radio" ng-value="1" name="keywords.taxFlag" checked/>应税
+                        <input type="radio" ng-value="0" name="keywords.taxFlag"/>免税
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div colspan="6" align="right" style="margin-right: 20px;">
                     <a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
                     <a ng-click="searchTableFlag = ! searchTableFlag" class="btn btn-default">取消</a>
                     <a ng-click="searchInvoicePrint()" class="btn btn-primary" >立即查询</a>
-                </td>
-            </tr>
-        </table>
+                </div>
+            </div>
     </form>
-    </div>
    </div>
    </div>
    

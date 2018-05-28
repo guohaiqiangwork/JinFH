@@ -58,6 +58,7 @@ define(['app',
         $scope.searchFacPlyInfo_ = function(){
         	$scope.pagination.pageIndex = 1;
         	$scope.searchTable.flag = !$scope.searchTable.flag
+        	console.log("$scope.searchTable.flag");
         	$scope.searchFacPlyInfo($scope.options.bizType, $scope.keywords, $scope.pagination, $scope.global.user, ""); 
         }
 

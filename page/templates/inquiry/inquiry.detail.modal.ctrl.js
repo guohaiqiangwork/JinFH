@@ -778,6 +778,8 @@ define(['app',
         
         //增加接收人(比例)       
        $scope.addFeoReinsProp = function(){
+       	//TOTO
+
             var _recepter =  {
                 "reinsCode":'',
                 "serialNo":1,
@@ -785,9 +787,11 @@ define(['app',
                 "reinsType":'',
                 "signedLine":'',
                 "signedComm":"",
-                "vatRate":'',
-                "startDate":null,
-                "endDate":null,
+                "vatRate":6,
+                "startDate":'',
+                "endDate":'',
+                "strStartDate":$scope.dangerUnitFacEnquiry.feoEnquiry.strStartDate,
+                "strEndDate":$scope.dangerUnitFacEnquiry.feoEnquiry.strEndDate,
                 "othRate":'', 
                 "addVatRate":'',
                 "currency":'',
@@ -968,9 +972,16 @@ define(['app',
             riskunitService.getFacEnquiryInfo(certiType, certiNo, dangerNo, user, lan).then(
                 function(data){
                     if(angular.isUndefined(data.result)){
-                    	console.log("data:"+data);
+                    	console.log("data:"+JSON.stringify(data));
                     	$scope.dangerUnitFacEnquiry = (data);
-
+                    	//add by slh
+                    	 $.each($scope.dangerUnitFacEnquiry.feoReinsReceiveList, function (index, temp) {
+                           temp.reinsCode=temp.reinsCode+"-"+temp.reinsName;
+                           temp.finalReinsCode=temp.finalReinsCode+"-"+temp.finalReinsName;
+                         });
+                    	//end by slh
+                    //TOTO
+                    	console.log(JSON.stringify($scope.dangerUnitFacEnquiry))
                       /*  //处理缴费信息
 	                    $scope.dealGetFacPayment();
                        	//处理差异分保信息
@@ -995,6 +1006,28 @@ define(['app',
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
+        
+       /* for(var i in $scope.dangerUnitFacEnquiry.feoReinsReceiveList){
+    		$scope.getCode($scope.dangerUnitFacEnquiry.feoReinsReceiveList[i].reinsCode);//2025
+    	}*/
+        //接受人改变附加税比例(%)	跟着变化
+        $scope.getCodeof = function(val,elem,indexV){
+        	var getCodeNum = 'D';
+        	for(var i in elem){
+        		if(elem[i].id == val){
+        			getCodeNum = elem[i].other1;
+        			if(getCodeNum == 'D'){
+        				$scope.dangerUnitFacEnquiry.feoReinsReceiveList[indexV].addVatRate = 0;
+        			}else{
+        				$scope.dangerUnitFacEnquiry.feoReinsReceiveList[indexV].addVatRate = 12;
+        			}
+        			
+        		}
+        	}
+        }
+        
+        //修改选项卡个改变
+        
 
         var init = function(){
         

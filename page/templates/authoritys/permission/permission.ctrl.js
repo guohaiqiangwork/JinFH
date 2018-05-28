@@ -14,7 +14,17 @@ define(['app',
             $scope.closeSearch = function () {
                 $scope.searchTable.flag=false;
             };
-
+            $scope.getByReturn = function (flag,data) {
+                if(flag==='comCode'){
+                    var codes = [];
+                    $.each($scope.comCode,function (index,code) {
+                        if(code.id.indexOf(data)>-1 || code.value.indexOf(data)>-1 ){
+                            codes.push(code);
+                        }
+                    });
+                    return codes;
+                }
+            };
             //查询员工信息
             $scope.searchPermissionList = function (keywords) {
                 PostCodesService.searchPermission(keywords,$scope.pagination).then(

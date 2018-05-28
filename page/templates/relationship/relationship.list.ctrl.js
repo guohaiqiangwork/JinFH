@@ -57,7 +57,9 @@ define(['app',
         $scope.resetSearchBox = function(){
             $scope.keywords = {
             		"uwYear":'',
-	            	"treatyNo":''
+	            	"treatyNo":'',
+	            	'contNoFlag':'=',
+	            	'contYearFlag':'='
             };
         };
         

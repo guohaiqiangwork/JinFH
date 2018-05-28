@@ -90,7 +90,7 @@ define(['app',
         	
         	settleService.genSettleAcc(keywords).then(
 	                function(data){
-	                	alert("结算单生成成功！");
+	                	alert(accSettleList1[0].accNo+"结算单生成成功！");
 	                	window.location.reload("/reins/page/templates/settle/reinsSettleResult.list.tpl.html");
 	                },
 	                function(code){

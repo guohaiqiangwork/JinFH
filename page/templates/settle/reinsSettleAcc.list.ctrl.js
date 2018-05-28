@@ -113,10 +113,12 @@ define(['app',
         $scope.search = function(){
         	$scope.searchTable.flag = ! $scope.searchTable.flag
         	//add by zhx
-         	if($scope.keywords.settleConfFlag === null){
-         		$scope.keywords.settleConfFlag = "";
+//         	if($scope.keywords.settleConfFlag === null){
+//         		$scope.keywords.settleConfFlag = "";
+//         	}
+        	if($scope.keywords.sendFlag === null){
+         		$scope.keywords.sendFlag = "";
          	}
-    	
              $scope.pagination.pageIndex = 1;
 
             $scope.searchSettleAcc($scope.keywords, $scope.pagination, $scope.global.user);
@@ -205,7 +207,8 @@ define(['app',
                 'currency':'',
                 "currencyFlag":'=',
                 "settleConf":"",
-                "settleConfFlag":"=",
+               // "settleConfFlag":"=",
+                "sendFlag":"=",
                 "operateDate":"",
                 "operateDateFlag":"="
                
@@ -234,7 +237,8 @@ define(['app',
                 'currency':'',
                 "currencyFlag":'=',
                 "settleConf":"",
-                "settleConfFlag":"",
+                //"settleConfFlag":"",
+                "sendFlag":"",
                 "operateDate":"",
                 "operateDateFlag":"="
             };

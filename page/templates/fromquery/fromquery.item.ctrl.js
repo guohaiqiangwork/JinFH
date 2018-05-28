@@ -70,9 +70,10 @@ define(['app',
             $scope.showBusy(true);
             outqueryService.searchPlyDtlInfo(repolicyNo, dangerNo, user, lan).then(
             function(data){
+            	console.log("获取的信息："+JSON.stringify(data))
                 if(angular.isUndefined(data.result)){
                 	//add by slh
-                	var newTime = new Date( data.startDate);
+                	var newTime = new Date(data.startDate);
                     var date="";
                     with(newTime){
                     	date = date+(getFullYear())+"-";
@@ -91,24 +92,53 @@ define(['app',
                   //end by slh
                 	$scope.plyRiskUnit = (data);
                 	console.log("plyRiskUnit---"+$scope.plyRiskUnit );
-                	
                 	//add by chaiyuming 20150402 begin
-                	$scope.reinsShares = [];
-                	$scope.plyEdrComShareInfoVoList = $scope.plyRiskUnit.plyEdrComShareInfoVoList;
+                	$scope.reinsShares = data.fcoAbstractList;
+                	
+                	/*$scope.plyEdrComShareInfoVoList = $scope.plyRiskUnit.plyEdrComShareInfoVoList;
                 	$.each($scope.plyEdrComShareInfoVoList, function(index, d){
                 		$scope.reinsShares.push(d);
-                	});
-                	$.each($scope.reinsShares, function(index , r){
+                	});*/
+                	/*$.each($scope.reinsShares, function(index , r){
 	                    if(angular.isUndefined(r.shareRateCount)){
 	                    	$scope.reinsShares[index] = $scope.initCount( $scope.reinsShares[index]);
 	                    	$scope.reinsShares[index] = $scope.reinsShareCount($scope.reinsShares[index]);
 	                    }
-                	});
+                	});*/
                 	$scope.reinsShares = angular.copy($scope.reinsShares);
+                	//计算总计
+                	var allNum = {
+                			shareRate:0,
+                			amount:0,
+                			premium:0,
+                			noTaxPremium:0,
+                			taxFee:0,
+                	};
+                	
+                	function heji(elem,num){
+                		if(!num){
+                			num = 0
+                		}
+                		elem = parseInt(num)+parseInt(elem);
+                		return parseInt(elem).toFixed(2);
+                	}
+                	for(var i=0;i<data.fcoAbstractList.length;i++){
+                		allNum.shareRate= heji(allNum.shareRate,data.fcoAbstractList[i].shareRate);
+                		allNum.amount= heji(allNum.amount,data.fcoAbstractList[i].amount);
+                		allNum.premium= heji(allNum.premium,data.fcoAbstractList[i].premium);
+                		allNum.noTaxPremium= heji(allNum.noTaxPremium,data.fcoAbstractList[i].noTaxPremium);
+                		allNum.taxFee=  heji(allNum.taxFee,data.fcoAbstractList[i].taxFee);
+                	}
+                	$scope.allNum = angular.copy(allNum)
+                	console.log($scope.allNum+"-------")
 	                    
                 	$.each($scope.reinsShares, function(index, unitrisk){
                 		unitrisk.groupped = groupByReinsType(unitrisk.plyEdrComShares);
                 	});
+                	
+                	
+                	
+                	
                 	
                 	console.log($scope.reinsShare);
                 	//add by chaiyuming 20150402 end
@@ -139,9 +169,10 @@ define(['app',
         };
         
       //计算分保试算合计 单行数据  index--要计算shares的下标
-        $scope.reinsShareCount = function(shares ){
+        $scope.reinsShareCount = function(shares){
         	//如果没有查到分保试算则跳过，否则计算分保试算合计 单行数据  index--要计算shares的下标
         	if(angular.isUndefined(shares)){
+        		
         	} else {
              $.each(shares.plyEdrComShares, function(index, r){
                  if($scope.certiType === "1"){
@@ -512,7 +543,8 @@ define(['app',
 	           console.log($scope.riskunitsFacPlyInfo.facPlyComShareVos);
 	    	}	
 	    }	
-        
+	    
+	    
         /*分批单详细信息查看*/
         $scope.getEdrDtlInfo = function(endorNo, dangerNo, user, lan) {
             console.log("getEdrDtlInfo is coming ..");
@@ -544,18 +576,46 @@ define(['app',
                 	console.log("plyRiskUnit---"+$scope.plyRiskUnit );
                 	
                 	//分保试算
-                	$scope.reinsShares = [];
+                	$scope.reinsShares = data.prpPreinsTrialList;
+                	/*debugger
                 	$scope.plyEdrComShareInfoVoList = $scope.plyRiskUnit.plyEdrComShareInfoVoList;
                 	$.each($scope.plyEdrComShareInfoVoList, function(index, d){
                 		$scope.reinsShares.push(d);
-                	});
-                	$.each($scope.reinsShares, function(index , r){
-	                    if(angular.isUndefined(r.shareRateCount)){
-	                    	$scope.reinsShares[index] = $scope.initCount( $scope.reinsShares[index]);
-	                    	$scope.reinsShares[index] = $scope.reinsShareCount($scope.reinsShares[index]);
-	                    }
-                	});
+                	});*/
+                	//计算总计
                 	$scope.reinsShares = angular.copy($scope.reinsShares);
+                	var allNum = {
+                			shareRate:0,
+                			amount:0,
+                			premium:0,
+                			noTaxPremium:0,
+                			taxFee:0,
+                	};
+                	
+                	function heji(elem,num){
+                		if(!num){
+                			num = 0
+                		}
+                		elem = parseInt(num)+parseInt(elem);
+                		return parseInt(elem).toFixed(2);
+                	}
+                	for(var i=0;i<data.prpPreinsTrialList.length;i++){
+                		allNum.shareRate= heji(allNum.shareRate,data.prpPreinsTrialList[i].shareRate);
+                		allNum.amount= heji(allNum.amount,data.prpPreinsTrialList[i].amount);
+                		allNum.premium= heji(allNum.premium,data.prpPreinsTrialList[i].premium);
+                		allNum.noTaxPremium= heji(allNum.noTaxPremium,data.prpPreinsTrialList[i].noTaxPremium);
+                		allNum.taxFee=  heji(allNum.taxFee,data.prpPreinsTrialList[i].taxFee);
+                	}
+                	$scope.allNum = angular.copy(allNum)
+                	console.log($scope.allNum+"-------")
+	                    
+                	$.each($scope.reinsShares, function(index, unitrisk){
+                		unitrisk.groupped = groupByReinsType(unitrisk.plyEdrComShares);
+                	});
+                	
+                	
+                	
+                	
 	                    
                 	$.each($scope.reinsShares, function(index, unitrisk){
                 		unitrisk.groupped = groupByReinsType(unitrisk.plyEdrComShares);
@@ -630,6 +690,36 @@ define(['app',
                 if(angular.isUndefined(data.result)){
                 	$scope.plyRiskUnit = (data);
                 	console.log("plyRiskUnit---"+$scope.plyRiskUnit );
+                	console.log('分赔信息'+JSON.stringify(data));
+                	$scope.floReItemDtoList = data.repay.floReItemDtoList;//赔款项目合计
+                	$scope.floSharePayList = data.repay.floSharePayList;//分摊明细（已决赔款）
+                	$scope.floShareOutList = data.repay.floShareOutList;//分摊明细（未决赔款）
+                	var allNum1 = {
+                			shareRate:0,
+                			payValue:0
+                	};
+                	var allNum2 = {
+                			shareRate:0,
+                			payValue:0
+                	};
+                	
+                	function heji(elem,num){
+                		if(!num){
+                			num = 0
+                		}
+                		elem = parseInt(num)+parseInt(elem);
+                		return parseInt(elem).toFixed(2);
+                	}
+                	for(var i=0;i<data.repay.floSharePayList.length;i++){
+                		allNum1.shareRate= heji(allNum1.shareRate,data.repay.floSharePayList[i].shareRate);
+                		allNum1.payValue= heji(allNum1.payValue,data.repay.floSharePayList[i].payValue);
+                	}
+                	$scope.allNum1 = angular.copy(allNum1)
+                	for(var i=0;i<data.repay.floShareOutList.length;i++){
+                		allNum2.shareRate= heji(allNum2.shareRate,data.repay.floShareOutList[i].shareRate);
+                		allNum2.payValue= heji(allNum2.payValue,data.repay.floShareOutList[i].payValue);
+                	}
+                	$scope.allNum2 = angular.copy(allNum2)
                 } else {
                 	$scope.plyRiskUnit = (data);
                 	alert("查询失败: " + data.msg);

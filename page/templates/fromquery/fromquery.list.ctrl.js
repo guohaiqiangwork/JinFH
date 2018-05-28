@@ -162,7 +162,8 @@ define(['app',
 	        $scope.resetClmSearchBox = function(){
 	            $scope.keywords = {
 	            		'policyNo':'',
-	            		'damageStartDate':'',
+	            		//'damageStartDate':'',
+	            		'damageDate':'',
                         'payNoFlag':'=',//立案号标志位
                         'policyNoFlag':'=',//保单号标志位
                         'dangerNoFlag':'=',//危险单位号标志位

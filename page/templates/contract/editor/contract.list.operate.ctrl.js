@@ -118,6 +118,7 @@ define(['app',
                     		alert("续转成功!续转合同暂存编号："+data.msg);
                     		 $scope.cancel();
                     		 $location.path("/contracts/"+ $scope.contAttr +"/admin");
+                    		 location.reload()
 //                        	$location.path("/contracts/"+ $scope.contAttr +"/"+ data.msg +"/view");
                         	
 //                    		alert("续传成功!");

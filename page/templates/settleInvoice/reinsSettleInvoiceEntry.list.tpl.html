@@ -5,13 +5,60 @@
         <span class="glyphicon glyphicon-search"></span>
     </div>
     <div collapse="!searchTableFlag" class="well">
-	<div class="panel panel-default">
-	<div class="panel-heading">
-        <span class="panel-title">发票录入查询</span>          
-    </div>
+	<div class="">
+	
     <div class="panel-body">
     	 <form name="searchForm" >
-         <table class="table table-bordered">
+	    	 <h4>
+	        	发票录入查询      
+	    	</h4>
+    	 	 <div class="row">
+                <div class="col-xs-5">
+                    <label class="col-xs-4">结算单号：</label>
+                    <div class="col-xs-8">
+                        <select ng-model="keywords.chargeoffPkgNoFlag" class="ng-pristine ng-valid">
+                        	<option value="=" selected>=</option>
+                        	<option value="*">*</option>
+                        </select>
+                        <input type="text" class="ng-pristine ng-valid"  ng-model="keywords.chargeoffPkgNo">
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-xs-4">发票状态：</label>
+                    <div class="col-xs-8">
+                        <label><input type="radio" ng-value="6" name="keywords.settleStat" checked/>全部</label>
+                        <label><input type="radio" ng-value="0" name="keywords.settleStat"/>待录入</label>
+                        <label><input type="radio" ng-value="1" name="keywords.settleStat"/>已录入 </label>
+                    </div>
+                </div>
+            </div>
+    	 	 <div class="row">
+                <div class="col-xs-5">
+                    <label class="col-xs-4">提交/确认/退回时间：</label>
+                    <div class="col-xs-8">
+			            <input type="date" datepicker2="" ng-model="keywords.startDate" style="line-height: normal" name="startDate" class="ng-pristine ng-valid">
+			            <span>至</span>
+			            <input name="endDate" type="date" ng-model="keywords.endDate " datepicker2="" style="line-height: normal"  class="ng-pristine ng-valid">
+				 </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-xs-4">发票状态：</label>
+                    <div class="col-xs-8">
+                        <label><input type="radio" ng-value="1" name="keywords.taxFlag" checked/>应税</label>
+                        <label><input type="radio" ng-value="0" name="keywords.taxFlag"/>免税</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+           		 <div class="col-lg-12" align="right">
+		        	<a ng-click="resetSearchBox()" class="btn btn-default" ng-show="searchForm.$dirty">重置</a>
+                    <a ng-click="searchTableFlag = ! searchTableFlag" class="btn btn-default">取消</a>
+                    <a ng-click="searchInvoiceEntry()" class="btn btn-primary" >立即查询</a>
+		    	 </div>
+            </div>
+    	 
+        <!--  <table class="table table-bordered">
             <tr>
                 <td >结算单号</td>
                 <td>
@@ -23,7 +70,7 @@
                 <td>
                     <input type="text" ng-model="keywords.chargeoffPkgNo">
                 </td>                 
-                <!-- <td>核销包状态</td>
+                <td>核销包状态</td>
                 <td>
                     <select ng-model="keywords.chargeoffStat" style="width:160px">
                         <option value="0" selected="selected">全部</option>
@@ -40,14 +87,14 @@
                         <option value="9">核销包提交财务</option>
                         <option value="11">核销包已核销</option>
                     </select>
-                </td>    -->    
+                </td>       
                 <td>发票状态</td>
                 <td>
-                    <!-- <select ng-model="keywords.settleStat" style="width:160px">
+                    <select ng-model="keywords.settleStat" style="width:160px">
                         <option value="6" selected>全部</option>
                         <option value="0">待录入</option>
                         <option value="1">已录入  </option>
-                    </select> -->
+                    </select>
                     <input type="radio" ng-value="6" name="keywords.settleStat" checked/>全部
 					<input type="radio" ng-value="0" name="keywords.settleStat"/>待录入
 					<input type="radio" ng-value="1" name="keywords.settleStat"/>已录入
@@ -59,8 +106,8 @@
                 <td></td>
                 
                 <td>
-                    <!-- <input type="text" datepicker2  ng-model = "keywords.startDate" >至
-                    <input type="text" datepicker2  ng-model = "keywords.endDate" > -->
+                    <input type="text" datepicker2  ng-model = "keywords.startDate" >至
+                    <input type="text" datepicker2  ng-model = "keywords.endDate" >
                     <input name="startDate" type="date" ng-model="keywords.startDate">至
 	         		<input name="endDate" type="date" ng-model="keywords.endDate ">
                 </td>
@@ -84,7 +131,7 @@
                     <a ng-click="searchInvoiceEntry()" class="btn btn-primary" >立即查询</a>
                 </td>
             </tr>
-        </table>
+        </table> -->
     </form>
     </div>
    </div>

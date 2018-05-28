@@ -335,7 +335,7 @@ span.text-label{
 }
 
 .well .row select {
-   /*height: 22px;*/
+   height: 22px;
 }
 .container-fluid{
    padding: 0;

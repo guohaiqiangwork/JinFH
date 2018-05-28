@@ -70,26 +70,29 @@
 	            <div style="overflow: scroll">
 	                <table class="table table-bordered">
 	                    <thead>
-	                    <td>序号</td>
-	                    <td nowrap>描述/地址</td>
-                        <td nowrap>风险等级</td>
+	                    <td nowrap class="text-center">序号</td>
+	                    <td nowrap class="text-center">描述/地址</td>
+                        <td nowrap class="text-center">风险等级</td>
 	                    <!--<td nowrap>币别</td>-->
-	                    <td nowrap>保额</td>
+	                    <td nowrap class="text-center">保额</td>
 	                    <!--<td nowrap>变化保额</td>-->
-	                    <td nowrap>保费</td>
+	                    <td nowrap class="text-center">保费</td>
 	                    <!--<td nowrap>变化保费</td>-->
-	                    <td nowrap>增值税</td>
-	                    <td nowrap>占比</td>
-                        <td nowrap>自留</td>
-						<td nowrap>pml币别</td>
-						<td nowrap>分保试算基础</td>
-						<td nowrap>除外责任</td>
-	                    <td nowrap>进合同</td>
+	                    <td nowrap class="text-center">增值税</td>
+	                    <td nowrap class="text-center">占比</td>
+                        <td nowrap class="text-center">自留</td>
+						<td nowrap class="text-center">pml币别</td>
+						<td nowrap class="text-center">分保试算基础</td>
+						<td nowrap class="text-center">除外责任</td>
+	                    <td nowrap class="text-center">进合同</td>
 	                    <td></td>
 	                    </thead>
 	                    <tr ng-repeat-start = "dangerUnit in RU.dangerUnitList"  ng-if="trialListShareTrueTable">
 	                    <td>
-							<a href="" title="点击可查看该风险单位的分保试算信息" ng-click="showReinsShares(dangerUnit.dangerNo)">{{dangerUnit.dangerNo}}</a></td>
+							<a href="" title="点击可查看该风险单位的分保试算信息" ng-click="showReinsShares(dangerUnit.dangerNo)">
+								{{dangerUnit.dangerNo}}
+							</a>
+						</td>
 	                        <td>
 	                        	描述：
 		                        <div class="input-group">
@@ -107,13 +110,14 @@
 	                        </div>
 	                    </td>
 	                    <td>
-							风险等级：
+
 	                      <div class="input-group" style="width: 100px">
+							  风险等级：
 	                           <span ng-if="dangerUnit.editing || dangerUnit.editSplit || splitFlag">
 	                                <!--<select class="form-control" style="width: 100px" ng-model="dangerUnit.riskLevel" ng-options="r.riskLvl as r.riskLvl for r in riskLvls"-->
 	                                        <!--ng-change="selectChange(riskunit);updateRiskUnit(riskunit, 'riskKeepAmt');retentionPropCheck( RU.dangerUnitList, riskunit)">-->
 	                                <!--</select>-->
-                                     <select class="form-control" style="width: 100px"
+                                     <select class="form-control" style="width: 120px"
                                              ng-model="dangerUnit.riskClass"
                                              ng-options="r.riskClass as r.riskClass for r in riskLvls"
                                              ng-change="cascadeConcatenation(dangerUnit.riskClass,dangerUnit)"
@@ -122,8 +126,8 @@
 
 		                        <span ng-if="!(dangerUnit.editing || dangerUnit.editSplit || splitFlag)" style="width: 100px">{{dangerUnit.riskLevel}}</span>
                            <div/>
-							  风险等级描述	：
-                            <div class="input-group" style="width: 100px">
+                            <div class="input-group" style="width: 120px">
+								风险等级描述:
                                 <input class="form-control" ng-model="dangerUnit.riskLevelDesc"
 	                        		ng-readonly="!(dangerUnit.editing || dangerUnit.editSplit)"
 	                        	 >
@@ -131,44 +135,38 @@
 	                     </td>
 
 	                    <td>
-                            <span>保额：</span>
-                            <div class="input-group">
-                                <span class="view">{{dangerUnit.amount}}|{{dangerUnit.currency | code:'currency'}}</span>
+                            <div class="input-group" style="width: 120px">
+								保额：
+                                <span class="view">{{dangerUnit.amount}}| {{dangerUnit.currency | code:'currency'}}</span>
                             </div>
-                            <span>保额变化量：</span>
-                            <div class="input-group">
+                            <div class="input-group" style="width: 120px">
+								保额变化量：
                                 <span class="view">{{dangerUnit.chgAmount}}|{{dangerUnit.currency | code:'currency'}}</span>
                             </div>
                         </td>
 
 	                    <td ng-class="{'warning':dangerUnit._temp.warning}">
-	                    	含税保费：<br>
-	                        <span class="view">{{dangerUnit.currency}}</span><br>
-	                        <span class="view">{{dangerUnit.premium}}</span><br>
-	                        <span>含税保费变化量：</span>
-                            <div class="input-group">
-                                <span class="view">{{riskunit.chgPremium}}{{dangerUnit.chgAmount}}</span>
-                            </div>
-                        	不含税保费：<br>
-							<!--|currency-->
-                        	<span class="view">{{dangerUnit.chgPremium}}</span><br>
-                        	<span class="view">{{dangerUnit.currency}}</span><br>
-	                        <span class="view">{{dangerUnit.noTaxPremium}}</span>
-	                        <span>不含税保费变化量：</span>
-                            <div class="input-group">
-                                <span class="view">{{riskunit.chgNoTaxPremium}}
-								{{dangerUnit.chgNoTaxPremium}}
-								</span>
-                            </div>
+	                    	<div style="width: 200px">
+								含税保费：{{dangerUnit.currency}}|{{dangerUnit.premium}}
+							</div>
+
+							<div style="width: 200px">
+								含税保费变化量：{{riskunit.chgPremium}}{{dangerUnit.chgAmount}}
+							</div>
+							<div style="width: 240px">
+								不含税保费：{{dangerUnit.chgPremium}}|{{dangerUnit.currency}}|{{dangerUnit.noTaxPremium}}
+							</div>
+							<div style="width: 200px">
+								不含税保费变化量：{{riskunit.chgNoTaxPremium}} {{dangerUnit.chgNoTaxPremium}}
+							</div>
 	                    </td>
 	                    <td ng-class="{'warning':dangerUnit._temp.warning}">
-	                    	增值税：<br>
-	                        <span class="view">{{dangerUnit.currency}}</span>
-	                        <span class="view">{{dangerUnit.taxFee}}</span>
-	                        <span>增值税变化量：</span>
-                               <div class="input-group">
-                                   <span class="view">{{dangerUnit.chgTaxFee}}</span>
-                               </div>
+							<div style="width: 200px">
+								增值税：{{dangerUnit.currency}}{{dangerUnit.taxFee}}
+							</div>
+	                    <div style="width: 200px">
+							增值税变化量：{{dangerUnit.chgTaxFee}}
+						</div>
 	                    </td>
 	                    <td>
 	                        <div class="input-group" ng-if="dangerUnit.editing || dangerUnit.editSplit || splitFlag">
@@ -216,7 +214,7 @@
 								<input type="text" ng-model="dangerUnit.speValue" ng-if="(dangerUnit.editing || dangerUnit.editSplit || splitFlag)">
 							</td>
 							<td>
-								<select ng-model="dangerUnit.exItemKind"
+								<select ng-model="dangerUnit.exItemKind" style="width: 200px"
 										class="ng-pristine ng-valid"
 										ng-click="selectExclusion(riskunit)"
 										ng-disabled="!(dangerUnit.editing || dangerUnit.editSplit || splitFlag)"

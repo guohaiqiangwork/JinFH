@@ -1,6 +1,6 @@
 <div>
 	 <div class="modal-header">
-        <h3>分保单详情</h3>
+        <h3>分保单详情 <a class="btn btn-default" style="float:right" ng-click="ok()">关闭</a></h3>
     </div>
     <div class="modal-body">
     	 <div>
@@ -250,28 +250,35 @@
 		                </div>
 			        </div>
 			        <div class="modal-body">
-			        	<div ng-if="reinsShares.length > 0" ng-repeat="reinsShare in reinsShares">
+			        	<!-- <div ng-if="reinsShares.length > 0" ng-repeat="reinsShare in reinsShares">
 			        		<div ng-if="reinsShares.classcode ==='Lib'">
-								<!-- <div ng-include="'riskunitLiab/riskunit.result.1.tpl.html'"></div> -->
+								<div ng-include="'riskunitLiab/riskunit.result.1.tpl.html'"></div>
 								<div ng-include="'/reins/page/templates/fromquery/fromquery.result.2.lib.tpl.html'"></div>
 							</div>
 							<div ng-if="!(reinsShares.classcode ==='Lib')">
-								<!-- <div ng-include="'riskunit/riskunit.result.1.tpl.html'"></div> -->
+								<div ng-include="'riskunit/riskunit.result.1.tpl.html'"></div>
 								<div ng-include="'/reins/page/templates/fromquery/fromquery.result.2.tpl.html'"></div>
 							</div>
+	    				</div> -->
+	    				<div>
+			        		 <div>
+								<div ng-include="'riskunitLiab/riskunit.result.1.tpl.html'"></div>
+								<div ng-include="'/reins/page/templates/fromquery/fromquery.result.2.lib.tpl.html'"></div>
+							</div> 
+							<!-- <div>
+								<div ng-include="'riskunit/riskunit.result.1.tpl.html'"></div>
+								<div ng-include="'/reins/page/templates/fromquery/fromquery.result.2.tpl.html'"></div>
+							</div> -->
 	    				</div>
     				</div>
     	 		 </tab>
     	 		 
     	 		 
     	 		 
-    	 		<!--  <tab heading="超赔层信息">
+    	 		 <tab heading="超赔层信息">
     	 		 	<div ng-include="'/reins/page/templates/fromquery/fromquery.intention.nprop.tpl.html'"></div>
-    	 		 </tab> -->
+    	 		 </tab>
     	 	</tabset>
     	 </div>
-    	 <div>
-            <a class="btn btn-default" ng-click="ok()">关闭</a>&nbsp;&nbsp;&nbsp;
-        </div>
     </div>
 </div>
